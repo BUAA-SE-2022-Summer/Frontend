@@ -12,7 +12,7 @@ module.exports = defineConfig({
     // 配置代理
     proxy: {
       '/api': {
-        target: 'http://123.57.69.30:8000/',
+        target: 'http://horik.cn:8000/',
         changeOrigin: true,
         ws: true,
         pathRewrite: {
