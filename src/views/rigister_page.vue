@@ -23,7 +23,7 @@
             ></el-input>
           </el-form-item>
           <el-form-item prop="useremail">
-            <el-input placeholder="邮箱" type="username" v-model="form.email" autocomplete="off" clearable></el-input>
+            <el-input placeholder="邮箱" type="usermail" v-model="form.email" autocomplete="off" clearable></el-input>
           </el-form-item>
           <el-form-item prop="realname">
             <el-input placeholder="真实姓名（选填）" type="realname" v-model="form.realname" autocomplete="off" clearable></el-input>
