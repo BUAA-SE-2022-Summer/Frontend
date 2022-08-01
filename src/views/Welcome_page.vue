@@ -1,14 +1,25 @@
 <template>
   <div class="main">
-    <div class="top" style="position: absolute;top:20px;left:20px;font-size: 30px"><b>欢迎使用墨书</b></div>
+    <!--<div class="top" style="position: absolute;top:20px;left:20px;font-size: 30px"><b>欢迎使用墨书</b></div>-->
+    <div style="background-color: #999999;position: absolute;width:1500px;top:20px;height:130px;left:10px">
     <div class="mobook_head">
-      <img src="../img/墨书头.png" style="position: absolute;top:70px;left:70px;width: 60px;height: 60px;border-radius: 50%;border-color: white;border-width: 1px;margin-right: 50px;margin-top: 10px">
+      <img src="../img/墨书头.png" style="position: absolute;top:20px;left:70px;width: 60px;height: 60px;border-radius: 50%;border-color: white;border-width: 1px;margin-right: 50px;margin-top: 10px">
     </div>
-    <div class="name" style="position: absolute;top:100px;left:150px;font-size: 20px"><b>墨书</b></div>
-    <el-button v-if="this.iflogin===0" type="info" round style="background-color: #99a9bf;position: absolute;left:1300px;top:100px" @click="login">登录/注册</el-button>
-    <img v-if="this.iflogin===1" src="../img/touxiang3.jpg" style="position: absolute;top:70px;left:1300px;width: 50px;height: 50px;border-radius: 50%;border-color: white;border-width: 1px;margin-right: 50px;margin-top: 10px">
-    <div v-if="this.iflogin===1" style="position: absolute;top:95px;left:1360px"><b>{{this.username}}</b></div>
-
+    <div class="name" style="position: absolute;top:50px;left:150px;font-size: 20px"><b>墨书</b></div>
+      <div class="产品介绍" style="position: absolute;top:50px;left:300px;font-size: 20px;background-color: #999999">
+        <el-popover
+            placement="top-start"
+            title="墨书产品功能介绍"
+            width="200"
+            trigger="hover"
+            content="墨书是一款方便的协作设计软件">
+          <el-button slot="reference" style="background-color: #999999;border-color: #999999"><b>产品功能介绍</b></el-button>
+        </el-popover>
+      </div>
+    <el-button v-if="this.iflogin===0" type="info" round style="background-color: #99a9bf;position: absolute;left:1300px;top:50px" @click="login">登录/注册</el-button>
+    <img v-if="this.iflogin===1" :src="this.userhead" style="position: absolute;top:30px;left:1300px;width: 50px;height: 50px;border-radius: 50%;border-color: white;border-width: 1px;margin-right: 50px;margin-top: 10px">
+    <div v-if="this.iflogin===1" style="position: absolute;top:55px;left:1360px"><b>{{this.username}}</b></div>
+    </div>
     <div class="zouma" style="position: absolute;top:150px;left:10px;width:1500px;background-color: whitesmoke;height:600px">
   <el-carousel indicator-position="outside" height="500px">
     <el-carousel-item>
@@ -29,8 +40,10 @@ export default {
   name: "Welcome_page",
   data(){
     return{
-      iflogin:0,
-      username:'张博皓'
+      iflogin:1,
+      username:'张博皓',
+      userhead: 'https://xuemolan.oss-cn-hangzhou.aliyuncs.com/test001.jpg'
+
     }
   },
   methods:{
