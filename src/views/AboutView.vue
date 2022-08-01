@@ -9,6 +9,10 @@
       <b-button variant="info">Info</b-button>
       <b-button variant="warning">Warning</b-button>
     </b-button-group>
+      <v-btn small>Normal</v-btn>
    </div>
+    <v-btn color="primary" dark>Accept
+      <v-icon dark right>mdi-checkbox-marked-circle</v-icon>
+    </v-btn>
   </div>
 </template>
