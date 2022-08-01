@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div class="main">
     <v-navigation-drawer class="left">
       <v-container fluid style="height: 90px">
@@ -197,4 +197,4 @@ export default {
   height: 100%;
   background: #fafafa;
 }
-</style>
+</style> -->
