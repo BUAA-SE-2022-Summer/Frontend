@@ -68,7 +68,16 @@ export default {
   },
   methods: {
     register: function () {
-      this.$axios.post('/user/register', qs.stringify(this.form))
+      this.$axios.post('/api/user/register ', qs.stringify({
+            username: this.form.username,
+            password: this.form.password_1,
+            password_confirm:this.form.password_2,
+            real_name:this.form.realname,
+            email: this.form.email,
+            phone:this.form.phonenumber,
+            profile:this.form.introduction
+          }
+            ))
           .then(res => {
             if (res.data.errno === 0) {
               this.$message.success("注册成功");
