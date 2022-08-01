@@ -1,59 +1,200 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-router" target="_blank" rel="noopener">router</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-vuex" target="_blank" rel="noopener">vuex</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
+  <div class="main">
+    <v-navigation-drawer class="left">
+      <v-container fluid style="height: 90px">
+        <v-row justify="center">
+          <v-menu bottom min-width="200px" rounded offset-y>
+            <template v-slot:activator="{ on }">
+              <v-btn icon x-large v-on="on">
+                <v-avatar>
+                  <img src="../assets/logo.png" alt="">
+                </v-avatar>
+                <v-content>
+                  <v-list-item-title>
+                    {{user.username}}
+                  </v-list-item-title>
+                  <v-list-item-subtitle>
+                    {{user.identity}}
+                  </v-list-item-subtitle>
+                </v-content>
+              </v-btn>
+            </template>
+            <v-card>
+              <v-list-item-content class="justify-center">
+                <div class="mx-auto text-center">
+                  <v-avatar>
+                    <img src="../assets/logo.png" alt="">
+                  </v-avatar>
+                  <h3>{{ user.exactname }}</h3>
+                  <p class="text-caption mt-1">
+                    {{ user.email }}
+                  </p>
+                  <v-divider class="my-3"></v-divider>
+                  <v-btn depressed rounded text>
+                    Edit Account
+                  </v-btn>
+                  <v-divider class="my-3"></v-divider>
+                  <v-btn depressed rounded text>
+                    Disconnect
+                  </v-btn>
+                </div>
+              </v-list-item-content>
+            </v-card>
+          </v-menu>
+        </v-row>
+      </v-container>
+      <v-divider />
+      <v-list>
+          <v-list-item class="home" @click="">
+            <v-list-item-icon>
+              <v-icon>mdi-home</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>首页</v-list-item-title>
+          </v-list-item>
+          <v-list-item @click="">
+            <v-list-item-icon>
+              <v-icon>mdi-plus</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>新建</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item @click="">
+            <v-list-item-icon>
+              <v-icon>mdi-folder-outline</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>项目</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item @click="">
+            <v-list-item-icon>
+              <v-icon>mdi-account-multiple-outline</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>管理</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item to="/about">
+            <v-list-item-icon>
+              <v-icon>mdi-information</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>关于</v-list-item-title>
+          </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
+    <v-content class="middle-1">
+      <v-text-field
+          v-model="search"
+          label="搜索项目"
+          hide-details
+          solo
+          prepend-inner-icon="mdi-magnify"
+          @keyup.enter="search"
+      ></v-text-field>
+      <v-list flat>
+        <v-list-item @click="">
+          <v-list-item-icon>
+            <v-icon>mdi-domain</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>已加入的企业</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-divider />
+        <v-list-item @click="">
+          <v-list-item-icon>
+            <v-icon>mdi-console</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>工作台</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item @click="">
+          <v-list-item-icon>
+            <v-icon>mdi-folder-plus</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>我创建的项目</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item @click="">
+          <v-list-item-icon>
+            <v-icon>mdi-account-group</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>我加入的项目</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-divider />
+        <v-list-item @click="">
+          <v-list-item-icon>
+            <v-icon>mdi-delete-empty</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>回收站</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+    </v-content>
+    <v-content class="middle-2">
+      <v-list flat>
+        <v-list-item @click="">
+          <v-list-item-icon>
+            <v-icon>mdi-account-cog</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>成员管理</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item @click>
+          <v-list-item-icon>
+            <v-icon>mdi-book-open-outline</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>操作日志</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+    </v-content>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String
+  name: "FeatureHome",
+  data:() => ({
+    search: "",
+    user: {
+      username: "avavav",
+      exactname: "管理员",
+      email: "",
+      identity: "admin",
+    }
+  }),
+  methods: {
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
+.main {
+  display: block;
+  height: 100%;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
+.left {
+  width: 200px;
+  height: 100%;
+  background: #fafafa;
 }
-li {
-  display: inline-block;
-  margin: 0 10px;
+.middle-1 {
+  width: 200px;
+  height: 100%;
+  background: #fafafa;
 }
-a {
-  color: #42b983;
+.middle-2 {
+  width: 200px;
+  height: 100%;
+  background: #fafafa;
 }
 </style>
