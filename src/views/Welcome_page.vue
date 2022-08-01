@@ -72,7 +72,7 @@ export default {
     return{
       iflogin:JSON.parse(sessionStorage.getItem('IfLogin')),
       username:'',
-      userhead: 'https://xuemolan.oss-cn-hangzhou.aliyuncs.com/test001.jpg',
+      userhead: '',
       click_introduction:0
     }
   },
@@ -80,6 +80,7 @@ export default {
       this.$axios.get('/user/get_user_info ').then(
         res => {
           this.username = res.data.data.username;
+          this.userhead = res.data.data.img;
         }
     );
   },
