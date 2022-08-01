@@ -57,38 +57,21 @@ export default {
       this.$axios({
         method: 'post',           /* 指明请求方式，可以是 get 或 post */
         url: '/user/login',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
-        data: qs.stringify(this.form)
+        data: qs.stringify({
+          username:this.form.username,
+          password:this.form.password
+        })
       })
           .then(res => {/* res 是 response 的缩写 */
             //获取用户登录的三个基本信息并存放于sessionStorage
-            switch (res.data.errno) {
-              case 0:
-                this.$message.success("登录成功！");
-                this.$router.push('/');
-                sessionStorage.setItem('ISLOGIN', JSON.stringify(true));
-                /* 将后端返回的 user 信息使用 vuex 存储起来 */
-                //console.log(res.data.data);
-                this.$store.dispatch('saveUserInfo', {
-                  user: res.data.data
-                });
-                /* 从 localStorage 中读取 preRoute 键对应的值 */
-                // eslint-disable-next-line no-case-declarations
-                //const history_pth = localStorage.getItem('preRoute');
-                /* 若保存的路由为空或为注册路由，则跳转首页；否则跳转前路由（setTimeout表示1000ms后执行） */
-                /*setTimeout(() => {
-                  if (history_pth == null || history_pth === '/register') {
-                    this.$router.push('/');
-                  } else {
-                    //this.$router.push({ path: history_pth });
-                    this.$router.push('/');
-                  } */
-                break;
-              case 100004:
-                this.$message.error("用户名不存在！");
-                break;
-              case 100003:
-                this.$message.error("密码错误！");
-                break;
+            if (res.data.errno === 0) {
+              this.$message.success("登录成功");
+              this.$router.push('/');
+              //setTimeout(() => {
+              //window.open('/login', '_self');
+              //}, 1000);
+            } else {
+              this.$message.error(res.data.msg);
             }
           })
           .catch(err => {
