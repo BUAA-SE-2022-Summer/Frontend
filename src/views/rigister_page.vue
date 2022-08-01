@@ -68,7 +68,7 @@ export default {
   },
   methods: {
     register: function () {
-      this.$axios.post('/api/user/register ', qs.stringify({
+      this.$axios.post('/user/register ', qs.stringify({
             username: this.form.username,
             password: this.form.password_1,
             password_confirm:this.form.password_2,
