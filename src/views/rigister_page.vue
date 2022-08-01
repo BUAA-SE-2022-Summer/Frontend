@@ -81,7 +81,7 @@ export default {
           .then(res => {
             if (res.data.errno === 0) {
               this.$message.success("注册成功");
-              this.$router.push('/try_login');
+              this.$router.push('/login');
               //setTimeout(() => {
               //window.open('/login', '_self');
               //}, 1000);
