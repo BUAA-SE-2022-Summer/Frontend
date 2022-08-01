@@ -77,9 +77,9 @@ export default {
     }
   },
   created() {
-      this.$axios.get('user/get_user_info ').then(
+      this.$axios.get('/user/get_user_info ').then(
         res => {
-          this.username = res.data.username;
+          this.username = res.data.data.username;
         }
     );
   },
@@ -111,6 +111,7 @@ export default {
     },
     logout(){
       this.iflogin=0;
+      sessionStorage.setItem('IfLogin',JSON.stringify(0));
     }
   }
 }
