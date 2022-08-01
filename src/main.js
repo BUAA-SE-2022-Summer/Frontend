@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 import axios from 'axios'
 import qs from 'qs'
+import vuetify from './plugins/vuetify'
 
 axios.defaults.baseURL = '/api'
 Vue.prototype.$axios = axios;
@@ -16,5 +17,6 @@ new Vue({
   store,
   axios,
   qs,
+  vuetify,
   render: h => h(App)
 }).$mount('#app')
