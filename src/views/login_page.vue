@@ -97,7 +97,7 @@ export default {
     },
     toRegister: function () {
       // 跳转注册的路由
-      this.$router.push('/register_page');
+      this.$router.push('/rigister');
     }
   }
 }
