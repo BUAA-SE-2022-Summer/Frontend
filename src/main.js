@@ -10,6 +10,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+import vuetify from './plugins/vuetify'
 
 axios.defaults.baseURL = '/api'
 Vue.prototype.$axios = axios;
@@ -26,5 +27,6 @@ new Vue({
   store,
   axios,
   qs,
+  vuetify,
   render: h => h(App)
 }).$mount('#app')
