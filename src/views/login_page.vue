@@ -66,6 +66,7 @@ export default {
             //获取用户登录的三个基本信息并存放于sessionStorage
             if (res.data.errno === 0) {
               this.$message.success("登录成功");
+              sessionStorage.setItem('IfLogin',JSON.stringify(1));
               this.$router.push('/');
               //setTimeout(() => {
               //window.open('/login', '_self');

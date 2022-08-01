@@ -9,7 +9,7 @@
       <div class="产品介绍" style="position: absolute;top:50px;left:300px;font-size: 20px;background-color: #999999">
           <el-button slot="reference" style="background-color: #999999;border-color: #999999" @click="clickintroduction"><b>产品功能介绍</b></el-button>
       </div>
-    <el-button v-if="this.iflogin===0" type="info" round style="background-color: #99a9bf;position: absolute;left:1300px;top:50px" @click="login">登录/注册</el-button>
+    <el-button v-if="this.iflogin!==1" type="info" round style="background-color: #99a9bf;position: absolute;left:1300px;top:50px" @click="login">登录/注册</el-button>
       <el-popover
           placement="top-start"
           :title=this.username
@@ -70,11 +70,18 @@ export default {
   name: "Welcome_page",
   data(){
     return{
-      iflogin:1,
-      username:'张博皓',
+      iflogin:JSON.parse(sessionStorage.getItem('IfLogin')),
+      username:'',
       userhead: 'https://xuemolan.oss-cn-hangzhou.aliyuncs.com/test001.jpg',
       click_introduction:0
     }
+  },
+  created() {
+      this.$axios.get('user/get_user_info ').then(
+        res => {
+          this.username = res.data.username;
+        }
+    );
   },
   methods:{
     freeuse(){
