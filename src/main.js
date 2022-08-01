@@ -10,7 +10,8 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-
+import Vuetify from 'vuetify'
+import vuetify from '@/plugins/vuetify'
 axios.defaults.baseURL = '/api'
 Vue.prototype.$axios = axios;
 Vue.prototype.$qs = qs
@@ -20,7 +21,8 @@ Vue.config.productionTip = false
 Vue.use(BootstrapVue)
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin)
-Vue.use(ElementUI);
+Vue.use(ElementUI)
+Vue.use(Vuetify)
 new Vue({
   router,
   store,
