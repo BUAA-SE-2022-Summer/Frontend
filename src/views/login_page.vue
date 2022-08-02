@@ -21,7 +21,7 @@
       style="float:left;background-color: white;"
     >
     <div style="width:100%;height:200px;margin-top: 20px;">
-      <img src="../img/formtop.png" style="width:400px;margin-left: 15px;">
+      <img src="../img/login.png" style="width:400px;margin-left: 15px;">
     </div>
     <div style="width:350px;margin-left:50px;margin-top: 50px;">
       <v-text-field

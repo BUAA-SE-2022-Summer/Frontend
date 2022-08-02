@@ -1,7 +1,72 @@
 <template>
-  <div id="div_1">
-    <div id="register" class="register">
-      <img class="bgbox" id="bgbox" alt="" src="../../src/img/星空4.jpg">
+  <div id="register" class="register" style="width: 100%;height: 1200px;margin: 0%;">
+    <div >
+       <v-card
+      :loading="loading"
+      class="mx-auto my-12"
+      width="450"
+      height="850px"
+    >
+    <div style="width:100%;height:200px;margin-top: 20px;">
+      <img src="../img/formtop.png" style="width:400px;margin-left: 15px;">
+    </div>
+    <div style="width:350px;margin-left:50px;margin-top: 50px;">
+      <v-text-field
+              v-model="form.username"
+              label="昵称"
+              outlined
+              clearable
+       ></v-text-field>
+       <v-text-field
+              v-model="form.password_1"
+              label="密码"
+              outlined
+              clearable
+         ></v-text-field>
+
+          <v-text-field
+              v-model="form.password_2"
+              label="确认密码"
+              outlined
+              clearable
+         ></v-text-field>
+
+          <v-text-field
+              v-model="form.email"
+              label="邮箱"
+              outlined
+              clearable
+         ></v-text-field>
+
+          <v-text-field
+              v-model="form.relname"
+              label="真实姓名（选填）"
+              outlined
+              clearable
+         ></v-text-field>
+         <v-text-field
+              v-model="form.phonenumber"
+              label="手机号码（选填）"
+              outlined
+              clearable
+         ></v-text-field>
+         <v-btn
+                x-large
+                dark
+                @click="register"
+              >
+                注册
+           </v-btn>
+          <v-btn
+                x-large
+                dark
+                @click="toRegister"
+              >
+                取消
+           </v-btn>
+    </div>
+    </v-card>
+      <!-- <img class="bgbox" id="bgbox" alt="" src="../../src/img/星空4.jpg">
       <div class="wrap">
         <h1 style="position: relative; top: 10px;">注 册</h1>
         <el-form :model="form" ref="form" class="form" style="position: relative; top: 15px;">
@@ -37,14 +102,11 @@
           <el-form-item class="btn_register">
             <el-button type="primary" @click="register">注&nbsp;&nbsp;册</el-button>
           </el-form-item>
-          <!--<router-link to="/"><el-form-item class="btn_register">
-            <el-button type="danger" >取&nbsp;&nbsp;消</el-button>
-          </el-form-item></router-link>-->
           <div class="suffix">
             <p @click="toRegister">取消</p>
           </div>
         </el-form>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -112,8 +174,10 @@ export default {
 }
 #register {
   font-family: 'Noto Serif SC', serif;
+  /* background: url('../img/loginback.png');
+  background-size: 100% 100%; */
 }
-#register >>> .el-input__inner {
+#register .el-input__inner {
   font-family: 'Noto Serif SC', serif;
   height: 35px;
   padding-top: 5px;
