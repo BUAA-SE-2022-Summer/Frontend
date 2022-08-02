@@ -4,37 +4,38 @@
     <v-card
     class="mx-auto"
     width="300px"
-    style="float:left;height: 450px;"
+    style="float:left"
+    height="100vh"
     >
         <v-list dense>
         <v-subheader>成员管理</v-subheader>
-        <v-list-item-group
-            color="primary"
-        >
-        <v-list-item>
-            <v-list-item-icon>
-            <v-icon >mdi-account-group</v-icon>
-            </v-list-item-icon>
-            <v-list-item-content>
-                <v-list-item-title >全部成员</v-list-item-title>
-            </v-list-item-content>
-        </v-list-item>
+          <v-list-item-group
+              color="primary"
+          >
+            <v-list-item>
+                <v-list-item-icon>
+                <v-icon >mdi-account-group</v-icon>
+                </v-list-item-icon>
+                <v-list-item-content>
+                    <v-list-item-title >全部成员</v-list-item-title>
+                </v-list-item-content>
+            </v-list-item>
 
-        <v-list-item>
-            <v-list-item-icon>
-            <v-icon >mdi-account-tie</v-icon>
-            </v-list-item-icon>
-            <v-list-item-content>
-                <v-list-item-title >管理员</v-list-item-title>
-            </v-list-item-content>
-        </v-list-item>
-        </v-list-item-group>
+            <v-list-item>
+                <v-list-item-icon>
+                <v-icon >mdi-account-tie</v-icon>
+                </v-list-item-icon>
+                <v-list-item-content>
+                    <v-list-item-title >管理员</v-list-item-title>
+                </v-list-item-content>
+            </v-list-item>
+          </v-list-item-group>
         </v-list>
     </v-card>
     <v-card
     class="mx-auto"
     width="600px"
-    style="float:left; height: 450px;"
+    style="float:left; height: 100vh;"
     >
     <MemberTables></MemberTables>
     <!-- <v-card-title >全部成员</v-card-title>
