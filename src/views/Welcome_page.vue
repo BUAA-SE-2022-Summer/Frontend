@@ -115,7 +115,7 @@ export default {
       sessionStorage.setItem('IfLogin',JSON.stringify(0));
     },
     gouc(){
-      this.$router.push('/user_center')
+      this.$router.push('/true_user_center')
     }
   }
 }
