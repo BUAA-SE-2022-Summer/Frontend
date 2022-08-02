@@ -37,9 +37,9 @@ const routes = [
     // ]
   },
   {
-    path: '/dashboard/manage',
-    name: 'manage',
-    component: () => import('../views/Manage.vue')
+    path: '/dashboard/demo',
+    name: 'demo',
+    component: () => import('../views/demo.vue')
   }
 ]
 

@@ -1,4 +1,6 @@
 <template>
+<div>
+
     <v-data-table
       :headers="headers"
       :items="desserts"
@@ -21,7 +23,7 @@
             color="blue-grey"
             class="ma-2 white--text"
             @click="addMember"
-         >
+          >
             添加新成员
             <v-icon
             right
@@ -29,7 +31,7 @@
             >
             mdi-plus
             </v-icon>
-        </v-btn>
+          </v-btn>
           <v-dialog
             v-model="dialog"
             max-width="500px"
@@ -126,6 +128,7 @@
         </v-btn>
       </template>
     </v-data-table>
+    </div>
 </template>
 <script>
     export default{
@@ -172,7 +175,7 @@
 
   created () {
     this.initialize()
-    this.getData()
+    // this.getData()
   },
 
   methods: {
