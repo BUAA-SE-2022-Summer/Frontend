@@ -126,8 +126,9 @@ a {
 
 <script>
 import  MemberManage  from '../components/team/MemberManage.vue';
+import TeamMainVue from '@/components/team/TeamMain.vue';
 export default {
-  components: { MemberManage },
+  components: { MemberManage ,TeamMainVue},
   data: () => ({
 
   }),
