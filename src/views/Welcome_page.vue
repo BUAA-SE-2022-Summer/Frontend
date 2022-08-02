@@ -1,15 +1,60 @@
 <template>
+
   <div class="main">
-    <!--<div class="top" style="position: absolute;top:20px;left:20px;font-size: 30px"><b>欢迎使用墨书</b></div>-->
-    <div style="background-color: #999999;position: absolute;width:1520px;top:0px;height:130px;left:0px">
-    <div class="mobook_head">
-      <img src="../img/墨书头.png" style="position: absolute;top:20px;left:70px;width: 60px;height: 60px;border-radius: 50%;border-color: white;border-width: 1px;margin-right: 50px;margin-top: 10px">
+    <div class="header" style="width:100%; height: 110px;background-color: #DCAFBA;">
+       <div class="mobook_head">
+      <img src="../img/logo.png" style="position: absolute;top:0px;left:70px;width: 200px;height: 100px;border-radius: 50%;border-color: white;border-width: 1px;margin-right: 50px;margin-top: 0px;">
     </div>
-    <div class="name" style="position: absolute;top:50px;left:150px;font-size: 20px"><b>墨书</b></div>
-      <div class="产品介绍" style="position: absolute;top:50px;left:300px;font-size: 20px;background-color: #999999">
-          <el-button slot="reference" style="background-color: #999999;border-color: #999999" @click="clickintroduction"><b>产品功能介绍</b></el-button>
+    <el-button v-if="this.iflogin!==1" type="info" round style="background-color: black;position: absolute;left:1300px;top:30px;color: white;" @click="login">登录/注册</el-button>
+    <el-popover
+        placement="top-start"
+        :title=this.username
+        width="200"
+        trigger="hover"
+        >
+      <img v-if="this.iflogin===1" :src="this.userhead" style="position: absolute;top:30px;left:1300px;width: 50px;height: 50px;border-radius: 50%;border-color: white;border-width: 1px;margin-right: 50px;margin-top: 10px" slot="reference">
+      <div>
+        <el-button type="danger" @click="logout" >退出登录</el-button>
       </div>
-    <el-button v-if="this.iflogin!==1" type="info" round style="background-color: #99a9bf;position: absolute;left:1300px;top:50px" @click="login">登录/注册</el-button>
+    </el-popover>
+     </div>
+    <el-container>
+  <el-header>
+  </el-header>
+  <el-container>
+    <el-aside width="50%" >
+      <div style="margin-top:10px;width:450px;margin-left: 100px; height: 290px;">
+        <el-card :body-style="{ padding: '0px' }">
+        <img src="../img/welBack1.jpg" class="image">
+      </el-card>
+      </div>
+    </el-aside>
+    <el-main>Main</el-main>
+  </el-container>
+
+   <el-container>
+    <el-main>Main</el-main>
+    <el-aside width="50%">
+      <div style="margin-top:10px;width:600px;margin-left:100px;">
+        <el-card :body-style="{ padding: '0px' }">
+        <img src="../img/welBack2.jpg" class="image">
+      </el-card>
+      </div>
+    </el-aside>
+  </el-container>
+
+</el-container>
+    <!--<div class="top" style="position: absolute;top:20px;left:20px;font-size: 30px"><b>欢迎使用墨书</b></div>-->
+
+   <!-- 头部部分 -->
+   <!-- <div class="welcome-head">
+
+    <div class="mobook_head">
+      <img src="../img/logo.png" style="position: absolute;top:0px;left:70px;width: 200px;height: 100px;border-radius: 50%;border-color: white;border-width: 1px;margin-right: 50px;margin-top: 10px;">
+    </div>
+
+    <el-button v-if="this.iflogin!==1" type="info" round style="background-color: #f28f6e;position: absolute;left:1300px;top:50px" @click="login">登录/注册</el-button>
+
       <el-popover
           placement="top-start"
           :title=this.username
@@ -21,10 +66,17 @@
           <el-button type="danger" @click="logout">退出登录</el-button>
         </div>
       </el-popover>
-    <!--<img v-if="this.iflogin===1" :src="this.userhead" style="position: absolute;top:30px;left:1300px;width: 50px;height: 50px;border-radius: 50%;border-color: white;border-width: 1px;margin-right: 50px;margin-top: 10px">-->
+    <img v-if="this.iflogin===1" :src="this.userhead" style="position: absolute;top:30px;left:1300px;width: 50px;height: 50px;border-radius: 50%;border-color: white;border-width: 1px;margin-right: 50px;margin-top: 10px">
     <div v-if="this.iflogin===1" style="position: absolute;top:55px;left:1360px"><b>{{this.username}}</b></div>
-    </div>
-    <div class="zouma" style="position: absolute;top:130px;left:0px;width:1520px;background-color: whitesmoke;height:350px;z-index: 1">
+
+    </div> -->
+
+
+  <!-- 头部结束 -->
+
+
+    <!-- <div class="zouma" style="position: absolute;top:130px;left:0px;width:100%;background-color: whitesmoke;height:350px;z-index: 1">
+
   <el-carousel indicator-position="outside" height="500px">
     <el-carousel-item>
       <img src="../img/走马灯1.jpg" width="100%" height="100%">
@@ -35,8 +87,12 @@
   </el-carousel>
       <div class="introduct" style="font-size: 30px;position: absolute;left:150px"><b>墨书——让产品设计更优雅</b></div>
       <div><el-button type="info" style="position: absolute;height: 50px;width:100px;left:1200px" @click="freeuse">免费使用</el-button></div>
-    </div>
-    <div v-if="this.click_introduction===1" class="introduction_card" style="position: absolute;top:100px;left:210px;width: 600px;height:300px;z-index: 2">
+
+    </div> -->
+
+
+    <!-- <div v-if="this.click_introduction===1" class="introduction_card" style="position: absolute;top:100px;left:210px;width: 600px;height:300px;z-index: 2">
+
       <el-card class="box-card" style="position: absolute;height:300px">
         <div slot="header" class="clearfix">
           <span><b>墨书功能介绍</b></span>
@@ -61,7 +117,7 @@
         </div>
         <div style="position: absolute;top:220px;left:360px"><b>文档编辑</b></div>
       </el-card>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -134,4 +190,56 @@ export default {
 .el-carousel__item:nth-child(2n+1) {
   background-color: #d3dce6;
 }
+
+
+/* 头部css设置 */
+.welcome-head{
+  background-color: white;
+  position: absolute;
+  width:100%;
+  top:0px;
+  height:2000px;
+  left:0px;
+  /* background: url("../img/back3.jpg"); */
+  background-size: cover;
+  /* background-repeat: no-repeat; */
+}
+
+.el-aside {
+    background-color:white;
+    color: #333;
+    text-align: center;
+    line-height: 200px;
+    height: 300px;
+  }
+  .el-header{
+    color: #333;
+    text-align: center;
+    line-height: 60px;
+  }
+  
+  .el-main {
+    background-color: white;
+    color: #333;
+    text-align: center;
+    line-height: 160px;
+    
+  }
+  body > .el-container {
+    margin-bottom: 40px;
+  }
+  
+  .el-container:nth-child(5) .el-aside,
+  .el-container:nth-child(6) .el-aside {
+    line-height: 260px;
+  }
+  
+  .el-container:nth-child(7) .el-aside {
+    line-height: 320px;
+  }
+  .image{
+    height: 250px;
+  }
+  
+
 </style>
