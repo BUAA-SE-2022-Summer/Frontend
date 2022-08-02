@@ -18,8 +18,8 @@
       <img :src="this.userhead" style="position: absolute;top:0px;left:1300px;width: 40px;height: 40px;border-radius: 50%;border-color: white;border-width: 1px;margin-right: 50px;margin-top: 10px" slot="reference" >
       <div  style="position: absolute;top:20px;left:1360px"><b>{{this.username}}</b></div>
     </div>
-    <div style="position: absolute;height:900px;background-color: whitesmoke;top:60px;width: 100%">
-      <el-card class="box-card" style="width: 1000px;height:800px;position: absolute;left:270px;top:40px">
+    <div style="position: absolute;height:1000px;background-color: whitesmoke;top:60px;width: 100%">
+      <el-card class="box-card" style="width: 1000px;height:900px;position: absolute;left:270px;top:40px">
         <div slot="header" class="clearfix">
           <span><b>个人信息更改</b></span>
         </div>
@@ -55,22 +55,28 @@
           <el-input v-model="email" placeholder="请输入新的电子邮箱"></el-input>
         </div>
         <div style="position: absolute;top: 475px; font-size: 10px;color: #999999">
-          电话
+          密码
         </div>
         <div style="position: absolute;width: 550px;top: 500px;">
-          <el-input v-model="phone" placeholder="请输入新的电话号码"></el-input>
+          <el-input v-model="password" placeholder="请输入新的密码"></el-input>
         </div>
         <div style="position: absolute;top: 545px; font-size: 10px;color: #999999">
+          电话
+        </div>
+        <div style="position: absolute;width: 550px;top: 570px;">
+          <el-input v-model="phone" placeholder="请输入新的电话号码"></el-input>
+        </div>
+        <div style="position: absolute;top: 615px; font-size: 10px;color: #999999">
           个性签名
         </div>
-        <div style="position: absolute;width: 750px;top: 570px;">
+        <div style="position: absolute;width: 750px;top: 640px;">
           <el-input v-model="profile" placeholder="有趣的个人介绍将帮助您吸引到更多人的目光" type="textarea"></el-input>
         </div>
-        <div style="position: absolute;top:640px;left:50px;"><el-button type="primary" plain style="" @click="insert1"><i class="el-icon-circle-plus-outline" style="position: absolute;left:5px;"></i>全栈大佬就是我</el-button></div>
-        <div style="position: absolute;top:640px;left:200px;"><el-button type="primary" plain style="" @click="insert2"><i class="el-icon-circle-plus-outline" style="position: absolute;left:5px;"></i>和我组队，直接带飞</el-button></div>
-        <div style="position: absolute;top:640px;left:380px;"><el-button type="primary" plain style="" @click="insert3"><i class="el-icon-circle-plus-outline" style="position: absolute;left:5px;"></i>Carry全场</el-button></div>
-        <div style="position: absolute;top:640px;left:495px;"><el-button type="primary" plain style="" @click="insert4"><i class="el-icon-circle-plus-outline" style="position: absolute;left:5px;"></i>哥就是传说</el-button></div>
-        <div style="position: absolute;top:700px;left:450px;">
+        <div style="position: absolute;top:710px;left:50px;"><el-button type="primary" plain style="" @click="insert1"><i class="el-icon-circle-plus-outline" style="position: absolute;left:5px;"></i>全栈大佬就是我</el-button></div>
+        <div style="position: absolute;top:710px;left:200px;"><el-button type="primary" plain style="" @click="insert2"><i class="el-icon-circle-plus-outline" style="position: absolute;left:5px;"></i>和我组队，直接带飞</el-button></div>
+        <div style="position: absolute;top:710px;left:380px;"><el-button type="primary" plain style="" @click="insert3"><i class="el-icon-circle-plus-outline" style="position: absolute;left:5px;"></i>Carry全场</el-button></div>
+        <div style="position: absolute;top:710px;left:495px;"><el-button type="primary" plain style="" @click="insert4"><i class="el-icon-circle-plus-outline" style="position: absolute;left:5px;"></i>哥就是传说</el-button></div>
+        <div style="position: absolute;top:770px;left:450px;">
           <el-button type="primary" @click="update" >更新资料</el-button>
         </div>
       </el-card>
@@ -94,6 +100,7 @@ export default {
       profile:'',
       username1:'',
       imageUrl1:'',
+      password:'',
     };
   },
   created() {
@@ -106,6 +113,9 @@ export default {
             this.phone = res.data.data.phone;
             this.profile = res.data.data.profile;
             this.username1 = this.username;
+            this.password = res.data.data.password;
+            console.log(this.profile);
+            console.log(this.password);
           }
       );
       this.userhead = JSON.parse(sessionStorage.getItem('imgurl'));
@@ -171,7 +181,6 @@ export default {
               email: this.email,
               phone: this.phone,
               profile: this.profile,
-
             }
         )).then(
             res => {
