@@ -58,7 +58,7 @@
           密码
         </div>
         <div style="position: absolute;width: 550px;top: 500px;">
-          <el-input v-model="password" placeholder="请输入新的密码"></el-input>
+          <el-input v-model="password" placeholder="请输入新的密码" show-password></el-input>
         </div>
         <div style="position: absolute;top: 545px; font-size: 10px;color: #999999">
           电话
