@@ -27,45 +27,51 @@
           头像
         </div>
         <div>
+          <el-tooltip class="item" effect="dark" content="点此上传头像" placement="right" >
           <el-upload class="avatar-uploader" action="#" accept="image/png,image/gif,image/jpg,image/jpeg"
             :show-file-list="false" :before-upload="beforeAvatarUpload" :http-request="uploadimg" :limit="1" :on-success="handlesuccess"
-            style="position: absolute;height: 200px;width: 200px;background-color: whitesmoke">
+            style="position: absolute;height: 150px;width: 150px;background-color: whitesmoke;border-radius: 50%">
             <!--<img v-if="this.imageUrl === this.imageUrl1 && this.imageUrl!==''" :src="this.imageUrl" class="avatar">-->
-            <i  class="el-icon-plus avatar-uploader-icon" style="position: absolute;left: 10px;top:10px"></i>
+            <i class="el-icon-plus avatar-uploader-icon" style="position: absolute;left: -12px;top:-10px"></i>
           </el-upload>
+          </el-tooltip>
         </div>
-        <div style="position: absolute;top: 295px; font-size: 10px;color: #999999">
+        <div style="position: absolute;top: 265px; font-size: 10px;color: #999999">
           昵称
         </div>
-        <div style="position: absolute;width: 550px;top: 320px;">
+        <div style="position: absolute;width: 550px;top: 290px;">
           <el-input v-model="username" placeholder="请输入新的昵称"></el-input>
         </div>
-        <div style="position: absolute;top: 365px; font-size: 10px;color: #999999">
+        <div style="position: absolute;top: 335px; font-size: 10px;color: #999999">
           姓名
         </div>
-        <div style="position: absolute;width: 550px;top: 390px;">
+        <div style="position: absolute;width: 550px;top: 360px;">
           <el-input v-model="real_name" placeholder="请输入新的真实姓名"></el-input>
         </div>
-        <div style="position: absolute;top: 435px; font-size: 10px;color: #999999">
+        <div style="position: absolute;top: 405px; font-size: 10px;color: #999999">
           电子邮箱
         </div>
-        <div style="position: absolute;width: 550px;top: 460px;">
+        <div style="position: absolute;width: 550px;top: 430px;">
           <el-input v-model="email" placeholder="请输入新的电子邮箱"></el-input>
         </div>
-        <div style="position: absolute;top: 505px; font-size: 10px;color: #999999">
+        <div style="position: absolute;top: 475px; font-size: 10px;color: #999999">
           电话
         </div>
-        <div style="position: absolute;width: 550px;top: 530px;">
+        <div style="position: absolute;width: 550px;top: 500px;">
           <el-input v-model="phone" placeholder="请输入新的电话号码"></el-input>
         </div>
-        <div style="position: absolute;top: 575px; font-size: 10px;color: #999999">
+        <div style="position: absolute;top: 545px; font-size: 10px;color: #999999">
           个性签名
         </div>
-        <div style="position: absolute;width: 750px;top: 600px;">
-          <el-input v-model="profile" placeholder="请输入新的个性签名" type="textarea"></el-input>
+        <div style="position: absolute;width: 750px;top: 570px;">
+          <el-input v-model="profile" placeholder="有趣的个人介绍将帮助您吸引到更多人的目光" type="textarea"></el-input>
         </div>
+        <div style="position: absolute;top:640px;left:50px;"><el-button type="primary" plain style="" @click="insert1"><i class="el-icon-circle-plus-outline" style="position: absolute;left:5px;"></i>全栈大佬就是我</el-button></div>
+        <div style="position: absolute;top:640px;left:200px;"><el-button type="primary" plain style="" @click="insert2"><i class="el-icon-circle-plus-outline" style="position: absolute;left:5px;"></i>和我组队，直接带飞</el-button></div>
+        <div style="position: absolute;top:640px;left:380px;"><el-button type="primary" plain style="" @click="insert3"><i class="el-icon-circle-plus-outline" style="position: absolute;left:5px;"></i>Carry全场</el-button></div>
+        <div style="position: absolute;top:640px;left:495px;"><el-button type="primary" plain style="" @click="insert4"><i class="el-icon-circle-plus-outline" style="position: absolute;left:5px;"></i>哥就是传说</el-button></div>
         <div style="position: absolute;top:700px;left:450px;">
-          <el-button type="primary" @click="update">更新资料</el-button>
+          <el-button type="primary" @click="update" >更新资料</el-button>
         </div>
       </el-card>
     </div>
@@ -102,6 +108,7 @@ export default {
             this.username1 = this.username;
           }
       );
+      this.userhead = JSON.parse(sessionStorage.getItem('imgurl'));
   },
   methods: {
     handlesuccess(){
@@ -126,6 +133,8 @@ export default {
             this.$message.success("头像上传成功");
             this.imageUrl = res.data.url;
             this.userhead = this.imageUrl;
+            sessionStorage.setItem('imgurl',JSON.stringify(this.imageUrl));
+            window.location.reload();
           }
           else {
             this.$message.error(res.data.msg);
@@ -180,6 +189,18 @@ export default {
     },
     jumpcenter(){
       this.$router.push('/true_user_center');
+    },
+    insert1(){
+      this.profile+='全栈大佬就是我。';
+    },
+    insert2(){
+      this.profile+='和我组队，直接带飞。';
+    },
+    insert3(){
+      this.profile+='Carry全场。';
+    },
+    insert4(){
+      this.profile+='哥就是传说。';
     }
   }
 }
