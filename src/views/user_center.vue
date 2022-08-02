@@ -27,6 +27,9 @@
             <i v-else class="el-icon-plus avatar-uploader-icon" style="position: absolute;left: 10px;top:10px"></i>
           </el-upload>
         </div>
+        <div style="position: absolute;width: 550px;top: 300px;">
+          <el-input v-model="input" placeholder="请输入新的用户名"></el-input>
+        </div>
       </el-card>
     </div>
  </div>
@@ -39,7 +42,7 @@ export default {
   data() {
     return {
       imageUrl: '',
-      uploadimgurl:'/user/update_user_img '
+      uploadimgurl:'/user/update_user_img ',
     };
   },
   methods: {
