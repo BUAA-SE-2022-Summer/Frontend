@@ -9,7 +9,6 @@ import vuetify from './plugins/vuetify'
 axios.defaults.baseURL = '/api'
 Vue.prototype.$axios = axios;
 Vue.prototype.$qs = qs
-
 Vue.config.productionTip = false
 
 new Vue({
