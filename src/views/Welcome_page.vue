@@ -16,7 +16,7 @@
           width="200"
           trigger="hover"
           >
-        <img v-if="this.iflogin===1" :src="this.userhead" style="position: absolute;top:30px;left:1300px;width: 50px;height: 50px;border-radius: 50%;border-color: white;border-width: 1px;margin-right: 50px;margin-top: 10px" slot="reference">
+        <img v-if="this.iflogin===1" :src="this.userhead" style="position: absolute;top:30px;left:1300px;width: 50px;height: 50px;border-radius: 50%;border-color: white;border-width: 1px;margin-right: 50px;margin-top: 10px" slot="reference" @click="gouc">
         <div>
           <el-button type="danger" @click="logout">退出登录</el-button>
         </div>
@@ -113,6 +113,9 @@ export default {
     logout(){
       this.iflogin=0;
       sessionStorage.setItem('IfLogin',JSON.stringify(0));
+    },
+    gouc(){
+      this.$router.push('/user_center')
     }
   }
 }
