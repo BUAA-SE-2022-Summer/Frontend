@@ -1,109 +1,52 @@
 <template>
-  <div id="app">
-    <v-app id="inspire">
-      <v-navigation-drawer app width="10%">
-        <v-list>
-          <v-list-item-group
-              color="primary">
-            <v-list-item class="home" @click="">
-              <v-list-item-icon>
-                <v-icon>mdi-home</v-icon>
-              </v-list-item-icon>
-              <v-list-item-title>墨书</v-list-item-title>
-            </v-list-item>
-            <v-list-item @click="">
-              <v-list-item-icon>
-                <v-icon>mdi-plus</v-icon>
-              </v-list-item-icon>
-              <v-list-item-content>
-                <v-list-item-title>新建</v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-            <router-link to="/dashboard/demo">
-              <v-list-item @click="">
-                <v-list-item-icon>
-                  <v-icon>mdi-folder-outline</v-icon>
-                </v-list-item-icon>
-                <v-list-item-content>
-                  <v-list-item-title>项目</v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </router-link>
-            <v-list-item @click="">
-              <v-list-item-icon>
-                <v-icon>mdi-account-multiple-outline</v-icon>
-              </v-list-item-icon>
-              <v-list-item-content>
-                <v-list-item-title>管理</v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list-item-group>
-        </v-list>
-        <template v-slot:append>
-          <v-btn @click="" class="butt">
-            <v-avatar>
-              <img src="../assets/logo.png" alt="">
-            </v-avatar>
-          </v-btn>
-        </template>
-      </v-navigation-drawer>
-      <v-main>
-          <v-list style="float: left" width="15%">
-            <v-list-item-group
-                color="primary"
-            >
-              <v-list-item @click="">
-                <v-list-item-icon>
-                  <v-icon>mdi-account-cog</v-icon>
-                </v-list-item-icon>
-                <v-list-item-content>
-                  <v-list-item-title>成员管理</v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-              <v-list-item @click="">
-                <v-list-item-icon>
-                  <v-icon>mdi-book-open-outline</v-icon>
-                </v-list-item-icon>
-                <v-list-item-content>
-                  <v-list-item-title>操作日志</v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </v-list-item-group>
-          </v-list>
-          <MemberManage></MemberManage>
-      </v-main>
-    </v-app>
-  </div>
+    <div id="app">
+        <v-app id="inspire">
+            <v-navigation-drawer dark permanent color="grey lighten-3" mini-variant mini-variant-width="87px">
+                <v-col>
+                    <router-link to="/dashboard/manage">
+                        <v-icon large @click="test">
+                            mdi-chevron-right
+                        </v-icon>
+                    </router-link>
+                    <v-icon large color="orange darken-2" @click="test">
+                        mdi-arrow-up-bold-box-outline
+                    </v-icon>
+                    <v-icon large color="blue-grey darken-2" @click="test">
+                        mdi-call-split
+                    </v-icon>
+                    <v-divider class="mx-3 my-5"></v-divider>
+                    <template v-slot:append>
+                        <div class="pa-2">
+                            <v-btn block>
+                                Logout
+                            </v-btn>
+                        </div>
+                    </template>
+                </v-col>
+            </v-navigation-drawer>
+            <v-main>
+                <router-view />
+            </v-main>
+        </v-app>
+    </div>
 </template>
 
-<style scoped>
-a{
-  text-decoration: none;
-}
-.butt {
-  display: block;
-  margin: 0 auto;
-  width: 20px;
-  height: 170px;
-  border-radius: 60px;
-}
+<style>
 </style>
 
-
 <script>
-import  MemberManage  from '../components/team/MemberManage.vue';
 export default {
-  components: { MemberManage },
-  data: () => ({
+    data: () => ({
 
-  }),
-  methods: {
-    test() {
-      alert('You clicked next!')
+    }),
+    methods: {
+        test() {
+            alert('You clicked next!')
+        }
     }
-  }
 }
 </script>
+
 <!-- <template>
     <div id="app">
         <v-app id="inspire">
