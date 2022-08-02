@@ -27,6 +27,16 @@ const routes = [
     path:'/rigister',
     name:'rigister',
     component:() => import('../views/rigister_page')
+  },
+  {
+    path:'/user_center',
+    name:'user_center',
+    component:() => import('../views/user_center')
+  },
+  {
+    path:'/true_user_center',
+    name:'true_user_center',
+    component:() => import('../views/true_user_center')
   }
 
 ]
