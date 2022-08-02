@@ -21,7 +21,7 @@
             color="blue-grey"
             class="ma-2 white--text"
             @click="addMember"
-         >
+          >
             添加新成员
             <v-icon
             right
@@ -29,7 +29,7 @@
             >
             mdi-plus
             </v-icon>
-        </v-btn>
+          </v-btn>
           <v-dialog
             v-model="dialog"
             max-width="500px"
