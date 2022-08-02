@@ -172,7 +172,6 @@
 
   created () {
     this.initialize()
-    this.getData()
   },
 
   methods: {
@@ -222,22 +221,6 @@
           level:2,
         },
       ]
-    },
-    getData(){
-        var urlApi='/user/get_user_info'
-        this.$axios({
-          method:'get',
-          url:'/user/get_user_info',
-        }).then(res=>{
-          console.log("拉取信息表")
-          var message = res.data
-          console.log(message)
-          if(message.errno==0){
-            console.log(message.data)
-          }else{
-            console.log(message.msg)
-          }
-        })
     },
 
     editItem (item) {
