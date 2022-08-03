@@ -88,7 +88,7 @@ export default {
           if (res.data.errno === 0) {
             this.$message.success("登录成功");
             sessionStorage.setItem('IfLogin', JSON.stringify(1));
-            this.$router.push('/dashBoard/main');
+            this.$router.push('/dashboard');
             //setTimeout(() => {
             //window.open('/login', '_self');
             //}, 1000);

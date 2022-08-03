@@ -208,12 +208,11 @@
                 for(var i=0;i<this.user_list.length;i++){
                   if(this.user_list[i].is_creator==true){
                       this.user_list[i].identity="超管"
-                      this.user_list[i].level=0
                   }else if(this.user_list[i].is_supervisor==true){
                     this.user_list[i].identity="管理员"
-                    this.user_list[i].level = 1
+                    // this.user_list[i].level = 1
                   }else{
-                    this.user_list[i].level=2
+                    // this.user_list[i].level=2
                     this.user_list[i].identity="普通成员"
                   }
                 }
@@ -235,13 +234,14 @@
           var result = res.data
           console.log("邀请成员结果", result)
           alert(result.msg)
-          // if(result.errno==0){
-          //   this.$router.push("/dashboard/team")
-          // }
+          if(result.errno==0){
+            this.$router.go(0)
+          }
       })
     },
   //踢成员请求
   kick_member(teamid, user_name){
+    var e=0
     this.$axios({
           method:'post',
           url:'/team/kick_member',
@@ -251,12 +251,14 @@
           })
       }).then(res=>{
           var result = res.data
-          console.log(result.data)
+          console.log(result)
           alert(result.msg)
+          // e=result.errno
           if(result.errno==0){
-            this.desserts.splice(this.editedIndex, 1)
+            this.$router.go(0)
           }
       })
+      return e
   },
 
     editItem (item) {
@@ -283,6 +285,7 @@
     deleteItemConfirm () {
     // 确认删除该成员
       console.log("delete",this.editedItem)
+      // this.desserts.splice(this.editedIndex, 1)
     //未向后端发送信息
       this.kick_member(11, this.editedItem.username)
       this.close()
@@ -308,14 +311,14 @@
           })
       }).then(res=>{
           var result = res.data
-          console.log(result.data)
           alert(result.msg)
           if(result.errno==0){
-            // this.desserts.splice(this.editedIndex, 1)
+            this.$router.go(0)
           }
       })
     },
     delete_manager(teamid, user_name){
+      console.log(teamid, user_name)
       this.$axios({
           method:'post',
           url:'/team/delete_manager',
@@ -325,10 +328,9 @@
           })
       }).then(res=>{
           var result = res.data
-          console.log(result.data)
           alert(result.msg)
           if(result.errno==0){
-            // this.desserts.splice(this.editedIndex, 1)
+            this.$router.go(0)
           }
       })
     },
@@ -337,40 +339,21 @@
         // 修改身份
         var old_identity=this.desserts[this.editedIndex].identity
         var new_identity=this.editedItem.identity
-        var username = this.editedItem.name
+        var username = this.editedItem.username
         if(old_identity==new_identity){
           console.log("相等不做修改")
         }else{
+          var errno
           if(new_identity=='管理员'){
             console.log("设置为管理员")
-            this.set_manager(11, username)
+            errno=this.set_manager(11, username)
           }else if(new_identity=='普通成员'){
-            console.log("设置为普通成员")
+            errno=console.log("设置为普通成员")
             this.delete_manager(11, username)
           }
         }
-        // Object.assign(this.desserts[this.editedIndex], this.editedItem)
-        // console.log(old_identity,"修改：",new_identity)
-        // if(this.editedItem.identity=='管理员'){
-        //     result = this.set_manager(this.teamid, old_identity.username)
-        //     if(result==0){
-        //       Object.assign(this.desserts[this.editedIndex], this.editedItem)
-        //       this.editedItem.level=1
-        //     }
-        // }else if(this.editedItem.identity=='普通成员'){
-        //     result = this.delete_manager(this.teamid, old_identity.username)
-        //     if(result==0){
-        //       Object.assign(this.desserts[this.editedIndex], this.editedItem)
-        //       this.editedItem.level=2
-        //     }
-        // }
-        // 未完成对后端发送修改信息
-
         this.close()
-      } else {
-        // 添加新成员
-        this.desserts.push(this.editedItem)
-      }
+      } 
     },
   },
     }

@@ -28,6 +28,7 @@
           large
           color="black"
           style="background:#F06450;border: transparent;width: 100%;"
+          @click="toMain"
         >
           GO NOW
         </v-btn>
@@ -208,6 +209,11 @@ export default {
     },
     login(){
       this.$router.push('/login')
+    },
+    toMain(){
+      if(this.login!=0){
+        this.$router.push('/dashboard')
+      }
     },
     clickintroduction(){
       if(this.click_introduction===0){
