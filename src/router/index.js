@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import prototype from '../views/PrototypeView.vue'
 
 Vue.use(VueRouter)
 
@@ -19,24 +19,29 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
   },
   {
-    path:'/login',
-    name:'login',
+    path: '/login',
+    name: 'login',
     component: () => import(/* webpackChunkName: "about" */ '../views/login_page')
   },
   {
-    path:'/rigister',
-    name:'rigister',
-    component:() => import('../views/rigister_page')
+    path: '/rigister',
+    name: 'rigister',
+    component: () => import('../views/rigister_page')
   },
   {
-    path:'/user_center',
-    name:'user_center',
-    component:() => import('../views/user_center')
+    path: '/user_center',
+    name: 'user_center',
+    component: () => import('../views/user_center')
   },
   {
-    path:'/true_user_center',
-    name:'true_user_center',
-    component:() => import('../views/true_user_center')
+    path: '/true_user_center',
+    name: 'true_user_center',
+    component: () => import('../views/true_user_center')
+  },
+  {
+    path: '/dashboard/prototype',
+    name: 'prototype',
+    component: prototype
   }
 
 ]
