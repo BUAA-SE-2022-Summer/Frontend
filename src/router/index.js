@@ -2,7 +2,6 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import Dashboard from '../views/Dashbord.vue'
-
 Vue.use(VueRouter)
 
 const routes = [
@@ -62,7 +61,12 @@ const routes = [
         component: () => import('../components/team/TeamMain.vue')
       }
     ]
-  },
+  }
+  // {
+  //   path: '/dashboard/demo',
+  //   name: 'demo',
+  //   component: () => import('../views/projectMain.vue')
+  // }
 ]
 
 const router = new VueRouter({
