@@ -102,7 +102,7 @@ export default {
     },
     toRegister: function () {
       // 跳转注册的路由
-      this.$router.push('/rigister');
+      this.$router.push('/register');
     }
   }
 }

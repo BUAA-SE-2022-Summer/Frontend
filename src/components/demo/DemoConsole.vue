@@ -124,7 +124,27 @@
       </button>
     </div>
     <div class="home-content">
-      <div v-if="active">
+      <div v-if="(!hasTeam)&&(!hasProject)&&(!hasFile)">
+        <img src="../../assets/empty-star.svg" class="empty-img empty-join-img" alt="" style="margin-left: 260px;margin-top: 70px">
+        <div class="empty-header" style="font-size: 18px;
+  line-height: 16px;
+  color: rgb(31, 41, 46);
+  margin-top: 8px;
+  margin-left: 300px;
+  font-weight: 500;">无团队</div>
+        <span class="empty-desc is-show" style="margin-left: 220px;font-size: 12px">在左下角点击头像加入属于你的团队吧</span>
+      </div>
+      <div v-else-if="(hasTeam)&&(!hasProject)&&(!hasFile)">
+        <img src="../../assets/empty-star.svg" class="empty-img empty-join-img" alt="" style="margin-left: 260px;margin-top: 70px">
+        <div class="empty-header" style="font-size: 18px;
+  line-height: 16px;
+  color: rgb(31, 41, 46);
+  margin-top: 8px;
+  margin-left: 300px;
+  font-weight: 500;">无项目</div>
+        <span class="empty-desc is-show" style="margin-left: 270px;font-size: 12px">点击新建创建项目吧</span>
+      </div>
+      <div v-else-if="(hasTeam)&&(hasProject)&&(!hasFile)">
         <img src="../../assets/empty-all.png" class="empty-img" alt="">
         <div class="empty-header">点击下方模块快速创建</div>
         <div class="create-button-wrapper">
@@ -153,24 +173,24 @@
           </div>
         </div>
       </div>
-      <div class="list-group">
+      <div v-else><div class="list-group">
         <div class="list-wrapper">
           <ul class="list-group" style="list-style: none;margin: 0;padding: 0">
             <button class="list-group-btn" @click="">
               <li class="list-group-item" v-for="item in list">
-              <div class="list-group-item-wrapper">
+                <div class="list-group-item-wrapper">
                   <span class="list-group-item-action">
                     <img class="list-group-item-action-img" :src="item.img" alt="">
                   </span>
-                <div class="list-group-item-title">
-                  <span class="list-group-item-title-text">{{item.name}}</span>
+                  <div class="list-group-item-title">
+                    <span class="list-group-item-title-text">{{item.name}}</span>
+                  </div>
                 </div>
-              </div>
-            </li>
+              </li>
             </button>
           </ul>
         </div>
-      </div>
+      </div></div>
     </div>
   </div>
 </template>
@@ -182,21 +202,76 @@ export default {
   data() {
     return {
       active: true,
+      hasTeam : true,
+      hasProject : true,
+      hasFile : false,
+      teams: [],
+      projects: [],
+      files: [],
       list: [
-      ]
+      ],
     }
   },
+  // created() {
+  //   this.$axios({
+  //     method: 'post',
+  //     url: '/team/show_my_team_list',
+  //   })
+  //     .then(res => {
+  //       if(res.data.team_list.length === 0) {
+  //         this.hasTeam = false;
+  //       } else {
+  //         this.hasTeam = true;
+  //         this.teams = res.data.team_list;
+  //       }
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //     })
+  // },
   methods: {
     create_1() {
       this.list.push({
         name: '原型图',
         img: '../../assets/原型图.png'
       })
-      if(this.list.length === 1) {
-        this.active = false
-      }
+      this.hasFile = true;
       alert('test')
-    }
+    },
+    hasproject() {
+      this.$axios({
+        method: 'post',
+        url: '/project/get_project_list',
+      })
+        .then(res => {
+          if(res.data.project_list.length === 0) {
+            this.hasProject = false;
+          } else {
+            this.hasProject = true;
+            this.projects = res.data.project_list;
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        })
+    },
+    hasfile() {
+      this.$axios({
+        method: 'post',
+        url: '/file/get_file_list',
+      })
+        .then(res => {
+          if(res.data.file_list.length === 0) {
+            this.hasFile = false;
+          } else {
+            this.hasFile = true;
+            this.files = res.data.file_list;
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        })
+    },
   }
 }
 </script>

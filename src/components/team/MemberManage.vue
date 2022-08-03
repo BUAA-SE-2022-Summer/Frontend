@@ -94,9 +94,6 @@ import MemberTables from './MemberTables.vue'
     }
 }
 </script>
-<<<<<<< HEAD
-=======
 <style>
 </style>
->>>>>>> FeatureHome
 
