@@ -24,6 +24,9 @@
           <div>
             375*812
           </div>
+            <div style="position: absolute;left:-50px;top:0px;">
+              <img src="../img/手机 - 副本.jpg" style="width: 20px;height: 40px;border-radius: 10%">
+            </div>
             <i class="el-icon-success" style="position: absolute;left:150px;top:40px"></i>
         </div>
         </div>
@@ -35,8 +38,8 @@
             <div>
               375*812
             </div>
-              <div>
-                <img src="../img/手机">
+              <div style="position: absolute;left:-50px;top:0px;">
+                <img src="../img/手机 - 副本.jpg" style="width: 20px;height: 40px;border-radius: 10%">
               </div>
             </div>
           </div>
@@ -50,6 +53,9 @@
               <div>
                 414*896
               </div>
+              <div style="position: absolute;left:-50px;top:0px;">
+                <img src="../img/手机 - 副本.jpg" style="width: 20px;height: 40px;border-radius: 10%">
+              </div>
               <i class="el-icon-success" style="position: absolute;left:150px;top:40px"></i>
             </div>
           </div>
@@ -60,6 +66,9 @@
               </div>
               <div>
                 414*896
+              </div>
+              <div style="position: absolute;left:-50px;top:0px;">
+                <img src="../img/手机 - 副本.jpg" style="width: 20px;height: 40px;border-radius: 10%">
               </div>
             </div>
           </div>
@@ -73,6 +82,9 @@
               <div>
                 768*1024
               </div>
+              <div style="position: absolute;left:-50px;top:0px;">
+                <img src="../img/ipad.png" style="width: 20px;height: 40px;border-radius: 10%">
+              </div>
               <i class="el-icon-success" style="position: absolute;left:150px;top:40px"></i>
             </div>
           </div>
@@ -83,6 +95,9 @@
               </div>
               <div>
                 768*1024
+              </div>
+              <div style="position: absolute;left:-50px;top:0px;">
+                <img src="../img/ipad.png" style="width: 20px;height: 40px;border-radius: 10%">
               </div>
             </div>
           </div>
@@ -96,6 +111,9 @@
               <div>
                 1024*768
               </div>
+              <div style="position: absolute;left:-60px;top:10px;">
+                <img src="../img/ipad1.png" style="width: 40px;height: 20px;border-radius: 10%">
+              </div>
               <i class="el-icon-success" style="position: absolute;left:150px;top:40px"></i>
             </div>
           </div>
@@ -106,6 +124,9 @@
               </div>
               <div>
                 1024*768
+              </div>
+              <div style="position: absolute;left:-60px;top:10px;">
+                <img src="../img/ipad1.png" style="width: 40px;height: 20px;border-radius: 10%">
               </div>
             </div>
           </div>
@@ -119,6 +140,9 @@
               <div>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1280*720
               </div>
+              <div style="position: absolute;left:-60px;top:10px;">
+                <img src="../img/网页.png" style="width: 40px;height: 30px;border-radius: 10%">
+              </div>
               <i class="el-icon-success" style="position: absolute;left:150px;top:40px"></i>
             </div>
           </div>
@@ -130,6 +154,9 @@
               <div>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1280*720
               </div>
+              <div style="position: absolute;left:-60px;top:10px;">
+                <img src="../img/网页.png" style="width: 40px;height: 30px;border-radius: 10%">
+              </div>
             </div>
           </div>
         </div>
@@ -140,13 +167,13 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Custom
               </div>
                 <div>
-                  <el-input v-model="cwidth" placeholder="请输入宽度" style="position: absolute;width: 80px;height: 20px;left:-50px"></el-input>
+                  <el-input v-model="cwidth" placeholder="请输入宽度" style="position: absolute;width: 80px;height: 10px;left:-50px"></el-input>
                 </div>
               <div style="position:absolute;left: 40px;top:33px;font-size: 20px">
                 *
               </div>
               <div>
-                <el-input v-model="cheight" placeholder="请输入高度" style="position: absolute;width: 80px;height: 20px;left:60px"></el-input>
+                <el-input v-model="cheight" placeholder="请输入高度" style="position: absolute;width: 80px;height: 10px;left:60px"></el-input>
               </div>
               <i class="el-icon-success" style="position: absolute;left:150px;top:40px"></i>
             </div>
@@ -158,13 +185,13 @@
               </div>
               <div>
                 <div>
-                  <el-input v-model="cwidth" placeholder="请输入宽度" style="position: absolute;width: 80px;height: 20px;left:-50px"></el-input>
+                  <el-input v-model="cwidth" placeholder="请输入宽度" style="position: absolute;width: 80px;height: 10px;left:-50px"></el-input>
                 </div>
                 <div style="position:absolute;left: 40px;top:33px;font-size: 20px">
                   *
                 </div>
                 <div>
-                  <el-input v-model="cheight" placeholder="请输入高度" style="position: absolute;width: 80px;height: 20px;left:60px"></el-input>
+                  <el-input v-model="cheight" placeholder="请输入高度" style="position: absolute;width: 80px;height: 10px;left:60px"></el-input>
                 </div>
               </div>
             </div>
