@@ -1,5 +1,5 @@
 <template>
-    <div style="width:1100px;margin: none;height: 600px;">
+    <div style="width:1100px;margin: 0;height: 600px;">
     <v-card
     class="mx-auto"
     width="300px"
@@ -97,4 +97,9 @@ import MemberTables from './MemberTables.vue'
     }
 }
 </script>
+<<<<<<< HEAD
+=======
+<style>
+</style>
+>>>>>>> FeatureHome
 

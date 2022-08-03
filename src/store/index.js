@@ -113,4 +113,18 @@ const data = {
     },
 }
 
-export default new Vuex.Store(data)
+// export default new Vuex.Store(data)
+export default new Vuex.Store({
+  state: {
+    identity:1,
+    teamid:0,
+  },
+  getters: {
+  },
+  mutations: {
+  },
+  actions: {
+  },
+  modules: {
+  }
+})

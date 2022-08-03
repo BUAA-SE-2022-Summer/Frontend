@@ -5,6 +5,7 @@
     <main>
       <!-- 左侧组件列表 -->
       <section class="left">
+
         <ComponentList />
         <RealTimeComponentList />
       </section>
@@ -37,6 +38,7 @@
 <script>
 import Editor from '@/components/Editor/index'
 import ComponentList from '@/components/ComponentList' // 左侧列表组件
+import PageList from '@/components/PageList' // 左侧页面列表组件
 import AnimationList from '@/components/AnimationList' // 右侧动画列表
 import EventList from '@/components/EventList' // 右侧事件列表
 import componentList from '@/custom-component/component-list' // 左侧列表数据
