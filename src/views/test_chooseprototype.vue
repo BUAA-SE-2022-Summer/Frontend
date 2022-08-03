@@ -21,7 +21,7 @@
           <div>
             iphonex/11/12
           </div>
-          <div>
+          <div style="color: #8c939d">
             375*812
           </div>
             <div style="position: absolute;left:-50px;top:0px;">
@@ -35,7 +35,7 @@
              <div>
                iphonex/11/12
              </div>
-            <div>
+            <div style="color: #8c939d">
               375*812
             </div>
               <div style="position: absolute;left:-50px;top:0px;">
@@ -50,7 +50,7 @@
               <div>
                 iphone11/12Max
               </div>
-              <div>
+              <div style="color: #8c939d">
                 414*896
               </div>
               <div style="position: absolute;left:-50px;top:0px;">
@@ -64,7 +64,7 @@
               <div>
                 iphone11/12Max
               </div>
-              <div>
+              <div style="color: #8c939d">
                 414*896
               </div>
               <div style="position: absolute;left:-50px;top:0px;">
@@ -79,7 +79,7 @@
               <div>
                 iPad(Vertical)
               </div>
-              <div>
+              <div style="color: #8c939d">
                 768*1024
               </div>
               <div style="position: absolute;left:-50px;top:0px;">
@@ -93,7 +93,7 @@
               <div>
                 iPad(Vertical)
               </div>
-              <div>
+              <div style="color: #8c939d">
                 768*1024
               </div>
               <div style="position: absolute;left:-50px;top:0px;">
@@ -108,7 +108,7 @@
               <div>
                 iPad(Horizontal)
               </div>
-              <div>
+              <div style="color: #8c939d">
                 1024*768
               </div>
               <div style="position: absolute;left:-60px;top:10px;">
@@ -122,7 +122,7 @@
               <div>
                 iPad(Horizontal)
               </div>
-              <div>
+              <div style="color: #8c939d">
                 1024*768
               </div>
               <div style="position: absolute;left:-60px;top:10px;">
@@ -137,7 +137,7 @@
               <div>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Desktop
               </div>
-              <div>
+              <div style="color: #8c939d">
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1280*720
               </div>
               <div style="position: absolute;left:-60px;top:10px;">
@@ -151,7 +151,7 @@
               <div>
                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Desktop
               </div>
-              <div>
+              <div style="color: #8c939d">
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1280*720
               </div>
               <div style="position: absolute;left:-60px;top:10px;">

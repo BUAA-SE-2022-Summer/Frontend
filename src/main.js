@@ -24,6 +24,7 @@ Vue.use(IconsPlugin)
 Vue.use(ElementUI)
 Vue.use(Vuetify)
 new Vue({
+  vuetify,
   router,
   store,
   axios,

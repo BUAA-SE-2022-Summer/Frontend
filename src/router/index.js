@@ -42,6 +42,16 @@ const routes = [
     path:'/cp',
     name:'cp',
     component:() => import('../views/test_chooseprototype')
+  },
+  {
+    path:'/ed',
+    name:'ed',
+    component:() => import('../views/editor_test')
+  },
+  {
+    path:'/etc',
+    name:'etc',
+    component:() => import('../views/enterprise-card')
   }
 
 ]
