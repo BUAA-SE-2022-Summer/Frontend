@@ -1,15 +1,27 @@
 <template>
   <div id="div_1">
-    <div style="width:100%;margin-top: 200px;">
-      <v-card class="mx-auto my-12" width="900px">
-        <v-card class="mx-auto my-12" width="450" style="float:left;">
-          <v-img height="600" src="../img/loginback1.png"></v-img>
-        </v-card>
-        <v-card class="mx-auto my-12" width="450" height="600px" style="float:left;background-color: white;">
-          <div style="width:100%;height:200px;margin-top: 20px;">
-            <img src="../img/login.png" style="width:400px;margin-left: 15px;">
+    <div style="width:100%;" class="main">
+    <div class="left" style="position:fixed;float:left;width: 800px;height: 100vh;margin-top: 0;">
+    <div class="left-top" style="width:100%;height:30vh;">
+      <v-card class="mx-auto my-12" width="30vh" >
+          <v-img src="../assets/card1.png" style="margin-top:5vh"></v-img>
+      </v-card>
+      
+    </div>
+    <div class="left-bottom" style="width:100%;height:65vh;">
+       <v-card class="mx-auto my-12" height="50vh" width="30vw">
+          <v-img src="../assets/card2.png" style="width: 30vw;"></v-img>
+      </v-card>
+      
+    </div>
+    </div>
+    <div class="right" style="position:fixed;float:left;margin-left: 800px;height:100vh;width: 800px;margin-top: 5vh;">
+    <div class="right-top" style="width:100%;height:55vh;">
+      <v-card class="mx-auto my-12" width="25vw" height="50vh" style="float:left;background-color: white;">
+          <div style="width:100%;margin-top: 3vh;">
+            <img src="../img/login.png" style="width:22vw;margin-left: 1vw;">
           </div>
-          <div style="width:350px;margin-left:50px;margin-top: 50px;">
+          <div style="width:21vw;margin-left:2vw;margin-top: 1vh;">
             <v-text-field v-model="form.username" label="昵称" outlined clearable></v-text-field>
             <v-text-field v-model="form.password" label="密码" outlined clearable></v-text-field>
             <v-btn x-large dark @click="login">
@@ -20,37 +32,16 @@
             </v-btn>
           </div>
         </v-card>
-      </v-card>
-
     </div>
-    <!-- <div id="login" class="login">
-      <img class="bgbox" id="bgbox" alt="" src="../../src/img/星空4.jpg">
-      <div class="wrap">
-        <br/>
-        <h1 style="position: relative; top: -20px;">登 录</h1>
-        <el-form :model="form" ref="form" class="form">
-          <el-form-item prop="username">
-            <el-input placeholder="用户名或邮箱" type="username" v-model="form.username" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item id="password" prop="password">
-            <el-input
-                placeholder="密码"
-                show-password
-                type="password"
-                v-model="form.password"
-                autocomplete="off"
-                @keyup.enter.native="login"
-            ></el-input>
-          </el-form-item>
-          <el-form-item class="btn_login">
-            <el-button type="primary" @click="login">登&nbsp;&nbsp;录</el-button>
-          </el-form-item>
-        </el-form>
-        <div class="suffix">
-          <p @click="toRegister">注册帐号</p>
-        </div>
-      </div>
-    </div> -->
+
+    <div class="right-bottom" style="width:100%;height:30vh;">
+        <v-card class="mx-auto my-12" width="450" style="float:left">
+          <v-img src="../assets/card3.png" style="margin-top:0"></v-img>
+      </v-card>
+      
+    </div>
+    </div>
+    </div>
   </div>
 </template>
 
@@ -88,7 +79,7 @@ export default {
           if (res.data.errno === 0) {
             this.$message.success("登录成功");
             sessionStorage.setItem('IfLogin', JSON.stringify(1));
-            this.$router.push('/dashBoard/main');
+            this.$router.push('/dashboard');
             //setTimeout(() => {
             //window.open('/login', '_self');
             //}, 1000);
@@ -116,14 +107,6 @@ export default {
   background-image: url("../../src/img/星空4.jpg");
   background-size: cover;
   background-attachment: fixed;
-}
-
-#div_1 {
-  width: 100%;
-  height: 755px;
-  background-color: white;
-  background: rgba(255, 255, 255, 0.7);
-
 }
 
 #login {
@@ -187,8 +170,12 @@ export default {
   float: right;
 }
 
-.left {
-  width: 900px;
-  height: 1200px;
+
+.main{
+  width: 100vw;
+  height: 100vh;
+  background-image: url("../assets/welBack2.jpg");
+  background-size:cover ;
+
 }
 </style>
