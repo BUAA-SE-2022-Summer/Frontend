@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import prototype from '../views/PrototypeView.vue'
-
+import dashBoard from "../views/Dashboard.vue"
 Vue.use(VueRouter)
 
 const routes = [
@@ -42,6 +42,23 @@ const routes = [
     path: '/dashboard/prototype',
     name: 'prototype',
     component: prototype
+  },
+  {
+    path: '/dashBoard',
+    name: 'dashBoard',
+    component: dashBoard,
+    children:[
+      {
+        path:'/dashboard/main',
+        name:'projectMain',
+        component: () => import('../views/projectMain.vue')
+      },
+      {
+        path:'/dashboard/team',
+        name:'teamMain',
+        component: () => import('../components/team/TeamMain.vue')
+      }
+    ]
   }
 
 ]
