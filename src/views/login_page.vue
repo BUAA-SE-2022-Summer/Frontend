@@ -1,7 +1,11 @@
 <template>
   <div id="div_1">
-    <div style="width:1800px;margin-left: 400px;margin-top: 150px;">
-    <div class="left">
+    <div style="width:100%;margin-top: 200px;">
+      <v-card
+      :loading="loading"
+      class="mx-auto my-12"
+      width="900px"
+    >
       <v-card
       :loading="loading"
       class="mx-auto my-12"
@@ -52,7 +56,8 @@
            </v-btn>
     </div>
     </v-card>
-    </div>
+    </v-card>
+    
     </div>
     <!-- <div id="login" class="login">
       <img class="bgbox" id="bgbox" alt="" src="../../src/img/星空4.jpg">

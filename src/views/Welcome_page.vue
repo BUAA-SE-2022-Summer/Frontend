@@ -1,10 +1,11 @@
 <template>
 
   <div class="main">
-    <div class="header" style="width:100%; height: 110px;background-color: #DCAFBA;">
-       <div class="mobook_head">
-      <img src="../img/logo.png" style="position: absolute;top:0px;left:70px;width: 200px;height: 100px;border-radius: 50%;border-color: white;border-width: 1px;margin-right: 50px;margin-top: 0px;">
+    <div class="part1">
+      <div class="mobook_head">
+      <img src="../img/logo.png" style="position: absolute;top:0px;left:70px;width: 300px;height: 150px;border-color: white;border-width: 1px;margin-right: 50px;margin-top: 0px;">
     </div>
+
     <el-button v-if="this.iflogin!==1" type="info" round style="background-color: black;position: absolute;left:1300px;top:30px;color: white;" @click="login">登录/注册</el-button>
     <el-popover
         placement="top-start"
@@ -14,10 +15,60 @@
         >
       <img v-if="this.iflogin===1" :src="this.userhead" style="position: absolute;top:30px;left:1300px;width: 50px;height: 50px;border-radius: 50%;border-color: white;border-width: 1px;margin-right: 50px;margin-top: 10px" slot="reference">
       <div>
-        <el-button type="danger" @click="logout" >退出登录</el-button>
+        <el-button type="info" @click="logout" round style="background-color: black;">退出登录</el-button>
       </div>
     </el-popover>
-     </div>
+    </div>
+    <div class="cardPart">
+      <v-card
+      class="mx-auto"
+      max-width="400"
+    >
+      <v-btn
+          large
+          color="black"
+          style="background:#F06450;border: transparent;width: 100%;"
+        >
+          GO NOW
+        </v-btn>
+       <v-btn
+          large
+          color="black"
+          style="background:#F28375;border: transparent;width: 100%;"
+        >
+          项目管理
+         </v-btn>
+       <v-btn
+          large
+          color="black"
+          style="background:#F8A39A;border: transparent;width: 100%;"
+        >
+          原型设计
+         </v-btn>
+        <v-btn
+          large
+          color="black"
+          style="background:#FBC4BB;border: transparent;width: 100%;"
+        >
+          文档编辑
+         </v-btn>
+         <v-btn
+          large
+          color="black"
+          style="background:#FFE2E0;border: transparent;width: 100%;"
+        >
+          uml图绘制
+         </v-btn>
+    </v-card>
+    </div>
+
+    <div class="part2">
+
+    </div>
+    <div class="part3">
+
+    </div>
+
     <el-container>
   <el-header>
   </el-header>
@@ -213,7 +264,7 @@ export default {
     height: 300px;
   }
   .el-header{
-    color: #333;
+    color: white;
     text-align: center;
     line-height: 60px;
   }
@@ -241,5 +292,17 @@ export default {
     height: 250px;
   }
   
+.part1{
+  width: 100%;
+  height: 150px;
+  background: url("../assets/welBack2.jpg");
+  background-size:cover ;
+}
+.cardPart{
+  width: 100%;
+  height: 400px;
+  background: url("../assets/welBack2.jpg");
+  background-size:cover ;
+}
 
 </style>
