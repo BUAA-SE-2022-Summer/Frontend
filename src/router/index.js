@@ -37,6 +37,11 @@ const routes = [
     path:'/true_user_center',
     name:'true_user_center',
     component:() => import('../views/true_user_center')
+  },
+  {
+    path:'/cp',
+    name:'cp',
+    component:() => import('../views/test_chooseprototype')
   }
 
 ]
