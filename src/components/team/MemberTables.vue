@@ -77,7 +77,7 @@
             <v-dialog v-model="dialogAdd" max-width="500px">
                 <v-card>
                 <v-card-title class="text-h5">添加新成员</v-card-title>
-                 <v-text-field label="邮箱号"  v-model="addEmail"></v-text-field>
+                 <v-text-field label="昵称"  v-model="addName"></v-text-field>
                 <v-card-actions>
                     <v-spacer></v-spacer>
                     <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
@@ -128,21 +128,24 @@
     </v-data-table>
 </template>
 <script>
+    import qs from 'qs'
     export default{
         data: () => ({
     dialog: false,
     dialogDelete: false,
     DeleteFail: false,
     dialogAdd:false,
-    addEmail:'',
+    addName:'',
     states:['管理员','普通成员'],
+    user_list:[],
     headers: [
-      {text: '昵称',align: 'start',sortable: false, value: 'nickname',},
-      { text: '姓名', value: 'name',sortable: false, },
+      {text: '昵称',align: 'start',sortable: false, value: 'username',},
+      { text: '姓名', value: 'real_name',sortable: false, },
       { text: '邮箱', value: 'email',sortable: false, },
       { text: '身份', value: 'identity',sortable: false, },
       { text: 'Actions', value: 'actions', sortable: false },
     ],
+    teamid:11,
     desserts: [],
     editedIndex: -1,
     editedItem: {
@@ -154,7 +157,8 @@
       return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
     },
     IdentityLevel(){
-        return this.$store.state.identity
+        return 0
+        // return this.$store.state.identity
     }
   },
 // 监听
@@ -171,7 +175,8 @@
   },
 
   created () {
-    this.initialize()
+    // this.initialize()
+    this.get_team_info(11)
   },
 
   methods: {
@@ -188,42 +193,98 @@
         
       ]
     },
+    // 获取团队信息
+    get_team_info(teamid){
+            console.log("获取团队信息", teamid)
+            this.$axios({
+                method:'post',
+                url:'/team/get_team_info ',
+                data:qs.stringify({
+                    "teamID":teamid
+                })
+            }).then(res=>{
+                this.user_list = res.data.user_list
+                console.log("获取团队信息",this.user_list)
+                for(var i=0;i<this.user_list.length;i++){
+                  if(this.user_list[i].is_creator==true){
+                      this.user_list[i].identity="超管"
+                      this.user_list[i].level=0
+                  }else if(this.user_list[i].is_supervisor==true){
+                    this.user_list[i].identity="管理员"
+                    this.user_list[i].level = 1
+                  }else{
+                    this.user_list[i].level=2
+                    this.user_list[i].identity="普通成员"
+                  }
+                }
+                this.desserts = this.user_list
+                console.log(this.desserts)
+                // console.log(this.user_list)
+            })
+    },
+    //邀请成员请求
+    invite_people(teamid, user_name){
+      this.$axios({
+          method:'post',
+          url:'/team/invite_member',
+          data:qs.stringify({
+              "username":user_name,
+              "teamID":teamid
+          })
+      }).then(res=>{
+          var result = res.data
+          console.log("邀请成员结果", result)
+          alert(result.msg)
+          // if(result.errno==0){
+          //   this.$router.push("/dashboard/team")
+          // }
+      })
+    },
+  //踢成员请求
+  kick_member(teamid, user_name){
+    this.$axios({
+          method:'post',
+          url:'/team/kick_member',
+          data:qs.stringify({
+              "teamID":teamid,
+              "username":user_name,
+          })
+      }).then(res=>{
+          var result = res.data
+          console.log(result.data)
+          alert(result.msg)
+          if(result.errno==0){
+            this.desserts.splice(this.editedIndex, 1)
+          }
+      })
+  },
 
     editItem (item) {
       this.editedIndex = this.desserts.indexOf(item)
       this.editedItem = Object.assign({}, item)
-      if(this.IdentityLevel<this.editedItem.level){
-         this.dialog = true
-      }else{
-         this.DeleteFail = true
-      }
+      this.dialog = true
     },
 
     deleteItem (item) {
       this.editedIndex = this.desserts.indexOf(item)
       this.editedItem = Object.assign({}, item)
-    //   判定是否有权限删除
-      if(this.IdentityLevel<this.editedItem.level){
-        this.dialogDelete = true
-      }else{
-        this.DeleteFail = true
-      }
+      this.dialogDelete = true
       
     },
-    // 添加新成员
     addMember(){
         console.log("添加新成员")
         this.dialogAdd=true
     },
     addConfirm(){
-        console.log("添加",this.addEmail)
+        console.log("添加",this.addName)
+        this.invite_people(11, this.addName)
         this.close()
     },
     deleteItemConfirm () {
     // 确认删除该成员
       console.log("delete",this.editedItem)
     //未向后端发送信息
-      this.desserts.splice(this.editedIndex, 1)
+      this.kick_member(11, this.editedItem.username)
       this.close()
     },
 
@@ -237,18 +298,74 @@
         this.editedIndex = -1
       })
     },
-
+    set_manager(teamid, user_name){
+      this.$axios({
+          method:'post',
+          url:'/team/set_manager',
+          data:qs.stringify({
+              "teamID":teamid,
+              "username":user_name,
+          })
+      }).then(res=>{
+          var result = res.data
+          console.log(result.data)
+          alert(result.msg)
+          if(result.errno==0){
+            // this.desserts.splice(this.editedIndex, 1)
+          }
+      })
+    },
+    delete_manager(teamid, user_name){
+      this.$axios({
+          method:'post',
+          url:'/team/delete_manager',
+          data:qs.stringify({
+              "teamID":teamid,
+              "username":user_name,
+          })
+      }).then(res=>{
+          var result = res.data
+          console.log(result.data)
+          alert(result.msg)
+          if(result.errno==0){
+            // this.desserts.splice(this.editedIndex, 1)
+          }
+      })
+    },
     save () {
       if (this.editedIndex > -1) {
         // 修改身份
-        Object.assign(this.desserts[this.editedIndex], this.editedItem)
-        console.log("修改：",this.editedItem)
-        if(this.editedItem.identity=='管理员'){
-            this.editedItem.level=1
-        }else if(this.editedItem.identity=='普通成员'){
-            this.editedItem.level=2
+        var old_identity=this.desserts[this.editedIndex].identity
+        var new_identity=this.editedItem.identity
+        var username = this.editedItem.name
+        if(old_identity==new_identity){
+          console.log("相等不做修改")
+        }else{
+          if(new_identity=='管理员'){
+            console.log("设置为管理员")
+            this.set_manager(11, username)
+          }else if(new_identity=='普通成员'){
+            console.log("设置为普通成员")
+            this.delete_manager(11, username)
+          }
         }
+        // Object.assign(this.desserts[this.editedIndex], this.editedItem)
+        // console.log(old_identity,"修改：",new_identity)
+        // if(this.editedItem.identity=='管理员'){
+        //     result = this.set_manager(this.teamid, old_identity.username)
+        //     if(result==0){
+        //       Object.assign(this.desserts[this.editedIndex], this.editedItem)
+        //       this.editedItem.level=1
+        //     }
+        // }else if(this.editedItem.identity=='普通成员'){
+        //     result = this.delete_manager(this.teamid, old_identity.username)
+        //     if(result==0){
+        //       Object.assign(this.desserts[this.editedIndex], this.editedItem)
+        //       this.editedItem.level=2
+        //     }
+        // }
         // 未完成对后端发送修改信息
+
         this.close()
       } else {
         // 添加新成员

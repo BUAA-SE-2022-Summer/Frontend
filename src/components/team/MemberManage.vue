@@ -47,6 +47,7 @@ import MemberTables from './MemberTables.vue'
     data() {
         return {
             memTable:1,
+            user_list:[],
         };
     },
     components: { MemberTables },
@@ -56,9 +57,9 @@ import MemberTables from './MemberTables.vue'
         }
     },
     created(){
-        var name="abc"
-        this.create_team(name)
-        this.get_team_info(5)
+        var name="abcxyz"
+        // this.create_team(name)
+        // this.get_team_info(1)
         // var teamid = this.getTeamid
         // console.log("团队id",this.getTeamid)
         // this.get_team_info(teamid)
@@ -73,10 +74,12 @@ import MemberTables from './MemberTables.vue'
                 method:'post',
                 url:'/team/get_team_info ',
                 data:qs.stringify({
-                    "teamID":1
+                    "teamID":teamid
                 })
             }).then(res=>{
                 console.log("获取团队信息",res.data)
+                this.user_list = res.data.user_list
+                // if(this.user_list)
             })
         },
         create_team(team_name){
