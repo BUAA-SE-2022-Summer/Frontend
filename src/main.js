@@ -20,6 +20,7 @@ import '@/styles/animate.scss'
 import 'element-ui/lib/theme-chalk/index.css'
 import '@/styles/reset.css'
 import '@/styles/global.scss'
+import vuetify from './plugins/vuetify'
 
 axios.defaults.baseURL = '/api'
 Vue.prototype.$axios = axios;
@@ -38,5 +39,6 @@ new Vue({
   store,
   axios,
   qs,
+  vuetify,
   render: h => h(App)
 }).$mount('#app')
