@@ -35,6 +35,9 @@
             <div>
               375*812
             </div>
+              <div>
+                <img src="../img/手机">
+              </div>
             </div>
           </div>
         </div>
@@ -167,8 +170,9 @@
             </div>
           </div>
         </div>
-        <el-button type="primary" style="position: absolute;top:450px;left: 20px;">创建原型</el-button>
-        <el-button type="info" style="position: absolute;top:450px;left: 130px;" @click="changecardvis">取消</el-button>
+        <v-btn color="blue" style="position: absolute;top:450px;left: 20px;background-color:whitesmoke;"><b>创建原型</b></v-btn>
+        <!--<el-button type="primary" style="position: absolute;top:450px;left: 20px;">创建原型</el-button>-->
+        <v-btn color="blue" style="position: absolute;top:450px;left: 130px;background-color:whitesmoke;" @click="changecardvis"><b>取消</b></v-btn>
       </el-card>
     </div>
   </div>
