@@ -1,8 +1,65 @@
 <template>
   <div id="div_1">
-    <div id="login" class="login">
-      <!--<div id="div_0">-->
-      <!--<img class="bgbox" id="bgbox" alt="" src="../../src/img/星空.jpg">-->
+    <div style="width:100%;margin-top: 200px;">
+      <v-card
+      :loading="loading"
+      class="mx-auto my-12"
+      width="900px"
+    >
+      <v-card
+      :loading="loading"
+      class="mx-auto my-12"
+      width="450"
+      style="float:left;"
+    >
+      <v-img
+        height="600"
+        src="../img/loginback1.png"
+      ></v-img>
+    </v-card>
+      <v-card
+      :loading="loading"
+      class="mx-auto my-12"
+      width="450"
+      height="600px"
+      style="float:left;background-color: white;"
+    >
+    <div style="width:100%;height:200px;margin-top: 20px;">
+      <img src="../img/login.png" style="width:400px;margin-left: 15px;">
+    </div>
+    <div style="width:350px;margin-left:50px;margin-top: 50px;">
+      <v-text-field
+              v-model="form.username"
+              label="昵称"
+              outlined
+              clearable
+       ></v-text-field>
+       <v-text-field
+              v-model="form.password"
+              label="密码"
+              outlined
+              clearable
+         ></v-text-field>
+         <v-btn
+                x-large
+                dark
+                @click="login"
+              >
+                登录
+           </v-btn>
+          <v-btn
+                x-large
+                dark
+                @click="toRegister"
+              >
+                注册
+           </v-btn>
+    </div>
+    </v-card>
+    </v-card>
+    
+    </div>
+    <!-- <div id="login" class="login">
       <img class="bgbox" id="bgbox" alt="" src="../../src/img/星空4.jpg">
       <div class="wrap">
         <br/>
@@ -29,7 +86,7 @@
           <p @click="toRegister">注册帐号</p>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -108,7 +165,7 @@ export default {
   font-family: 'Noto Serif SC', serif;
 
 }
-#login >>> .el-input__inner {
+#login  .el-input__inner {
   font-family: 'Noto Serif SC', serif;
 }
 #login .bgbox {
@@ -156,5 +213,9 @@ export default {
   color:#999;
   cursor: pointer;
   float:right;
+}
+.left{
+  width: 900px;
+  height: 1200px;
 }
 </style>
