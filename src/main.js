@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 import axios from 'axios'
 import qs from 'qs'
+// import vuetify from './plugins/vuetify'
 
 // Import Bootstrap and BootstrapVue CSS files (order is important)
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'

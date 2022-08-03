@@ -2,6 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import prototype from '../views/PrototypeView.vue'
 import dashBoard from "../views/Dashboard.vue"
+import HomeView from '../views/HomeView.vue'
+import Dashboard from '../views/Dashbord.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -44,24 +46,55 @@ const routes = [
     component: prototype
   },
   {
-    path: '/dashBoard',
-    name: 'dashBoard',
+    path: '/dashboard',
+    name: 'dashboard',
     component: dashBoard,
     children:[
-      {
-        path:'/dashboard/main',
-        name:'projectMain',
-        component: () => import('../views/projectMain.vue')
-      },
-      {
+        {
         path:'/dashboard/team',
         name:'teamMain',
-        component: () => import('../components/team/TeamMain.vue')
-      }
+        component:()=>import('../components/team/TeamMain.vue')
+        },
+        {
+            path:'/dashboard/demo',
+            name:'demo',
+            component: () => import('../components/demo/DemoMain.vue'),
+            children: [
+                {
+                    path: '/dashboard/demo/console',
+                    name: 'console',
+                    component: () => import('../components/demo/DemoConsole.vue')
+                },
+                {
+                    path: '/dashboard/demo/create',
+                    name: 'create',
+                    component: () => import('../components/demo/DemoCreate.vue')
+                },
+                {
+                    path: '/dashboard/demo/star',
+                    name: 'star',
+                    component: () => import('../components/demo/DemoStar.vue')
+                },
+                {
+                    path: '/dashboard/demo/join',
+                    name: 'join',
+                    component: () => import('../components/demo/DemoJoin.vue')
+                },
+                {
+                    path: '/dashboard/demo/trash',
+                    name: 'trash',
+                    component: () => import('../components/demo/DemoTrash.vue')
+                },
+            ]
+        }
     ]
-  }
-
+    }
 ]
+  // {
+  //   path: '/dashboard/demo',
+  //   name: 'demo',
+  //   component: () => import('../views/projectMain.vue')
+  // }
 
 const router = new VueRouter({
   mode: 'history',

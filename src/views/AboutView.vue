@@ -14,5 +14,20 @@
     <v-btn color="primary" dark>Accept
       <v-icon dark right>mdi-checkbox-marked-circle</v-icon>
     </v-btn>
+
+   <div style="width:100%;background-color:antiquewhite; height: 2000px;">
+   <!-- <MemberManage></MemberManage> -->
+   <TeamMainVue></TeamMainVue>
+   </div>
+   
+
+>>>>>>> FeatureHome
   </div>
 </template>
+<script>
+import MemberManage from "../components/team/MemberManage.vue";
+import TeamMainVue from "@/components/team/TeamMain.vue";
+export default {
+    components: { MemberManage ,TeamMainVue}
+}
+</script>
