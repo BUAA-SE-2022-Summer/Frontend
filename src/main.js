@@ -12,6 +12,10 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import Vuetify from 'vuetify'
 import vuetify from '@/plugins/vuetify'
+import VueQuillEditor from 'vue-quill-editor'
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
 axios.defaults.baseURL = '/api'
 Vue.prototype.$axios = axios;
 Vue.prototype.$qs = qs
