@@ -6,7 +6,7 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/prototype',
+    path: '/dashboard/prototype',
     name: 'prototype',
     component: prototype
   }
