@@ -96,6 +96,52 @@ export default {
   background-color: #fff;
   margin-right: 20px;
 }
+.but_1 {
+  position: fixed;
+  top: 100px;
+  right: 320px;
+  width: 150px;
+  height: 0;
+  background-color: #fff;
+  box-shadow: 0 0 10px #e0e0e0;
+  border-radius: 5px;
+}
+.but_2 {
+  position: fixed;
+  top: 100px;
+  right: 160px;
+  width: 150px;
+  height: 0;
+  background-color: #fff;
+  box-shadow: 0 0 10px #e0e0e0;
+  border-radius: 5px;
+}
+.but_3 {
+  position: fixed;
+  top: 92px;
+  right: 2px;
+  width: 150px;
+  height: 0;
+  background-color: #fff;
+  box-shadow: 0 0 10px #e0e0e0;
+  border-radius: 10px;
+}
+.li_1 {
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+}
+.li_2 {
+  height: 66px;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+}
+.tit_1 {
+  text-align: left;
+}
+.tit_1_1 {
+  text-align: left;
+  margin-left: 20px;
+}
 .home-content {
   display: flex;
   -webkit-box-pack: center;

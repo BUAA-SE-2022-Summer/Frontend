@@ -5,12 +5,14 @@
         <v-list>
           <v-list-item-group
               color="primary">
-            <v-list-item class="home" @click="">
-              <v-list-item-icon>
-                <v-icon>mdi-home</v-icon>
-              </v-list-item-icon>
-              <v-list-item-title>墨书</v-list-item-title>
-            </v-list-item>
+            <v-col>
+              <v-list-item class="home" @click="">
+                <v-list-item-icon>
+                  <v-icon>mdi-home</v-icon>
+                </v-list-item-icon>
+                <v-list-item-title>墨书</v-list-item-title>
+              </v-list-item>
+            </v-col>
             <v-list-item @click="">
               <v-list-item-icon>
                 <v-icon>mdi-plus</v-icon>

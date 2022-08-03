@@ -108,4 +108,6 @@ import MemberTables from './MemberTables.vue'
     components: { MemberTables }
 }
 </script>
+<style>
+</style>
 
