@@ -50,7 +50,7 @@
         </template>
       </v-navigation-drawer>
       <v-main>
-          <v-list style="float: left" width="15%">
+          <!-- <v-list style="float: left" width="15%">
             <v-list-item-group
                 color="primary"
             >
@@ -71,8 +71,9 @@
                 </v-list-item-content>
               </v-list-item>
             </v-list-item-group>
-          </v-list>
-          <MemberManage></MemberManage>
+          </v-list> -->
+          <!-- <MemberManage></MemberManage> -->
+          <TeamMainVue></TeamMainVue>
       </v-main>
     </v-app>
   </div>
@@ -94,8 +95,9 @@ a{
 
 <script>
 import  MemberManage  from '../components/team/MemberManage.vue';
+import TeamMainVue from '@/components/team/TeamMain.vue';
 export default {
-  components: { MemberManage },
+  components: { MemberManage ,TeamMainVue},
   data: () => ({
 
   }),

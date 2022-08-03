@@ -1,111 +1,97 @@
 <template>
-    <v-container class="grey lighten-5">
-
+    <div style="width:1100px;margin: none;height: 600px;">
     <v-card
     class="mx-auto"
     width="300px"
-    style="float:left"
-    height="100vh"
+    style="float:left;height: 450px;"
     >
         <v-list dense>
         <v-subheader>成员管理</v-subheader>
-          <v-list-item-group
-              color="primary"
-          >
-            <v-list-item>
-                <v-list-item-icon>
-                <v-icon >mdi-account-group</v-icon>
-                </v-list-item-icon>
-                <v-list-item-content>
-                    <v-list-item-title >全部成员</v-list-item-title>
-                </v-list-item-content>
-            </v-list-item>
+        <v-list-item-group
+            color="primary"
+        >
+        <v-list-item>
+            <v-list-item-icon>
+            <v-icon >mdi-account-group</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+                <v-list-item-title @click="changeMemTable(1)">全部成员</v-list-item-title>
+            </v-list-item-content>
+        </v-list-item>
 
-            <v-list-item>
-                <v-list-item-icon>
-                <v-icon >mdi-account-tie</v-icon>
-                </v-list-item-icon>
-                <v-list-item-content>
-                    <v-list-item-title >管理员</v-list-item-title>
-                </v-list-item-content>
-            </v-list-item>
-          </v-list-item-group>
+        <v-list-item>
+            <v-list-item-icon>
+            <v-icon >mdi-account-tie</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+                <v-list-item-title @click="changeMemTable(2)">管理员</v-list-item-title>
+            </v-list-item-content>
+        </v-list-item>
+        </v-list-item-group>
         </v-list>
     </v-card>
     <v-card
     class="mx-auto"
     width="600px"
-    style="float:left; height: 100vh;"
+    style="float:left; height: 450px;"
     >
-    <MemberTables></MemberTables>
-    <!-- <v-card-title >全部成员</v-card-title>
-        <v-data-table
-        :headers="headers"
-        :items="desserts"
-        :items-per-page="5"
-        class="elevation-1"
-        style="margin:0%;height:auto"
-        ></v-data-table> -->
+    <MemberTables v-show="this.memTable==1"></MemberTables>
   </v-card>
-  </v-container>
+  
+   </div>
 </template>
 <script>
+import qs from 'qs'
 import MemberTables from './MemberTables.vue'
   export default {
     data() {
         return {
-            headers: [
-                {
-                    text: "昵称",
-                    align: "start",
-                    sortable: false,
-                    value: "nickname",
-                },
-                { text: "姓名", value: "name", sortable: false, },
-                { text: "邮箱", value: "email", sortable: false, },
-                { text: "身份", value: "identity", sortable: false, },
-            ],
-            desserts: [
-                {
-                    nickname: "Frozen Yogurt",
-                    name: "a",
-                    email: 6,
-                    identity: 24,
-                },
-                {
-                    nickname: "Ice cream sandwich",
-                    name: "b",
-                    email: 9,
-                    identity: 37,
-                },
-                {
-                    nickname: "Eclair",
-                    name: 262,
-                    email: 16,
-                    identity: 23,
-                },
-                {
-                    nickname: "Frozen Yogurt",
-                    name: 159,
-                    email: 6,
-                    identity: 24,
-                },
-                {
-                    nickname: "Ice cream sandwich",
-                    name: 237,
-                    email: 9,
-                    identity: 37,
-                },
-                {
-                    nickname: "Eclair",
-                    name: 262,
-                    email: 16,
-                    identity: 23,
-                },
-            ],
+            memTable:1,
         };
     },
-    components: { MemberTables }
+    components: { MemberTables },
+    computed:{
+        getTeamid(){
+            return this.$store.state.teamid
+        }
+    },
+    created(){
+        var name="vcdsacsacdsa"
+        // this.create_team(name)
+        this.get_team_info(5)
+        // var teamid = this.getTeamid
+        // console.log("团队id",this.getTeamid)
+        // this.get_team_info(teamid)
+    },
+    methods:{
+        changeMemTable(num){
+            this.memTable=num
+        },
+        get_team_info(teamid){
+            console.log("获取团队信息", teamid)
+            this.$axios({
+                method:'post',
+                url:'/team/get_team_info ',
+                data:qs.stringify({
+                    "teamID":5
+                })
+            }).then(res=>{
+                console.log("获取团队信息",res.data)
+            })
+        },
+        create_team(team_name){
+            console.log("团队名称", team_name)
+            this.$axios({
+                method:'post',
+                url:'team/create_team ',
+                data:qs.stringify({
+                    "team_name":team_name,
+                })
+            }).then(res=>{
+                console.log(res.data)
+            })
+        }
+    }
 }
 </script>
 <style>

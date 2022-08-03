@@ -1,200 +1,151 @@
-<!-- <template>
-  <div class="main">
-    <v-navigation-drawer class="left">
-      <v-container fluid style="height: 90px">
+<template>
+  <v-container>
+    <v-row class="text-center">
+      <v-col cols="12">
+        <v-img
+          :src="require('../assets/logo.svg')"
+          class="my-3"
+          contain
+          height="200"
+        />
+      </v-col>
+
+      <v-col class="mb-4">
+        <h1 class="display-2 font-weight-bold mb-3">
+          Welcome to Vuetify
+        </h1>
+
+        <p class="subheading font-weight-regular">
+          For help and collaboration with other Vuetify developers,
+          <br>please join our online
+          <a
+            href="https://community.vuetifyjs.com"
+            target="_blank"
+          >Discord Community</a>
+        </p>
+      </v-col>
+
+      <v-col
+        class="mb-5"
+        cols="12"
+      >
+        <h2 class="headline font-weight-bold mb-3">
+          What's next?
+        </h2>
+
         <v-row justify="center">
-          <v-menu bottom min-width="200px" rounded offset-y>
-            <template v-slot:activator="{ on }">
-              <v-btn icon x-large v-on="on">
-                <v-avatar>
-                  <img src="../assets/logo.png" alt="">
-                </v-avatar>
-                <v-content>
-                  <v-list-item-title>
-                    {{user.username}}
-                  </v-list-item-title>
-                  <v-list-item-subtitle>
-                    {{user.identity}}
-                  </v-list-item-subtitle>
-                </v-content>
-              </v-btn>
-            </template>
-            <v-card>
-              <v-list-item-content class="justify-center">
-                <div class="mx-auto text-center">
-                  <v-avatar>
-                    <img src="../assets/logo.png" alt="">
-                  </v-avatar>
-                  <h3>{{ user.exactname }}</h3>
-                  <p class="text-caption mt-1">
-                    {{ user.email }}
-                  </p>
-                  <v-divider class="my-3"></v-divider>
-                  <v-btn depressed rounded text>
-                    Edit Account
-                  </v-btn>
-                  <v-divider class="my-3"></v-divider>
-                  <v-btn depressed rounded text>
-                    Disconnect
-                  </v-btn>
-                </div>
-              </v-list-item-content>
-            </v-card>
-          </v-menu>
+          <a
+            v-for="(next, i) in whatsNext"
+            :key="i"
+            :href="next.href"
+            class="subheading mx-3"
+            target="_blank"
+          >
+            {{ next.text }}
+          </a>
         </v-row>
-      </v-container>
-      <v-divider />
-      <v-list>
-          <v-list-item class="home" @click="">
-            <v-list-item-icon>
-              <v-icon>mdi-home</v-icon>
-            </v-list-item-icon>
-            <v-list-item-title>首页</v-list-item-title>
-          </v-list-item>
-          <v-list-item @click="">
-            <v-list-item-icon>
-              <v-icon>mdi-plus</v-icon>
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title>新建</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-          <v-list-item @click="">
-            <v-list-item-icon>
-              <v-icon>mdi-folder-outline</v-icon>
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title>项目</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-          <v-list-item @click="">
-            <v-list-item-icon>
-              <v-icon>mdi-account-multiple-outline</v-icon>
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title>管理</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-          <v-list-item to="/about">
-            <v-list-item-icon>
-              <v-icon>mdi-information</v-icon>
-            </v-list-item-icon>
-            <v-list-item-title>关于</v-list-item-title>
-          </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
-    <v-content class="middle-1">
-      <v-text-field
-          v-model="search"
-          label="搜索项目"
-          hide-details
-          solo
-          prepend-inner-icon="mdi-magnify"
-          @keyup.enter="search"
-      ></v-text-field>
-      <v-list flat>
-        <v-list-item @click="">
-          <v-list-item-icon>
-            <v-icon>mdi-domain</v-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>已加入的企业</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-divider />
-        <v-list-item @click="">
-          <v-list-item-icon>
-            <v-icon>mdi-console</v-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>工作台</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item @click="">
-          <v-list-item-icon>
-            <v-icon>mdi-folder-plus</v-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>我创建的项目</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item @click="">
-          <v-list-item-icon>
-            <v-icon>mdi-account-group</v-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>我加入的项目</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-divider />
-        <v-list-item @click="">
-          <v-list-item-icon>
-            <v-icon>mdi-delete-empty</v-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>回收站</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-content>
-    <v-content class="middle-2">
-      <v-list flat>
-        <v-list-item @click="">
-          <v-list-item-icon>
-            <v-icon>mdi-account-cog</v-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>成员管理</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item @click>
-          <v-list-item-icon>
-            <v-icon>mdi-book-open-outline</v-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>操作日志</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-content>
-  </div>
+      </v-col>
+
+      <v-col
+        class="mb-5"
+        cols="12"
+      >
+        <h2 class="headline font-weight-bold mb-3">
+          Important Links
+        </h2>
+
+        <v-row justify="center">
+          <a
+            v-for="(link, i) in importantLinks"
+            :key="i"
+            :href="link.href"
+            class="subheading mx-3"
+            target="_blank"
+          >
+            {{ link.text }}
+          </a>
+        </v-row>
+      </v-col>
+
+      <v-col
+        class="mb-5"
+        cols="12"
+      >
+        <h2 class="headline font-weight-bold mb-3">
+          Ecosystem
+        </h2>
+
+        <v-row justify="center">
+          <a
+            v-for="(eco, i) in ecosystem"
+            :key="i"
+            :href="eco.href"
+            class="subheading mx-3"
+            target="_blank"
+          >
+            {{ eco.text }}
+          </a>
+        </v-row>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
-export default {
-  name: "FeatureHome",
-  data:() => ({
-    search: "",
-    user: {
-      username: "avavav",
-      exactname: "管理员",
-      email: "",
-      identity: "admin",
-    }
-  }),
-  methods: {
-  }
-}
-</script>
+  export default {
+    name: 'HelloWorld',
 
-<style scoped>
-.main {
-  display: block;
-  height: 100%;
-}
-.left {
-  width: 200px;
-  height: 100%;
-  background: #fafafa;
-}
-.middle-1 {
-  width: 200px;
-  height: 100%;
-  background: #fafafa;
-}
-.middle-2 {
-  width: 200px;
-  height: 100%;
-  background: #fafafa;
-}
-</style> -->
+    data: () => ({
+      ecosystem: [
+        {
+          text: 'vuetify-loader',
+          href: 'https://github.com/vuetifyjs/vuetify-loader',
+        },
+        {
+          text: 'github',
+          href: 'https://github.com/vuetifyjs/vuetify',
+        },
+        {
+          text: 'awesome-vuetify',
+          href: 'https://github.com/vuetifyjs/awesome-vuetify',
+        },
+      ],
+      importantLinks: [
+        {
+          text: 'Documentation',
+          href: 'https://vuetifyjs.com',
+        },
+        {
+          text: 'Chat',
+          href: 'https://community.vuetifyjs.com',
+        },
+        {
+          text: 'Made with Vuetify',
+          href: 'https://madewithvuejs.com/vuetify',
+        },
+        {
+          text: 'Twitter',
+          href: 'https://twitter.com/vuetifyjs',
+        },
+        {
+          text: 'Articles',
+          href: 'https://medium.com/vuetify',
+        },
+      ],
+      whatsNext: [
+        {
+          text: 'Explore components',
+          href: 'https://vuetifyjs.com/components/api-explorer',
+        },
+        {
+          text: 'Select a layout',
+          href: 'https://vuetifyjs.com/getting-started/pre-made-layouts',
+        },
+        {
+          text: 'Frequently Asked Questions',
+          href: 'https://vuetifyjs.com/getting-started/frequently-asked-questions',
+        },
+      ],
+    }),
+  }
+</script>

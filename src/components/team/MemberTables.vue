@@ -185,41 +185,7 @@
           identity: '管理员',
           level:1,
         },
-        {
-          nickname: 'Ice cream sandwich',
-          name: 237,
-          email: 9.0,
-          identity: '普通成员',
-          level:2,
-        },
-         {
-          nickname: 'Frozen Yogurt',
-          name: 159,
-          email: 6.0,
-          identity: '管理员',
-          level:1,
-        },
-        {
-          nickname: 'Ice cream sandwich',
-          name: 237,
-          email: 9.0,
-          identity: '普通成员',
-          level:2,
-        },
-         {
-          nickname: 'Frozen Yogurt',
-          name: 159,
-          email: 6.0,
-          identity: '管理员',
-          level:1,
-        },
-        {
-          nickname: 'Ice cream sandwich',
-          name: 237,
-          email: 9.0,
-          identity: '普通成员',
-          level:2,
-        },
+        
       ]
     },
 

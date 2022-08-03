@@ -6,6 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     identity:1,
+    teamid:0,
   },
   getters: {
   },

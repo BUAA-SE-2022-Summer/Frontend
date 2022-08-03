@@ -1,8 +1,9 @@
 <template>
   <div class="about">
 
-   <div style="width:1000px;background-color:antiquewhite; height: 2000px;">
-   <MemberManage></MemberManage>
+   <div style="width:100%;background-color:antiquewhite; height: 2000px;">
+   <!-- <MemberManage></MemberManage> -->
+   <TeamMainVue></TeamMainVue>
    </div>
    
 
@@ -10,7 +11,8 @@
 </template>
 <script>
 import MemberManage from "../components/team/MemberManage.vue";
+import TeamMainVue from "@/components/team/TeamMain.vue";
 export default {
-    components: { MemberManage }
+    components: { MemberManage ,TeamMainVue}
 }
 </script>
