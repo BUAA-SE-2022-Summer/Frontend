@@ -3,64 +3,40 @@
   <div class="main">
     <div class="part1">
       <div class="mobook_head">
-      <img src="../img/logo.png" style="position: absolute;top:0px;left:70px;width: 300px;height: 150px;border-color: white;border-width: 1px;margin-right: 50px;margin-top: 0px;">
-    </div>
-
-    <el-button v-if="this.iflogin!==1" type="info" round style="background-color: black;position: absolute;left:1300px;top:30px;color: white;" @click="login">登录/注册</el-button>
-    <el-popover
-        placement="top-start"
-        :title=this.username
-        width="200"
-        trigger="hover"
-        >
-      <img v-if="this.iflogin===1" :src="this.userhead" style="position: absolute;top:30px;left:1300px;width: 50px;height: 50px;border-radius: 50%;border-color: white;border-width: 1px;margin-right: 50px;margin-top: 10px" slot="reference">
-      <div>
-        <el-button type="info" @click="logout" round style="background-color: black;">退出登录</el-button>
+        <img src="../img/logo.png"
+          style="position: absolute;top:0px;left:70px;width: 300px;height: 150px;border-color: white;border-width: 1px;margin-right: 50px;margin-top: 0px;">
       </div>
-    </el-popover>
+
+      <el-button v-if="this.iflogin !== 1" type="info" round
+        style="background-color: black;position: absolute;left:1300px;top:30px;color: white;" @click="login">登录/注册
+      </el-button>
+      <el-popover placement="top-start" :title=this.username width="200" trigger="hover">
+        <img v-if="this.iflogin === 1" :src="this.userhead"
+          style="position: absolute;top:30px;left:1300px;width: 50px;height: 50px;border-radius: 50%;border-color: white;border-width: 1px;margin-right: 50px;margin-top: 10px"
+          slot="reference">
+        <div>
+          <el-button type="info" @click="logout" round style="background-color: black;">退出登录</el-button>
+        </div>
+      </el-popover>
     </div>
     <div class="cardPart">
-      <v-card
-      class="mx-auto"
-      max-width="400"
-    >
-      <v-btn
-          large
-          color="black"
-          style="background:#F06450;border: transparent;width: 100%;"
-          @click="toMain"
-        >
+      <v-card class="mx-auto" max-width="400">
+        <v-btn large color="black" style="background:#F06450;border: transparent;width: 100%;" @click="toMain">
           GO NOW
         </v-btn>
-       <v-btn
-          large
-          color="black"
-          style="background:#F28375;border: transparent;width: 100%;"
-        >
+        <v-btn large color="black" style="background:#F28375;border: transparent;width: 100%;">
           项目管理
-         </v-btn>
-       <v-btn
-          large
-          color="black"
-          style="background:#F8A39A;border: transparent;width: 100%;"
-        >
+        </v-btn>
+        <v-btn large color="black" style="background:#F8A39A;border: transparent;width: 100%;">
           原型设计
-         </v-btn>
-        <v-btn
-          large
-          color="black"
-          style="background:#FBC4BB;border: transparent;width: 100%;"
-        >
+        </v-btn>
+        <v-btn large color="black" style="background:#FBC4BB;border: transparent;width: 100%;">
           文档编辑
-         </v-btn>
-         <v-btn
-          large
-          color="black"
-          style="background:#FFE2E0;border: transparent;width: 100%;"
-        >
+        </v-btn>
+        <v-btn large color="black" style="background:#FFE2E0;border: transparent;width: 100%;">
           uml图绘制
-         </v-btn>
-    </v-card>
+        </v-btn>
+      </v-card>
     </div>
 
     <div class="part2">
@@ -71,35 +47,35 @@
     </div>
 
     <el-container>
-  <el-header>
-  </el-header>
-  <el-container>
-    <el-aside width="50%" >
-      <div style="margin-top:10px;width:450px;margin-left: 100px; height: 290px;">
-        <el-card :body-style="{ padding: '0px' }">
-        <img src="../img/welBack1.jpg" class="image">
-      </el-card>
-      </div>
-    </el-aside>
-    <el-main>Main</el-main>
-  </el-container>
+      <el-header>
+      </el-header>
+      <el-container>
+        <el-aside width="50%">
+          <div style="margin-top:10px;width:450px;margin-left: 100px; height: 290px;">
+            <el-card :body-style="{ padding: '0px' }">
+              <img src="../img/welBack1.jpg" class="image">
+            </el-card>
+          </div>
+        </el-aside>
+        <el-main>Main</el-main>
+      </el-container>
 
-   <el-container>
-    <el-main>Main</el-main>
-    <el-aside width="50%">
-      <div style="margin-top:10px;width:600px;margin-left:100px;">
-        <el-card :body-style="{ padding: '0px' }">
-        <img src="../img/welBack2.jpg" class="image">
-      </el-card>
-      </div>
-    </el-aside>
-  </el-container>
+      <el-container>
+        <el-main>Main</el-main>
+        <el-aside width="50%">
+          <div style="margin-top:10px;width:600px;margin-left:100px;">
+            <el-card :body-style="{ padding: '0px' }">
+              <img src="../img/welBack2.jpg" class="image">
+            </el-card>
+          </div>
+        </el-aside>
+      </el-container>
 
-</el-container>
+    </el-container>
     <!--<div class="top" style="position: absolute;top:20px;left:20px;font-size: 30px"><b>欢迎使用墨书</b></div>-->
 
-   <!-- 头部部分 -->
-   <!-- <div class="welcome-head">
+    <!-- 头部部分 -->
+    <!-- <div class="welcome-head">
 
     <div class="mobook_head">
       <img src="../img/logo.png" style="position: absolute;top:0px;left:70px;width: 200px;height: 100px;border-radius: 50%;border-color: white;border-width: 1px;margin-right: 50px;margin-top: 10px;">
@@ -124,7 +100,7 @@
     </div> -->
 
 
-  <!-- 头部结束 -->
+    <!-- 头部结束 -->
 
 
     <!-- <div class="zouma" style="position: absolute;top:130px;left:0px;width:100%;background-color: whitesmoke;height:350px;z-index: 1">
@@ -176,28 +152,28 @@
 <script>
 export default {
   name: "Welcome_page",
-  data(){
-    return{
-      iflogin:JSON.parse(sessionStorage.getItem('IfLogin')),
-      username:'',
+  data() {
+    return {
+      iflogin: JSON.parse(sessionStorage.getItem('IfLogin')),
+      username: '',
       userhead: '',
-      click_introduction:0
+      click_introduction: 0
     }
   },
   created() {
-      this.$axios.get('/user/get_user_info ').then(
-        res => {
-          this.username = res.data.data.username;
-          this.userhead = res.data.data.img;
-        }
+    this.$axios.get('/user/get_user_info ').then(
+      res => {
+        this.username = res.data.data.username;
+        this.userhead = res.data.data.img;
+      }
     );
   },
-  methods:{
-    freeuse(){
-      if(this.iflogin===0){
+  methods: {
+    freeuse() {
+      if (this.iflogin === 0) {
         this.$alert('请先进行登录/注册', '提示', {
           confirmButtonText: '确定',
-          type:'warning',
+          type: 'warning',
           callback: action => {
             this.$message({
               type: 'info',
@@ -207,27 +183,27 @@ export default {
         });
       }
     },
-    login(){
+    login() {
       this.$router.push('/login')
     },
-    toMain(){
-      if(this.login!=0){
-        this.$router.push('/dashboard')
+    toMain() {
+      if (this.login != 0) {
+        this.$router.push('/dashboard/demo/console')
       }
     },
-    clickintroduction(){
-      if(this.click_introduction===0){
-        this.click_introduction=1;
+    clickintroduction() {
+      if (this.click_introduction === 0) {
+        this.click_introduction = 1;
       }
-      else{
-        this.click_introduction=0;
+      else {
+        this.click_introduction = 0;
       }
     },
-    logout(){
-      this.iflogin=0;
-      sessionStorage.setItem('IfLogin',JSON.stringify(0));
+    logout() {
+      this.iflogin = 0;
+      sessionStorage.setItem('IfLogin', JSON.stringify(0));
     },
-    gouc(){
+    gouc() {
       this.$router.push('/true_user_center')
     }
   }
@@ -253,65 +229,68 @@ export default {
 
 
 /* 头部css设置 */
-.welcome-head{
+.welcome-head {
   background-color: white;
   position: absolute;
-  width:100%;
-  top:0px;
-  height:2000px;
-  left:0px;
+  width: 100%;
+  top: 0px;
+  height: 2000px;
+  left: 0px;
   /* background: url("../img/back3.jpg"); */
   background-size: cover;
   /* background-repeat: no-repeat; */
 }
 
 .el-aside {
-    background-color:white;
-    color: #333;
-    text-align: center;
-    line-height: 200px;
-    height: 300px;
-  }
-  .el-header{
-    color: white;
-    text-align: center;
-    line-height: 60px;
-  }
-  
-  .el-main {
-    background-color: white;
-    color: #333;
-    text-align: center;
-    line-height: 160px;
-    
-  }
-  body > .el-container {
-    margin-bottom: 40px;
-  }
-  
-  .el-container:nth-child(5) .el-aside,
-  .el-container:nth-child(6) .el-aside {
-    line-height: 260px;
-  }
-  
-  .el-container:nth-child(7) .el-aside {
-    line-height: 320px;
-  }
-  .image{
-    height: 250px;
-  }
-  
-.part1{
+  background-color: white;
+  color: #333;
+  text-align: center;
+  line-height: 200px;
+  height: 300px;
+}
+
+.el-header {
+  color: white;
+  text-align: center;
+  line-height: 60px;
+}
+
+.el-main {
+  background-color: white;
+  color: #333;
+  text-align: center;
+  line-height: 160px;
+
+}
+
+body>.el-container {
+  margin-bottom: 40px;
+}
+
+.el-container:nth-child(5) .el-aside,
+.el-container:nth-child(6) .el-aside {
+  line-height: 260px;
+}
+
+.el-container:nth-child(7) .el-aside {
+  line-height: 320px;
+}
+
+.image {
+  height: 250px;
+}
+
+.part1 {
   width: 100%;
   height: 150px;
   background: url("../assets/welBack2.jpg");
-  background-size:cover ;
+  background-size: cover;
 }
-.cardPart{
+
+.cardPart {
   width: 100%;
   height: 400px;
   background: url("../assets/welBack2.jpg");
-  background-size:cover ;
+  background-size: cover;
 }
-
 </style>
