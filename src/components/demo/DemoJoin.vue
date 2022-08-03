@@ -3,14 +3,14 @@
     <div class="home-header">
       <div class="home-header-left">
         <div class="home-header-left-title">
-          <span>星标项目</span>
+          <span>已加入的项目</span>
         </div>
       </div>
       <div class="home-header-right">
         <div class="home-header-right-img">
           <v-btn style="border-radius: 50%">
             <v-avatar size="40px" style="border-radius: 50%">
-              <img src="../assets/logo.png" alt="">
+              <img src="../../assets/logo.png" alt="">
             </v-avatar>
           </v-btn>
         </div>
@@ -124,15 +124,14 @@
       </button>
     </div>
     <div class="home-content">
-      <img src="../assets/empty-star.svg" class="empty-img empty-join-img" alt="">
+      <img src="../../assets/empty-join.svg" class="empty-img empty-join-img" alt="">
       <div class="empty-header">无项目</div>
-      <span class="empty-desc is-show">在项目上点击星标即可添加</span>
+      <span class="empty-desc is-show">快快邀请同事一起协作吧</span>
     </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from '../components/HelloWorld'
 
 export default {
   name: 'Home',

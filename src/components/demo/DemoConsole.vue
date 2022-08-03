@@ -3,14 +3,14 @@
     <div class="home-header">
       <div class="home-header-left">
         <div class="home-header-left-title">
-          <span>已加入的项目</span>
+          <span>我的工作台</span>
         </div>
       </div>
       <div class="home-header-right">
         <div class="home-header-right-img">
           <v-btn style="border-radius: 50%">
             <v-avatar size="40px" style="border-radius: 50%">
-              <img src="../assets/logo.png" alt="">
+              <img src="../../assets/logo.png" alt="">
             </v-avatar>
           </v-btn>
         </div>
@@ -105,7 +105,7 @@
             </template>
 
             <v-list-item @click="">
-              <v-list-item-icon>
+              <v-list-item-icon class="tit_1">
                 <v-icon>mdi-menu</v-icon>
               </v-list-item-icon>
               <v-list-item-title class="tit_1_1">图标</v-list-item-title>
@@ -124,34 +124,88 @@
       </button>
     </div>
     <div class="home-content">
-      <img src="../assets/empty-join.svg" class="empty-img empty-join-img" alt="">
-      <div class="empty-header">无项目</div>
-      <span class="empty-desc is-show">快快邀请同事一起协作吧</span>
+      <div v-if="active">
+        <img src="../../assets/empty-all.png" class="empty-img" alt="">
+        <div class="empty-header">点击下方模块快速创建</div>
+        <div class="create-button-wrapper">
+          <div class="dbieLX">
+            <ul class="createBox" style="width: 480px;">
+              <li data-type="prototype" data-disabled="no" class="create-box-item prototype" @click="create_1">
+              <span class="icon">
+                <img class="icon_1" src="../../assets/原型图.png" alt="">
+              </span>
+                <span class="name">原型图</span>
+              </li>
+              <li data-type="aboard" data-disabled="no" data-beta="false" class="create-box-item aboard">
+              <span class="icon">
+                <img class="icon_1" src="../../assets/UML图.png" alt="">
+              </span>
+                <span class="name">UML图</span>
+              </li>
+              <li data-type="profile" data-disabled="no" class="create-box-item profile">
+              <span class="icon">
+                <img class="icon_1" src="../../assets/文档.png" alt="">
+              </span>
+                <span class="name">文档</span>
+              </li>
+            </ul>
+            <input hidden multiple="" type="file" accept=".sketch">
+          </div>
+        </div>
+      </div>
+      <div class="list-group">
+        <div class="list-wrapper">
+          <ul class="list-group" style="list-style: none;margin: 0;padding: 0">
+            <button class="list-group-btn" @click="">
+              <li class="list-group-item" v-for="item in list">
+              <div class="list-group-item-wrapper">
+                  <span class="list-group-item-action">
+                    <img class="list-group-item-action-img" :src="item.img" alt="">
+                  </span>
+                <div class="list-group-item-title">
+                  <span class="list-group-item-title-text">{{item.name}}</span>
+                </div>
+              </div>
+            </li>
+            </button>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from '../components/HelloWorld'
 
 export default {
   name: 'Home',
   data() {
     return {
-      admins: [
-        ['成员管理', 'mdi-account-cog'],
-        ['操作日志', 'mdi-book-open-outline'],
-      ],
+      active: true,
+      list: [
+      ]
+    }
+  },
+  methods: {
+    create_1() {
+      this.list.push({
+        name: '原型图',
+        img: '../../assets/原型图.png'
+      })
+      if(this.list.length === 1) {
+        this.active = false
+      }
+      alert('test')
     }
   }
 }
 </script>
 <style scoped>
 .home {
-  width: 1060px;
+  width: 1096px;
   height: 167px;
   position: fixed;
-  top: 20px;
+  top: 2px;
   right: 0;
   border: 1px solid #ccc;
 }
@@ -165,7 +219,7 @@ export default {
   padding: 0 10px;
   box-shadow: 0 0 0 #e0e0e0;
   position: fixed;
-  top: 20px;
+  top: 2px;
   right: 0;
 }
 .home-header-left {
@@ -232,7 +286,6 @@ export default {
 }
 .tit_1_1 {
   text-align: left;
-  margin-left: 20px;
 }
 .home-content {
   display: flex;
@@ -242,8 +295,8 @@ export default {
   -webkit-box-align: center;
   align-items: center;
   position: fixed;
-  left: 60%;
-  top: 50%;
+  left: 42%;
+  top: 37%;
   transform: translateY(-80px);
 }
 .home-content .empty-header {
@@ -251,13 +304,86 @@ export default {
   line-height: 16px;
   color: rgb(31, 41, 46);
   margin-top: 8px;
+  margin-left: 150px;
   font-weight: 500;
 }
-.home-content .empty-desc.is-show {
+.home-content .empty-desc.is-hidden {
   font-size: 12px;
   line-height: 16px;
   margin-top: 8px;
   color: rgb(79, 79, 79);
   font-weight: 400;
+}
+.home-content .create-button-wrapper {
+  margin-top: 16px;
+}
+.home-content .empty-img {
+  margin-left: 176px;
+  width: 100px;
+  height: 100px;
+}
+.dbieLX .createBox {
+  width: 480px;
+  display: flex;
+  flex-wrap: wrap;
+  -webkit-box-pack: center;
+  justify-content: center;
+  margin-top: -10px;
+}
+.dbieLX .createBox > li {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.dbieLX .createBox > li .icon {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  width: 100px;
+  height: 80px;
+  border-radius: 8px;
+  background-color: rgb(242, 242, 242);
+}
+.dbieLX .createBox > li .icon .icon_1 {
+  width: 50%;
+  height: 50%;
+}
+.dbieLX .createBox > li .name {
+  font-size: 14px;
+  line-height: 16px;
+  margin-top: 12px;
+  color: rgb(91, 107, 115);
+}
+.list-group {
+  display: flex;
+}
+.list-group-btn {
+  display: flex;
+}
+.list-group-item {
+  margin-right: 52px;
+}
+.list-group-item-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 100px;
+  border-radius: 12px;
+  background-color: rgb(242, 242, 242);
+}
+.list-group-item-action-img {
+  width: 100%;
+  height: 100%;
+}
+.list-group-item-title {
+  text-align: center;
 }
 </style>

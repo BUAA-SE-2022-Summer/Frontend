@@ -3,14 +3,14 @@
     <div class="home-header">
       <div class="home-header-left">
         <div class="home-header-left-title">
-          <span>我的工作台</span>
+          <span>我创建的</span>
         </div>
       </div>
       <div class="home-header-right">
         <div class="home-header-right-img">
           <v-btn style="border-radius: 50%">
             <v-avatar size="40px" style="border-radius: 50%">
-              <img src="../assets/logo.png" alt="">
+              <img src="../../assets/logo.png" alt="">
             </v-avatar>
           </v-btn>
         </div>
@@ -124,7 +124,7 @@
       </button>
     </div>
     <div class="home-content">
-      <img src="../assets/empty-all.png" class="empty-img" alt="">
+      <img src="../../assets/empty-all.png" class="empty-img" alt="">
       <div class="empty-header">点击下方模块快速创建</div>
       <!--      <span class="empty-desc is-hidden">请调整上方筛选项</span>-->
       <div class="create-button-wrapper">
@@ -132,19 +132,19 @@
           <ul class="createBox" style="width: 480px;">
             <li data-type="prototype" data-disabled="no" class="create-box-item prototype">
               <span class="icon">
-                <img class="icon_1" src="../assets/原型图.png" alt="">
+                <img class="icon_1" src="../../assets/原型图.png" alt="">
               </span>
               <span class="name">原型图</span>
             </li>
             <li data-type="aboard" data-disabled="no" data-beta="false" class="create-box-item aboard">
               <span class="icon">
-                <img class="icon_1" src="../assets/UML图.png" alt="">
+                <img class="icon_1" src="../../assets/UML图.png" alt="">
               </span>
               <span class="name">UML图</span>
             </li>
             <li data-type="profile" data-disabled="no" class="create-box-item profile">
               <span class="icon">
-                <img class="icon_1" src="../assets/文档.png" alt="">
+                <img class="icon_1" src="../../assets/文档.png" alt="">
               </span>
               <span class="name">文档</span>
             </li>
@@ -175,7 +175,6 @@
 </template>
 
 <script>
-import HelloWorld from '../components/HelloWorld'
 
 export default {
   name: 'Home',

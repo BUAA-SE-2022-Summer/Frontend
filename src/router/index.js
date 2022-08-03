@@ -23,24 +23,46 @@ const routes = [
     path: '/dashboard',
     name: 'dashboard',
     component: Dashboard,
-    // child: [
-    //   {
-    //     path: '/dashboard/dashboard-1',
-    //     name: 'dashboard-1',
-    //     //component: () => import('../views/Dashboard-1.vue')
-    //   },
-    //   {
-    //     path: '/dashboard/dashboard-2',
-    //     name: 'dashboard-2',
-    //     //component: () => import('../views/Dashboard-2.vue')
-    //   },
-    // ]
+    children:[
+      {
+        path:'/dashboard/demo',
+        name:'demo',
+        component: () => import('../components/demo/DemoMain.vue'),
+        children: [
+          {
+            path: '/dashboard/demo/console',
+            name: 'console',
+            component: () => import('../components/demo/DemoConsole.vue')
+          },
+          {
+            path: '/dashboard/demo/create',
+            name: 'create',
+            component: () => import('../components/demo/DemoCreate.vue')
+          },
+          {
+            path: '/dashboard/demo/star',
+            name: 'star',
+            component: () => import('../components/demo/DemoStar.vue')
+          },
+          {
+            path: '/dashboard/demo/join',
+            name: 'join',
+            component: () => import('../components/demo/DemoJoin.vue')
+          },
+          {
+            path: '/dashboard/demo/trash',
+            name: 'trash',
+            component: () => import('../components/demo/DemoTrash.vue')
+          },
+        ]
+      },
+      {
+        path:'/dashboard/team',
+        name:'main',
+        component: () => import('../components/team/TeamMain.vue')
+      }
+    ]
   },
-  {
-    path: '/dashboard/demo',
-    name: 'demo',
-    component: () => import('../views/demo.vue')
-  }
 ]
 
 const router = new VueRouter({

@@ -10,7 +10,7 @@
         <div class="home-header-right-img">
           <v-btn style="border-radius: 50%">
             <v-avatar size="40px" style="border-radius: 50%">
-              <img src="../assets/logo.png" alt="">
+              <img src="../../assets/logo.png" alt="">
             </v-avatar>
           </v-btn>
         </div>
@@ -33,14 +33,13 @@
       </div>
     </div>
     <div class="home-content-2">
-      <img src="../assets/empty-join.svg" class="empty-img empty-join-img" alt="">
+      <img src="../../assets/empty-join.svg" class="empty-img empty-join-img" alt="">
       <div class="empty-header">无项目</div>
     </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from '../components/HelloWorld'
 
 export default {
   name: 'Home',
