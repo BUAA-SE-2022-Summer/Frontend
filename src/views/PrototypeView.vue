@@ -5,6 +5,14 @@
     <main>
       <!-- 左侧组件列表 -->
       <section class="left">
+        <section class="top">
+          <!-- <h3>页面列表</h3>
+          <ul>
+            <li v-for="page in pages">
+      
+            </li>
+          </ul> -->
+        </section>
         <ComponentList />
         <RealTimeComponentList />
       </section>
