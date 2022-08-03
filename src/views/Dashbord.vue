@@ -19,7 +19,7 @@
                 <v-list-item-title>新建</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
-            <router-link to="/dashboard/demo">
+            <router-link to="/dashboard/main">
               <v-list-item @click="">
                 <v-list-item-icon>
                   <v-icon>mdi-folder-outline</v-icon>
@@ -29,6 +29,7 @@
                 </v-list-item-content>
               </v-list-item>
             </router-link>
+             <router-link to="/dashboard/team">
             <v-list-item @click="">
               <v-list-item-icon>
                 <v-icon>mdi-account-multiple-outline</v-icon>
@@ -37,6 +38,7 @@
                 <v-list-item-title>管理</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
+            </router-link>
           </v-list-item-group>
         </v-list>
         <template v-slot:append>
