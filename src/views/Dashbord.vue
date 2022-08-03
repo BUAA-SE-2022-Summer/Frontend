@@ -48,30 +48,7 @@
         </template>
       </v-navigation-drawer>
       <v-main>
-          <!-- <v-list style="float: left" width="15%">
-            <v-list-item-group
-                color="primary"
-            >
-              <v-list-item @click="">
-                <v-list-item-icon>
-                  <v-icon>mdi-account-cog</v-icon>
-                </v-list-item-icon>
-                <v-list-item-content>
-                  <v-list-item-title>成员管理</v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-              <v-list-item @click="">
-                <v-list-item-icon>
-                  <v-icon>mdi-book-open-outline</v-icon>
-                </v-list-item-icon>
-                <v-list-item-content>
-                  <v-list-item-title>操作日志</v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </v-list-item-group>
-          </v-list> -->
-          <!-- <MemberManage></MemberManage> -->
-          <TeamMainVue></TeamMainVue>
+          <router-view/>
       </v-main>
     </v-app>
   </div>

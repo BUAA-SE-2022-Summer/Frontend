@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <v-app id="inspire">
-      <v-navigation-drawer app width="10%">
+      <!-- <v-navigation-drawer app width="10%">
         <v-list style="float: left" width="100%">
           <v-list-item-group
               color="primary">
@@ -46,7 +46,7 @@
             </v-avatar>
           </v-btn>
         </template>
-      </v-navigation-drawer>
+      </v-navigation-drawer> -->
       <v-main>
         <v-col>
             <v-list style="float: left" width="15%">

@@ -2,7 +2,6 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import Dashboard from '../views/Dashbord.vue'
-
 Vue.use(VueRouter)
 
 const routes = [
@@ -23,24 +22,24 @@ const routes = [
     path: '/dashboard',
     name: 'dashboard',
     component: Dashboard,
-    // child: [
-    //   {
-    //     path: '/dashboard/dashboard-1',
-    //     name: 'dashboard-1',
-    //     //component: () => import('../views/Dashboard-1.vue')
-    //   },
-    //   {
-    //     path: '/dashboard/dashboard-2',
-    //     name: 'dashboard-2',
-    //     //component: () => import('../views/Dashboard-2.vue')
-    //   },
-    // ]
+    children:[
+      {
+        path:'/dashboard/main',
+        name:'main',
+        component: () => import('../views/projectMain.vue')
+      },
+      {
+        path:'/dashboard/team',
+        name:'main',
+        component: () => import('../components/team/TeamMain.vue')
+      }
+    ]
   },
-  {
-    path: '/dashboard/demo',
-    name: 'demo',
-    component: () => import('../views/demo.vue')
-  }
+  // {
+  //   path: '/dashboard/demo',
+  //   name: 'demo',
+  //   component: () => import('../views/projectMain.vue')
+  // }
 ]
 
 const router = new VueRouter({
