@@ -13,22 +13,19 @@ const routes = [
     component: () => import('../views/Welcome_page')
   },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+    path: '/test',
+    name: 'test',
+    component: () => import('../views/test.vue')
   },
   {
     path: '/login',
     name: 'login',
-    component: () => import(/* webpackChunkName: "about" */ '../views/login_page')
+    component: () => import('../views/login_page')
   },
   {
-    path: '/rigister',
-    name: 'rigister',
-    component: () => import('../views/rigister_page')
+    path: '/register',
+    name: 'register',
+    component: () => import('../views/register_page')
   },
   {
     path: '/user_center',
@@ -103,3 +100,18 @@ const router = new VueRouter({
 })
 
 export default router
+
+// 白名单， 不需要验证的路由
+const whiteList = ['/', '/register', '/login']
+
+//全局验证的路由守卫
+router.beforeEach((to, from, next) => {
+  if (whiteList.indexOf(to.path) !== -1) {
+    // 放行，进入下一个路由
+    next()
+  } else if (!JSON.parse(sessionStorage.getItem('IfLogin'))) {
+    next('/');
+  } else {
+    next()
+  }
+})

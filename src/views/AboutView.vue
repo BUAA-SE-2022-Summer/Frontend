@@ -19,9 +19,7 @@
    <!-- <MemberManage></MemberManage> -->
    <TeamMainVue></TeamMainVue>
    </div>
-   
 
->>>>>>> FeatureHome
   </div>
 </template>
 <script>

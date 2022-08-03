@@ -1,63 +1,27 @@
 <template>
   <div id="div_1">
     <div style="width:100%;margin-top: 200px;">
-      <v-card
-      :loading="loading"
-      class="mx-auto my-12"
-      width="900px"
-    >
-      <v-card
-      :loading="loading"
-      class="mx-auto my-12"
-      width="450"
-      style="float:left;"
-    >
-      <v-img
-        height="600"
-        src="../img/loginback1.png"
-      ></v-img>
-    </v-card>
-      <v-card
-      :loading="loading"
-      class="mx-auto my-12"
-      width="450"
-      height="600px"
-      style="float:left;background-color: white;"
-    >
-    <div style="width:100%;height:200px;margin-top: 20px;">
-      <img src="../img/login.png" style="width:400px;margin-left: 15px;">
-    </div>
-    <div style="width:350px;margin-left:50px;margin-top: 50px;">
-      <v-text-field
-              v-model="form.username"
-              label="昵称"
-              outlined
-              clearable
-       ></v-text-field>
-       <v-text-field
-              v-model="form.password"
-              label="密码"
-              outlined
-              clearable
-         ></v-text-field>
-         <v-btn
-                x-large
-                dark
-                @click="login"
-              >
-                登录
-           </v-btn>
-          <v-btn
-                x-large
-                dark
-                @click="toRegister"
-              >
-                注册
-           </v-btn>
-    </div>
-    </v-card>
-    </v-card>
-    
+      <v-card class="mx-auto my-12" width="900px">
+        <v-card class="mx-auto my-12" width="450" style="float:left;">
+          <v-img height="600" src="../img/loginback1.png"></v-img>
+        </v-card>
+        <v-card class="mx-auto my-12" width="450" height="600px" style="float:left;background-color: white;">
+          <div style="width:100%;height:200px;margin-top: 20px;">
+            <img src="../img/login.png" style="width:400px;margin-left: 15px;">
+          </div>
+          <div style="width:350px;margin-left:50px;margin-top: 50px;">
+            <v-text-field v-model="form.username" label="昵称" outlined clearable></v-text-field>
+            <v-text-field v-model="form.password" label="密码" outlined clearable></v-text-field>
+            <v-btn x-large dark @click="login">
+              登录
+            </v-btn>
+            <v-btn x-large dark @click="toRegister">
+              注册
+            </v-btn>
+          </div>
+        </v-card>
+      </v-card>
+
     </div>
     <!-- <div id="login" class="login">
       <img class="bgbox" id="bgbox" alt="" src="../../src/img/星空4.jpg">
@@ -115,26 +79,26 @@ export default {
         method: 'post',           /* 指明请求方式，可以是 get 或 post */
         url: '/user/login',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
         data: qs.stringify({
-          username:this.form.username,
-          password:this.form.password
+          username: this.form.username,
+          password: this.form.password
         })
       })
-          .then(res => {/* res 是 response 的缩写 */
-            //获取用户登录的三个基本信息并存放于sessionStorage
-            if (res.data.errno === 0) {
-              this.$message.success("登录成功");
-              sessionStorage.setItem('IfLogin',JSON.stringify(1));
-              this.$router.push('/dashBoard/main');
-              //setTimeout(() => {
-              //window.open('/login', '_self');
-              //}, 1000);
-            } else {
-              this.$message.error(res.data.msg);
-            }
-          })
-          .catch(err => {
-            console.log(err);         /* 若出现异常则在终端输出相关信息 */
-          })
+        .then(res => {/* res 是 response 的缩写 */
+          //获取用户登录的三个基本信息并存放于sessionStorage
+          if (res.data.errno === 0) {
+            this.$message.success("登录成功");
+            sessionStorage.setItem('IfLogin', JSON.stringify(1));
+            this.$router.push('/dashBoard/main');
+            //setTimeout(() => {
+            //window.open('/login', '_self');
+            //}, 1000);
+          } else {
+            this.$message.error(res.data.msg);
+          }
+        })
+        .catch(err => {
+          console.log(err);         /* 若出现异常则在终端输出相关信息 */
+        })
     },
     toRegister: function () {
       // 跳转注册的路由
@@ -145,7 +109,7 @@ export default {
 </script>
 
 <style scoped>
-#div_0{
+#div_0 {
   width: 100%;
   height: 100%;
   border: 1px #1A4BAF;
@@ -153,7 +117,8 @@ export default {
   background-size: cover;
   background-attachment: fixed;
 }
-#div_1{
+
+#div_1 {
   width: 100%;
   height: 755px;
   background-color: white;
@@ -165,9 +130,11 @@ export default {
   font-family: 'Noto Serif SC', serif;
 
 }
-#login  .el-input__inner {
+
+#login .el-input__inner {
   font-family: 'Noto Serif SC', serif;
 }
+
 #login .bgbox {
   display: block;
   opacity: 1;
@@ -178,14 +145,16 @@ export default {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: opacity 1s,transform .25s,filter .25s;
+  transition: opacity 1s, transform .25s, filter .25s;
   backface-visibility: hidden;
 }
+
 #login .logo {
   cursor: pointer;
   overflow: hidden;
   height: 150px;
 }
+
 #login .wrap {
   width: 300px;
   height: 310px;
@@ -197,24 +166,28 @@ export default {
   top: 160px;
   border-radius: 20px;
 }
+
 #login .btn_login {
   margin-top: 25px;
   text-align: center;
 }
-#login .btn_login button{
+
+#login .btn_login button {
   line-height: 10px;
   font-family: 'Noto Serif SC', serif;
   width: 100%;
   height: 38px;
 }
+
 #login .suffix {
-  font-size:14px;
-  line-height:10px;
-  color:#999;
+  font-size: 14px;
+  line-height: 10px;
+  color: #999;
   cursor: pointer;
-  float:right;
+  float: right;
 }
-.left{
+
+.left {
   width: 900px;
   height: 1200px;
 }
