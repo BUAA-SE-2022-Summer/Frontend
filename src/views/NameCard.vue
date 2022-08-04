@@ -23,7 +23,7 @@
 </template>
 x
 <script>
-import Avatar from 'vue-avatar'
+// import Avatar from 'vue-avatar'
 
 export default {
     data: () => ({
@@ -39,7 +39,7 @@ export default {
         ],
     }),
     components: {
-        Avatar
+        // Avatar
     },
 
 
