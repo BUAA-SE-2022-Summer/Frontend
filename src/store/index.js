@@ -39,7 +39,6 @@ const data = {
         // 点击画布时是否点中组件，主要用于取消选中组件用。
         // 如果没点中组件，并且在画布空白处弹起鼠标，则取消当前组件的选中状态
         isClickComponent: false,
-        identity:null,//当前用户身份
     },
     mutations: {
         ...animation.mutations,
@@ -113,18 +112,4 @@ const data = {
     },
 }
 
-// export default new Vuex.Store(data)
-export default new Vuex.Store({
-  state: {
-    identity:1,
-    teamid:0,
-  },
-  getters: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
-  modules: {
-  }
-})
+export default new Vuex.Store(data)

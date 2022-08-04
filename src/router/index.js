@@ -43,7 +43,7 @@ const routes = [
     component: () => import('../views/true_user_center.vue')
   },
   {
-    path: '/dashboard/prototype',
+    path: '/prototype',
     name: 'prototype',
     component: prototype
   },
@@ -88,8 +88,8 @@ const routes = [
             component: () => import('../components/demo/DemoTrash.vue')
           },
           {
-            path:'/dashboard/demo/projectlist',
-            name:'projectlist',
+            path: '/dashboard/demo/projectlist',
+            name: 'projectlist',
             component: () => import('../components/demo/DemoProjectList')
           }
         ]
@@ -97,19 +97,19 @@ const routes = [
     ]
   },
   {
-    path:'/cp',
-    name:'cp',
-    component:() => import('../views/test_chooseprototype')
+    path: '/cp',
+    name: 'cp',
+    component: () => import('../views/test_chooseprototype')
   },
   {
-    path:'/ed',
-    name:'ed',
-    component:() => import('../views/editor_test')
+    path: '/ed',
+    name: 'ed',
+    component: () => import('../views/editor_test')
   },
   {
-    path:'/etc',
-    name:'etc',
-    component:() => import('../views/enterprise-card')
+    path: '/etc',
+    name: 'etc',
+    component: () => import('../views/enterprise-card')
   },
   {
     path: '/email',
@@ -132,16 +132,16 @@ const router = new VueRouter({
 export default router
 
 // 白名单， 不需要验证的路由
-const whiteList = ['/', '/register', '/login','/email']
+const whiteList = ['/', '/register', '/login', '/email']
 
 // 全局验证的路由守卫
-router.beforeEach((to, from, next) => {
-  if (whiteList.indexOf(to.path) !== -1) {
-    // 放行，进入下一个路由
-    next()
-  } else if (!JSON.parse(sessionStorage.getItem('IfLogin'))) {
-    next('/');
-  } else {
-    next()
-  }
-})
+// router.beforeEach((to, from, next) => {
+//   if (whiteList.indexOf(to.path) !== -1) {
+//     // 放行，进入下一个路由
+//     next()
+//   } else if (!JSON.parse(sessionStorage.getItem('IfLogin'))) {
+//     next('/');
+//   } else {
+//     next()
+//   }
+// })
