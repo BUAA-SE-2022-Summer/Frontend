@@ -16,6 +16,16 @@
           <v-list-item-group
               color="primary"
           >
+            <router-link to="/dashboard/demo/projectlist">
+              <v-list-item @click="">
+                <v-list-item-icon>
+                  <v-icon>mdi-console</v-icon>
+                </v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title>项目列表</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </router-link>
             <router-link to="/dashboard/demo/console">
               <v-list-item @click="">
                 <v-list-item-icon>
