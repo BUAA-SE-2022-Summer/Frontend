@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import prototype from '../views/PrototypeView.vue'
 import dashBoard from "../views/Dashboard.vue"
+import HomeView from '../views/HomeView.vue'
 
 Vue.use(VueRouter)
 
