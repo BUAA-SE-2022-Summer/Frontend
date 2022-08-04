@@ -1,13 +1,7 @@
 <template>
-  <div id="app">
-    <router-view/>
-  </div>
-<!--  <v-app>-->
-<!--    123-->
-<!--    <v-main>-->
-<!--      <router-view/>-->
-<!--    </v-main>-->
-<!--  </v-app>-->
+  <v-app>
+    <router-view />
+  </v-app>
 </template>
 
 <script>
