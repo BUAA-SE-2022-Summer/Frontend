@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import prototype from '../views/PrototypeView.vue'
 import dashBoard from "../views/Dashboard.vue"
-import HomeView from '../views/HomeView.vue'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -43,7 +43,7 @@ const routes = [
     component: () => import('../views/true_user_center.vue')
   },
   {
-    path: '/dashboard/prototype',
+    path: '/prototype',
     name: 'prototype',
     component: prototype
   },
@@ -88,8 +88,8 @@ const routes = [
             component: () => import('../components/demo/DemoTrash.vue')
           },
           {
-            path:'/dashboard/demo/projectlist',
-            name:'projectlist',
+            path: '/dashboard/demo/projectlist',
+            name: 'projectlist',
             component: () => import('../components/demo/DemoProjectList')
           }
         ]
@@ -97,19 +97,14 @@ const routes = [
     ]
   },
   {
-    path:'/cp',
-    name:'cp',
-    component:() => import('../views/test_chooseprototype')
+    path: '/cp',
+    name: 'cp',
+    component: () => import('../views/test_chooseprototype')
   },
   {
-    path:'/ed',
-    name:'ed',
-    component:() => import('../views/editor_test')
-  },
-  {
-    path:'/etc',
-    name:'etc',
-    component:() => import('../views/enterprise-card')
+    path: '/ed',
+    name: 'ed',
+    component: () => import('../views/editor_test')
   },
   {
     path: '/api/team/confirm_invitation',
@@ -132,7 +127,9 @@ const router = new VueRouter({
 export default router
 
 // 白名单， 不需要验证的路由
-const whiteList = ['/', '/register', '/login','/email','/api/team/confirm_invitation']
+
+const whiteList = ['/', '/register', '/login', '/email']
+
 
 // 全局验证的路由守卫
 router.beforeEach((to, from, next) => {

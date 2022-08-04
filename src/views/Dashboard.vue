@@ -4,8 +4,7 @@
       <v-list>
         <v-divider></v-divider>
         <v-list-item class="px-2">
-          <Avatar :username="user_info.username" :backgroundcolor="user_info.username" color="#fff"
-            style="vertical-align: middle;" :inline="true" />
+          头像
         </v-list-item>
         <v-list-item link>
           <v-list-item-content>
