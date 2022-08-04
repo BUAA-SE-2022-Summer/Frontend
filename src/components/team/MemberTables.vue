@@ -18,14 +18,13 @@
           ></v-divider>
           <v-spacer></v-spacer>
           <v-btn
-            color="blue-grey"
+            color="black"
             class="ma-2 white--text"
             @click="addMember"
           >
             添加新成员
             <v-icon
-            right
-            dark
+            color="pink"
             >
             mdi-plus
             </v-icon>
@@ -103,16 +102,20 @@
         </v-toolbar>
       </template>
       <template v-slot:item.actions="{ item }">
+        <span>修改权限</span>
         <v-icon
-          small
+          mid
           class="mr-2"
           @click="editItem(item)"
+          color="purple"
         >
           mdi-pencil
         </v-icon>
+        <span>删除成员</span>
         <v-icon
-          small
+          mid
           @click="deleteItem(item)"
+          color="red"
         >
           mdi-delete
         </v-icon>
@@ -177,6 +180,8 @@
   created () {
     // this.initialize()
     this.get_team_info(11)
+    this.teamid=sessionStorage.getItem('TeamID')
+    console.log("当前团队",this.teamid)
   },
 
   methods: {
@@ -223,6 +228,7 @@
     },
     //邀请成员请求
     invite_people(teamid, user_name){
+      teamid = sessionStorage.getItem('TeamID')
       this.$axios({
           method:'post',
           url:'/team/invite_member',
@@ -242,6 +248,7 @@
   //踢成员请求
   kick_member(teamid, user_name){
     var e=0
+    teamid = sessionStorage.getItem('TeamID')
     this.$axios({
           method:'post',
           url:'/team/kick_member',
@@ -302,6 +309,7 @@
       })
     },
     set_manager(teamid, user_name){
+      teamid = sessionStorage.getItem('TeamID')
       this.$axios({
           method:'post',
           url:'/team/set_manager',
@@ -318,6 +326,7 @@
       })
     },
     delete_manager(teamid, user_name){
+      teamid = sessionStorage.getItem('TeamID')
       console.log(teamid, user_name)
       this.$axios({
           method:'post',

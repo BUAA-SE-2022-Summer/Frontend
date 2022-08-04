@@ -24,6 +24,7 @@ import '@/styles/reset.css'
 import '@/styles/global.scss'
 import vuetify from '@/plugins/vuetify'
 import VueQuillEditor from 'vue-quill-editor'
+import Avatar from 'vue-avatar'
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
@@ -45,10 +46,11 @@ new Vue({
   axios,
   qs,
   vuetify,
+  Avatar,
   render: h => h(App),
-  data:()=>{
-    return{
-      user_info:{},
+  data: () => {
+    return {
+      user_info: {},
     }
   }
 }).$mount('#app')

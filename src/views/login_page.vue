@@ -102,6 +102,10 @@ export default {
           if (res.data.errno === 0) {
             this.$message.success("登录成功");
             sessionStorage.setItem('IfLogin', JSON.stringify(1));
+            this.$axios.get('/user/get_user_info ').then(
+              res => {
+                sessionStorage.setItem('user_info', JSON.stringify(res.data.data));
+              });
             this.$router.push('/dashboard/demo/console');
             //setTimeout(() => {
             //window.open('/login', '_self');
