@@ -8,6 +8,11 @@ Vue.use(VueRouter)
 
 const routes = [
   {
+    path: '/namecard',
+    name: 'namecard',
+    component: () => import('../views/NameCard')
+  },
+  {
     path: '/',
     name: 'welcome',
     component: () => import('../views/Welcome_page')
