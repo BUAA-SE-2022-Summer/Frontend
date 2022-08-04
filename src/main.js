@@ -13,6 +13,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import Vuetify from 'vuetify'
+
 import '@/custom-component' // 注册自定义组件
 
 // 引入全局样式
@@ -21,8 +22,11 @@ import '@/styles/animate.scss'
 import 'element-ui/lib/theme-chalk/index.css'
 import '@/styles/reset.css'
 import '@/styles/global.scss'
-import vuetify from './plugins/vuetify'
-
+import vuetify from '@/plugins/vuetify'
+import VueQuillEditor from 'vue-quill-editor'
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
 axios.defaults.baseURL = '/api'
 Vue.prototype.$axios = axios;
 Vue.prototype.$qs = qs
