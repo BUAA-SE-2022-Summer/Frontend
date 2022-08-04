@@ -2,21 +2,12 @@
   <div id="app">
     <v-app>
       <v-navigation-drawer>
-        <v-list style="float: left" width="90%" >
-          <v-text-field
-              v-model="search"
-              label="搜索项目"
-              hide-details
-              solo
-              prepend-inner-icon="mdi-magnify"
-              @keyup.enter="search"
-              style=" lightcoral;"
-          ></v-text-field>
+        <v-list style="float: left" width="90%">
+          <v-text-field v-model="search" label="搜索项目" hide-details solo prepend-inner-icon="mdi-magnify"
+            @keyup.enter="search" style=" lightcoral;"></v-text-field>
 
           <hr style="color:#000;">
-          <v-list-item-group
-              color="primary"
-          >
+          <v-list-item-group color="primary">
             <router-link to="/dashboard/demo/projectlist">
               <v-list-item @click="">
                 <v-list-item-icon>
@@ -41,7 +32,7 @@
               <v-list-item @click="">
                 <v-list-item-icon>
                   <v-icon large style="color: #4460EE;">mdi-folder-plus</v-icon>
-                </v-list-item-icon >
+                </v-list-item-icon>
                 <v-list-item-content>
                   <v-list-item-title>我创建的</v-list-item-title>
                 </v-list-item-content>
@@ -84,6 +75,7 @@
 a {
   text-decoration: none;
 }
+
 #app {
   width: 60%;
   height: 100%;
@@ -94,14 +86,14 @@ a {
 </style>
 
 <script>
-import DemoConsole  from "@/components/demo/DemoConsole";
+import DemoConsole from "@/components/demo/DemoConsole";
 import DemoJoin from "@/components/demo/DemoJoin";
 import DemoStar from "@/components/demo/DemoStar";
 import DemoTrash from "@/components/demo/DemoTrash";
 export default {
   components: { DemoConsole, DemoJoin, DemoStar, DemoTrash },
   data: () => ({
-
+    search: ""
   }),
   methods: {
     test() {
