@@ -66,6 +66,7 @@
                   mdi-plus
                 </v-icon>
               </v-btn>
+              <v-list-item-title v-on="on">新建</v-list-item-title>
             </template>
             <v-card>
               <v-card-title class="text-h5 grey lighten-2">
@@ -170,9 +171,9 @@
               </v-card>
             </v-card>
           </v-dialog>
-          <v-list-item-title>新建</v-list-item-title>
+
         </v-list-item>
-        <v-list-item link>
+        <v-list-item link to="/dashboard/demo/console">
           <v-btn class="mx-2" fab dark color="teal" small>
             <v-icon dark>
               mdi-folder
@@ -180,7 +181,7 @@
           </v-btn>
           <v-list-item-title>项目</v-list-item-title>
         </v-list-item>
-        <v-list-item link>
+        <v-list-item link to="/dashboard/team">
           <v-btn class="mx-2" fab dark color="teal" small>
             <v-icon>mdi-account-multiple</v-icon>
           </v-btn>
