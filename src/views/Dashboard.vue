@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <v-navigation-drawer app width="10%">
-      <v-list>
+    <v-navigation-drawer app expand-on-hover height="100vh" mini-variant-width="8.5vh">
+      <!-- <v-list>
         <v-list-item-group color="primary">
           <v-list-item class="home" @click="">
             <v-list-item-icon>
@@ -37,6 +37,45 @@
             </v-list-item>
           </router-link>
         </v-list-item-group>
+      </v-list> -->
+      <v-list>
+        <v-list-item class="px-2">
+          <v-list-item-avatar>
+            <v-img src="https://randomuser.me/api/portraits/women/85.jpg"></v-img>
+          </v-list-item-avatar>
+        </v-list-item>
+
+        <v-list-item link>
+          <v-list-item-content>
+            <v-list-item-title class="text-h6">
+              Sandra Adams
+            </v-list-item-title>
+            <v-list-item-subtitle>sandra_a88@gmail.com</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+
+      <v-divider></v-divider>
+
+      <v-list nav dense>
+        <v-list-item link>
+          <v-list-item-icon>
+            <v-icon>mdi-star</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>Starred</v-list-item-title>
+        </v-list-item>
+        <v-list-item link>
+          <v-list-item-icon>
+            <v-icon>mdi-folder</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>项目</v-list-item-title>
+        </v-list-item>
+        <v-list-item link>
+          <v-list-item-icon>
+            <v-icon>mdi-account-multiple</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>管理</v-list-item-title>
+        </v-list-item>
       </v-list>
       <template v-slot:append>
         <div>
