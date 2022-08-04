@@ -1,12 +1,17 @@
 <template>
 
-  <div class="main">
+  <div class="main" >
     <div class="part1">
+       <v-bottom-navigation v-model="value" style="height:90px" class="topBar">
+       <v-btn  value="recent">
+        <span style="color: black;font-size: large;">欢迎您加入墨书大家庭</span>
+  
+        <v-icon style="color: #F06450;">mdi-heart</v-icon>
+      </v-btn>
       <div class="mobook_head">
         <img src="../img/logo.png"
-          style="position: absolute;top:0px;left:70px;width: 300px;height: 150px;border-color: white;border-width: 1px;margin-right: 50px;margin-top: 0px;">
+          style="position: absolute;top:0px;left:70px;width: 180px;height: 90px;border-color: white;border-width: 1px;margin-right: 50px;margin-top: 0px;">
       </div>
-
       <el-button v-if="this.iflogin !== 1" type="info" round
         style="background-color: black;position: absolute;left:1300px;top:30px;color: white;" @click="login">登录/注册
       </el-button>
@@ -14,13 +19,16 @@
         <img v-if="this.iflogin === 1" :src="this.userhead"
           style="position: absolute;top:30px;left:1300px;width: 50px;height: 50px;border-radius: 50%;border-color: white;border-width: 1px;margin-right: 50px;margin-top: 10px"
           slot="reference">
-        <div>
+        <div >
           <el-button type="info" @click="gouc" round style="background-color: black;">进入个人中心</el-button>
-          <el-button type="info" @click="logout" round style="background-color: red;">退出登录</el-button>
+          <el-button type="info" @click="logout" round style="background-color: black;">退出登录</el-button>
         </div>
       </el-popover>
+      </v-bottom-navigation>
     </div>
-    <div class="cardPart">
+    <div class="part2">
+       <div class="left1" style="position:absolute;float:left;width: 500px;height: 800px;margin-top: 100px;">
+    <div class="left-bottom" style="width:100%;height:250px;">
       <v-card class="mx-auto" max-width="400">
         <v-btn large color="black" style="background:#F06450;border: transparent;width: 100%;" @click="toMain">
           GO NOW
@@ -38,115 +46,44 @@
           uml图绘制
         </v-btn>
       </v-card>
+      
+    </div>
+     <div class="left-bottom" style="width:100%;height:250px;">
+      <v-card class="mx-auto" max-width="400">
+         <img src="../assets/webPage.gif" style="width:400px">
+      </v-card>
+      
+    </div>
     </div>
 
-    <div class="part2">
-
+      <div class="left2" style="position:absolute;float:left;width: 400px;margin-left: 600px;">
+    <div class="left-top" style="width:100%;height:250px;margin-top: 130px;">
+        <v-card class="mx-auto" max-width="300px">
+          <img src="../assets/webPage3.gif" style="width:300px">
+        </v-card>
+      
     </div>
-    <div class="part3">
-
+    <div class="left-bottom" style="width:100%;height:300px;">
+      <v-card class="mx-auto" max-width="380px" >
+          <img src="../img/welBack2.jpg" style="width:380px">
+        </v-card>
     </div>
-
-    <el-container>
-      <el-header>
-      </el-header>
-      <el-container>
-        <el-aside width="50%">
-          <div style="margin-top:10px;width:450px;margin-left: 100px; height: 290px;">
-            <el-card :body-style="{ padding: '0px' }">
-              <img src="../img/welBack1.jpg" class="image">
-            </el-card>
-          </div>
-        </el-aside>
-        <el-main>Main</el-main>
-      </el-container>
-
-      <el-container>
-        <el-main>Main</el-main>
-        <el-aside width="50%">
-          <div style="margin-top:10px;width:600px;margin-left:100px;">
-            <el-card :body-style="{ padding: '0px' }">
-              <img src="../img/welBack2.jpg" class="image">
-            </el-card>
-          </div>
-        </el-aside>
-      </el-container>
-
-    </el-container>
-    <!--<div class="top" style="position: absolute;top:20px;left:20px;font-size: 30px"><b>欢迎使用墨书</b></div>-->
-
-    <!-- 头部部分 -->
-    <!-- <div class="welcome-head">
-
-    <div class="mobook_head">
-      <img src="../img/logo.png" style="position: absolute;top:0px;left:70px;width: 200px;height: 100px;border-radius: 50%;border-color: white;border-width: 1px;margin-right: 50px;margin-top: 10px;">
     </div>
-
-    <el-button v-if="this.iflogin!==1" type="info" round style="background-color: #f28f6e;position: absolute;left:1300px;top:50px" @click="login">登录/注册</el-button>
-
-      <el-popover
-          placement="top-start"
-          :title=this.username
-          width="200"
-          trigger="hover"
-          >
-        <img v-if="this.iflogin===1" :src="this.userhead" style="position: absolute;top:30px;left:1300px;width: 50px;height: 50px;border-radius: 50%;border-color: white;border-width: 1px;margin-right: 50px;margin-top: 10px" slot="reference" @click="gouc">
-        <div>
-          <el-button type="danger" @click="logout">退出登录</el-button>
-        </div>
-      </el-popover>
-    <img v-if="this.iflogin===1" :src="this.userhead" style="position: absolute;top:30px;left:1300px;width: 50px;height: 50px;border-radius: 50%;border-color: white;border-width: 1px;margin-right: 50px;margin-top: 10px">
-    <div v-if="this.iflogin===1" style="position: absolute;top:55px;left:1360px"><b>{{this.username}}</b></div>
-
-    </div> -->
-
-
-    <!-- 头部结束 -->
-
-
-    <!-- <div class="zouma" style="position: absolute;top:130px;left:0px;width:100%;background-color: whitesmoke;height:350px;z-index: 1">
-
-  <el-carousel indicator-position="outside" height="500px">
-    <el-carousel-item>
-      <img src="../img/走马灯1.jpg" width="100%" height="100%">
-    </el-carousel-item>
-    <el-carousel-item>
-      <img src="../img/走马灯1.jpg" width="100%" height="100%">
-    </el-carousel-item>
-  </el-carousel>
-      <div class="introduct" style="font-size: 30px;position: absolute;left:150px"><b>墨书——让产品设计更优雅</b></div>
-      <div><el-button type="info" style="position: absolute;height: 50px;width:100px;left:1200px" @click="freeuse">免费使用</el-button></div>
-
-    </div> -->
-
-
-    <!-- <div v-if="this.click_introduction===1" class="introduction_card" style="position: absolute;top:100px;left:210px;width: 600px;height:300px;z-index: 2">
-
-      <el-card class="box-card" style="position: absolute;height:300px">
-        <div slot="header" class="clearfix">
-          <span><b>墨书功能介绍</b></span>
-        </div>
-        <div>
-          作为一款简洁高效的在线合作办公设计软件，墨书包含以下功能
-        </div>
-        <div>
-          <img src="../img/项目管理.jpg" style="width: 100px;height: 80px;left:20px;position: absolute">
-        </div>
-        <div style="position: absolute;top:130px;left:130px"><b>项目管理</b></div>
-        <div>
-          <img src="../img/原型设计.jpg" style="width: 100px;height: 80px;left:240px;position: absolute">
-        </div>
-        <div style="position: absolute;top:130px;left:360px"><b>原型设计</b></div>
-        <div>
-          <img src="../img/uml.jpg" style="width: 100px;height: 80px;left:20px;position: absolute;top:200px">
-        </div>
-        <div style="position: absolute;top:220px;left:130px"><b>uml图绘制</b></div>
-        <div>
-          <img src="../img/文档编辑.jpg" style="width: 100px;height: 80px;left:240px;position: absolute;top:200px">
-        </div>
-        <div style="position: absolute;top:220px;left:360px"><b>文档编辑</b></div>
-      </el-card>
-    </div> -->
+    <div class="right" style="position:absolute;float:left;margin-left: 1000px;width: 800px;">
+    <div class="right-top" style="width:100%;height:240px;margin-top: 150px;">
+        <v-card class="mx-auto" max-width="300px" style="float:left">
+          <img src="../img/welBack1.jpg" style="width:300px">
+        </v-card>
+      
+    </div>
+    <div class="right-bottom" style="width:100%;height:350px;">
+          <v-card class="mx-auto" max-width="500px" style="float:left">
+          <img src="../assets/pages.png" style="width:500px">
+        </v-card>
+      
+    </div>
+    </div>
+    </div>
   </div>
 </template>
 
@@ -283,14 +220,26 @@ body>.el-container {
 
 .part1 {
   width: 100%;
-  height: 150px;
+  height: 100px;
   background: url("../assets/welBack2.jpg");
   background-size: cover;
 }
 
 .cardPart {
+  position: relative;
   width: 100%;
-  height: 400px;
+  height: 300px;
+  /* background: url("../assets/welBack2.jpg"); */
+  background-size: cover;
+}
+.part2{
+  position: relative;
+  width: 100%;
+  height: 1000px;
+  background: url("../assets/welBack2.jpg");
+  background-size: cover;
+}
+.topBar{
   background: url("../assets/welBack2.jpg");
   background-size: cover;
 }
