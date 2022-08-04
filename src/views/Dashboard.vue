@@ -514,9 +514,10 @@ export default {
     },
     createproject(){
       console.log(this.input2);
+      console.log(this.teamid);
       this.$axios({
         method: 'post',           /* 指明请求方式，可以是 get 或 post */
-        url: '/team/create_team',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
+        url: '/project/create_project',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
         data: qs.stringify({
           project_name:this.input2,
           project_desc:'',
@@ -525,6 +526,7 @@ export default {
       })
           .then(res => {/* res 是 response 的缩写 */
             if (res.data.errno === 0) {
+              console.log(res.data.projectID);
               this.$message.success("项目创建成功");
               this.operatenum = 0;
             } else {
