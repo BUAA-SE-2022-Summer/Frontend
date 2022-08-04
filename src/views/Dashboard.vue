@@ -59,21 +59,131 @@
 
       <v-list nav dense>
         <v-list-item link>
-          <v-list-item-icon>
-            <v-icon>mdi-star</v-icon>
-          </v-list-item-icon>
-          <v-list-item-title>Starred</v-list-item-title>
+          <v-dialog v-model="dialog" width="700">
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn class="mx-2" fab dark color="indigo" small v-bind="attrs" v-on="on">
+                <v-icon dark>
+                  mdi-plus
+                </v-icon>
+              </v-btn>
+            </template>
+            <v-card>
+              <v-card-title class="text-h5 grey lighten-2">
+                上帝说要有光
+              </v-card-title>
+              <v-card class="mx-auto" max-width="700">
+
+                <v-container fluid>
+                  <v-row dense>
+                    <v-col :cols="6">
+                      <v-card>
+                        <v-img :src="'https://cdn.vuetifyjs.com/images/cards/house.jpg'" class="white--text align-end"
+                          gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)" height="200px">
+                          <v-card-title>新建团队</v-card-title>
+                        </v-img>
+
+                        <v-card-actions>
+                          <v-spacer></v-spacer>
+                          <v-btn class="ma-2" color="primary" dark>
+                            Create Team
+                            <v-icon dark right>
+                              mdi-checkbox-marked-circle
+                            </v-icon>
+                          </v-btn>
+                        </v-card-actions>
+                      </v-card>
+                    </v-col>
+                    <v-col :cols="6">
+                      <v-card>
+                        <v-img :src="'https://cdn.vuetifyjs.com/images/cards/house.jpg'" class="white--text align-end"
+                          gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)" height="200px">
+                          <v-card-title>新建项目</v-card-title>
+                        </v-img>
+
+                        <v-card-actions>
+                          <v-spacer></v-spacer>
+                          <v-btn class="ma-2" color="primary" dark>
+                            Create Project
+                            <v-icon dark right>
+                              mdi-checkbox-marked-circle
+                            </v-icon>
+                          </v-btn>
+                        </v-card-actions>
+                      </v-card>
+                    </v-col>
+                    <v-col :cols="4">
+                      <v-card>
+                        <v-img :src="'https://cdn.vuetifyjs.com/images/cards/road.jpg'" class="white--text align-end"
+                          gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)" height="200px">
+                          <v-card-title>新建原型图</v-card-title>
+                        </v-img>
+
+                        <v-card-actions>
+                          <v-spacer></v-spacer>
+                          <v-btn class="ma-2" color="primary" dark>
+                            Prototype
+                            <v-icon dark right>
+                              mdi-checkbox-marked-circle
+                            </v-icon>
+                          </v-btn>
+                        </v-card-actions>
+                      </v-card>
+                    </v-col>
+                    <v-col :cols="4">
+                      <v-card>
+                        <v-img :src="'https://cdn.vuetifyjs.com/images/cards/plane.jpg'" class="white--text align-end"
+                          gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)" height="200px">
+                          <v-card-title>新建UML类图</v-card-title>
+                        </v-img>
+
+                        <v-card-actions>
+                          <v-spacer></v-spacer>
+                          <v-btn class="ma-2" color="primary" dark>
+                            UML
+                            <v-icon dark right>
+                              mdi-checkbox-marked-circle
+                            </v-icon>
+                          </v-btn>
+                        </v-card-actions>
+                      </v-card>
+                    </v-col>
+                    <v-col :cols="4">
+                      <v-card>
+                        <v-img :src="'https://cdn.vuetifyjs.com/images/cards/plane.jpg'" class="white--text align-end"
+                          gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)" height="200px">
+                          <v-card-title>新建文档</v-card-title>
+                        </v-img>
+
+                        <v-card-actions>
+                          <v-spacer></v-spacer>
+                          <v-btn class="ma-2" color="primary" dark>
+                            Docs
+                            <v-icon dark right>
+                              mdi-checkbox-marked-circle
+                            </v-icon>
+                          </v-btn>
+                        </v-card-actions>
+                      </v-card>
+                    </v-col>
+                  </v-row>
+                </v-container>
+              </v-card>
+            </v-card>
+          </v-dialog>
+          <v-list-item-title>新建</v-list-item-title>
         </v-list-item>
         <v-list-item link>
-          <v-list-item-icon>
-            <v-icon>mdi-folder</v-icon>
-          </v-list-item-icon>
+          <v-btn class="mx-2" fab dark color="teal" small>
+            <v-icon dark>
+              mdi-folder
+            </v-icon>
+          </v-btn>
           <v-list-item-title>项目</v-list-item-title>
         </v-list-item>
         <v-list-item link>
-          <v-list-item-icon>
+          <v-btn class="mx-2" fab dark color="teal" small>
             <v-icon>mdi-account-multiple</v-icon>
-          </v-list-item-icon>
+          </v-btn>
           <v-list-item-title>管理</v-list-item-title>
         </v-list-item>
       </v-list>
