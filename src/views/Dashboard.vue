@@ -25,6 +25,7 @@
                 <v-list-item-title>项目</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
+<<<<<<< HEAD
           </router-link>
           <router-link to="/dashboard/team">
             <v-list-item>

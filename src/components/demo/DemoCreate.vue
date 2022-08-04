@@ -124,9 +124,10 @@
       </button>
     </div>
     <div class="home-content">
+      <!--
       <img src="../../assets/empty-all.png" class="empty-img" alt="">
       <div class="empty-header">点击下方模块快速创建</div>
-      <!--      <span class="empty-desc is-hidden">请调整上方筛选项</span>-->
+         <span class="empty-desc is-hidden">请调整上方筛选项</span>
       <div class="create-button-wrapper">
         <div class="dbieLX">
           <ul class="createBox" style="width: 480px;">
@@ -169,7 +170,34 @@
             </v-col>
           </ul>
         </div>
-      </div>
+      </div>-->
+      <el-table
+          :data="this.txts"
+          height="400"
+          border
+          stripe
+          style="width: 800px;left:-50px;top:30px" @cell-click="findtxt">
+        <el-table-column
+            prop="file_name"
+            label="文件名"
+            width="200">
+        </el-table-column>
+        <el-table-column
+            prop="last_modify_time"
+            label="最后编辑时间"
+            width="200">
+        </el-table-column>
+        <el-table-column
+            prop="fileID"
+            label="文件id"
+            width="200">
+        </el-table-column>
+        <el-table-column
+            prop="file_type"
+            label="文件类型"
+            width="200">
+        </el-table-column>
+      </el-table>
     </div>
   </div>
 
@@ -177,6 +205,8 @@
 </template>
 
 <script>
+
+import qs from "qs";
 
 export default {
   name: 'Home',
@@ -195,8 +225,56 @@ export default {
           name: '文档',
           img: '../assets/文档.png',
         }
-      ]
+      ],
+      txts:[],
+      projectid:0,
     }
+  },
+  created() {
+    this.projectid = sessionStorage.getItem('ProjectID');
+    this.$axios({
+      method: 'post',           /* 指明请求方式，可以是 get 或 post */
+      url: '/file/get_my_filelist',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
+      data: qs.stringify({
+        projectID:this.projectid,
+      })
+    })
+        .then(res => {/* res 是 response 的缩写 */
+          if (res.data.errno === 0) {
+            this.txts=res.data.my_file_list;
+            this.$message.success("获取文件列表成功");
+          } else {
+            this.$message.error(res.data.msg);
+          }
+        })
+        .catch(err => {
+          console.log(err);         /* 若出现异常则在终端输出相关信息 */
+        });
+  },
+  methods:{
+    findtxt(row,column,cell,event){
+      console.log(row.fileID);
+      this.$axios({
+        method: 'post',           /* 指明请求方式，可以是 get 或 post */
+        url: '/file/read_file',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
+        data: qs.stringify({
+          fileID:row.fileID,
+        })
+      })
+          .then(res => {/* res 是 response 的缩写 */
+            //获取用户登录的三个基本信息并存放于sessionStorage
+            if (res.data.errno === 0) {
+              this.$message.success("打开成功");
+              sessionStorage.setItem('now_textid',JSON.stringify(res.data.fileID));
+              this.$router.push('/ed');
+            } else {
+              this.$message.error(res.data.msg);
+            }
+          })
+          .catch(err => {
+            console.log(err);         /* 若出现异常则在终端输出相关信息 */
+          })
+    },
   }
 }
 </script>

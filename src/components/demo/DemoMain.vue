@@ -42,7 +42,7 @@
                   <v-icon>mdi-folder-plus</v-icon>
                 </v-list-item-icon>
                 <v-list-item-content>
-                  <v-list-item-title>我创建的项目</v-list-item-title>
+                  <v-list-item-title>我创建的</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
             </router-link>
@@ -52,7 +52,7 @@
                   <v-icon>mdi-star</v-icon>
                 </v-list-item-icon>
                 <v-list-item-content>
-                  <v-list-item-title>星标项目</v-list-item-title>
+                  <v-list-item-title>星标</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
             </router-link>
