@@ -16,7 +16,7 @@
         </div>
       </el-card>
     </div>
-    <div class="edit_container" style="position: absolute;width: 800px;left:400px;">
+    <div class="edit_container" style="position:absolute;width: 800px;left:400px;">
       <!--  新增时输入 -->
       <quill-editor
           class="ql-editor"
@@ -30,7 +30,10 @@
       <!--<div v-html="str" class="ql-editor">
         {{str}}
       </div>-->
-      <div><v-btn style="background-color: rgba(255, 255, 255, 0.85);position: absolute;top:60px;left:650px" @click="savetext">保存文档</v-btn></div>
+      <div>
+        <v-btn style="background-color: rgba(255, 255, 255, 0.85);top:60px;left:650px" @click="savetext">保存文档</v-btn>
+        <v-btn style="background-color:  red;top:60px;left:350px" @click="delete2">删除当前文档</v-btn>
+      </div>
     </div>
     <div>
       <el-table
@@ -38,7 +41,7 @@
           height="450"
           border
           stripe
-          style="width: 320px;position: absolute;left:1200px;top:30px" @cell-click="find">
+          style="position:absolute;width: 320px;left:1200px;top:30px" @cell-click="find">
         <el-table-column
             prop="file_name"
             label="文档名"
@@ -223,6 +226,27 @@ export default {
             console.log(err);         /* 若出现异常则在终端输出相关信息 */
           })
     },
+    delete2(){
+      this.$axios({
+        method: 'post',           /* 指明请求方式，可以是 get 或 post */
+        url: '/file/delete_file',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
+        data: qs.stringify({
+          fileID:this.now_id,
+        })
+      })
+          .then(res => {/* res 是 response 的缩写 */
+            //获取用户登录的三个基本信息并存放于sessionStorage
+            if (res.data.errno === 0) {
+              this.$message.success("删除成功");
+              this.$router.push('/dashboard/demo/console')
+            } else {
+              this.$message.error(res.data.msg);
+            }
+          })
+          .catch(err => {
+            console.log(err);         /* 若出现异常则在终端输出相关信息 */
+          })
+    },
     createtext(){
       this.$axios({
         method: 'post',           /* 指明请求方式，可以是 get 或 post */
@@ -279,7 +303,7 @@ export default {
     //this.content = this.inside;  // 请求后台返回的内容字符串
     //this.content = JSON.parse(sessionStorage.getItem('now_textinside'));
     this.str = this.escapeStringHTML(this.content);
-  }
+  },
 }
 </script>
 <style>
