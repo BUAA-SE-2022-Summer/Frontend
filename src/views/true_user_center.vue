@@ -2,8 +2,8 @@
   <div>
     <div class="banner" style="position: fixed;z-index: 9999;width: 100%;height:60px;background-color: ghostwhite">
       <div class="mobook_head">
-        <img src="../img/墨书头.png"
-             style="position: absolute;top:0px;left:70px;width: 40px;height: 40px;border-radius: 50%;border-color: white;border-width: 1px;margin-right: 50px;margin-top: 10px"
+        <img src="../img/logo.png"
+             style="position: absolute;top:0px;left:70px;width: 70px;height: 40px;border-radius: 50%;border-color: white;border-width: 1px;margin-right: 50px;margin-top: 10px"
              @click="returnwelcome">
       </div>
       <div class="name" style="position: absolute;top:15px;left:130px;font-size: 20px"><b>墨书</b></div>
