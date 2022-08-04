@@ -178,24 +178,24 @@
         </div>
       </div>
       <div v-else>
-        <v-row class="fill-height" align="center" justify="center">
-          <template v-for="(item, i) in items">
+        <!--<v-row class="fill-height" align="center" justify="center">
+          <template v-for="(item, i) in txts">
             <v-col :key="i" cols="12" md="3">
               <v-hover v-slot="{ hover }">
                 <v-card :elevation="hover ? 12 : 2" :class="{ 'on-hover': hover }" style="padding: 0 0 0 0;">
-                  <v-img :src="item.img" width="250px" height="225px" style="border-radius: 10px;">
+                  <v-img :src="this.stayurl" width="250px" height="225px" style="border-radius: 10px;">
                     <v-card-title class="text-h6 white--text">
                       <v-row class="fill-height flex-column" justify="space-between">
                         <p class="mt-4 subheading text-left">
-                          {{ item.title }}
+                           文档
                         </p>
 
                         <div>
                           <p class="ma-0 text-body-1 font-weight-bold font-italic text-left">
-                            {{ item.text }}
+                            {{ item.file_name }}
                           </p>
                           <p class="text-caption font-weight-medium font-italic text-left">
-                            {{ item.subtext }}
+                            {{ item.last_modify_time}}
                           </p>
                         </div>
 
@@ -214,7 +214,29 @@
               </v-hover>
             </v-col>
           </template>
-        </v-row>
+        </v-row>-->
+        <el-table
+            :data="this.txts"
+            height="400"
+            border
+            stripe
+            style="width: 600px;left:0px;top:30px" @cell-click="findtxt">
+          <el-table-column
+              prop="file_name"
+              label="文档名"
+              width="200">
+          </el-table-column>
+          <el-table-column
+              prop="last_modify_time"
+              label="最后编辑时间"
+              width="200">
+          </el-table-column>
+          <el-table-column
+              prop="fileID"
+              label="文档id"
+              width="200">
+          </el-table-column>
+        </el-table>
       </div>
       <!--        <div class="list-group">-->
       <!--          <div class="list-wrapper">-->
@@ -239,6 +261,8 @@
 </template>
 
 <script>
+
+import qs from "qs";
 
 export default {
   name: 'Home',
@@ -292,8 +316,32 @@ export default {
           img: 'https://images.unsplash.com/photo-1542320868-f4d80389e1c4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=3750&q=80',
         },
       ],
+      stayurl:'https://images.unsplash.com/photo-1542320868-f4d80389e1c4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=3750&q=80',
+      txts:[],
       transparent: 'rgba(255, 255, 255, 0)',
+      projectid:0,
     }
+  },
+  created() {
+    this.projectid = sessionStorage.getItem('ProjectID');
+    this.$axios({
+      method: 'post',           /* 指明请求方式，可以是 get 或 post */
+      url: '/file/project_root_filelist',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
+      data: qs.stringify({
+        projectID:this.projectid,
+      })
+    })
+        .then(res => {/* res 是 response 的缩写 */
+          if (res.data.errno === 0) {
+            this.txts=res.data.filelist;
+            this.$message.success("获取文件列表成功");
+          } else {
+            this.$message.error(res.data.msg);
+          }
+        })
+        .catch(err => {
+          console.log(err);         /* 若出现异常则在终端输出相关信息 */
+        });
   },
   // created() {
   //   this.$axios({
@@ -313,6 +361,29 @@ export default {
   //     })
   // },
   methods: {
+    findtxt(row,column,cell,event){
+      console.log(row.fileID);
+      this.$axios({
+        method: 'post',           /* 指明请求方式，可以是 get 或 post */
+        url: '/file/read_file',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
+        data: qs.stringify({
+          fileID:row.fileID,
+        })
+      })
+          .then(res => {/* res 是 response 的缩写 */
+            //获取用户登录的三个基本信息并存放于sessionStorage
+            if (res.data.errno === 0) {
+              this.$message.success("打开成功");
+              sessionStorage.setItem('now_textid',JSON.stringify(res.data.fileID));
+              this.$router.push('/ed');
+            } else {
+              this.$message.error(res.data.msg);
+            }
+          })
+          .catch(err => {
+            console.log(err);         /* 若出现异常则在终端输出相关信息 */
+          })
+    },
     create_1() {
       this.list.push({
         name: '原型图',

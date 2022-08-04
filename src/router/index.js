@@ -38,6 +38,7 @@ const routes = [
     component: () => import('../views/user_center')
   },
   {
+
     path: '/true_user_center',
     name: 'true_user_center',
     component: () => import('../views/true_user_center')
@@ -87,9 +88,29 @@ const routes = [
             name: 'trash',
             component: () => import('../components/demo/DemoTrash.vue')
           },
+          {
+            path:'/dashboard/demo/projectlist',
+            name:'projectlist',
+            component: () => import('../components/demo/DemoProjectList')
+          }
         ]
       }
     ]
+  },
+  {
+    path:'/cp',
+    name:'cp',
+    component:() => import('../views/test_chooseprototype')
+  },
+  {
+    path:'/ed',
+    name:'ed',
+    component:() => import('../views/editor_test')
+  },
+  {
+    path:'/etc',
+    name:'etc',
+    component:() => import('../views/enterprise-card')
   }
 ]
 // {
