@@ -3,7 +3,7 @@
     <v-list v-if="items.length !== 0">
       <v-list-item two-line v-for="(item, i) in items" :key="i" @click="changeCurrentTeamID(item)">
         <v-list-item-icon>
-          <Avatar :username="team_info.team_name" :backgroundcolor="team_info.team_name" color="#fff"
+          <Avatar :username="items.team_name" :backgroundcolor="items.team_name" color="#fff"
             style="vertical-align: middle;" :inline="true" />
         </v-list-item-icon>
         &nbsp;&nbsp;&nbsp;&nbsp;
@@ -42,7 +42,9 @@ export default {
   },
   methods: {
     changeCurrentTeamID(item) {
-      sessionStorage.setItem('team_info', item)
+      sessionStorage.setItem('Team', item)
+      sessionStorage.setItem('ProjectID', JSON.stringify(0));
+      window.location.reload();
     }
   }
 }

@@ -202,8 +202,7 @@ export default {
     Avatar,
   },
   data: () => ({
-    user_info: JSON.parse(sessionStorage.getItem("user_info")),
-    team_info: JSON.parse(sessionStorage.getItem("team_info")),
+    user_info: JSON.parse(sessionStorage.getItem('user_info')),
   }),
   methods: {
     test() {
