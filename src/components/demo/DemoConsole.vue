@@ -220,10 +220,10 @@
             height="400"
             border
             stripe
-            style="width: 600px;left:0px;top:30px" @cell-click="findtxt">
+            style="width: 800px;left:-200px;top:30px" @cell-click="findtxt">
           <el-table-column
               prop="file_name"
-              label="文档名"
+              label="文件名"
               width="200">
           </el-table-column>
           <el-table-column
@@ -233,7 +233,12 @@
           </el-table-column>
           <el-table-column
               prop="fileID"
-              label="文档id"
+              label="文件id"
+              width="200">
+          </el-table-column>
+          <el-table-column
+              prop="file_type"
+              label="文件类型"
               width="200">
           </el-table-column>
         </el-table>
