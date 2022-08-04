@@ -93,74 +93,50 @@
         </el-popover>
       </v-bottom-navigation>
     </div>
-    <div class="part2">
-      <div class="left1" style="position:absolute;float:left;width: 500px;height: 800px;margin-top: 100px;">
-        <div class="left-bottom" style="width:100%;height:250px;">
-          <v-card class="mx-auto" max-width="400">
+   <!-- 邀请部分 -->
+   <div style="width:100%;height: 600px;">
 
-            <v-btn v-if="this.iflogin !== 1" large style="background:#F06450;border: transparent;width: 100%;"
-              @click="login">
-              免费使用
-            </v-btn>
-            <v-btn v-else large style="background:#F06450;border: transparent;width: 100%;" @click="toMain">
-              进入工作台
-            </v-btn>
-            <v-btn large style="background:#F28375;border: transparent;width: 100%;">
-              项目管理
-            </v-btn>
-            <v-btn large style="background:#F8A39A;border: transparent;width: 100%;">
-              原型设计
-            </v-btn>
-            <v-btn large style="background:#FBC4BB;border: transparent;width: 100%;">
-              文档编辑
-            </v-btn>
-            <v-btn large style="background:#FFE2E0;border: transparent;width: 100%;">
-              uml图绘制
-            </v-btn>
-          </v-card>
-
-        </div>
-        <div class="left-bottom" style="width:100%;height:250px;">
-          <v-card class="mx-auto" max-width="400">
-            <img src="https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/webPage.gif" style="width:400px">
-          </v-card>
-
-        </div>
+    <v-card class="mx-auto my-12" style="width:1000px">
+    <v-card-title style="">尊敬的墨书用{{this.invitedName}}您好：</v-card-title>
+    <div style="width:100%;height: 300px;">
+      <div class="cardLeft" style="float:left;width:500px;height:280px;border-radius: 10px; ">
+      <img src="https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/card7.png" style="width:400px;height:270px">
       </div>
-
-      <div class="left2" style="position:absolute;float:left;width: 400px;margin-left: 600px;">
-        <div class="left-top" style="width:100%;height:250px;margin-top: 130px;">
-          <v-card class="mx-auto" max-width="300px">
-            <img src="https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/webPage3.gif" style="width:300px">
-          </v-card>
-
-        </div>
-        <div class="left-bottom" style="width:100%;height:300px;">
-          <v-card class="mx-auto" max-width="380px">
-            <img src="https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/welBack4.jpg" style="width:380px">
-          </v-card>
-        </div>
+      <div class="cardRight" style="float:left;width:500px;">
+          <v-row style="height:200px">
+        <v-col>
+          <img :src="this.inviteHead" style="width: 150px;height:150px;border-radius: 50%">
+        </v-col>
+        <v-col><v-icon x-large style="width:150px;height:150px">mdi-plus</v-icon></v-col>
+        <v-col>
+          
+          <img :src="this.invitedHead" style="width: 150px;height:150px;border-radius: 50%">
+        </v-col>
+      </v-row>
+      <v-card-text style="font-size:20px;color: black;font-weight: 500;">{{this.invitedName}}邀请您加入{{this.teamName}}团队,确认请点击以下链接：</v-card-text>
+       <v-btn width="100%" @click="sendConfirm" style="background: transparent; border-left: transparent;border-right: transparent;">确认加入</v-btn>
       </div>
-      <div class="right" style="position:absolute;float:left;margin-left: 1000px;width: 800px;">
-        <div class="right-top" style="width:100%;height:240px;margin-top: 150px;">
-          <v-card class="mx-auto" max-width="300px" style="float:left">
-            <img src="https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/welBack1.jpg" style="width:300px">
-          </v-card>
-
-        </div>
-        <div class="right-bottom" style="width:100%;height:350px;">
-          <v-card class="mx-auto" max-width="500px" style="float:left">
-            <img src="https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/pages.png" style="width:500px">
-          </v-card>
-        </div>
       </div>
-    </div>
+      <div style="width:1000px;height: 200px;">
+      <!-- <div style="width:100%"> -->
+      <v-icon style="align-self: center;color: palevioletred;">mdi-star</v-icon>
+      <!-- <v-icon style="align-self: center;">mdi-sun</v-icon> -->
+      <!-- </div> -->
+      <v-divider style="color: black;background-color: black;">
+      </v-divider>
+      <span style="font-size: 20px;font-size:400;font-family:Arial, Helvetica, sans-serif;">
+      
+      墨书中的团队管理可以将每个人联系在一起，具有共同编辑功能。加入团队，更高效设计。</span>
+      </div>
+    </v-card>
+   </div>
   </div>
 </template>
 
 <script>
 import user_centerVue from './user_info_change.vue';
 import true_user_centerVue from './true_user_center.vue';
+import qs from 'qs'
 export default {
   components:{user_centerVue, true_user_centerVue},
   name: "Welcome_page",
@@ -171,11 +147,24 @@ export default {
       userhead: '',
       click_introduction: 0,
       overlay:false,
-      overlay2:false
+      overlay2:false,
+      token:"",
+      inviteName:"邀请人",
+      invitedName:"被邀请人",
+      inviteHead:"",
+      invitedHead:"",
+      teamName:"团队名称",
+      absolute: false,
+      opacity: 0.46,
+      zIndex: 5,
     }
   },
   created() {
-    this.$axios.get('/user/get_user_info ').then(
+    this.token=this.$route.query.token
+    console.log("网页token",this.token)
+    this.sendtoken()
+    // this.sendConfirm()
+    this.$axios.get('/user/get_user_info').then(
       res => {
         this.username = res.data.data.username;
         this.userhead = res.data.data.img;
@@ -219,7 +208,60 @@ export default {
     },
     gouc() {
       this.$router.push('/true_user_center')
-    }
+    },
+    sendtoken(){
+// 发送token获取基础信息
+  console.log("发送token")
+    var url="/team/confirm_invitation"
+    this.$axios.get('/team/confirm_invitation').then(
+      res => {
+        console.log(res.data)
+      }
+    );
+    // this.$axios({
+    //       method:'post',
+    //       url:url,
+    //       data:qs.stringify({
+    //           "token":this.token,
+    //       })
+    //   }).then(res=>{
+    //       var result = res.data
+    //       console.log(result)
+    //       alert(result.msg)
+    // })
+  //  this.$axios.get('/team/invite_member').then(res=>{
+  //         var result = res.data
+  //         console.log(result)
+  //         this.teamName=result.team_name
+  //         this.inviteName=result.invitor_name
+  //         this.inviteHead=result.invitor_avatar
+  //         this.invitedName=result.username
+  //         this.invitedHead=result.user_avater
+          
+  //   })
+
+
+    },
+    sendConfirm(){
+//发送接收邀请
+    console.log("开始发送确认申请", this.token)
+    var url="/team/accept_invitation"
+    this.$axios({
+          method:'post',
+          url:url,
+          data:qs.stringify({
+              "token":this.token,
+          })
+      }).then(res=>{
+          var result = res.data
+          console.log(result)
+          alert(result.msg)
+          if(result.errno==0){
+            this.$router.push('/')
+          }
+    })
+
+    },
   }
 }
 </script>
@@ -229,7 +271,7 @@ export default {
 .part1 {
   width: 100%;
   height: 100px;
-  background: url("https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/welBack2.jpg");
+  /* background: url("https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/welBack2.jpg"); */
   background-size: cover;
 }
 
@@ -239,12 +281,12 @@ export default {
   position: relative;
   width: 100%;
   height: 1000px;
-  background: url("https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/welBack2.jpg");
+  /* background: url("https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/welBack2.jpg"); */
   background-size: cover;
 }
 
 .topBar {
-  background: url("https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/welBack2.png");
+  /* background: url("https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/welBack2.png"); */
   background-size: cover;
 }
 </style>

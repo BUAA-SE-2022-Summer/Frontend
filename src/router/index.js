@@ -3,7 +3,6 @@ import VueRouter from 'vue-router'
 import prototype from '../views/PrototypeView.vue'
 import dashBoard from "../views/Dashboard.vue"
 import HomeView from '../views/HomeView.vue'
-
 Vue.use(VueRouter)
 
 const routes = [
@@ -111,7 +110,12 @@ const routes = [
     path:'/etc',
     name:'etc',
     component:() => import('../views/enterprise-card')
-  }
+  },
+  {
+    path: '/email',
+    name: 'email',
+    component: () => import("../views/email.vue")
+  },
 ]
 // {
 //   path: '/dashboard/demo',
@@ -128,7 +132,7 @@ const router = new VueRouter({
 export default router
 
 // 白名单， 不需要验证的路由
-const whiteList = ['/', '/register', '/login']
+const whiteList = ['/', '/register', '/login','/email']
 
 // 全局验证的路由守卫
 router.beforeEach((to, from, next) => {
