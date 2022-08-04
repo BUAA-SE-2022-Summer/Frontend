@@ -484,8 +484,8 @@ export default {
       this.dialog=true;
     },
     trig4(){
-      this.operatenum=4;
-      this.dialog=true;
+        window.location.href = 'https://online.visual-paradigm.com/app/diagrams/#diagram:proj=0&type=ClassDiagram&width=11&height=8.5&unit=inch';
+        //https://www.iodraw.com/diagram/ 备用网址
     },
     trig5(){
       this.operatenum=5;
