@@ -8,7 +8,7 @@
         </v-list-item-icon>
         &nbsp;&nbsp;&nbsp;&nbsp;
         <v-list-item-content>
-          <v-list-item-title v-text="item.name"></v-list-item-title>
+          <v-list-item-title v-text="item.team_name"></v-list-item-title>
           <v-list-item-subtitle>{{ item.member_num }} 名成员</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>

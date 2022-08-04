@@ -64,7 +64,7 @@
                                     <v-card-actions>
                                         <v-spacer></v-spacer>
                                         <v-btn class="ma-2" color="primary" dark>
-                                            Create Prototype
+                                            Prototype
                                             <v-icon dark right>
                                                 mdi-checkbox-marked-circle
                                             </v-icon>
@@ -83,7 +83,7 @@
                                     <v-card-actions>
                                         <v-spacer></v-spacer>
                                         <v-btn class="ma-2" color="primary" dark>
-                                            Create UML
+                                            UML
                                             <v-icon dark right>
                                                 mdi-checkbox-marked-circle
                                             </v-icon>
@@ -102,7 +102,7 @@
                                     <v-card-actions>
                                         <v-spacer></v-spacer>
                                         <v-btn class="ma-2" color="primary" dark>
-                                            Create Docs
+                                            Docs
                                             <v-icon dark right>
                                                 mdi-checkbox-marked-circle
                                             </v-icon>

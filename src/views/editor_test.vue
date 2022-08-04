@@ -94,7 +94,7 @@ export default {
       input3:'',
       //把这个页面加入项目中时，注意，跳转到这个页面的时候，now_id为当前文章id,projectid为当前项目id,teamid为当前队伍id,fatherid为其父文件夹id（可以用session之类的传入,这里需要稍微改一下（由于我这边看不到团队的那个组件，于是就没改__by zbh）
       now_id:0,
-      projectid:10,
+      projectid:sessionStorage.getItem('ProjectID'),
       teamid:11,
       fatherid:1,
     }
