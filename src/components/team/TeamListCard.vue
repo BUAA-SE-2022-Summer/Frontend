@@ -42,7 +42,8 @@ export default {
   },
   methods: {
     changeCurrentTeamID(item) {
-      sessionStorage.setItem('TeamID', item.teamID)
+      sessionStorage.setItem('TeamID', item.teamID);
+      window.location.reload();
     }
   }
 }
