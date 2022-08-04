@@ -33,15 +33,15 @@ const routes = [
     component: () => import('../views/register_page')
   },
   {
-    path: '/user_center',
-    name: 'user_center',
-    component: () => import('../views/user_center')
+    path: '/user_info_change',
+    name: 'user_info_change',
+    component: () => import('../views/user_info_change')
   },
   {
 
-    path: '/true_user_center',
-    name: 'true_user_center',
-    component: () => import('../views/true_user_center')
+    path: '/user_center',
+    name: 'user_center',
+    component: () => import('../views/true_user_center.vue')
   },
   {
     path: '/dashboard/prototype',
