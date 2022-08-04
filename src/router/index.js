@@ -82,6 +82,11 @@ const routes = [
             name: 'trash',
             component: () => import('../components/demo/DemoTrash.vue')
           },
+          {
+            path:'/dashboard/demo/projectlist',
+            name:'projectlist',
+            component: () => import('../components/demo/DemoProjectList')
+          }
         ]
       }
     ]

@@ -264,6 +264,8 @@
 
 <script>
 
+import qs from "qs";
+
 export default {
   name: 'Home',
   data() {
@@ -316,8 +318,31 @@ export default {
           img: 'https://images.unsplash.com/photo-1542320868-f4d80389e1c4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=3750&q=80',
         },
       ],
+      txts:[],
       transparent: 'rgba(255, 255, 255, 0)',
+      projectid:0,
     }
+  },
+  created() {
+    this.projectid = sessionStorage.getItem('ProjectID');
+    this.$axios({
+      method: 'post',           /* 指明请求方式，可以是 get 或 post */
+      url: '/file/project_root_filelist',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
+      data: qs.stringify({
+        projectID:this.projectid,
+      })
+    })
+        .then(res => {/* res 是 response 的缩写 */
+          if (res.data.errno === 0) {
+            this.txt=res.data.filelist;
+            this.$message.success("获取文件列表成功");
+          } else {
+            this.$message.error(res.data.msg);
+          }
+        })
+        .catch(err => {
+          console.log(err);         /* 若出现异常则在终端输出相关信息 */
+        });
   },
   // created() {
   //   this.$axios({
