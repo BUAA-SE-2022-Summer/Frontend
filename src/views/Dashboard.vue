@@ -98,6 +98,8 @@
                               <el-button style="position: absolute;left:180px;top:130px" @click="cancle">取消</el-button>
                             </div>
                           </el-card>
+
+                          <!-- 创建项目部分开始 -->
                           <el-card v-if="this.operatenum === 3" class="box-card"
                             style="width: 700px;height: 530px;position: absolute;left:-300px;top:0px;background-color: whitesmoke">
                             <div slot="header" class="clearfix">
@@ -107,7 +109,9 @@
                               <b>Name</b>
                             </div>
                             <div>
-                              <el-input v-model="appname" placeholder="请输入项目名称"
+                              <v-textarea>dscsac</v-textarea>
+                  
+                              <el-input v-model="appname" 
                                 style="position: absolute;width: 400px;top:80px;left:20px;"></el-input>
                             </div>
                             <div style="position: absolute;top:120px;">
@@ -276,6 +280,7 @@
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Custom
                                   </div>
                                   <div>
+                                  
                                     <el-input v-model="cwidth" placeholder="请输入宽度"
                                       style="position: absolute;width: 80px;height: 10px;left:-50px"></el-input>
                                   </div>
@@ -297,6 +302,7 @@
                                   </div>
                                   <div>
                                     <div>
+                                      <!-- <v-textarea style="position: absolute;width: 80px;height: 10px;left:-50px"> </v-textarea> -->
                                       <el-input v-model="cwidth" placeholder="请输入宽度"
                                         style="position: absolute;width: 80px;height: 10px;left:-50px"></el-input>
                                     </div>
@@ -314,6 +320,8 @@
                             <el-button style="top:470px;position: absolute;">创建原型</el-button>
                             <el-button style="top:470px;position: absolute;left:200px" @click="cancle">取消</el-button>
                           </el-card>
+<!-- 创建图结束 -->
+
                           <el-card v-if="this.operatenum === 5" class="box-card"
                             style="width: 300px;height: 300px;position: absolute;left:-80px;top:100px">
                             <div slot="header" class="clearfix">
@@ -463,6 +471,11 @@ export default {
     click1: 0,
     projectid: sessionStorage.getItem('ProjectID'),
     fatherid: sessionStorage.getItem('project_root_fileID'),
+    appname:"",
+    cwidth:"",
+    cheight:"",
+
+    
   }),
   created() {
     this.$axios.get('/user/get_user_info ').then(
@@ -540,6 +553,7 @@ export default {
         });
     },
     createproject() {
+      alert("创建项目")
       console.log(this.input2);
       console.log(this.teamid);
       this.$axios({
@@ -553,7 +567,8 @@ export default {
       })
         .then(res => {/* res 是 response 的缩写 */
           if (res.data.errno === 0) {
-            console.log(res.data.projectID);
+            console.log(res.data)
+            // console.log(res.data.projectID);
             this.$message.success("项目创建成功");
             this.operatenum = 0;
           } else {

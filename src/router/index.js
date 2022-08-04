@@ -112,7 +112,7 @@ const routes = [
     component:() => import('../views/enterprise-card')
   },
   {
-    path: '/email',
+    path: '/api/team/confirm_invitation',
     name: 'email',
     component: () => import("../views/email.vue")
   },
@@ -132,7 +132,7 @@ const router = new VueRouter({
 export default router
 
 // 白名单， 不需要验证的路由
-const whiteList = ['/', '/register', '/login','/email']
+const whiteList = ['/', '/register', '/login','/email','/api/team/confirm_invitation']
 
 // 全局验证的路由守卫
 router.beforeEach((to, from, next) => {
