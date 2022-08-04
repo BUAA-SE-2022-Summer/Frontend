@@ -339,6 +339,7 @@ export default {
         .then(res => {/* res 是 response 的缩写 */
           if (res.data.errno === 0) {
             this.txts=res.data.filelist;
+            console.log("文档信息", this.txts)
             this.$message.success("获取文件列表成功");
           } else {
             this.$message.error(res.data.msg);

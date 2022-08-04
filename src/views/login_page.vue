@@ -5,13 +5,13 @@
         <div class="left" style="position:fixed;float:left;width: 800px;height: 100vh;margin-top: 0;">
           <div class="left-top" style="width:100%;height:30vh;">
             <v-card class="mx-auto my-12" width="30vh">
-              <v-img src="../assets/card1.png" style="margin-top:5vh"></v-img>
+              <v-img src="https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/card1.png" style="margin-top:5vh"></v-img>
             </v-card>
 
           </div>
           <div class="left-bottom" style="width:100%;height:65vh;">
             <v-card class="mx-auto my-12" width="30vw">
-              <v-img src="../assets/card2.png" style="width: 30vw;"></v-img>
+              <v-img src="https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/card2.png" style="width: 30vw;"></v-img>
             </v-card>
 
           </div>
@@ -21,7 +21,7 @@
           <div class="right-top" style="width:100%;height:550px;">
             <v-card class="mx-auto my-12" width="400px" height="500px" style="float:left;background-color: white;">
               <div style="width:100%;margin-top: 0;">
-                <img src="../img/login.png" style="width:350px;margin-left: 25px;">
+                <img src="https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/login.png" style="width:350px;margin-left: 25px;">
               </div>
               <div style="width:300px;margin-left:50px;margin-top: 10px;">
                 <v-text-field v-model="form.username" label="昵称" outlined clearable></v-text-field>
@@ -54,10 +54,10 @@
 
           <div class="right-bottom" style="width:25vw;height:400px; margin-left: 0;">
             <v-card class="mx-auto my-12" style="margin-left:0;width: 25vw;">
-              <v-img src="../assets/card3.png" style="margin-top:0;width: 25vw;"></v-img>
+              <v-img src="https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/card3.png" style="margin-top:0;width: 25vw;"></v-img>
             </v-card>
             <!-- <v-card class="mx-auto my-12" width="250px" style="float:left;margin-left: 0;">
-          <v-img src="../assets/card3.png" style="margin-top:0"></v-img>
+          <v-img src="https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/card3.png" style="margin-top:0"></v-img>
       </v-card> -->
 
           </div>
@@ -207,7 +207,7 @@ export default {
 .main {
   width: 100%;
   height: 100vh;
-  background-image: url("../assets/welBack2.jpg");
+  background-image: url("https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/welBack2.jpg");
   background-size: cover;
 
 }

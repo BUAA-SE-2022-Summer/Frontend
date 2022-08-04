@@ -8,7 +8,7 @@
     </div>
     <div class="left-bottom" style="width:100%;">
         <v-card class="mx-auto my-12" width="30vw" >
-          <v-img src="../assets/card4.png" style="margin-top:10vh"></v-img>
+          <v-img src="https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/card4.png" style="margin-top:10vh"></v-img>
       </v-card>
       
     </div>
@@ -16,7 +16,7 @@
     <div class="right" style="position:fixed;float:left;margin-left: 700px;height:1200px;width: 800px;">
     <div class="right-top" style="width:30vw;height:200px;">
         <!-- <v-card class="mx-auto my-12" width="20vw" > -->
-          <v-img src="../assets/card7.png" style="width:30vw;margin-top:0"></v-img>
+          <v-img src="https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/card7.png" style="width:30vw;margin-top:0"></v-img>
       <!-- </v-card> -->
       
     </div>
@@ -29,7 +29,7 @@
      
     >
     <div style="width:100%;height:200px;margin-top: 20px;">
-      <img src="../img/formtop.png" style="width:400px;margin-left: 15px;">
+      <img src="https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/formtop.png" style="width:400px;margin-left: 15px;">
     </div>
     <div style="width:350px;margin-left:50px;margin-top: 0px;">
     <v-row>
@@ -110,7 +110,7 @@
       height="850px"
     >
     <div style="width:100%;height:200px;margin-top: 20px;">
-      <img src="../img/formtop.png" style="width:400px;margin-left: 15px;">
+      <img src="https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/formtop.png" style="width:400px;margin-left: 15px;">
     </div>
     <div style="width:350px;margin-left:50px;margin-top: 50px;">
       <v-text-field
@@ -230,7 +230,7 @@ export default {
 }
 #register {
   font-family: 'Noto Serif SC', serif;
-  /* background: url('../img/loginback.png');
+  /* background: url('https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/loginback.png');
   background-size: 100% 100%; */
 }
 #register .el-input__inner {
@@ -294,7 +294,7 @@ export default {
 .main{
   width: 100%;
   height: 100vh;
-  background-image: url("../assets/welBack2.jpg");
+  background-image: url("https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/welBack2.jpg");
   background-size:cover ;
 
 }

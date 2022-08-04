@@ -9,7 +9,7 @@
           <v-icon style="color: #F06450;">mdi-heart</v-icon>
         </v-btn>
         <div class="mobook_head">
-          <img src="../img/logo.png"
+          <img src="https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/logo.png"
             style="position: absolute;top:0px;left:70px;width: 180px;height: 90px;border-color: white;border-width: 1px;margin-right: 50px;margin-top: 0px;">
         </div>
         
@@ -122,7 +122,7 @@
         </div>
         <div class="left-bottom" style="width:100%;height:250px;">
           <v-card class="mx-auto" max-width="400">
-            <img src="../assets/webPage.gif" style="width:400px">
+            <img src="https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/webPage.gif" style="width:400px">
           </v-card>
 
         </div>
@@ -131,26 +131,26 @@
       <div class="left2" style="position:absolute;float:left;width: 400px;margin-left: 600px;">
         <div class="left-top" style="width:100%;height:250px;margin-top: 130px;">
           <v-card class="mx-auto" max-width="300px">
-            <img src="../assets/webPage3.gif" style="width:300px">
+            <img src="https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/webPage3.gif" style="width:300px">
           </v-card>
 
         </div>
         <div class="left-bottom" style="width:100%;height:300px;">
           <v-card class="mx-auto" max-width="380px">
-            <img src="../img/welBack2.jpg" style="width:380px">
+            <img src="https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/welBack4.jpg" style="width:380px">
           </v-card>
         </div>
       </div>
       <div class="right" style="position:absolute;float:left;margin-left: 1000px;width: 800px;">
         <div class="right-top" style="width:100%;height:240px;margin-top: 150px;">
           <v-card class="mx-auto" max-width="300px" style="float:left">
-            <img src="../img/welBack1.jpg" style="width:300px">
+            <img src="https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/welBack1.jpg" style="width:300px">
           </v-card>
 
         </div>
         <div class="right-bottom" style="width:100%;height:350px;">
           <v-card class="mx-auto" max-width="500px" style="float:left">
-            <img src="../assets/pages.png" style="width:500px">
+            <img src="https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/pages.png" style="width:500px">
           </v-card>
         </div>
       </div>
@@ -249,7 +249,7 @@ export default {
   top: 0px;
   height: 2000px;
   left: 0px;
-  /* background: url("../img/back3.jpg"); */
+  /* background: url("https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/back3.jpg"); */
   background-size: cover;
   /* background-repeat: no-repeat; */
 }
@@ -295,7 +295,7 @@ body>.el-container {
 .part1 {
   width: 100%;
   height: 100px;
-  background: url("../assets/welBack2.jpg");
+  background: url("https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/welBack2.jpg");
   background-size: cover;
 }
 
@@ -303,7 +303,7 @@ body>.el-container {
   position: relative;
   width: 100%;
   height: 300px;
-  /* background: url("../assets/welBack2.jpg"); */
+  /* background: url("https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/welBack2.jpg"); */
   background-size: cover;
 }
 
@@ -311,12 +311,12 @@ body>.el-container {
   position: relative;
   width: 100%;
   height: 1000px;
-  background: url("../assets/welBack2.jpg");
+  background: url("https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/welBack2.jpg");
   background-size: cover;
 }
 
 .topBar {
-  background: url("../assets/welBack2.jpg");
+  background: url("https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/welBack2.png");
   background-size: cover;
 }
 </style>
