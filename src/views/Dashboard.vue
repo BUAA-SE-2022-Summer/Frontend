@@ -41,16 +41,18 @@
       <v-list>
         <v-list-item class="px-2">
           <v-list-item-avatar>
-            <v-img src="https://randomuser.me/api/portraits/women/85.jpg"></v-img>
+            <v-img v-if="user_info.img !== null" v-bind:src=user_info.img></v-img>
+            <Avatar v-else :username="user_info.username" :backgroundcolor="user_info.username" color="#fff"
+              style="vertical-align: middle;" :inline="true" />
           </v-list-item-avatar>
         </v-list-item>
 
         <v-list-item link>
           <v-list-item-content>
             <v-list-item-title class="text-h6">
-              Sandra Adams
+              {{ user_info.username }}
             </v-list-item-title>
-            <v-list-item-subtitle>sandra_a88@gmail.com</v-list-item-subtitle>
+            <v-list-item-subtitle>{{ user_info.email }}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -231,12 +233,12 @@ export default {
     TeamListCard,
   },
   data: () => ({
-
+    user_info: JSON.parse(sessionStorage.getItem("user_info")),
   }),
+  created() {
+    console.log(this.user_info)
+  },
   methods: {
-    test() {
-      alert('You clicked next!')
-    }
   }
 }
 </script>
