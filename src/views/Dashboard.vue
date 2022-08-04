@@ -56,7 +56,7 @@
           </div>
         </template>
       </v-navigation-drawer>
-      <v-main>
+      <v-main style="padding:0%">
         <router-view />
       </v-main>
     </v-app>

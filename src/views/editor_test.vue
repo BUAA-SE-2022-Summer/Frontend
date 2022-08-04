@@ -84,7 +84,7 @@ export default {
       username1:'',
       imageUrl1:'',
       password:'',
-      content: '1234',
+      content: '请于此处开始编辑……',
       str: '',
       editorOption: {},
       inside: '<h2> \t<strong><em>请于此开始编辑文档</em></strong></h2>',
