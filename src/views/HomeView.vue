@@ -1,178 +1,95 @@
-<!--<template>-->
-<!--  <hello-world />-->
-<!--</template>-->
-
-<!--<script>-->
-<!--  import HelloWorld from '../components/HelloWorld'-->
-
-<!--  export default {-->
-<!--    name: 'Home',-->
-
-<!--    components: {-->
-<!--      HelloWorld,-->
-<!--    },-->
-<!--  }-->
 <template>
-  <div class="home">
-    <div class="home-header">
-      <div class="home-header-left">
-        <div class="home-header-left-title">
-          <span>项目回收站</span>
-        </div>
-      </div>
-      <div class="home-header-right">
-        <div class="home-header-right-img">
-          <v-btn style="border-radius: 50%">
-            <v-avatar size="40px" style="border-radius: 50%">
-              <img src="../assets/logo.svg" alt="">
-            </v-avatar>
-          </v-btn>
-        </div>
-      </div>
-    </div>
-    <div class="home-content">
-      <div class="left">
-        <v-icon>mdi-alert-circle</v-icon>
-        <div class="slogan">您删除的项目或文件将在此保留3天，然后将被永久删除</div>
-      </div>
-    </div>
-    <div class="home-content-1">
-      <div class="right">
-        <v-text-field
-            v-model="search"
-            label="搜索"
-            append-icon="mdi-magnify"
-            class="search"
-        ></v-text-field>
-      </div>
-    </div>
-    <div class="home-content-2">
-      <img src="../assets/empty-join.svg" class="empty-img empty-join-img" alt="">
-      <div class="empty-header">无项目</div>
-    </div>
-  </div>
+    <v-app>
+      <v-container class="text-center">
+        <v-row>
+          <template v-for="(item, i) in items">
+            <v-col :key="i" cols="12" md="4">
+              <v-hover v-slot="{ hover }">
+                <v-card :elevation="hover ? 12 : 2" :class="{ 'on-hover': hover }">
+                  <v-img :src="item.img" height="225px">
+                    <v-card-title class="white--text">
+                      <v-row>
+                        <p class="mt-4 subheading text-left">
+                          {{ item.title }}
+                        </p>
+
+                        <div>
+                          <p class="ma-0 text-body-1 font-weight-bold font-italic text-left">
+                            {{ item.text }}
+                          </p>
+                          <p class="text-caption font-weight-medium font-italic text-left">
+                            {{ item.subtext }}
+                          </p>
+                        </div>
+
+                        <div>
+                          <v-btn
+                              v-for="(icon, index) in icons"
+                              :key="index"
+                              :class="{ 'show-btns': hover }"
+                              :color="transparent"
+                              icon
+                          >
+                            <v-icon
+                                :class="{ 'show-btns': hover }"
+                                :color="transparent"
+                            >
+                              {{ icon }}
+                            </v-icon>
+                          </v-btn>
+                        </div>
+                      </v-row>
+                    </v-card-title>
+                  </v-img>
+                </v-card>
+              </v-hover>
+            </v-col>
+          </template>
+        </v-row>
+      </v-container>
+    </v-app>
 </template>
-
 <script>
-import HelloWorld from '../components/HelloWorld'
-
 export default {
-  name: 'Home',
+  name: 'App',
   data() {
     return {
-      admins: [
-        ['成员管理', 'mdi-account-cog'],
-        ['操作日志', 'mdi-book-open-outline'],
+      icons: ['mdi-rewind', 'mdi-play', 'mdi-fast-forward'],
+      items: [
+        {
+          title: '原型图',
+          text: `It's New Release Friday`,
+          subtext: 'Newly released songs. Updated daily.',
+          img: 'https://images.unsplash.com/photo-1429514513361-8fa32282fd5f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3264&q=80',
+        },
+        {
+          title: 'UML图',
+          text: 'Greatest Rock Hits',
+          subtext: 'Lose yourself in rock tunes.',
+          img: 'https://images.unsplash.com/photo-1498038432885-c6f3f1b912ee?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80',
+        },
+        {
+          title: '文档',
+          text: 'Ambient Bass',
+          subtext: 'Chill beats to mellow you out.',
+          img: 'https://images.unsplash.com/photo-1542320868-f4d80389e1c4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=3750&q=80',
+        },
       ],
+      transparent: 'rgba(255, 255, 255, 0)',
     }
-  }
+  },
 }
 </script>
 <style scoped>
-.home {
-  width: 1060px;
-  height: 90px;
-  position: fixed;
-  top: 20px;
-  right: 0;
-  border: 1px solid #ccc;
+.v-card {
+  transition: opacity .4s ease-in-out;
 }
-.home-header {
-  width: 70%;
-  height: 70px;
-  background-color: #fff;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 10px;
-  box-shadow: 0 0 0 #e0e0e0;
-  position: fixed;
-  top: 20px;
-  right: 0;
+
+.v-card:not(.on-hover) {
+  opacity: 0.8;
 }
-.home-header-left {
-  display: flex;
-  align-items: center;
-}
-.home-header-left-title {
-  font-size: 20px;
-  font-weight: bold;
-  color: #333;
-}
-.home-header-right {
-  display: flex;
-  align-items: center;
-}
-.home-header-right-img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: #fff;
-  margin-right: 20px;
-}
-.home-content {
-  display: flex;
-  -webkit-box-pack: center;
-  justify-content: center;
-  -webkit-box-align: center;
-  align-items: center;
-  position: fixed;
-  left: 31%;
-  top: 27%;
-  transform: translateY(-80px);
-}
-.home-content .left {
-  font-size: 14px;
-  color: rgb(125, 139, 148);
-  line-height: 1px;
-  display: flex;
-  -webkit-box-pack: center;
-  justify-content: center;
-  -webkit-box-align: center;
-  align-items: center;
-  padding: 14px 12px;
-  background: rgb(242, 242, 242);
-  border-radius: 4px;
-}
-.home-content-1 {
-  display: flex;
-  -webkit-box-pack: center;
-  justify-content: center;
-  -webkit-box-align: center;
-  align-items: center;
-  position: fixed;
-  right: 1%;
-  top: 27%;
-  transform: translateY(-80px);
-}
-.home-content-1 .right {
-  display: flex;
-  -webkit-box-pack: center;
-  justify-content: center;
-  -webkit-box-align: center;
-  align-items: center;
-  background: rgb(242, 242, 242);
-  border-radius: 4px;
-  padding: 14px 12px;
-  height: 53px;
-}
-.home-content-2 {
-  display: flex;
-  -webkit-box-pack: center;
-  justify-content: center;
-  flex-flow: column wrap;
-  -webkit-box-align: center;
-  align-items: center;
-  position: fixed;
-  left: 60%;
-  top: 50%;
-  transform: translateY(-80px);
-}
-.home-content-2 .empty-header {
-  font-size: 18px;
-  line-height: 16px;
-  color: rgb(31, 41, 46);
-  margin-top: 8px;
-  font-weight: 500;
+
+.show-btns {
+  color: rgba(255, 255, 255, 1) !important;
 }
 </style>

@@ -4,6 +4,7 @@ import prototype from '../views/PrototypeView.vue'
 import dashBoard from "../views/Dashboard.vue"
 import HomeView from '../views/HomeView.vue'
 import Dashboard from '../views/Dashbord.vue'
+import homeView from "@/views/HomeView";
 Vue.use(VueRouter)
 
 const routes = [
