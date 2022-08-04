@@ -2,8 +2,7 @@
   <div id="app">
     <v-navigation-drawer app expand-on-hover height="100vh" mini-variant-width="8.5vh">
       <v-list>
-        <v-list-item class="px-2">
-        </v-list-item>
+        <v-divider></v-divider>
         <v-list-item class="px-2">
           <Avatar :username="user_info.username" :backgroundcolor="user_info.username" color="#fff"
             style="vertical-align: middle;" :inline="true" />
@@ -509,10 +508,10 @@ export default {
       this.operatenum = 3;
       this.dialog = true;
     },
- 
-    trig4(){
-        window.location.href = 'https://online.visual-paradigm.com/app/diagrams/#diagram:proj=0&type=ClassDiagram&width=11&height=8.5&unit=inch';
-        //https://www.iodraw.com/diagram/ 备用网址
+
+    trig4() {
+      window.location.href = 'https://online.visual-paradigm.com/app/diagrams/#diagram:proj=0&type=ClassDiagram&width=11&height=8.5&unit=inch';
+      //https://www.iodraw.com/diagram/ 备用网址
 
     },
     trig5() {

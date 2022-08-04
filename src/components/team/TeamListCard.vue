@@ -46,7 +46,7 @@ export default {
   },
   methods: {
     changeCurrentTeamID(item) {
-      sessionStorage.setItem('Team', item)
+      sessionStorage.setItem('TeamID', item.teamID)
       sessionStorage.setItem('ProjectID', JSON.stringify(0));
       window.location.reload();
     }
