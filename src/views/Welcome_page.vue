@@ -12,6 +12,7 @@
           <img src="../img/logo.png"
             style="position: absolute;top:0px;left:70px;width: 180px;height: 90px;border-color: white;border-width: 1px;margin-right: 50px;margin-top: 0px;">
         </div>
+        
         <el-button v-if="this.iflogin !== 1" type="info" round
           style="background-color: black;position: absolute;left:1300px;top:30px;color: white;" @click="login">登录/注册
         </el-button>
@@ -21,8 +22,61 @@
             slot="reference">
           <div>
 
-            <el-button type="info" @click="gouc" round style="background-color: black;">进入个人中心</el-button>
-            <el-button type="info" @click="logout" round style="background-color: black;">退出登录</el-button>
+          
+<!-- 个人信息查看 -->
+            <v-btn
+            class="mt-12"
+            color="primary"
+            @click="overlay = !overlay"
+            style="background-color: black;color: palevioletred;width: 100%;"
+          >
+            个人信息
+          </v-btn>
+          <v-overlay
+            :absolute="absolute"
+            :opacity="opacity"
+            :value="overlay"
+            :z-index="zIndex"
+          >
+          <true_user_centerVue></true_user_centerVue>
+          <v-btn
+              color="primary"
+              @click="overlay = false"
+              
+              style="color: palevioletred;width: 100%;"
+              
+            >
+              返回主页
+            </v-btn>
+          </v-overlay>
+<!-- 修改个人信息 -->
+          <v-btn
+            class="mt-12"
+            color="primary"
+            @click="overlay2 = !overlay2"
+            style="background-color: black;color: palevioletred;width: 100%;"
+          >
+            修改个人信息
+          </v-btn>
+          <v-overlay
+            :absolute="absolute"
+            :opacity="opacity"
+            :value="overlay2"
+            :z-index="zIndex"
+          >
+         <user_centerVue></user_centerVue>
+          <!-- <true_user_centerVue></true_user_centerVue> -->
+          <v-btn
+              color="primary"
+              @click="overlay2 = false"
+              width="100%"
+              style="color: palevioletred;"
+            >
+              返回主页
+            </v-btn>
+          </v-overlay>
+          <!-- <v-btn></v-btn> -->
+            <el-button type="info" @click="logout" style="background-color: black;color: palevioletred;width: 100%;">退出登录</el-button>
           </div>
           <el-button v-if="this.iflogin !== 1" type="info" round
             style="background-color: black;position: absolute;left:1300px;top:30px;color: white;" @click="login">登录/注册
@@ -105,14 +159,19 @@
 </template>
 
 <script>
+import user_centerVue from './user_info_change.vue';
+import true_user_centerVue from './true_user_center.vue';
 export default {
+  components:{user_centerVue, true_user_centerVue},
   name: "Welcome_page",
   data() {
     return {
       iflogin: JSON.parse(sessionStorage.getItem('IfLogin')),
       username: '',
       userhead: '',
-      click_introduction: 0
+      click_introduction: 0,
+      overlay:false,
+      overlay2:false
     }
   },
   created() {
