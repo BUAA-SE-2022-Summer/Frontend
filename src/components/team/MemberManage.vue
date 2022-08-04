@@ -1,42 +1,14 @@
 <template>
     <div style="width:1100px;margin: 0;height: 600px;">
-    <v-card
-    class="mx-auto"
-    width="300px"
-    style="float:left;height: 450px;"
-    >
-        <v-list dense>
-        <v-subheader>成员管理</v-subheader>
-        <v-list-item-group
-            color="primary"
-        >
-        <v-list-item>
-            <v-list-item-icon>
-            <v-icon >mdi-account-group</v-icon>
-            </v-list-item-icon>
-            <v-list-item-content>
-                <v-list-item-title @click="changeMemTable(1)">全部成员</v-list-item-title>
-            </v-list-item-content>
-        </v-list-item>
-
-        <v-list-item>
-            <v-list-item-icon>
-            <v-icon >mdi-account-tie</v-icon>
-            </v-list-item-icon>
-            <v-list-item-content>
-                <v-list-item-title @click="changeMemTable(2)">管理员</v-list-item-title>
-            </v-list-item-content>
-        </v-list-item>
-        </v-list-item-group>
-        </v-list>
-    </v-card>
-    <v-card
-    class="mx-auto"
-    width="600px"
-    style="float:left; height: 450px;"
-    >
+    <v-toolbar flat>
+        <v-icon color="pink" x-large>mdi-heart</v-icon>
+        <v-toolbar-title style="font-size: 30px;font-weight: 500;">成员管理</v-toolbar-title>
+        <v-spacer></v-spacer>
+       
+    </v-toolbar>
+       
+   
     <MemberTables v-show="this.memTable==1"></MemberTables>
-  </v-card>
   
    </div>
 </template>

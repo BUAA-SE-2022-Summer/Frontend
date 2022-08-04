@@ -64,18 +64,22 @@
           </v-list-item-icon>
           <v-list-item-title>Starred</v-list-item-title>
         </v-list-item>
+        <router-link to="/dashboard/demo">
         <v-list-item link>
           <v-list-item-icon>
             <v-icon>mdi-folder</v-icon>
           </v-list-item-icon>
           <v-list-item-title>项目</v-list-item-title>
         </v-list-item>
+           </router-link>
+        <router-link to="/dashboard/team">
         <v-list-item link>
           <v-list-item-icon>
             <v-icon>mdi-account-multiple</v-icon>
           </v-list-item-icon>
           <v-list-item-title>管理</v-list-item-title>
         </v-list-item>
+        </router-link>
       </v-list>
       <template v-slot:append>
         <div>
