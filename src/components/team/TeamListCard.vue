@@ -1,9 +1,9 @@
 <template>
   <v-card max-height="28.7vh" min-height="28.7vh" min-width="45vh" max-width="45vh" class="mx-auto" tile>
-    <v-list v-if="items.length !== 0">
+    <v-list v-if="items.length() !== 0">
       <v-list-item two-line v-for="(item, i) in items" :key="i" @click="changeCurrentTeamID(item)">
         <v-list-item-icon>
-          <Avatar :username="items.team_name" :backgroundcolor="items.team_name" color="#fff"
+          <Avatar :username="items.username" :backgroundcolor="items.team_name" color="#fff"
             style="vertical-align: middle;" :inline="true" />
         </v-list-item-icon>
         &nbsp;&nbsp;&nbsp;&nbsp;
@@ -26,7 +26,11 @@
 </template>
 
 <script>
+import Avatar from 'vue-avatar'
 export default {
+  components: {
+    Avatar
+  },
   data: () => ({
     items: [],
   }),
