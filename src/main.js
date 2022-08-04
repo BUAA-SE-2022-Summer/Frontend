@@ -46,9 +46,4 @@ new Vue({
   qs,
   vuetify,
   render: h => h(App),
-  data: () => {
-    return {
-      user_info: {},
-    }
-  }
 }).$mount('#app')
