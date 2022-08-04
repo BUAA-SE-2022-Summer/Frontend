@@ -25,7 +25,7 @@
       :loading="loading"
       class="mx-auto my-12"
       width="450"
-      style="background-color: #E6999B;"
+     
      
     >
     <div style="width:100%;height:200px;margin-top: 20px;">
@@ -83,7 +83,7 @@
     <v-bottom-navigation
               :value="value"
               color="pink"
-              style="background-color:#E6999B"
+              style="width: 100%;"
             >
               <v-btn @click="register">
                 <span>注册</span>
