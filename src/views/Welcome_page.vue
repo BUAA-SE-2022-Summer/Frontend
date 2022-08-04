@@ -37,6 +37,7 @@
               <el-button type="info" @click="logout" round style="background-color: black;">退出登录</el-button>
             </div>
           </el-popover>
+        </el-popover>
       </v-bottom-navigation>
     </div>
     <div class="part2">

@@ -3,8 +3,8 @@
     <v-list v-if="items.length !== 0">
       <v-list-item two-line v-for="(item, i) in items" :key="i" @click="changeCurrentTeamID(item)">
         <v-list-item-icon>
-          <v-img :src="'https://xuemolan.oss-cn-hangzhou.aliyuncs.com/default.jpg'" class="mr-4" max-width="50"
-            min-width=""></v-img>
+          <Avatar :username="team_info.team_name" :backgroundcolor="team_info.team_name" color="#fff"
+            style="vertical-align: middle;" :inline="true" />
         </v-list-item-icon>
         &nbsp;&nbsp;&nbsp;&nbsp;
         <v-list-item-content>
@@ -42,7 +42,7 @@ export default {
   },
   methods: {
     changeCurrentTeamID(item) {
-      sessionStorage.setItem('TeamID', item.teamID)
+      sessionStorage.setItem('team_info', item)
     }
   }
 }
