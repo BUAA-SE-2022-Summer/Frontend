@@ -142,6 +142,11 @@
             label="项目名称"
             width="250">
         </el-table-column>
+        <el-table-column
+            prop="project_root_fileID"
+            label="根目录文件夹"
+            width="250">
+        </el-table-column>
       </el-table>
     </div>
   </div>
@@ -189,7 +194,9 @@ export default {
   methods:{
     findproject(row,column,cell,event){
        console.log(row.projectID);
+       console.log(row.project_root_fileID);
        sessionStorage.setItem('ProjectID',JSON.stringify(row.projectID));
+       sessionStorage.setItem('project_root_fileID',JSON.stringify(row.project_root_fileID));
        this.$router.push('/dashboard/demo/console');
     }
   }

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img class="bgbox" id="bgbox" alt="" src="../img/背景.jpg">
+    <img class="bgbox" id="bgbox" alt="" src="../img/星空4.jpg">
     <div style="position: absolute;width: 400px;top:35px">
       <el-card class="box-card" style="position: absolute;height:600px;width: 400px;background-color: rgba(255, 255, 255, 0.85);">
         <div slot="header" class="clearfix">
@@ -98,8 +98,8 @@ export default {
       //把这个页面加入项目中时，注意，跳转到这个页面的时候，now_id为当前文章id,projectid为当前项目id,teamid为当前队伍id,fatherid为其父文件夹id（可以用session之类的传入,这里需要稍微改一下（由于我这边看不到团队的那个组件，于是就没改__by zbh）
       now_id:0,
       projectid:sessionStorage.getItem('ProjectID'),
-      teamid:11,
-      fatherid:1,
+      teamid:sessionStorage.getItem('TeamID'),
+      fatherid:sessionStorage.getItem('project_root_fileID'),
     }
   },
   created() {
@@ -307,8 +307,7 @@ export default {
 }
 </script>
 <style>
-.bgbox {
-  display: block;
+.bgbox {  display: block;
   opacity: 1;
   z-index: -3;
   position: fixed;
