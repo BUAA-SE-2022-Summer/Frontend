@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import prototype from '../views/PrototypeView.vue'
 import dashBoard from "../views/Dashboard.vue"
-import HomeView from '../views/HomeView.vue'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -107,11 +107,6 @@ const routes = [
     component: () => import('../views/editor_test')
   },
   {
-    path: '/etc',
-    name: 'etc',
-    component: () => import('../views/enterprise-card')
-  },
-  {
     path: '/email',
     name: 'email',
     component: () => import("../views/email.vue")
@@ -135,13 +130,13 @@ export default router
 const whiteList = ['/', '/register', '/login', '/email']
 
 // 全局验证的路由守卫
-// router.beforeEach((to, from, next) => {
-//   if (whiteList.indexOf(to.path) !== -1) {
-//     // 放行，进入下一个路由
-//     next()
-//   } else if (!JSON.parse(sessionStorage.getItem('IfLogin'))) {
-//     next('/');
-//   } else {
-//     next()
-//   }
-// })
+router.beforeEach((to, from, next) => {
+  if (whiteList.indexOf(to.path) !== -1) {
+    // 放行，进入下一个路由
+    next()
+  } else if (!JSON.parse(sessionStorage.getItem('IfLogin'))) {
+    next('/');
+  } else {
+    next()
+  }
+})
