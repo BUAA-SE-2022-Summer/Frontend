@@ -9,29 +9,29 @@
         <div>
           <el-input v-model="input1" placeholder="请输入文档名称"></el-input>
           <v-btn style="position: absolute;left: 20px;top:140px;background-color: rgba(255, 255, 255, 0.85)"@click="createtext">创建新文档</v-btn>
-          <el-input v-model="input2" placeholder="请输入文档名称" style="position: absolute;left: 20px;top:200px;width:360px"></el-input>
-          <v-btn style="position: absolute;left: 20px;top:260px;background-color: rgba(255, 255, 255, 0.85)">查找文档</v-btn>
-          <el-input v-model="input3" placeholder="请输入文档名称" style="position: absolute;left: 20px;top:320px;width:360px"></el-input>
-          <v-btn style="position: absolute;left: 20px;top:380px;background-color: rgba(255, 255, 255, 0.85)">删除文档</v-btn>
+          <el-input v-model="input2" placeholder="请输入文档id" style="position: absolute;left: 20px;top:200px;width:360px"></el-input>
+          <v-btn style="position: absolute;left: 20px;top:260px;background-color: rgba(255, 255, 255, 0.85)"@click="find1">查找文档</v-btn>
+          <el-input v-model="input3" placeholder="请输入文档id" style="position: absolute;left: 20px;top:320px;width:360px"></el-input>
+          <v-btn style="position: absolute;left: 20px;top:380px;background-color: rgba(255, 255, 255, 0.85)"@click="delete1">删除文档</v-btn>
         </div>
       </el-card>
     </div>
-  <div class="edit_container" style="position: absolute;width: 800px;left:400px;">
-    <!--  新增时输入 -->
-    <quill-editor
-        class="ql-editor"
-        v-model="content"
-        ref="myQuillEditor"
-        :options="editorOption"
-        @blur="onEditorBlur($event)" @focus="onEditorFocus($event)"
-        @change="onEditorChange($event)" >
-    </quill-editor>
-    <!-- 从数据库读取展示 -->
-    <!--<div v-html="str" class="ql-editor">
-      {{str}}
-    </div>-->
-    <div><v-btn style="background-color: rgba(255, 255, 255, 0.85)" @click="savetext">保存文档</v-btn></div>
-  </div>
+    <div class="edit_container" style="position: absolute;width: 800px;left:400px;">
+      <!--  新增时输入 -->
+      <quill-editor
+          class="ql-editor"
+          v-model="content"
+          ref="myQuillEditor"
+          :options="editorOption"
+          @blur="onEditorBlur($event)" @focus="onEditorFocus($event)"
+          @change="onEditorChange($event)" >
+      </quill-editor>
+      <!-- 从数据库读取展示 -->
+      <!--<div v-html="str" class="ql-editor">
+        {{str}}
+      </div>-->
+      <div><v-btn style="background-color: rgba(255, 255, 255, 0.85)" @click="savetext">保存文档</v-btn></div>
+    </div>
     <div>
       <el-table
           :data="this.textdata"
@@ -56,7 +56,7 @@
         </el-table-column>
       </el-table>
     </div>
-    </div>
+  </div>
 </template>
 <script>
 import { quillEditor } from "vue-quill-editor"; //调用编辑器
@@ -158,12 +158,12 @@ export default {
       return str;
     },
     find(row,column,cell,event){
-       console.log(row.fileID);
+      console.log(row.fileID);
       this.$axios({
         method: 'post',           /* 指明请求方式，可以是 get 或 post */
         url: '/file/read_file',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
         data: qs.stringify({
-            fileID:row.fileID,
+          fileID:row.fileID,
         })
       })
           .then(res => {/* res 是 response 的缩写 */
@@ -171,6 +171,49 @@ export default {
             if (res.data.errno === 0) {
               this.$message.success("打开成功");
               sessionStorage.setItem('now_textid',JSON.stringify(res.data.fileID));
+              window.location.reload();
+            } else {
+              this.$message.error(res.data.msg);
+            }
+          })
+          .catch(err => {
+            console.log(err);         /* 若出现异常则在终端输出相关信息 */
+          })
+    },
+    find1(){
+      this.$axios({
+        method: 'post',           /* 指明请求方式，可以是 get 或 post */
+        url: '/file/read_file',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
+        data: qs.stringify({
+          fileID:this.input2,
+        })
+      })
+          .then(res => {/* res 是 response 的缩写 */
+            //获取用户登录的三个基本信息并存放于sessionStorage
+            if (res.data.errno === 0) {
+              this.$message.success("打开成功");
+              sessionStorage.setItem('now_textid',JSON.stringify(res.data.fileID));
+              window.location.reload();
+            } else {
+              this.$message.error(res.data.msg);
+            }
+          })
+          .catch(err => {
+            console.log(err);         /* 若出现异常则在终端输出相关信息 */
+          })
+    },
+    delete1(){
+      this.$axios({
+        method: 'post',           /* 指明请求方式，可以是 get 或 post */
+        url: '/file/delete_file',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
+        data: qs.stringify({
+          fileID:this.input3,
+        })
+      })
+          .then(res => {/* res 是 response 的缩写 */
+            //获取用户登录的三个基本信息并存放于sessionStorage
+            if (res.data.errno === 0) {
+              this.$message.success("删除成功");
               window.location.reload();
             } else {
               this.$message.error(res.data.msg);
@@ -252,5 +295,8 @@ export default {
   object-fit: cover;
   transition: opacity 1s,transform .25s,filter .25s;
   backface-visibility: hidden;
+}
+.ql-editor{
+  height:700px;
 }
 </style>
