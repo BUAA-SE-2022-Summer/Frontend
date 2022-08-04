@@ -30,19 +30,19 @@
        <div class="left1" style="position:absolute;float:left;width: 500px;height: 800px;margin-top: 100px;">
     <div class="left-bottom" style="width:100%;height:250px;">
       <v-card class="mx-auto" max-width="400">
-        <v-btn large color="black" style="background:#F06450;border: transparent;width: 100%;" @click="toMain">
+        <v-btn large  style="background:#F06450;border: transparent;width: 100%;" @click="toMain">
           GO NOW
         </v-btn>
-        <v-btn large color="black" style="background:#F28375;border: transparent;width: 100%;">
+        <v-btn large style="background:#F28375;border: transparent;width: 100%;">
           项目管理
         </v-btn>
-        <v-btn large color="black" style="background:#F8A39A;border: transparent;width: 100%;">
+        <v-btn large style="background:#F8A39A;border: transparent;width: 100%;">
           原型设计
         </v-btn>
-        <v-btn large color="black" style="background:#FBC4BB;border: transparent;width: 100%;">
+        <v-btn large style="background:#FBC4BB;border: transparent;width: 100%;">
           文档编辑
         </v-btn>
-        <v-btn large color="black" style="background:#FFE2E0;border: transparent;width: 100%;">
+        <v-btn large style="background:#FFE2E0;border: transparent;width: 100%;">
           uml图绘制
         </v-btn>
       </v-card>
