@@ -13,11 +13,11 @@
           style="position: absolute;top:0px;left:70px;width: 180px;height: 90px;border-color: white;border-width: 1px;margin-right: 50px;margin-top: 0px;">
       </div>
       <el-button v-if="this.iflogin !== 1" type="info" round
-        style="background-color: black;position: absolute;left:1300px;top:30px;color: white;" @click="login">登录/注册
+        style="background-color: black;position: absolute;left:1300px;top:10px;color: white;" @click="login">登录/注册
       </el-button>
       <el-popover placement="top-start" :title=this.username width="200" trigger="hover">
         <img v-if="this.iflogin === 1" :src="this.userhead"
-          style="position: absolute;top:30px;left:1300px;width: 50px;height: 50px;border-radius: 50%;border-color: white;border-width: 1px;margin-right: 50px;margin-top: 10px"
+          style="position: absolute;top:10px;left:1300px;width: 50px;height: 50px;border-radius: 50%;border-color: white;border-width: 1px;margin-right: 50px;margin-top: 10px"
           slot="reference">
         <div >
           <el-button type="info" @click="gouc" round style="background-color: black;">进入个人中心</el-button>
