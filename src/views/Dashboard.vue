@@ -419,11 +419,9 @@
         <div>
           <v-menu allow-overflow top :offset-x="true" :close-on-click="true">
             <template v-slot:activator="{ on }">
-              <v-btn class="butt" v-on="on">
-                <v-avatar>
-                  <img src="https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/team.png" alt="">
-                </v-avatar>
-              </v-btn>
+              <v-avatar v-on="on">
+                <img src="https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/team.png" alt="">
+              </v-avatar>
             </template>
             <TeamListCard />
           </v-menu>
@@ -628,7 +626,7 @@ export default {
           teamID: this.teamid,
           prototypeName: this.appname,
           fatherID: this.fatherid,
-          projectID: this.projectid
+          projectID: sessionStorage.getItem('ProjectID')
         })
       ).then(res => {
         if (res.data.errno === 0) {
