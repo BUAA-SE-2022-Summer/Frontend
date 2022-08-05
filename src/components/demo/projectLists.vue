@@ -1,20 +1,13 @@
 <template>
   <div class="home">
     <div style="margin-top:100px;width:800px;margin-left: 200px;">
-      <v-data-table
-          :headers="headers"
-          :items="desserts"
-          sort-by="projectUser"
-          class="elevation-1"
-      >
+
+      <v-data-table :headers="headers" :items="desserts" sort-by="projectUser" class="elevation-1">
         <template v-slot:top>
           <v-toolbar flat color="white">
             <v-toolbar-title>My Projects</v-toolbar-title>
-            <v-divider
-                class="mx-4"
-                inset
-                vertical
-            ></v-divider>
+            <v-divider class="mx-4" inset vertical></v-divider>
+
             <v-spacer></v-spacer>
             <v-dialog v-model="dialog" max-width="500px">
 
@@ -57,26 +50,16 @@
             </v-dialog>
           </v-toolbar>
         </template>
-        <template v-slot:item.actions="{ item }" >
-          <v-btn
-              @click="toItem(item)"
-              small
-              style="background-color: palevioletred;border: 0;"
-          >
+
+        <template v-slot:item.actions="{ item }">
+          <v-btn @click="toItem(item)" small style="background-color: palevioletred;border: 0;">
             详情
           </v-btn>
-          <v-icon
-              small
-              class="mr-2"
-              @click="editItem(item)"
-              color="purple"
-          >
+          <v-icon small class="mr-2" @click="editItem(item)" color="purple">
             mdi-pencil
           </v-icon>
-          <v-icon
-              small
-              @click="deleteItem(item)"
-          >
+          <v-icon small @click="deleteItem(item)">
+
             mdi-delete
           </v-icon>
 
@@ -99,9 +82,12 @@ export default {
         ['成员管理', 'mdi-account-cog'],
         ['操作日志', 'mdi-book-open-outline'],
       ],
-      numproject:0,
-      projectlist:[],
-      teamid:0,
+
+      numproject: 0,
+      projectlist: [],
+      teamid: 0,
+
+
       dialog: false,
       dialog2: false,
       headers: [
@@ -136,28 +122,32 @@ export default {
     }
   },
   computed: {
-    formTitle () {
+
+    formTitle() {
+
       return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
     },
   },
   watch: {
-    dialog (val) {
+    dialog(val) {
       val || this.close()
     },
   },
   created() {
-    this.teamid=sessionStorage.getItem('TeamID');
+
+    this.teamid = sessionStorage.getItem('TeamID');
 
   },
-  methods:{
-    findproject(row,column,cell,event){
+  methods: {
+    findproject(row, column, cell, event) {
       console.log(row.projectID);
       console.log(row.project_root_fileID);
-      sessionStorage.setItem('ProjectID',JSON.stringify(row.projectID));
-      sessionStorage.setItem('project_root_fileID',JSON.stringify(row.project_root_fileID));
+      sessionStorage.setItem('ProjectID', JSON.stringify(row.projectID));
+      sessionStorage.setItem('project_root_fileID', JSON.stringify(row.project_root_fileID));
+
       this.$router.push('/dashboard/demo/console');
     },
-    initialize () {
+    initialize() {
       // this.desserts = [
       //   {
       //     projectName: 'Frozen Yogurt',
@@ -172,65 +162,74 @@ export default {
         method: 'post',
         url: '/project/get_project_list',
         data: qs.stringify({
-          teamID:this.teamid
+
+          teamID: this.teamid
         })
       })
-          .then(res => {
-            console.log(res.data)
-            if (res.data.errno === 0) {
-              this.$message.success("获取项目列表成功");
-              this.desserts=res.data.project_list
-              console.log(this.desserts)
-            } else {
-              alert(res.data.msg);
-              this.$message.error(res.data.msg);
-            }
-          })
-          .catch(err => {
-            console.log(err);         /* 若出现异常则在终端输出相关信息 */
-          })
+        .then(res => {
+          console.log(res.data)
+          if (res.data.errno === 0) {
+            this.$message.success("获取项目列表成功");
+            this.desserts = res.data.project_list
+            console.log(this.desserts)
+          } else {
+            alert(res.data.msg);
+            this.$message.error(res.data.msg);
+          }
+        })
+        .catch(err => {
+          console.log(err);         /* 若出现异常则在终端输出相关信息 */
+        })
     },
-    editItem (item) {
+
+    editItem(item) {
+
       this.editedIndex = this.desserts.indexOf(item)
       this.editedItem = Object.assign({}, item)
       this.dialog = true
     },
-    deleteItem (item) {
+
+
+    deleteItem(item) {
+
       const index = this.desserts.indexOf(item)
       this.editedItem = Object.assign({}, item)
-      this.dialog2=true
+      this.dialog2 = true
       // confirm('Are you sure you want to delete this item?') && this.desserts.splice(index, 1)
     },
-    OK(){
+    OK() {
       // this.desserts.splice(index, 1)
       console.log("删除", this.editedItem)
       this.delete_project(this.editedItem.projectID)
       this.close()
     },
-    delete_project(ID){
+    delete_project(ID) {
       this.$axios({
         method: 'post',
         url: '/project/delete_project',
         data: qs.stringify({
-          projectID:ID,
-          teamID:this.teamid,
+
+          projectID: ID,
+          teamID: this.teamid,
+
         })
       })
-          .then(res => {
-            console.log(res.data)
-            if (res.data.errno === 0) {
-              this.$message.success("成功");
-              this.initialize()
-            } else {
-              alert(res.data.msg);
-              this.$message.error(res.data.msg);
-            }
-          })
-          .catch(err => {
-            console.log(err);         /* 若出现异常则在终端输出相关信息 */
-          })
+        .then(res => {
+          console.log(res.data)
+          if (res.data.errno === 0) {
+            this.$message.success("成功");
+            this.initialize()
+          } else {
+            alert(res.data.msg);
+            this.$message.error(res.data.msg);
+          }
+        })
+        .catch(err => {
+          console.log(err);         /* 若出现异常则在终端输出相关信息 */
+        })
+
     },
-    close () {
+    close() {
       this.dialog = false
       this.dialog2 = false
       this.$nextTick(() => {
@@ -238,31 +237,34 @@ export default {
         this.editedIndex = -1
       })
     },
-    rename_project(ID, Name){
+    rename_project(ID, Name) {
       console.log("修改项目名称", ID, Name)
       this.$axios({
         method: 'post',
         url: '/project/rename_project',
         data: qs.stringify({
-          projectID:ID,
-          teamID:this.teamid,
-          project_name:Name
+          projectID: ID,
+          teamID: this.teamid,
+          project_name: Name
+
         })
       })
-          .then(res => {
-            console.log(res.data)
-            if (res.data.errno === 0) {
-              this.$message.success("成功");
-            } else {
-              alert(res.data.msg);
-              this.$message.error(res.data.msg);
-            }
-          })
-          .catch(err => {
-            console.log(err);         /* 若出现异常则在终端输出相关信息 */
-          })
+        .then(res => {
+          console.log(res.data)
+          if (res.data.errno === 0) {
+            this.$message.success("成功");
+          } else {
+            alert(res.data.msg);
+            this.$message.error(res.data.msg);
+          }
+        })
+        .catch(err => {
+          console.log(err);         /* 若出现异常则在终端输出相关信息 */
+        })
     },
-    save () {
+
+    save() {
+
       if (this.editedIndex > -1) {
         Object.assign(this.desserts[this.editedIndex], this.editedItem)
         this.rename_project(this.editedItem.projectID, this.editedItem.projectName)
@@ -271,14 +273,16 @@ export default {
       }
       this.close()
     },
-    toItem(item){
+    toItem(item) {
       console.log("跳转详情页")
       const index = this.desserts.indexOf(item)
       this.editedItem = Object.assign({}, item)
-      console.log("projectid:"+this.editedItem.projectID);
+      console.log(this.editedItem.projectID);
       console.log(this.editedItem.project_root_fileID);
-      sessionStorage.setItem('ProjectID',JSON.stringify(this.editedItem.projectID));
-      sessionStorage.setItem('project_root_fileID',JSON.stringify(this.editedItem.project_root_fileID));
+      console.log("存储当前更改的projectID: " + this.editedItem.projectID)
+      sessionStorage.setItem('ProjectID', JSON.stringify(this.editedItem.projectID));
+      sessionStorage.setItem('project_root_fileID', JSON.stringify(this.editedItem.project_root_fileID));
+
       //alert(row.project_root_fileID);
       this.$router.push('/dashboard/demo/console');
     },
