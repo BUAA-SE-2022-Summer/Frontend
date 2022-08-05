@@ -8,7 +8,7 @@
       </div>
       <div class="home-header-right">
         <div class="home-header-right-img">
-         <!-- <v-btn style="border-radius: 50%">
+          <!-- <v-btn style="border-radius: 50%">
             <v-avatar size="40px" style="border-radius: 50%">
               <img src="../../assets/logo.svg" alt="">
             </v-avatar>
@@ -320,7 +320,7 @@ export default {
         method: 'post',           /* 指明请求方式，可以是 get 或 post */
         url: 'file/project_root_filelist',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
         data: qs.stringify({
-          projectID:this.projectid,
+          projectID: this.projectid,
         })
       })
         .then(res => {/* res 是 response 的缩写 */
@@ -357,26 +357,31 @@ export default {
   methods: {
     findtxt(row, column, cell, event) {
       console.log(row.fileID);
-      this.$axios({
-        method: 'post',           /* 指明请求方式，可以是 get 或 post */
-        url: '/file/read_file',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
-        data: qs.stringify({
-          fileID: row.fileID,
+      if (row.file_type === "doc") {
+        this.$axios({
+          method: 'post',           /* 指明请求方式，可以是 get 或 post */
+          url: '/file/read_file',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
+          data: qs.stringify({
+            fileID: row.fileID,
+          })
         })
-      })
-        .then(res => {/* res 是 response 的缩写 */
-          //获取用户登录的三个基本信息并存放于sessionStorage
-          if (res.data.errno === 0) {
-            this.$message.success("打开成功");
-            sessionStorage.setItem('now_textid', JSON.stringify(res.data.fileID));
-            this.$router.push('/ed');
-          } else {
-            this.$message.error(res.data.msg);
-          }
-        })
-        .catch(err => {
-          console.log(err);         /* 若出现异常则在终端输出相关信息 */
-        })
+          .then(res => {/* res 是 response 的缩写 */
+            //获取用户登录的三个基本信息并存放于sessionStorage
+            if (res.data.errno === 0) {
+              this.$message.success("打开成功");
+              sessionStorage.setItem('now_textid', JSON.stringify(res.data.fileID));
+              this.$router.push('/ed');
+            } else {
+              this.$message.error(res.data.msg);
+            }
+          })
+          .catch(err => {
+            console.log(err);         /* 若出现异常则在终端输出相关信息 */
+          })
+      }
+      else if (row.file_type === "pro") {
+        this.$router.push('/prototype');
+      }
 
     },
     create_1() {

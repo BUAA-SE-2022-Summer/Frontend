@@ -1,8 +1,8 @@
 <template>
-    <v-expansion-panels focusable inset>
+    <v-expansion-panels focusable>
         <v-expansion-panel>
             <v-expansion-panel-header>
-                RealTimeComponentList
+                RealTimeCompo
             </v-expansion-panel-header>
             <v-expansion-panel-content>
                 <div class="real-time-component-list">

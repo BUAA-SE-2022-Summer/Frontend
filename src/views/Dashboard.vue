@@ -33,7 +33,7 @@
             </template>
             <v-card>
               <v-card-title class="text-h5 grey lighten-2">
-                ikun
+                Create a New World
               </v-card-title>
               <v-card class="mx-auto" max-width="700">
 
@@ -77,7 +77,7 @@
                           <el-card v-if="this.operatenum === 1" class="box-card"
                             style="width: 300px;height: 300px;position: absolute;left:-80px;top:100px">
                             <div slot="header" class="clearfix">
-                              <span><b>你干~嘛~</b></span>
+                              <span><b>new</b></span>
                             </div>
                             <div>
                               <el-input v-model="input1" placeholder="请输入团队名称"></el-input>
@@ -89,7 +89,7 @@
                           <el-card v-if="this.operatenum === 2" class="box-card"
                             style="width: 300px;height: 300px;position: absolute;left:-80px;top:100px">
                             <div slot="header" class="clearfix">
-                              <span><b>你干~嘛~</b></span>
+                              <span><b> new</b></span>
                             </div>
                             <div>
                               <el-input v-model="input2" placeholder="请输入项目名称"></el-input>
@@ -103,7 +103,7 @@
                           <el-card v-if="this.operatenum === 3" class="box-card"
                             style="width: 700px;height: 530px;position: absolute;left:-300px;top:0px;background-color: whitesmoke">
                             <div slot="header" class="clearfix">
-                              <span><b>你干~嘛~</b></span>
+                              <span><b> new</b></span>
                             </div>
                             <div style="position: absolute;top:60px">
                               <b>Name</b>
@@ -325,7 +325,7 @@
                           <el-card v-if="this.operatenum === 5" class="box-card"
                             style="width: 300px;height: 300px;position: absolute;left:-80px;top:100px">
                             <div slot="header" class="clearfix">
-                              <span><b>你干~嘛~</b></span>
+                              <span><b> new</b></span>
                             </div>
                             <div>
                               <el-input v-model="input5" placeholder="请输入文档名称"></el-input>
