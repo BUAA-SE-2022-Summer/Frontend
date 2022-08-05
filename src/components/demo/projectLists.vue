@@ -276,9 +276,11 @@ export default {
       this.editedItem = Object.assign({}, item)
       console.log(this.editedItem.projectID);
       console.log(this.editedItem.project_root_fileID);
-      console.log("存储当前更改的projectID: " + this.editedItem.projectID)
+      console.log("存储当前更改的projectID: " + this.editedItem.projectID);
+      console.log("存储当前项目名称: "+this.editedItem.projectName);
       sessionStorage.setItem('ProjectID', JSON.stringify(this.editedItem.projectID));
       sessionStorage.setItem('project_root_fileID', JSON.stringify(this.editedItem.project_root_fileID));
+      sessionStorage.setItem('ProjectName',JSON.stringify(this.editedItem.projectName));
 
       //alert(row.project_root_fileID);
       this.$router.push('/dashboard/demo/console');

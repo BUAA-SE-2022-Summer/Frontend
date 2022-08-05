@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <div style="position: absolute;top:200px;left:30px;font-size: 30px"><b>{{this.projectname}}</b></div>
     <div style="margin-top:100px;width:800px;margin-left: 200px;">
       <v-data-table :headers="headers" :items="desserts" sort-by="projectUser" class="elevation-1">
         <template v-slot:top>
@@ -24,7 +25,7 @@
 
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
+                  <v-btn color="blue darken-1" text @click="close">Cancle</v-btn>
                   <v-btn color="blue darken-1" text @click="save">Save</v-btn>
                 </v-card-actions>
               </v-card>
@@ -39,8 +40,8 @@
 
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
-                  <v-btn color="blue darken-1" text @click="OK">OK</v-btn>
+                  <v-btn color="blue darken-1" text @click="close">取消</v-btn>
+                  <v-btn color="blue darken-1" text @click="OK">删除文档</v-btn>
                 </v-card-actions>
               </v-card>
             </v-dialog>
@@ -48,10 +49,10 @@
         </template>
 
         <template v-slot:item.actions="{ item }">
-          <v-btn @click="toItem(item)" small style="background-color: palevioletred;border: 0;">
+          <!--<v-btn @click="toItem(item)" small style="background-color: palevioletred;border: 0;">
             详情
-          </v-btn>
-          <v-icon small class="mr-2" @click="editItem(item)" color="purple">
+          </v-btn>-->
+          <v-icon small class="mr-2" @click="toItem(item)" color="purple">
             mdi-pencil
           </v-icon>
           <v-icon small @click="deleteItem(item)">
@@ -110,6 +111,7 @@ export default {
         projectTime: 0,
         is_star: 0,
       },
+      projectname:sessionStorage.getItem('ProjectName')
     }
   },
   computed: {
@@ -184,24 +186,21 @@ export default {
     OK() {
       // this.desserts.splice(index, 1)
       console.log("删除", this.editedItem)
-      this.delete_project(this.editedItem.projectID)
+      this.delete_doc(this.editedItem.fileID)
       this.close()
     },
-    delete_project(ID) {
+    delete_doc(ID) {
       this.$axios({
         method: 'post',
-        url: '/project/delete_project',
+        url: '/file/delete_file',
         data: qs.stringify({
-
-          projectID: ID,
-          teamID: this.teamid,
-
+          fileID: ID,
         })
       })
           .then(res => {
             console.log(res.data)
             if (res.data.errno === 0) {
-              this.$message.success("成功");
+              this.$message.success("删除成功");
               this.initialize()
             } else {
               alert(res.data.msg);
