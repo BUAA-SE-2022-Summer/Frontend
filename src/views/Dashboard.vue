@@ -620,7 +620,8 @@ export default {
       console.log(this.teamid);
       console.log(this.appname);
       console.log(this.fatherid);
-      console.log(this.projectid);
+      console.log("debug: print projectid: " + this.projectid);
+      console.log("debug: session projectid: " + sessionStorage.getItem('ProjectID'))
       this.$axios.post(
         '/prototype/create_prototype',
         this.$qs.stringify({
@@ -630,7 +631,13 @@ export default {
           projectID: this.projectid
         })
       ).then(res => {
-        console.log(res);
+        if (res.data.errno === 0) {
+          this.$message.success("文档创建成功");
+          this.operatenum = 0;
+          this.$router.push('/prototype')
+        } else {
+          this.$message.error(res.data.msg);
+        }
       }).catch(err => {
         console.log(err);
       })
