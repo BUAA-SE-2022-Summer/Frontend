@@ -617,15 +617,17 @@ export default {
         });
     },
     createPrototype() {
-      let teamID = sessionStorage.getItem('TeamID');
-      let projectID = sessionStorage.getItem('ProjectID');
+      console.log(this.teamid);
+      console.log(this.appname);
+      console.log(this.fatherid);
+      console.log(this.projectid);
       this.$axios.post(
         '/prototype/create_prototype',
         this.$qs.stringify({
-          'teamID': xxx,
-          'prototypeName': xxx,
-          'fatherID': xxx,
-          'projectID': xxx
+          teamID: this.teamid,
+          prototypeName: this.appname,
+          fatherID: this.fatherid,
+          projectID: this.projectid
         })
       ).then(res => {
         console.log(res);
