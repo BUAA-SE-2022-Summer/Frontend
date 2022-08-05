@@ -8,11 +8,11 @@
       </div>
       <div class="home-header-right">
         <div class="home-header-right-img">
-          <v-btn style="border-radius: 50%">
+          <!--<v-btn style="border-radius: 50%">
             <v-avatar size="40px" style="border-radius: 50%">
               <img src="../../assets/logo.svg" alt="">
             </v-avatar>
-          </v-btn>
+          </v-btn>-->
         </div>
       </div>
     </div>

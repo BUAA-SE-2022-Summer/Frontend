@@ -1,19 +1,19 @@
 <template>
   <div>
-  <div class="home">
-    <div class="home-header">
-      <div class="home-header-left">
-        
+    <div class="home">
+      <div class="home-header">
+        <div class="home-header-left">
+
+        </div>
+
       </div>
 
-    </div>
-    
 
-  </div>
-  <div>
+    </div>
+    <div>
       <projectListsVue></projectListsVue>
     </div>
-   </div>
+  </div>
 </template>
 
 <script>
@@ -34,38 +34,38 @@ export default {
       teamid:0,
 
       dialog: false,
-    headers: [
-      {
-        text: 'Dessert (100g serving)',
-        align: 'start',
-        sortable: false,
-        value: 'name',
-      },
-      { text: 'Calories', value: 'calories' },
-      { text: 'Fat (g)', value: 'fat' },
-      { text: 'Carbs (g)', value: 'carbs' },
-      { text: 'Protein (g)', value: 'protein' },
-      { text: 'Actions', value: 'actions', sortable: false },],
+      headers: [
+        {
+          text: 'Dessert (100g serving)',
+          align: 'start',
+          sortable: false,
+          value: 'name',
+        },
+        { text: 'Calories', value: 'calories' },
+        { text: 'Fat (g)', value: 'fat' },
+        { text: 'Carbs (g)', value: 'carbs' },
+        { text: 'Protein (g)', value: 'protein' },
+        { text: 'Actions', value: 'actions', sortable: false },],
       desserts: [],
-    editedIndex: -1,
-    editedItem: {
-      name: '',
-      calories: 0,
-      fat: 0,
-      carbs: 0,
-      protein: 0,
-    },
-    defaultItem: {
-      name: '',
-      calories: 0,
-      fat: 0,
-      carbs: 0,
-      protein: 0,
-    },
+      editedIndex: -1,
+      editedItem: {
+        name: '',
+        calories: 0,
+        fat: 0,
+        carbs: 0,
+        protein: 0,
+      },
+      defaultItem: {
+        name: '',
+        calories: 0,
+        fat: 0,
+        carbs: 0,
+        protein: 0,
+      },
     }
 
   },
-    computed: {
+  computed: {
     formTitle () {
       return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
     },
@@ -83,46 +83,46 @@ export default {
 
     //alert("项目当前团队"+this.teamid)
     //this.$axios({
-       // method: 'post',
-        //url: '/project/get_project_list',
-       // data: qs.stringify({
-         // teamID: this.teamid
-        //})
-      //}).then(res => {
-       // console.log("获取项目信息", res.data);
-        //this.$message.success("获取项目列表成功");
-        //this.projectlist=res.data.project_list;
-        // console.log(this.user_list)
-      //})
-     this.$axios({
-       method: 'post',
-       url: '/project/get_project_list',
-       data: qs.stringify({
-         teamID:this.teamid
-       })
-     })
-         .then(res => {
-           //console.log(res.data)
-           if (res.data.errno === 0) {
-              this.$message.success("获取项目列表成功");
-              this.projectlist=res.data.project_list;
-            } else {
-             alert(res.data.msg);
-              this.$message.error(res.data.msg);
-            }
-         })
-         .catch(err => {
-           console.log(err);         /* 若出现异常则在终端输出相关信息 */
-         })
+    // method: 'post',
+    //url: '/project/get_project_list',
+    // data: qs.stringify({
+    // teamID: this.teamid
+    //})
+    //}).then(res => {
+    // console.log("获取项目信息", res.data);
+    //this.$message.success("获取项目列表成功");
+    //this.projectlist=res.data.project_list;
+    // console.log(this.user_list)
+    //})
+    this.$axios({
+      method: 'post',
+      url: '/project/get_project_list',
+      data: qs.stringify({
+        teamID:this.teamid
+      })
+    })
+        .then(res => {
+          //console.log(res.data)
+          if (res.data.errno === 0) {
+            this.$message.success("获取项目列表成功");
+            this.projectlist=res.data.project_list;
+          } else {
+            alert(res.data.msg);
+            this.$message.error(res.data.msg);
+          }
+        })
+        .catch(err => {
+          console.log(err);         /* 若出现异常则在终端输出相关信息 */
+        })
   },
   methods:{
     findproject(row,column,cell,event){
-       console.log(row.projectID);
-       console.log(row.project_root_fileID);
-       sessionStorage.setItem('ProjectID',JSON.stringify(row.projectID));
-       sessionStorage.setItem('project_root_fileID',JSON.stringify(row.project_root_fileID));
-       //alert(row.project_root_fileID);
-       this.$router.push('/dashboard/demo/console');
+      console.log(row.projectID);
+      console.log(row.project_root_fileID);
+      sessionStorage.setItem('ProjectID',JSON.stringify(row.projectID));
+      sessionStorage.setItem('project_root_fileID',JSON.stringify(row.project_root_fileID));
+      //alert(row.project_root_fileID);
+      this.$router.push('/dashboard/demo/console');
     },
     initialize () {
       this.desserts = [
@@ -133,7 +133,7 @@ export default {
           carbs: 24,
           protein: 4.0,
         },
-       
+
       ]
     },
 
@@ -164,7 +164,7 @@ export default {
       }
       this.close()
     },
-  
+
   }
 }
 </script>
@@ -176,7 +176,7 @@ export default {
 <style scoped>
 .home {
   width: 1060px;
-  
+
   position: fixed;
   top: 20px;
   right: 0;
@@ -288,3 +288,4 @@ export default {
   font-weight: 400;
 }
 </style>
+

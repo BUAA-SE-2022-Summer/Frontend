@@ -238,8 +238,7 @@ export default {
     return1() {
       window.history.go(-1);
     },
-    createtext() {
-      alert(this.fatherid);
+    createtext(){
       this.$axios({
         method: 'post',           /* 指明请求方式，可以是 get 或 post */
         url: '/file/create_file',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */

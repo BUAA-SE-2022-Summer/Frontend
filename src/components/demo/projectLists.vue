@@ -1,11 +1,13 @@
 <template>
   <div class="home">
     <div style="margin-top:100px;width:800px;margin-left: 200px;">
+
       <v-data-table :headers="headers" :items="desserts" sort-by="projectUser" class="elevation-1">
         <template v-slot:top>
           <v-toolbar flat color="white">
             <v-toolbar-title>My Projects</v-toolbar-title>
             <v-divider class="mx-4" inset vertical></v-divider>
+
             <v-spacer></v-spacer>
             <v-dialog v-model="dialog" max-width="500px">
 
@@ -48,6 +50,7 @@
             </v-dialog>
           </v-toolbar>
         </template>
+
         <template v-slot:item.actions="{ item }">
           <v-btn @click="toItem(item)" small style="background-color: palevioletred;border: 0;">
             详情
@@ -56,6 +59,7 @@
             mdi-pencil
           </v-icon>
           <v-icon small @click="deleteItem(item)">
+
             mdi-delete
           </v-icon>
 
@@ -69,9 +73,7 @@
 </template>
 
 <script>
-
 import qs from "qs";
-
 export default {
   projectName: 'Home',
   data() {
@@ -80,9 +82,11 @@ export default {
         ['成员管理', 'mdi-account-cog'],
         ['操作日志', 'mdi-book-open-outline'],
       ],
+
       numproject: 0,
       projectlist: [],
       teamid: 0,
+
 
       dialog: false,
       dialog2: false,
@@ -116,20 +120,21 @@ export default {
         is_star: 0,
       },
     }
-
   },
   computed: {
+
     formTitle() {
+
       return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
     },
   },
-
   watch: {
     dialog(val) {
       val || this.close()
     },
   },
   created() {
+
     this.teamid = sessionStorage.getItem('TeamID');
 
   },
@@ -139,6 +144,7 @@ export default {
       console.log(row.project_root_fileID);
       sessionStorage.setItem('ProjectID', JSON.stringify(row.projectID));
       sessionStorage.setItem('project_root_fileID', JSON.stringify(row.project_root_fileID));
+
       this.$router.push('/dashboard/demo/console');
     },
     initialize() {
@@ -156,6 +162,7 @@ export default {
         method: 'post',
         url: '/project/get_project_list',
         data: qs.stringify({
+
           teamID: this.teamid
         })
       })
@@ -176,12 +183,15 @@ export default {
     },
 
     editItem(item) {
+
       this.editedIndex = this.desserts.indexOf(item)
       this.editedItem = Object.assign({}, item)
       this.dialog = true
     },
 
+
     deleteItem(item) {
+
       const index = this.desserts.indexOf(item)
       this.editedItem = Object.assign({}, item)
       this.dialog2 = true
@@ -198,6 +208,7 @@ export default {
         method: 'post',
         url: '/project/delete_project',
         data: qs.stringify({
+
           projectID: ID,
           teamID: this.teamid,
 
@@ -216,6 +227,7 @@ export default {
         .catch(err => {
           console.log(err);         /* 若出现异常则在终端输出相关信息 */
         })
+
     },
     close() {
       this.dialog = false
@@ -252,6 +264,7 @@ export default {
     },
 
     save() {
+
       if (this.editedIndex > -1) {
         Object.assign(this.desserts[this.editedIndex], this.editedItem)
         this.rename_project(this.editedItem.projectID, this.editedItem.projectName)
@@ -269,6 +282,7 @@ export default {
       console.log("存储当前更改的projectID: " + this.editedItem.projectID)
       sessionStorage.setItem('ProjectID', JSON.stringify(this.editedItem.projectID));
       sessionStorage.setItem('project_root_fileID', JSON.stringify(this.editedItem.project_root_fileID));
+
       //alert(row.project_root_fileID);
       this.$router.push('/dashboard/demo/console');
     },
@@ -276,8 +290,3 @@ export default {
 
 }
 </script>
-
-
-
-
-
