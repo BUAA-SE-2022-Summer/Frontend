@@ -57,11 +57,19 @@
           </v-dialog>
         </v-toolbar>
       </template>
-      <template v-slot:item.actions="{ item }">
+      <template v-slot:item.actions="{ item }" >
+      <v-btn
+         @click="toItem(item)"
+         small
+         style="background-color: palevioletred;border: 0;"
+        >
+            详情
+        </v-btn>
         <v-icon
           small
           class="mr-2"
           @click="editItem(item)"
+          color="purple"
         >
           mdi-pencil
         </v-icon>
@@ -71,11 +79,6 @@
         >
           mdi-delete
         </v-icon>
-        <v-btn
-         @click="toItem(item)"
-        >
-            详情
-        </v-btn>
         
       </template>
       <template v-slot:no-data>
