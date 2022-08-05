@@ -1,25 +1,23 @@
 <template>
   <div>
     <v-card width="400px" >
-      <v-card-title style="color:palevioletred">个人信息</v-card-title>
+      <v-card-title style="">个人信息</v-card-title>
       <img :src="this.userhead" style="width: 210px;height:210px;position: absolute;left:20px;border-radius: 50%">
       <div style="margin-top:250px">
-      <v-btn width="100%" style="background-color: transparent;color: palevioletred;">
-      昵称
-      <v-icon>mdi-heart</v-icon><v-spacer></v-spacer>
-      {{this.username}}</v-btn>
-      <v-btn width="100%" style="background-color: transparent;color: palevioletred;margin-top: 20px;">
+      <v-text-field width="100%" style="" label="昵称" v-model="this.username">
+      {{this.username}}</v-text-field>
+      <v-text-field width="100%" style="margin-top: 20px;" label="姓名" v-model="this.real_name">
       姓名
        <v-icon>mdi-heart</v-icon><v-spacer></v-spacer>
-      {{this.real_name}}</v-btn>
-      <v-btn width="100%" style="background-color: transparent;color: palevioletred;margin-top: 20px;">
+      {{this.real_name}}</v-text-field>
+      <v-text-field width="100%" style="margin-top: 20px;" label="邮箱" v-model="this.email">
       邮箱
        <v-icon>mdi-heart</v-icon><v-spacer></v-spacer>
-      {{this.email}}</v-btn>
-      <v-btn width="100%" style="background-color: transparent;color: palevioletred;margin-top: 20px;">
+      {{this.email}}</v-text-field>
+      <v-text-field width="100%" style="margin-top: 20px;" label="手机号" v-model="this.phone">
       手机号
        <v-icon>mdi-heart</v-icon><v-spacer></v-spacer>
-      {{this.phone}}</v-btn>
+      {{this.phone}}</v-text-field>
       </div>
    </v-card>
   </div>
