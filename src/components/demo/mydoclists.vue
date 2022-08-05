@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <div style="position: absolute;top:200px;left:30px;font-size: 30px"><b>{{this.projectname}}</b></div>
     <div style="margin-top:100px;width:800px;margin-left: 200px;">
       <v-data-table :headers="headers" :items="desserts" sort-by="projectUser" class="elevation-1">
         <template v-slot:top>
@@ -110,6 +111,7 @@ export default {
         projectTime: 0,
         is_star: 0,
       },
+      projectname:sessionStorage.getItem('ProjectName')
     }
   },
   computed: {
