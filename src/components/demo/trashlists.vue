@@ -10,9 +10,9 @@
             <v-dialog v-model="dialog" max-width="500px">
               <v-card>
                 <v-card-title>
-                  <span class="headline">修改文档名称</span>
+                  <span class="headline">恢复文档</span>
                 </v-card-title>
-                <v-card-text>
+                <!--<v-card-text>
                   <v-container>
                     <v-row>
                       <v-col cols="12" sm="6" md="4">
@@ -20,12 +20,12 @@
                       </v-col>
                     </v-row>
                   </v-container>
-                </v-card-text>
+                </v-card-text>-->
 
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
-                  <v-btn color="blue darken-1" text @click="save">Save</v-btn>
+                  <v-btn color="blue darken-1" text @click="close">取消</v-btn>
+                  <v-btn color="blue darken-1" text @click="review">恢复文档</v-btn>
                 </v-card-actions>
               </v-card>
             </v-dialog>
@@ -51,7 +51,7 @@
           <!--<v-btn @click="toItem(item)" small style="background-color: palevioletred;border: 0;">
             详情
           </v-btn>-->
-          <v-icon small class="mr-2" @click="editItem(item)" color="purple">
+          <v-icon small class="mr-2" @click="reviewItem(item)" color="purple">
             mdi-arrow-u-up-left-bold
           </v-icon>
           <!--<v-icon small @click="deleteItem(item)">
@@ -181,11 +181,43 @@ export default {
       this.dialog2 = true
       // confirm('Are you sure you want to delete this item?') && this.desserts.splice(index, 1)
     },
+    reviewItem(item){
+      const index = this.desserts.indexOf(item);
+      this.editedItem = Object.assign({}, item);
+      this.dialog = true;
+    },
     OK() {
       // this.desserts.splice(index, 1)
       console.log("删除", this.editedItem)
       this.delete_project(this.editedItem.projectID)
       this.close()
+    },
+    review(){
+      console.log("恢复", this.editedItem)
+      this.review_doc(this.editedItem.fileID)
+      this.close()
+    },
+    review_doc(ID){
+      this.$axios({
+        method: 'post',
+        url: '/file/restore_file',
+        data: qs.stringify({
+          fileID:ID,
+        })
+      })
+          .then(res => {
+            console.log(res.data)
+            if (res.data.errno === 0) {
+              this.$message.success("恢复成功");
+              this.initialize()
+            } else {
+              alert(res.data.msg);
+              this.$message.error(res.data.msg);
+            }
+          })
+          .catch(err => {
+            console.log(err);         /* 若出现异常则在终端输出相关信息 */
+          })
     },
     delete_project(ID) {
       this.$axios({
