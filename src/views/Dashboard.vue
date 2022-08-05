@@ -4,7 +4,8 @@
       <v-list>
         <v-divider></v-divider>
         <v-list-item class="px-2">
-          头像
+         <!-- 头像-->
+          <img :src="this.userhead" style="width: 50px;height:50px;border-radius: 50%" @click="intocenter">
         </v-list-item>
         <v-list-item link>
           <v-list-item-content>
@@ -109,8 +110,8 @@
                             </div>
                             <div>
                               <v-textarea>dscsac</v-textarea>
-                  
-                              <el-input v-model="appname" 
+
+                              <el-input v-model="appname"
                                 style="position: absolute;width: 400px;top:80px;left:20px;"></el-input>
                             </div>
                             <div style="position: absolute;top:120px;">
@@ -279,7 +280,7 @@
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Custom
                                   </div>
                                   <div>
-                                  
+
                                     <el-input v-model="cwidth" placeholder="请输入宽度"
                                       style="position: absolute;width: 80px;height: 10px;left:-50px"></el-input>
                                   </div>
@@ -473,8 +474,8 @@ export default {
     appname:"",
     cwidth:"",
     cheight:"",
+    userhead:'',
 
-    
   }),
   created() {
     this.$axios.get('/user/get_user_info ').then(
@@ -482,8 +483,17 @@ export default {
         this.user_info = res.data.data;
       }
     );
+    this.$axios.get('/user/get_user_info ').then(
+        res => {
+          this.userhead = res.data.data.img;
+          console.log(this.userhead)
+        }
+    );
   },
   methods: {
+    intocenter(){
+      this.$router.push('/user_center');
+    },
     click11() {
       this.click1 = 1;
     },
