@@ -296,5 +296,5 @@ export default {
 }
 </style>
 <!-- 
-  http://192.168.5.4:8082/email？token=eyJ1c2VySUQiOjMxLCJlbWFpbCI6IjE1OTk3NjM3MzFAcXEuY29tIiwidGVhbUlEIjoxMSwiaW52aXRvcklEIjoxfQ.Yuv5Xw.FMk0zSWoCC1jrVdMUrh7zFv1lWok
+  http://192.168.5.4:8080/email？token=eyJ1c2VySUQiOjMxLCJlbWFpbCI6IjE1OTk3NjM3MzFAcXEuY29tIiwidGVhbUlEIjoxMSwiaW52aXRvcklEIjoxfQ.Yuv5Xw.FMk0zSWoCC1jrVdMUrh7zFv1lWok
  -->

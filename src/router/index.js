@@ -107,9 +107,14 @@ const routes = [
     component: () => import('../views/editor_test')
   },
   {
-    path: '/api/team/confirm_invitation',
+    path: '/email',
     name: 'email',
     component: () => import("../views/email.vue")
+  },
+  {
+    path: '/test',
+    name: 'test',
+    component: () => import("../views/test.vue")
   },
 ]
 // {
@@ -128,7 +133,7 @@ export default router
 
 // 白名单， 不需要验证的路由
 
-const whiteList = ['/', '/register', '/login', '/email']
+const whiteList = ['/', '/register', '/login', '/email','test']
 
 
 // 全局验证的路由守卫
