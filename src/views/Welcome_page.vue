@@ -12,12 +12,14 @@
         <v-btn value="recent">
           <span style="color: black;font-size: large;" @click="overlay2 = !overlay2">修改个人信息</span>
         </v-btn>
-        <v-overlay :value="overlay2" :opacity=0>
+        <v-overlay :value="overlay2"  dark="false" :opacity="0.3">
         <div>
               <user_centerVue></user_centerVue>
               <!-- <true_user_centerVue></true_user_centerVue> -->
-              <div @click="overlay2 = false">
-                <v-icon style="float:left;color:black;" x-large>mdi-arrow-left</v-icon>
+              <div @click="overlay2 = false" style="font-size=40px">
+             
+                <v-icon style="float:left;color:red;font-weight: 500;" x-large>mdi-arrow-left</v-icon>
+                
               </div>
               
           </div>
@@ -26,20 +28,20 @@
          <v-btn value="recent">
           <span style="color: black;font-size: large;" @click="overlay = !overlay">个人中心</span>
         </v-btn>
-        <v-overlay :value="overlay">
+        <v-overlay :value="overlay" dark="false" :opacity="0.3">
               <true_user_centerVue></true_user_centerVue>
               <div @click="overlay = false">
-                <v-icon style="float:left;color:black;" x-large>mdi-arrow-left</v-icon>
+                <v-icon style="float:left;color:red;" x-large>mdi-arrow-left</v-icon>
               </div>
         </v-overlay>
 
         <v-btn value="recent">
           <span style="color: black;font-size: large;" @click="overlay3 = !overlay3">登录</span>
         </v-btn>
-        <v-overlay :value="overlay3" color="white">
+        <v-overlay :value="overlay3" color="white" dark="false" :opacity="0.3">
               <login_pageVue></login_pageVue>
               <div @click="overlay3 = false">
-                <v-icon style="float:left;color:black;" x-large>mdi-arrow-left</v-icon>
+                <v-icon style="float:left;color:red;" x-large>mdi-arrow-left</v-icon>
               </div>
         </v-overlay>
 
@@ -47,10 +49,10 @@
         <v-btn value="recent">
           <span style="color: black;font-size: large;" @click="overlay4 = !overlay4">注册</span>
         </v-btn>
-         <v-overlay :value="overlay4">
+         <v-overlay :value="overlay4" dark="false" :opacity="0.3">
               <register_pageVue></register_pageVue>
               <div @click="overlay4 = false">
-                <v-icon style="float:left;color:black;" x-large>mdi-arrow-left</v-icon>
+                <v-icon style="float:left;color:red;" x-large>mdi-arrow-left</v-icon>
               </div>
         </v-overlay>
         <v-btn value="recent">
