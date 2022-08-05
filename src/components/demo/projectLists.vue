@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-<div style="margin-top:100px;width:600px;margin-left: 200px;">
+<div style="margin-top:100px;width:800px;margin-left: 200px;">
    <v-data-table
       :headers="headers"
       :items="desserts"
@@ -57,11 +57,19 @@
           </v-dialog>
         </v-toolbar>
       </template>
-      <template v-slot:item.actions="{ item }">
+      <template v-slot:item.actions="{ item }" >
+      <v-btn
+         @click="toItem(item)"
+         small
+         style="background-color: palevioletred;border: 0;"
+        >
+            详情
+        </v-btn>
         <v-icon
           small
           class="mr-2"
           @click="editItem(item)"
+          color="purple"
         >
           mdi-pencil
         </v-icon>
@@ -71,6 +79,7 @@
         >
           mdi-delete
         </v-icon>
+        
       </template>
       <template v-slot:no-data>
         <v-btn color="primary" @click="initialize">Reset</v-btn>
@@ -272,8 +281,19 @@ export default {
       }
       this.close()
     },
+    toItem(item){
+    console.log("跳转详情页")
+    const index = this.desserts.indexOf(item)
+    this.editedItem = Object.assign({}, item)
+    console.log(this.editedItem.projectID);
+       console.log(this.editedItem.project_root_fileID);
+       sessionStorage.setItem('ProjectID',JSON.stringify(this.editedItem.projectID));
+       sessionStorage.setItem('project_root_fileID',JSON.stringify(this.editedItem.project_root_fileID));
+       //alert(row.project_root_fileID);
+       this.$router.push('/dashboard/demo/console');
+  },
+  },
   
-  }
 }
 </script>
 
