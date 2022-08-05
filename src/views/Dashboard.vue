@@ -317,7 +317,7 @@
                                 </div>
                               </div>
                             </div>
-                            <el-button style="top:470px;position: absolute;">创建原型</el-button>
+                            <el-button style="top:470px;position: absolute;" @click="createPrototype">创建原型</el-button>
                             <el-button style="top:470px;position: absolute;left:200px" @click="cancle">取消</el-button>
                           </el-card>
                           <!-- 创建图结束 -->
@@ -408,7 +408,7 @@
         </v-list-item>
         <v-divider></v-divider>
         <v-list-item link to="/dashboard/team">
-         <!-- <v-list-item @click="toTeam"></v-list-item> -->
+          <!-- <v-list-item @click="toTeam"></v-list-item> -->
           <v-btn class="mx-2" fab dark color="pink" small>
             <v-icon>mdi-account-multiple</v-icon>
           </v-btn>
@@ -616,11 +616,28 @@ export default {
           console.log(err);         /* 若出现异常则在终端输出相关信息 */
         });
     },
-    toTeam(){
+    createPrototype() {
+      let teamID = sessionStorage.getItem('TeamID');
+      let projectID = sessionStorage.getItem('ProjectID');
+      this.$axios.post(
+        '/prototype/create_prototype',
+        this.$qs.stringify({
+          'teamID': xxx,
+          'prototypeName': xxx,
+          'fatherID': xxx,
+          'projectID': xxx
+        })
+      ).then(res => {
+        console.log(res);
+      }).catch(err => {
+        console.log(err);
+      })
+    },
+    toTeam() {
       this.$router.push("/dashboard/team")
       this.$router.go(0)
     },
-    toProject(){
+    toProject() {
       this.$router.push("/demo/console")
     }
   }
