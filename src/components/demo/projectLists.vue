@@ -98,7 +98,7 @@ export default {
           value: 'projectName',
         },
         { text: 'projectUser', value: 'projectUser' },
-        { text: 'projectID ', value: 'projectID' },
+        // { text: 'projectID ', value: 'projectID' },
         { text: 'projectTime ', value: 'projectTime' },
         { text: 'is_star ', value: 'is_star' },
         { text: 'Actions', value: 'actions', sortable: false },

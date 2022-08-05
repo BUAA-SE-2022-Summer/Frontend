@@ -78,8 +78,16 @@ export default {
         this.scale = this.canvasStyleData.scale
     },
     methods: {
+        // todo
         newPage() {
-
+            this.$axios.post(
+                '/prototype/create_page',
+                this.$qs.stringify({
+                    teamID: JSON.parse(sessionStorage.getItem('TeamID')),
+                    prototypeID: sessionStorage.getItem('ProjectID'),
+                    pageName: "newpage"
+                })
+            )
         },
         format(value) {
             return multiply(value, divide(parseFloat(this.scale), 100))
