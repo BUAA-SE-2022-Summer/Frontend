@@ -420,8 +420,8 @@
           <v-menu allow-overflow top :offset-x="true" :close-on-click="true">
             <template v-slot:activator="{ on }">
               <v-btn class="butt" v-on="on">
-                <v-avatar>
-                  <img src="../assets/logo.svg" alt="">
+                 <v-avatar>
+                  <img src="../img/team.png" alt="">
                 </v-avatar>
               </v-btn>
             </template>
