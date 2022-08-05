@@ -48,7 +48,7 @@
               label="个人简介"
               required
             ></v-text-field>
-            <div @click="update" style="color:white;text-align: center;width: 100%;font-size: 20px;">
+            <div @click="update" style="color:black;text-align: center;width: 100%;font-size: 20px;">
               <span>更新资料</span>
             </div>
                </div>
