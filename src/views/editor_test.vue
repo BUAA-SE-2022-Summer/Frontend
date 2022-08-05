@@ -134,9 +134,6 @@ export default {
     this.inside = JSON.parse(sessionStorage.getItem('now_textinside'));
     console.log(this.now_id);
   },
-  mounted() {
-    this.$router.go(0);
-  },
   methods: {
     onEditorReady(editor) { // 准备编辑器
 
@@ -299,6 +296,10 @@ export default {
     //this.content = this.inside;  // 请求后台返回的内容字符串
     //this.content = JSON.parse(sessionStorage.getItem('now_textinside'));
     this.str = this.escapeStringHTML(this.content);
+    if (location.href.indexOf("#reloaded") == -1) {
+      location.href = location.href + "#reloaded";
+      location.reload();
+    }
   },
 }
 </script>
