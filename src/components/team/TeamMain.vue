@@ -23,6 +23,9 @@ export default{
         changeBoard(num){
             this.boardId=num
         }
+    },
+    created(){
+        
     }
 
 }
