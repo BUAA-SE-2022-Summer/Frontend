@@ -143,7 +143,8 @@ export default {
       userhead: '',
       click_introduction: 0,
       overlay: false,
-      overlay2: false
+      overlay2: false,
+      isreloaded: false,  //进入该页面先reload
     }
   },
   created() {
@@ -153,6 +154,12 @@ export default {
         this.userhead = res.data.data.img;
       }
     );
+  },
+  mounted() {
+    if (location.href.indexOf("#reloaded") == -1) {
+      location.href = location.href + "#reloaded";
+      location.reload();
+    }
   },
   methods: {
     freeuse() {

@@ -4,7 +4,7 @@
       <v-list>
         <v-divider></v-divider>
         <v-list-item class="px-2">
-         <!-- 头像-->
+          <!-- 头像-->
           <img :src="this.userhead" style="width: 50px;height:50px;border-radius: 50%" @click="intocenter">
         </v-list-item>
         <v-list-item link>
@@ -111,8 +111,8 @@
                             <div>
                               <v-textarea>dscsac</v-textarea>
 
-                              <el-input v-model="appname"
-                                style="position: absolute;width: 400px;top:80px;left:20px;"></el-input>
+                              <el-input v-model="appname" style="position: absolute;width: 400px;top:80px;left:20px;">
+                              </el-input>
                             </div>
                             <div style="position: absolute;top:120px;">
                               <b>Screensize</b>
@@ -320,7 +320,7 @@
                             <el-button style="top:470px;position: absolute;">创建原型</el-button>
                             <el-button style="top:470px;position: absolute;left:200px" @click="cancle">取消</el-button>
                           </el-card>
-<!-- 创建图结束 -->
+                          <!-- 创建图结束 -->
 
                           <el-card v-if="this.operatenum === 5" class="box-card"
                             style="width: 300px;height: 300px;position: absolute;left:-80px;top:100px">
@@ -471,10 +471,10 @@ export default {
     click1: 0,
     projectid: sessionStorage.getItem('ProjectID'),
     fatherid: sessionStorage.getItem('project_root_fileID'),
-    appname:"",
-    cwidth:"",
-    cheight:"",
-    userhead:'',
+    appname: "",
+    cwidth: "",
+    cheight: "",
+    userhead: '',
 
   }),
   created() {
@@ -484,15 +484,15 @@ export default {
       }
     );
     this.$axios.get('/user/get_user_info ').then(
-        res => {
-          this.userhead = res.data.data.img;
-          console.log(this.userhead)
-        }
+      res => {
+        this.userhead = res.data.data.img;
+        console.log(this.userhead)
+      }
     );
   },
   methods: {
-    intocenter(){
-      this.$router.push('/user_center');
+    intocenter() {
+      this.$router.push('/');
     },
     click11() {
       this.click1 = 1;
