@@ -404,7 +404,7 @@
               mdi-folder
             </v-icon>
           </v-btn>
-          <v-list-item-title>项目</v-list-item-title>
+          <v-list-item-title>项目管理</v-list-item-title>
         </v-list-item>
         <v-divider></v-divider>
         <v-list-item link to="/dashboard/team">
@@ -412,7 +412,7 @@
           <v-btn class="mx-2" fab dark color="pink" small>
             <v-icon>mdi-account-multiple</v-icon>
           </v-btn>
-          <v-list-item-title>管理</v-list-item-title>
+          <v-list-item-title>管理管理</v-list-item-title>
         </v-list-item>
       </v-list>
       <template v-slot:append>
