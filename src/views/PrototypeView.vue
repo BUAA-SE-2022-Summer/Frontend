@@ -56,6 +56,7 @@ export default {
     return {
       activeName: 'attr',
       reSelectAnimateIndex: undefined,
+      namelist: []
     }
   },
   computed: mapState([
@@ -72,14 +73,31 @@ export default {
   },
   methods: {
     restore() {
-      // 用保存的数据恢复画布
-      if (localStorage.getItem('canvasData')) {
-        this.$store.commit('setComponentData', JSON.parse(localStorage.getItem('canvasData')))
-      }
+      let teamID = sessionStorage.getItem('TeamID');
+      let projectID = sessionStorage.getItem('ProjectID');
 
-      if (localStorage.getItem('canvasStyle')) {
-        this.$store.commit('setCanvasStyle', JSON.parse(localStorage.getItem('canvasStyle')))
-      }
+      this.$axios.post(
+        '/prototype/open_prototype',
+        this.$qs.stringify({
+          teamID: teamID,
+          prototypeID: projectID,
+        })
+      ).then(response => {
+        this.namelist = response.data.data.namelist;
+        this.$store.commit('setComponentData', response.data.data.first_component);
+        //todo
+        this.$store.commit('setCanvasStyle', response.data.data.first_component_style)
+      }).catch(err => {
+        console.error(err);
+      })
+      // // 用保存的数据恢复画布
+      // if (localStorage.getItem('canvasData')) {
+      //   this.$store.commit('setComponentData', JSON.parse(localStorage.getItem('canvasData')))
+      // }
+
+      // if (localStorage.getItem('canvasStyle')) {
+      //   this.$store.commit('setCanvasStyle', JSON.parse(localStorage.getItem('canvasStyle')))
+      // }
     },
 
     handleDrop(e) {
