@@ -1,6 +1,5 @@
 <template>
   <div>
-    <img class="bgbox" id="bgbox" alt="" src="../img/星空4.jpg">
     <div style="position: absolute;width: 400px;top:35px">
       <el-card class="box-card"
         style="position: absolute;height:600px;width: 400px;background-color: rgba(255, 255, 255, 0.85);">
