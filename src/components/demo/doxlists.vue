@@ -4,13 +4,13 @@
       <v-data-table :headers="headers" :items="desserts" sort-by="projectUser" class="elevation-1">
         <template v-slot:top>
           <v-toolbar flat color="white">
-            <v-toolbar-title>全部项目</v-toolbar-title>
+            <v-toolbar-title>全部文件</v-toolbar-title>
             <v-divider class="mx-4" inset vertical></v-divider>
             <v-spacer></v-spacer>
             <v-dialog v-model="dialog" max-width="500px">
               <v-card>
                 <v-card-title>
-                  <span class="headline">修改项目名称</span>
+                  <span class="headline">修改文档名称</span>
                 </v-card-title>
                 <v-card-text>
                   <v-container>
@@ -34,7 +34,7 @@
 
               <v-card>
                 <v-card-title>
-                  <span class="headline">删除项目</span>
+                  <span class="headline">删除文档</span>
                 </v-card-title>
 
                 <v-card-actions>
@@ -55,13 +55,11 @@
             mdi-pencil
           </v-icon>
           <v-icon small @click="deleteItem(item)">
-
             mdi-delete
           </v-icon>
-
         </template>
         <template v-slot:no-data>
-          <v-btn color="primary" @click="initialize">打开项目列表</v-btn>
+          <v-btn color="primary" @click="initialize">打开文件列表</v-btn>
         </template>
       </v-data-table>
     </div>
@@ -78,25 +76,22 @@ export default {
         ['成员管理', 'mdi-account-cog'],
         ['操作日志', 'mdi-book-open-outline'],
       ],
-
       numproject: 0,
       projectlist: [],
       teamid: 0,
-
-
+      projectID:0,
       dialog: false,
       dialog2: false,
       headers: [
         {
-          text: '项目名称',
+          text: '文档名称',
           align: 'start',
           sortable: false,
-          value: 'projectName',
+          value: 'file_name',
         },
-        { text: '项目创建者', value: 'projectUser' },
-        { text: '项目ID', value: 'projectID' },
-        { text: '创建时间', value: 'projectTime' },
-        { text: '是否星标', value: 'is_star',sortable: false, },
+        { text: '文档编号', value: 'fileID' },
+        { text: '最后修改时间 ', value: 'last_modify_time' },
+        { text: '文档类型 ', value: 'file_type'},
         { text: '操作', value: 'actions', sortable: false },
       ],
       desserts: [],
@@ -120,7 +115,6 @@ export default {
   computed: {
 
     formTitle() {
-
       return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
     },
   },
@@ -130,9 +124,8 @@ export default {
     },
   },
   created() {
-
     this.teamid = sessionStorage.getItem('TeamID');
-
+    this.projectID = sessionStorage.getItem('ProjectID');
   },
   methods: {
     findproject(row, column, cell, event) {
@@ -143,38 +136,34 @@ export default {
       this.$router.push('/dashboard/demo/console');
     },
     initialize() {
-      // this.desserts = [
-      //   {
-      //     projectName: 'Frozen Yogurt',
-      //     projectUser: 159,
-      //     projectID: 6.0,
-      //     projectTime: 24,
-      //     is_star: 4.0,
-      //   },
-
-      // ]
       this.$axios({
         method: 'post',
-        url: '/project/get_project_list',
-        data: qs.stringify({
-
-          teamID: this.teamid
-        })
-      })
-        .then(res => {
-          console.log(res.data)
-          if (res.data.errno === 0) {
-            this.$message.success("获取项目列表成功");
-            this.desserts = res.data.project_list
-            console.log(this.desserts)
-          } else {
-            alert(res.data.msg);
-            this.$message.error(res.data.msg);
-          }
-        })
-        .catch(err => {
-          console.log(err);         /* 若出现异常则在终端输出相关信息 */
-        })
+       url: '/file/project_root_filelist',
+       data: qs.stringify({
+         projectID: this.projectID,
+       })
+     }).then(res => {
+           console.log(res.data)
+            if (res.data.errno === 0) {
+             this.$message.success("获取文件列表成功");
+             this.desserts = res.data.filelist
+              console.log(this.desserts)
+            } else {
+             alert(res.data.msg);
+             this.$message.error(res.data.msg);
+            }
+          })
+          .catch(err => {
+           console.log(err);         /* 若出现异常则在终端输出相关信息 */
+         });
+      //this.desserts = [{
+       // fileID: 1,
+        //file_name:'黄瑞yyds',
+        //create_time: '8/5',
+       // last_modify_time :'8/6',
+       // file_type: 'dox',
+     // }
+     // ]
     },
 
     editItem(item) {
@@ -209,19 +198,19 @@ export default {
 
         })
       })
-        .then(res => {
-          console.log(res.data)
-          if (res.data.errno === 0) {
-            this.$message.success("成功");
-            this.initialize()
-          } else {
-            alert(res.data.msg);
-            this.$message.error(res.data.msg);
-          }
-        })
-        .catch(err => {
-          console.log(err);         /* 若出现异常则在终端输出相关信息 */
-        })
+          .then(res => {
+            console.log(res.data)
+            if (res.data.errno === 0) {
+              this.$message.success("成功");
+              this.initialize()
+            } else {
+              alert(res.data.msg);
+              this.$message.error(res.data.msg);
+            }
+          })
+          .catch(err => {
+            console.log(err);         /* 若出现异常则在终端输出相关信息 */
+          })
 
     },
     close() {
@@ -244,18 +233,18 @@ export default {
 
         })
       })
-        .then(res => {
-          console.log(res.data)
-          if (res.data.errno === 0) {
-            this.$message.success("成功");
-          } else {
-            alert(res.data.msg);
-            this.$message.error(res.data.msg);
-          }
-        })
-        .catch(err => {
-          console.log(err);         /* 若出现异常则在终端输出相关信息 */
-        })
+          .then(res => {
+            console.log(res.data)
+            if (res.data.errno === 0) {
+              this.$message.success("成功");
+            } else {
+              alert(res.data.msg);
+              this.$message.error(res.data.msg);
+            }
+          })
+          .catch(err => {
+            console.log(err);         /* 若出现异常则在终端输出相关信息 */
+          })
     },
 
     save() {
@@ -269,19 +258,21 @@ export default {
       this.close()
     },
     toItem(item) {
-      console.log("跳转详情页")
+      console.log("跳转文档详情页")
       const index = this.desserts.indexOf(item)
       this.editedItem = Object.assign({}, item)
-      console.log(this.editedItem.projectID);
-      console.log(this.editedItem.project_root_fileID);
-      console.log("存储当前更改的projectID: " + this.editedItem.projectID)
-      sessionStorage.setItem('ProjectID', JSON.stringify(this.editedItem.projectID));
-      sessionStorage.setItem('project_root_fileID', JSON.stringify(this.editedItem.project_root_fileID));
-
+      console.log('存储文档id:'+this.editedItem.fileID);
+      //console.log(this.editedItem.project_root_fileID);
+      //console.log("存储当前更改的projectID: " + this.editedItem.projectID)
+     //sessionStorage.setItem('ProjectID', JSON.stringify(this.editedItem.projectID));
+      //sessionStorage.setItem('project_root_fileID', JSON.stringify(this.editedItem.project_root_fileID));
       //alert(row.project_root_fileID);
-      this.$router.push('/dashboard/demo/console');
+     // this.$router.push('/dashboard/demo/console');
+      sessionStorage.setItem('now_textid',JSON.stringify(this.editedItem.fileID));
+      this.$router.push('/ed');
     },
   },
 
 }
 </script>
+
