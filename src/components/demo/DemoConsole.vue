@@ -318,9 +318,9 @@ export default {
       console.log("debug: " + this.projectid);
       this.$axios({
         method: 'post',           /* 指明请求方式，可以是 get 或 post */
-        url: '/file/project_root_filelist',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
+        url: 'file/project_root_filelist',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
         data: qs.stringify({
-          projectID: this.projectid,
+          projectID:this.projectid,
         })
       })
         .then(res => {/* res 是 response 的缩写 */

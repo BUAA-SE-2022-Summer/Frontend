@@ -57,11 +57,19 @@
             </v-dialog>
           </v-toolbar>
         </template>
-        <template v-slot:item.actions="{ item }">
+        <template v-slot:item.actions="{ item }" >
+          <v-btn
+              @click="toItem(item)"
+              small
+              style="background-color: palevioletred;border: 0;"
+          >
+            详情
+          </v-btn>
           <v-icon
               small
               class="mr-2"
               @click="editItem(item)"
+              color="purple"
           >
             mdi-pencil
           </v-icon>
@@ -71,11 +79,6 @@
           >
             mdi-delete
           </v-icon>
-          <v-btn
-              @click="toItem(item)"
-          >
-            详情
-          </v-btn>
 
         </template>
         <template v-slot:no-data>
@@ -87,9 +90,7 @@
 </template>
 
 <script>
-
 import qs from "qs";
-
 export default {
   projectName: 'Home',
   data() {
@@ -101,7 +102,6 @@ export default {
       numproject:0,
       projectlist:[],
       teamid:0,
-
       dialog: false,
       dialog2: false,
       headers: [
@@ -134,14 +134,12 @@ export default {
         is_star: 0,
       },
     }
-
   },
   computed: {
     formTitle () {
       return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
     },
   },
-
   watch: {
     dialog (val) {
       val || this.close()
@@ -192,13 +190,11 @@ export default {
             console.log(err);         /* 若出现异常则在终端输出相关信息 */
           })
     },
-
     editItem (item) {
       this.editedIndex = this.desserts.indexOf(item)
       this.editedItem = Object.assign({}, item)
       this.dialog = true
     },
-
     deleteItem (item) {
       const index = this.desserts.indexOf(item)
       this.editedItem = Object.assign({}, item)
@@ -218,7 +214,6 @@ export default {
         data: qs.stringify({
           projectID:ID,
           teamID:this.teamid,
-
         })
       })
           .then(res => {
@@ -252,7 +247,6 @@ export default {
           projectID:ID,
           teamID:this.teamid,
           project_name:Name
-
         })
       })
           .then(res => {
@@ -268,7 +262,6 @@ export default {
             console.log(err);         /* 若出现异常则在终端输出相关信息 */
           })
     },
-
     save () {
       if (this.editedIndex > -1) {
         Object.assign(this.desserts[this.editedIndex], this.editedItem)
@@ -282,7 +275,7 @@ export default {
       console.log("跳转详情页")
       const index = this.desserts.indexOf(item)
       this.editedItem = Object.assign({}, item)
-      console.log(this.editedItem.projectID);
+      console.log("projectid:"+this.editedItem.projectID);
       console.log(this.editedItem.project_root_fileID);
       sessionStorage.setItem('ProjectID',JSON.stringify(this.editedItem.projectID));
       sessionStorage.setItem('project_root_fileID',JSON.stringify(this.editedItem.project_root_fileID));
@@ -293,8 +286,3 @@ export default {
 
 }
 </script>
-
-
-
-
-
