@@ -123,7 +123,7 @@
         </v-list>
       </button>
     </div>
-    <div class="home-content">
+    <div class="home-content" style="height: 400px">
       <!--
       <img src="../../assets/empty-all.png" class="empty-img" alt="">
       <div class="empty-header">点击下方模块快速创建</div>

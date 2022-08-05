@@ -398,6 +398,7 @@
         </v-list-item>
         <v-divider></v-divider>
         <v-list-item link to="/dashboard/demo/console">
+          <!-- <v-list-item link to="/dashboard/demo/console"> -->
           <v-btn class="mx-2" fab dark color="teal" small>
             <v-icon dark>
               mdi-folder
@@ -407,6 +408,7 @@
         </v-list-item>
         <v-divider></v-divider>
         <v-list-item link to="/dashboard/team">
+          <!-- <v-list-item @click="toTeam"></v-list-item> -->
           <v-btn class="mx-2" fab dark color="pink" small>
             <v-icon>mdi-account-multiple</v-icon>
           </v-btn>
@@ -562,7 +564,6 @@ export default {
         });
     },
     createproject() {
-      alert("创建项目")
       console.log(this.input2);
       console.log(this.teamid);
       this.$axios({
@@ -587,6 +588,8 @@ export default {
         .catch(err => {
           console.log(err);         /* 若出现异常则在终端输出相关信息 */
         });
+      this.$message.success("项目创建成功");
+      this.operatenum = 0;
     },
     createdoc() {
       console.log(this.input5);
@@ -624,7 +627,18 @@ export default {
           'fatherID': xxx,
           'projectID': xxx
         })
-      ).then
+      ).then(res => {
+        console.log(res);
+      }).catch(err => {
+        console.log(err);
+      })
+    },
+    toTeam() {
+      this.$router.push("/dashboard/team")
+      this.$router.go(0)
+    },
+    toProject() {
+      this.$router.push("/demo/console")
     }
   }
 }

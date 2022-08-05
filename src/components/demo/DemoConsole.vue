@@ -125,7 +125,7 @@
         </v-list>
       </button>
     </div>
-    <div class="home-content">
+    <div class="home-content" style="">
       <div v-if="(!hasTeam) && (!hasProject) && (!hasFile)">
         <img src="../../assets/empty-star.svg" class="empty-img empty-join-img" alt=""
           style="margin-left: 260px;margin-top: 70px">
@@ -377,6 +377,7 @@ export default {
         .catch(err => {
           console.log(err);         /* 若出现异常则在终端输出相关信息 */
         })
+
     },
     create_1() {
       this.list.push({

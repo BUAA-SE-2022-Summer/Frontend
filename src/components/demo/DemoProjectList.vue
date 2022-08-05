@@ -1,161 +1,27 @@
 <template>
+  <div>
   <div class="home">
     <div class="home-header">
       <div class="home-header-left">
-        <div class="home-header-left-title">
-          <span>项目列表</span>
-        </div>
+        
       </div>
-      <div class="home-header-right">
-        <div class="home-header-right-img">
-          <v-btn style="border-radius: 50%">
-            <v-avatar size="40px" style="border-radius: 50%">
-              <img src="../../assets/logo.svg" alt="">
-            </v-avatar>
-          </v-btn>
-        </div>
-      </div>
+
     </div>
-    <div class="home-middle">
-      <button class="but_1">
-        <v-list width="100%" class="li_1">
-          <v-list-group>
-            <template v-slot:activator>
-              <v-list-item-content>
-                <v-list-item-title>更新时间</v-list-item-title>
-              </v-list-item-content>
-            </template>
+    
 
-            <v-list-item @click="">
-              <v-list-item-title class="tit_1">更新时间</v-list-item-title>
-              <v-list-item-action>
-                <v-icon>mdi-check</v-icon>
-              </v-list-item-action>
-            </v-list-item>
-
-            <v-list-item @click="">
-              <v-list-item-title class="tit_1">创建时间</v-list-item-title>
-            </v-list-item>
-
-            <v-divider />
-
-            <v-list-item @click="">
-              <v-list-item-title class="tit_1">名称</v-list-item-title>
-            </v-list-item>
-
-            <v-list-item @click="">
-              <v-list-item-title class="tit_1">创建者</v-list-item-title>
-            </v-list-item>
-
-            <v-divider />
-
-            <v-list-item @click="">
-              <v-list-item-title class="tit_1">升序</v-list-item-title>
-            </v-list-item>
-
-            <v-list-item @click="">
-              <v-list-item-title class="tit_1">降序</v-list-item-title>
-              <v-list-item-action>
-                <v-icon>mdi-check</v-icon>
-              </v-list-item-action>
-            </v-list-item>
-          </v-list-group>
-        </v-list>
-      </button>
-      <button class="but_2">
-        <v-list width="100%" class="li_1">
-          <v-list-group>
-            <template v-slot:activator>
-              <v-list-item-content>
-                <v-list-item-title>全部类型</v-list-item-title>
-              </v-list-item-content>
-            </template>
-
-            <v-list-item @click="">
-              <v-list-item-title class="tit_1">全部类型</v-list-item-title>
-              <v-list-item-action>
-                <v-icon>mdi-check</v-icon>
-              </v-list-item-action>
-            </v-list-item>
-
-            <v-list-item @click="">
-              <v-list-item-title class="tit_1">原型图</v-list-item-title>
-            </v-list-item>
-
-
-            <v-list-item @click="">
-              <v-list-item-title class="tit_1">UML图</v-list-item-title>
-            </v-list-item>
-
-            <v-list-item @click="">
-              <v-list-item-title class="tit_1">文档</v-list-item-title>
-            </v-list-item>
-
-
-          </v-list-group>
-        </v-list>
-      </button>
-      <button class="but_3">
-        <v-list width="100%">
-          <v-list-group class="li_2">
-            <template v-slot:activator>
-              <v-list-item-icon>
-                <v-icon>mdi-menu</v-icon>
-              </v-list-item-icon>
-            </template>
-
-            <v-list-item @click="">
-              <v-list-item-icon>
-                <v-icon>mdi-menu</v-icon>
-              </v-list-item-icon>
-              <v-list-item-title class="tit_1_1">图标</v-list-item-title>
-              <v-list-item-action>
-                <v-icon>mdi-check</v-icon>
-              </v-list-item-action>
-            </v-list-item>
-
-            <v-list-item @click="">
-              <v-list-item-icon class="tit_1"><v-icon>mdi-format-list-bulleted</v-icon></v-list-item-icon>
-              <v-list-item-title class="tit_1_1">列表</v-list-item-title>
-            </v-list-item>
-
-          </v-list-group>
-        </v-list>
-      </button>
-    </div>
-    <div class="home-content">
-      <!--<img src="../../assets/empty-star.svg" class="empty-img empty-join-img" alt="">
-      <div class="empty-header">无项目</div>
-      <span class="empty-desc is-show">点击新建新建项目</span>-->
-      <el-table
-          :data="projectlist"
-          height="400"
-          style="width: 500px;left:-150px" @cell-click="findproject">
-        <el-table-column
-            prop="projectID"
-            label="项目编号"
-            width="250">
-        </el-table-column>
-        <el-table-column
-            prop="projectName"
-            label="项目名称"
-            width="250">
-        </el-table-column>
-        <el-table-column
-            prop="project_root_fileID"
-            label="根目录文件夹"
-            width="250">
-        </el-table-column>
-      </el-table>
-    </div>
   </div>
+  <div>
+      <projectListsVue></projectListsVue>
+    </div>
+   </div>
 </template>
 
 <script>
 
 import qs from "qs";
-
+import projectListsVue from "./projectLists.vue";
 export default {
+  components:{projectListsVue},
   name: 'Home',
   data() {
     return {
@@ -166,11 +32,55 @@ export default {
       numproject:0,
       projectlist:[],
       teamid:0,
+
+      dialog: false,
+    headers: [
+      {
+        text: 'Dessert (100g serving)',
+        align: 'start',
+        sortable: false,
+        value: 'name',
+      },
+      { text: 'Calories', value: 'calories' },
+      { text: 'Fat (g)', value: 'fat' },
+      { text: 'Carbs (g)', value: 'carbs' },
+      { text: 'Protein (g)', value: 'protein' },
+      { text: 'Actions', value: 'actions', sortable: false },],
+      desserts: [],
+    editedIndex: -1,
+    editedItem: {
+      name: '',
+      calories: 0,
+      fat: 0,
+      carbs: 0,
+      protein: 0,
+    },
+    defaultItem: {
+      name: '',
+      calories: 0,
+      fat: 0,
+      carbs: 0,
+      protein: 0,
+    },
     }
+
+  },
+    computed: {
+    formTitle () {
+      return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
+    },
+  },
+
+  watch: {
+    dialog (val) {
+      val || this.close()
+    },
   },
   created() {
     this.teamid=sessionStorage.getItem('TeamID');
-    alert(this.teamid);
+
+    // alert(this.teamid);
+
     //alert("项目当前团队"+this.teamid)
     //this.$axios({
        // method: 'post',
@@ -211,15 +121,62 @@ export default {
        console.log(row.project_root_fileID);
        sessionStorage.setItem('ProjectID',JSON.stringify(row.projectID));
        sessionStorage.setItem('project_root_fileID',JSON.stringify(row.project_root_fileID));
+       //alert(row.project_root_fileID);
        this.$router.push('/dashboard/demo/console');
-    }
+    },
+    initialize () {
+      this.desserts = [
+        {
+          name: 'Frozen Yogurt',
+          calories: 159,
+          fat: 6.0,
+          carbs: 24,
+          protein: 4.0,
+        },
+       
+      ]
+    },
+
+    editItem (item) {
+      this.editedIndex = this.desserts.indexOf(item)
+      this.editedItem = Object.assign({}, item)
+      this.dialog = true
+    },
+
+    deleteItem (item) {
+      const index = this.desserts.indexOf(item)
+      confirm('Are you sure you want to delete this item?') && this.desserts.splice(index, 1)
+    },
+
+    close () {
+      this.dialog = false
+      this.$nextTick(() => {
+        this.editedItem = Object.assign({}, this.defaultItem)
+        this.editedIndex = -1
+      })
+    },
+
+    save () {
+      if (this.editedIndex > -1) {
+        Object.assign(this.desserts[this.editedIndex], this.editedItem)
+      } else {
+        this.desserts.push(this.editedItem)
+      }
+      this.close()
+    },
+  
   }
 }
 </script>
+
+
+
+
+
 <style scoped>
 .home {
   width: 1060px;
-  height: 167px;
+  
   position: fixed;
   top: 20px;
   right: 0;
@@ -312,8 +269,8 @@ export default {
   -webkit-box-align: center;
   align-items: center;
   position: fixed;
-  left: 60%;
-  top: 50%;
+  left: 42%;
+  top:37%;
   transform: translateY(-80px);
 }
 .home-content .empty-header {

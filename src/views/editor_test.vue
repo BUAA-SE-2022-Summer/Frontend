@@ -32,7 +32,8 @@
       </div>-->
       <div>
         <v-btn style="background-color: rgba(255, 255, 255, 0.85);top:60px;left:650px" @click="savetext">保存文档</v-btn>
-        <v-btn style="background-color:  red;top:60px;left:350px" @click="delete2">删除当前文档</v-btn>
+        <v-btn style="background-color:  red;top:60px;left:370px" @click="delete2">删除当前文档</v-btn>
+        <v-btn style="background-color: rgba(255, 255, 255, 0.85);top:60px;left:50px" @click="return1">返回上个页面</v-btn>
       </div>
     </div>
     <div>
@@ -247,7 +248,11 @@ export default {
             console.log(err);         /* 若出现异常则在终端输出相关信息 */
           })
     },
+    return1(){
+      window.history.go(-1);
+    },
     createtext(){
+      alert(this.fatherid);
       this.$axios({
         method: 'post',           /* 指明请求方式，可以是 get 或 post */
         url: '/file/create_file',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
