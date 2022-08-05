@@ -1,7 +1,9 @@
 <template>
   <div>
     <v-card class="mx-auto my-12" width="400px" style="float:left;">
-            
+            <div style="width:100%;height:200px;margin-top: 20px;">
+      <img src="https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/login.png" style="width:350px;margin-left: 15px;">
+    </div>
               <div style="width:300px;margin-left:50px;margin-top: 10px;">
                 <v-text-field v-model="form.username" label="昵称" outlined clearable></v-text-field>
                 <v-text-field v-model="form.password" label="密码" outlined clearable></v-text-field>

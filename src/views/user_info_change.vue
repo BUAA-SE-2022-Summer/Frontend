@@ -19,7 +19,8 @@
               :counter="20"
               label="昵称"
               required
-            ></v-text-field>
+              color="palevioletred"
+            >{{this.username}}</v-text-field>
           <v-text-field
               v-model="real_name"
               :rules="nameRules"
