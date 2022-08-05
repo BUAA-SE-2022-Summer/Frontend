@@ -1,36 +1,15 @@
 <template>
-  <v-app>
-  <div id="main" class="main" style="width: 100%;height: 1200px;margin: 0%;">
-     <div class="left" style="position:fixed;float:left;width: 700px;height: 1200px;">
-    <div class="left-top" style="width:100%;height:5vh;">
-
-      
-    </div>
-    <div class="left-bottom" style="width:100%;">
-        <v-card class="mx-auto my-12" width="30vw" >
-          <v-img src="https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/card4.png" style="margin-top:10vh"></v-img>
-      </v-card>
-      
-    </div>
-    </div>
-    <div class="right" style="position:fixed;float:left;margin-left: 700px;height:1200px;width: 800px;">
-    <div class="right-top" style="width:30vw;height:200px;">
-        <!-- <v-card class="mx-auto my-12" width="20vw" > -->
-          <v-img src="https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/card7.png" style="width:30vw;margin-top:0"></v-img>
-      <!-- </v-card> -->
-      
-    </div>
-    <div class="right-bottom" style="width:100%;height:1000px;">
-         <v-card
+  <div>
+  <v-card
       :loading="loading"
       class="mx-auto my-12"
       width="450"
      
      
     >
-    <div style="width:100%;height:200px;margin-top: 20px;">
+    <!-- <div style="width:100%;height:200px;margin-top: 20px;">
       <img src="https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/formtop.png" style="width:400px;margin-left: 15px;">
-    </div>
+    </div> -->
     <div style="width:350px;margin-left:50px;margin-top: 0px;">
     <v-row>
     <v-col>
@@ -91,80 +70,11 @@
                 <v-icon>mdi-account-plus</v-icon>
               </v-btn>
           
-              <v-btn @click="toRegister">
-                <span>取消</span>
-                <v-icon>mdi-arrow-left</v-icon>
-              </v-btn>
+            
         </v-bottom-navigation>
     </div>
     </v-card>
-      
-    </div>
-    </div>
-   
-    <!-- <div >
-       <v-card
-      :loading="loading"
-      class="mx-auto my-12"
-      width="450"
-      height="850px"
-    >
-    <div style="width:100%;height:200px;margin-top: 20px;">
-      <img src="https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/formtop.png" style="width:400px;margin-left: 15px;">
-    </div>
-    <div style="width:350px;margin-left:50px;margin-top: 50px;">
-      <v-text-field
-              v-model="form.username"
-              label="昵称"
-              clearable
-       ></v-text-field>
-       <v-text-field
-              v-model="form.password_1"
-              label="密码"
-              clearable
-         ></v-text-field>
-
-          <v-text-field
-              v-model="form.password_2"
-              label="确认密码"
-              clearable
-         ></v-text-field>
-
-          <v-text-field
-              v-model="form.email"
-              label="邮箱"
-              clearable
-         ></v-text-field>
-
-          <v-text-field
-              v-model="form.relname"
-              label="真实姓名（选填）"
-              clearable
-         ></v-text-field>
-         <v-text-field
-              v-model="form.phonenumber"
-              label="手机号码（选填）"
-              clearable
-         ></v-text-field>
-         <v-btn
-                x-large
-                dark
-                @click="register"
-              >
-                注册
-           </v-btn>
-          <v-btn
-                x-large
-                dark
-                @click="toRegister"
-              >
-                取消
-           </v-btn>
-    </div>
-    </v-card>
-    </div> -->
   </div>
-  </v-app>
 </template>
 
 <script>

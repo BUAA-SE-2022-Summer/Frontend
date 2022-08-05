@@ -48,8 +48,10 @@
               label="个人简介"
               required
             ></v-text-field>
-            <v-btn @click="update" style="background: transparent;width: 100%;">更新资料</v-btn>
-      </div>
+            <div @click="update" style="color:white;text-align: center;width: 100%;font-size: 20px;">
+              <span>更新资料</span>
+            </div>
+               </div>
       
         
     </v-card>
