@@ -317,7 +317,7 @@
                                 </div>
                               </div>
                             </div>
-                            <el-button style="top:470px;position: absolute;">创建原型</el-button>
+                            <el-button style="top:470px;position: absolute;" @click="createPrototype">创建原型</el-button>
                             <el-button style="top:470px;position: absolute;left:200px" @click="cancle">取消</el-button>
                           </el-card>
                           <!-- 创建图结束 -->
@@ -613,6 +613,19 @@ export default {
           console.log(err);         /* 若出现异常则在终端输出相关信息 */
         });
     },
+    createPrototype() {
+      let teamID = sessionStorage.getItem('TeamID');
+      let projectID = sessionStorage.getItem('ProjectID');
+      this.$axios.post(
+        '/prototype/create_prototype',
+        this.$qs.stringify({
+          'teamID': xxx,
+          'prototypeName': xxx,
+          'fatherID': xxx,
+          'projectID': xxx
+        })
+      ).then
+    }
   }
 }
 </script>

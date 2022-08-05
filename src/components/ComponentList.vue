@@ -1,15 +1,18 @@
 <template>
-    <div class="component-list" @dragstart="handleDragStart">
-        <div
-            v-for="(item, index) in componentList"
-            :key="index"
-            class="list"
-            draggable
-            :data-index="index"
-        >
-            <span class="iconfont" :class="'icon-' + item.icon"></span>
-        </div>
-    </div>
+    <v-expansion-panels focusable inset>
+        <v-expansion-panel>
+            <v-expansion-panel-header>
+                ComponentList
+            </v-expansion-panel-header>
+            <v-expansion-panel-content>
+                <div class="component-list" @dragstart="handleDragStart">
+                    <div v-for="(item, index) in componentList" :key="index" class="list" draggable :data-index="index">
+                        <span class="iconfont" :class="'icon-' + item.icon"></span>
+                    </div>
+                </div>
+            </v-expansion-panel-content>
+        </v-expansion-panel>
+    </v-expansion-panels>
 </template>
 
 <script>

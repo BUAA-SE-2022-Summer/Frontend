@@ -1,21 +1,26 @@
 <template>
-    <div class="real-time-component-list">
-        <div
-            v-for="(item, index) in componentData"
-            :key="index"
-            class="list"
-            :class="{ actived: transformIndex(index) === curComponentIndex }"
-            @click="onClick(transformIndex(index))"
-        >
-            <span class="iconfont" :class="'icon-' + getComponent(index).icon"></span>
-            <span>{{ getComponent(index).label }}</span>
-            <div class="icon-container">
-                <span class="iconfont icon-shangyi" @click="upComponent(transformIndex(index))"></span>
-                <span class="iconfont icon-xiayi" @click="downComponent(transformIndex(index))"></span>
-                <span class="iconfont icon-shanchu" @click="deleteComponent(transformIndex(index))"></span>
-            </div>
-        </div>
-    </div>
+    <v-expansion-panels focusable inset>
+        <v-expansion-panel>
+            <v-expansion-panel-header>
+                RealTimeComponentList
+            </v-expansion-panel-header>
+            <v-expansion-panel-content>
+                <div class="real-time-component-list">
+                    <div v-for="(item, index) in componentData" :key="index" class="list"
+                        :class="{ actived: transformIndex(index) === curComponentIndex }"
+                        @click="onClick(transformIndex(index))">
+                        <span class="iconfont" :class="'icon-' + getComponent(index).icon"></span>
+                        <span>{{ getComponent(index).label }}</span>
+                        <div class="icon-container">
+                            <span class="iconfont icon-shangyi" @click="upComponent(transformIndex(index))"></span>
+                            <span class="iconfont icon-xiayi" @click="downComponent(transformIndex(index))"></span>
+                            <span class="iconfont icon-shanchu" @click="deleteComponent(transformIndex(index))"></span>
+                        </div>
+                    </div>
+                </div>
+            </v-expansion-panel-content>
+        </v-expansion-panel>
+    </v-expansion-panels>
 </template>
 
 <script>

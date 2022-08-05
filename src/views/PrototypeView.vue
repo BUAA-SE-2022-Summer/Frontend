@@ -4,8 +4,8 @@
 
     <main>
       <!-- 左侧组件列表 -->
-      <section class="left">
-
+      <section class="left" overflow:auto>
+        <PageList :nameList=namelist />
         <ComponentList />
         <RealTimeComponentList />
       </section>
@@ -51,12 +51,21 @@ import RealTimeComponentList from '@/components/RealTimeComponentList'
 import CanvasAttr from '@/components/CanvasAttr'
 
 export default {
-  components: { Editor, ComponentList, AnimationList, EventList, Toolbar, RealTimeComponentList, CanvasAttr },
+  components: { Editor, ComponentList, AnimationList, EventList, Toolbar, RealTimeComponentList, CanvasAttr, PageList },
   data() {
     return {
       activeName: 'attr',
       reSelectAnimateIndex: undefined,
-      namelist: []
+      'namelist': [
+        {
+          'pageID': 1,
+          'pageName': "AAA"
+        },
+        {
+          'pageID': 2,
+          'pageName': "bbb"
+        }
+      ],
     }
   },
   computed: mapState([
