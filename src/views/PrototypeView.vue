@@ -56,16 +56,7 @@ export default {
     return {
       activeName: 'attr',
       reSelectAnimateIndex: undefined,
-      'namelist': [
-        {
-          'pageID': 1,
-          'pageName': "AAA"
-        },
-        {
-          'pageID': 2,
-          'pageName': "bbb"
-        }
-      ],
+      namelist: [],
     }
   },
   computed: mapState([

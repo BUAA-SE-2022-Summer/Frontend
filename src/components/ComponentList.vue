@@ -1,5 +1,5 @@
 <template>
-    <v-expansion-panels focusable inset>
+    <v-expansion-panels focusable>
         <v-expansion-panel>
             <v-expansion-panel-header>
                 ComponentList

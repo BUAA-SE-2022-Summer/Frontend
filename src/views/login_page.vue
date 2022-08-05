@@ -1,73 +1,25 @@
 <template>
-  <div id="div_1">
-    <v-app>
-      <div style="width:100%;" class="main">
-        <div class="left" style="position:fixed;float:left;width: 800px;height: 100vh;margin-top: 0;">
-          <div class="left-top" style="width:100%;height:30vh;">
-            <v-card class="mx-auto my-12" width="30vh">
-              <v-img src="https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/card1.png" style="margin-top:5vh">
-              </v-img>
-            </v-card>
-
-          </div>
-          <div class="left-bottom" style="width:100%;height:65vh;">
-            <v-card class="mx-auto my-12" width="30vw">
-              <v-img src="https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/card2.png" style="width: 30vw;">
-              </v-img>
-            </v-card>
-
-          </div>
-        </div>
-        <div class="right"
-          style="position:fixed;float:left;margin-left: 800px;height:100vh;width: 800px;margin-top: 4px;">
-          <div class="right-top" style="width:100%;height:550px;">
-            <v-card class="mx-auto my-12" width="400px" height="500px" style="float:left;background-color: white;">
-              <div style="width:100%;margin-top: 0;">
-                <img src="https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/login.png"
-                  style="width:350px;margin-left: 25px;">
-              </div>
+  <div>
+    <v-card class="mx-auto my-12" width="400px" style="float:left;">
+            
               <div style="width:300px;margin-left:50px;margin-top: 10px;">
                 <v-text-field v-model="form.username" label="昵称" outlined clearable></v-text-field>
                 <v-text-field v-model="form.password" label="密码" outlined clearable></v-text-field>
                 <!-- <v-app id="inspire"> -->
-                <v-bottom-navigation :value="value" color="pink">
+                <v-bottom-navigation :value="value" >
                   <v-btn @click="login">
                     <span>登录</span>
 
                     <v-icon>mdi-login</v-icon>
                   </v-btn>
 
-                  <v-btn @click="toRegister">
-                    <span>注册</span>
+                  
 
-                    <v-icon>mdi-account-plus</v-icon>
-                  </v-btn>
-
-                  <v-btn @click="toMain">
-                    <span>返回主页</span>
-
-                    <v-icon>mdi-arrow-left</v-icon>
-                  </v-btn>
+                  
                 </v-bottom-navigation>
-                <!-- </v-app> -->
+
               </div>
             </v-card>
-
-          </div>
-
-          <div class="right-bottom" style="width:25vw;height:400px; margin-left: 0;">
-            <v-card class="mx-auto my-12" style="margin-left:0;width: 25vw;">
-              <v-img src="https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/card3.png"
-                style="margin-top:0;width: 25vw;"></v-img>
-            </v-card>
-            <!-- <v-card class="mx-auto my-12" width="250px" style="float:left;margin-left: 0;">
-          <v-img src="https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/card3.png" style="margin-top:0"></v-img>
-      </v-card> -->
-
-          </div>
-        </div>
-      </div>
-    </v-app>
   </div>
 </template>
 

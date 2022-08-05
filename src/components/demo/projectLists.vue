@@ -93,11 +93,13 @@ export default {
           sortable: false,
           value: 'projectName',
         },
+
         { text: '项目创建者', value: 'projectUser' },
         { text: '项目ID', value: 'projectID' },
         { text: '创建时间', value: 'projectTime' },
         { text: '是否星标', value: 'is_star',sortable: false, },
         { text: '操作', value: 'actions', sortable: false },
+
       ],
       desserts: [],
       editedIndex: -1,
