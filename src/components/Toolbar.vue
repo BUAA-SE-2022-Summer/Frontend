@@ -4,20 +4,13 @@
             <el-button @click="undo">撤消</el-button>
             <el-button @click="redo">重做</el-button>
             <label for="input" class="insert">插入图片</label>
-            <input
-                id="input"
-                type="file"
-                hidden
-                @change="handleFileChange"
-            />
+            <input id="input" type="file" hidden @change="handleFileChange" />
             <el-button style="margin-left: 10px;" @click="preview(false)">预览</el-button>
             <el-button @click="save">保存</el-button>
             <el-button @click="clearCanvas">清空画布</el-button>
             <el-button :disabled="!areaData.components.length" @click="compose">组合</el-button>
-            <el-button
-                :disabled="!curComponent || curComponent.isLock || curComponent.component != 'Group'"
-                @click="decompose"
-            >
+            <el-button :disabled="!curComponent || curComponent.isLock || curComponent.component != 'Group'"
+                @click="decompose">
                 拆分
             </el-button>
 
@@ -203,6 +196,27 @@ export default {
         },
 
         save() {
+            let teamID = sessionStorage.getItem('TeamID');
+            let projectID = sessionStorage.getItem('ProjectID');
+            let pageID = sessionStorage.getItem('pageID');
+            this.$axios.post(
+                '/prototype/update_page',
+                this.$qs.stringify({
+                    teamID: teamID,
+                    prototypeID: projectID,
+                    pageID: pageID,
+                    pageComponentData: this.componentData,
+                    //pageComponentData_style: this.canvasStyleData
+                })
+            ).then(response => {
+                if (response.data.errno === 0) {
+                    this.$message.success(response.data.msg)
+                } else {
+                    this.$message.error(response.data.msg)
+                }
+            }).catch(err => {
+                console.error(err);
+            })
             localStorage.setItem('canvasData', JSON.stringify(this.componentData))
             localStorage.setItem('canvasStyle', JSON.stringify(this.canvasStyleData))
             this.$message.success('保存成功')
