@@ -1,7 +1,7 @@
 <template>
   <div>
-    <v-card class="mx-auto my-12" width="400px" style="float:left;">
-            
+    <v-card class="mx-auto my-12" width="400px" style="float:left;background-color: rgba(255, 255, 255, 0.85);">
+
               <div style="width:300px;margin-left:50px;margin-top: 10px;">
                 <v-text-field v-model="form.username" label="昵称" outlined clearable></v-text-field>
                 <v-text-field v-model="form.password" label="密码" outlined clearable></v-text-field>
@@ -13,9 +13,9 @@
                     <v-icon>mdi-login</v-icon>
                   </v-btn>
 
-                  
 
-                  
+
+
                 </v-bottom-navigation>
 
               </div>
