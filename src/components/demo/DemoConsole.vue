@@ -125,7 +125,7 @@
         </v-list>
       </button>
     </div>
-    <div class="home-content">
+    <div class="home-content" style="">
       <div v-if="(!hasTeam) && (!hasProject) && (!hasFile)">
         <img src="../../assets/empty-star.svg" class="empty-img empty-join-img" alt=""
           style="margin-left: 260px;margin-top: 70px">

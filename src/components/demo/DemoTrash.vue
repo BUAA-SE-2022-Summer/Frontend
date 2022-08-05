@@ -16,7 +16,7 @@
         </div>
       </div>
     </div>
-    <div class="home-content">
+    <div class="home-content" style="">
       <div class="left">
         <v-icon>mdi-alert-circle</v-icon>
         <div class="slogan">您删除的项目或文件将在此保留3天，然后将被永久删除</div>
@@ -32,7 +32,7 @@
         ></v-text-field>
       </div>
     </div>
-    <div class="home-content-2">
+    <div class="home-content-2" style="height: 400px">
       <!--<img src="../../assets/empty-join.svg" class="empty-img empty-join-img" alt="">
       <div class="empty-header">无项目</div>-->
       <el-table
@@ -40,7 +40,7 @@
           height="400"
           border
           stripe
-          style="width: 800px;left:-300px;top:30px" @cell-click="findtxt">
+          style="width: 800px;left:-330px;top:-30px" @cell-click="findtxt">
         <el-table-column
             prop="file_name"
             label="文件名"

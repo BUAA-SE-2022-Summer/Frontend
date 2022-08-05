@@ -16,7 +16,7 @@
         </div>
       </div>
     </div>
-    <div class="home-middle">
+    <div class="home-middle" style="background-color: red">
       <button class="but_1">
         <v-list width="100%" class="li_1">
           <v-list-group>
@@ -123,14 +123,16 @@
         </v-list>
       </button>
     </div>
-    <div class="home-content">
+    <div class="home-content" style=" width: 1000px;height:400px">
       <!--<img src="../../assets/empty-star.svg" class="empty-img empty-join-img" alt="">
       <div class="empty-header">无项目</div>
       <span class="empty-desc is-show">点击新建新建项目</span>-->
       <el-table
           :data="projectlist"
           height="400"
-          style="width: 500px;left:-150px" @cell-click="findproject">
+          border
+          stripe
+          style="width: 750px;left:-150px;top:30px" @cell-click="findproject">
         <el-table-column
             prop="projectID"
             label="项目编号"
@@ -147,6 +149,9 @@
             width="250">
         </el-table-column>
       </el-table>
+    </div>
+    <div>
+      cnm
     </div>
   </div>
 </template>
@@ -312,8 +317,8 @@ export default {
   -webkit-box-align: center;
   align-items: center;
   position: fixed;
-  left: 60%;
-  top: 50%;
+  left: 42%;
+  top:37%;
   transform: translateY(-80px);
 }
 .home-content .empty-header {
