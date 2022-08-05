@@ -170,7 +170,6 @@ export default {
   },
   created() {
     this.teamid=sessionStorage.getItem('TeamID');
-    alert(this.teamid);
     //alert("项目当前团队"+this.teamid)
     //this.$axios({
        // method: 'post',
@@ -211,6 +210,7 @@ export default {
        console.log(row.project_root_fileID);
        sessionStorage.setItem('ProjectID',JSON.stringify(row.projectID));
        sessionStorage.setItem('project_root_fileID',JSON.stringify(row.project_root_fileID));
+       //alert(row.project_root_fileID);
        this.$router.push('/dashboard/demo/console');
     }
   }
