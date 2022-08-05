@@ -412,7 +412,7 @@
           <v-btn class="mx-2" fab dark color="pink" small>
             <v-icon>mdi-account-multiple</v-icon>
           </v-btn>
-          <v-list-item-title>管理管理</v-list-item-title>
+          <v-list-item-title>成员管理</v-list-item-title>
         </v-list-item>
       </v-list>
       <template v-slot:append>
@@ -421,7 +421,7 @@
             <template v-slot:activator="{ on }">
               <v-btn class="butt" v-on="on">
                 <v-avatar>
-                  <img src="../assets/logo.svg" alt="">
+                  <img src="https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/team.png" alt="">
                 </v-avatar>
               </v-btn>
             </template>
