@@ -313,6 +313,7 @@ export default {
   },
   created() {
     this.projectid = sessionStorage.getItem('ProjectID');
+    //this.projectid=10;
     if (this.projectid !== undefined && this.projectid > 0) {
       console.log("debug: " + this.projectid);
       this.$axios({

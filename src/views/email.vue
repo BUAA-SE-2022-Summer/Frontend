@@ -97,7 +97,7 @@
    <div style="width:100%;height: 600px;">
 
     <v-card class="mx-auto my-12" style="width:1000px">
-    <v-card-title style="">尊敬的墨书用{{this.invitedName}}您好：</v-card-title>
+    <v-card-title style="">亲爱的墨书用户{{this.invitedName}}您好：</v-card-title>
     <div style="width:100%;height: 300px;">
       <div class="cardLeft" style="float:left;width:500px;height:280px;border-radius: 10px; ">
       <img src="https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/card7.png" style="width:400px;height:270px">
@@ -213,22 +213,27 @@ export default {
 // 发送token获取基础信息
   console.log("发送token")
     var url="/team/confirm_invitation"
-    this.$axios.get('/team/confirm_invitation').then(
-      res => {
-        console.log(res.data)
-      }
-    );
-    // this.$axios({
-    //       method:'post',
-    //       url:url,
-    //       data:qs.stringify({
-    //           "token":this.token,
-    //       })
-    //   }).then(res=>{
-    //       var result = res.data
-    //       console.log(result)
-    //       alert(result.msg)
-    // })
+    // this.$axios.get('/team/confirm_invitation').then(
+    //   res => {
+    //     console.log(res.data)
+    //   }
+    // );
+    this.$axios({
+          method:'post',
+          url:url,
+          data:qs.stringify({
+              "token":this.token,
+          })
+      }).then(res=>{
+          var result = res.data
+          console.log(result)
+          // alert(result.msg)
+          this.teamName=result.team_name
+          this.inviteName=result.invitor_name
+          this.inviteHead=result.invitor_avatar
+          this.invitedName=result.username
+          this.invitedHead=result.user_avater
+    })
   //  this.$axios.get('/team/invite_member').then(res=>{
   //         var result = res.data
   //         console.log(result)
@@ -290,3 +295,6 @@ export default {
   background-size: cover;
 }
 </style>
+<!-- 
+  http://192.168.5.4:8082/email？token=eyJ1c2VySUQiOjMxLCJlbWFpbCI6IjE1OTk3NjM3MzFAcXEuY29tIiwidGVhbUlEIjoxMSwiaW52aXRvcklEIjoxfQ.Yuv5Xw.FMk0zSWoCC1jrVdMUrh7zFv1lWok
+ -->

@@ -137,6 +137,7 @@ export default {
     this.teamid = sessionStorage.getItem('TeamID')
     this.get_team_info(this.teamid)
     console.log("当前团队", this.teamid)
+
   },
 
   methods: {

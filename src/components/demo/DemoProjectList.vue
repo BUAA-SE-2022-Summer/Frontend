@@ -130,7 +130,6 @@
       <el-table
           :data="projectlist"
           height="400"
-          border
           style="width: 500px;left:-150px" @cell-click="findproject">
         <el-table-column
             prop="projectID"
@@ -171,25 +170,40 @@ export default {
   },
   created() {
     this.teamid=sessionStorage.getItem('TeamID');
-    this.$axios({
-      method: 'post',           /* 指明请求方式，可以是 get 或 post */
-      url: '/project/get_project_list',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
-      data: qs.stringify({
-          teamID:this.teamid
-      })
-    })
-        .then(res => {/* res 是 response 的缩写 */
-          //获取用户登录的三个基本信息并存放于sessionStorage
-          if (res.data.errno === 0) {
-            this.$message.success("获取项目列表成功");
-            this.projectlist=res.data.project_list;
-          } else {
-            this.$message.error(res.data.msg);
-          }
-        })
-        .catch(err => {
-          console.log(err);         /* 若出现异常则在终端输出相关信息 */
-        })
+    alert(this.teamid);
+    //alert("项目当前团队"+this.teamid)
+    //this.$axios({
+       // method: 'post',
+        //url: '/project/get_project_list',
+       // data: qs.stringify({
+         // teamID: this.teamid
+        //})
+      //}).then(res => {
+       // console.log("获取项目信息", res.data);
+        //this.$message.success("获取项目列表成功");
+        //this.projectlist=res.data.project_list;
+        // console.log(this.user_list)
+      //})
+     this.$axios({
+       method: 'post',
+       url: '/project/get_project_list',
+       data: qs.stringify({
+         teamID:this.teamid
+       })
+     })
+         .then(res => {
+           //console.log(res.data)
+           if (res.data.errno === 0) {
+              this.$message.success("获取项目列表成功");
+              this.projectlist=res.data.project_list;
+            } else {
+             alert(res.data.msg);
+              this.$message.error(res.data.msg);
+            }
+         })
+         .catch(err => {
+           console.log(err);         /* 若出现异常则在终端输出相关信息 */
+         })
   },
   methods:{
     findproject(row,column,cell,event){
