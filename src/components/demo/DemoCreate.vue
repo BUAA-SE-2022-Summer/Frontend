@@ -1,287 +1,159 @@
 <template>
-  <div class="home">
-    <div class="home-header">
-      <div class="home-header-left">
-        <div class="home-header-left-title">
-          <span>我创建的</span>
-        </div>
-      </div>
-      <div class="home-header-right">
-        <div class="home-header-right-img">
-          <!--<v-btn style="border-radius: 50%">
-            <v-avatar size="40px" style="border-radius: 50%">
-              <img src="../../assets/logo.svg" alt="">
-            </v-avatar>
-          </v-btn>-->
+  <div>
+    <div class="home">
+      <div class="home-header">
+        <div class="home-header-left">
         </div>
       </div>
     </div>
-    <div class="home-middle">
-      <button class="but_1">
-        <v-list width="100%" class="li_1">
-          <v-list-group>
-            <template v-slot:activator>
-              <v-list-item-content>
-                <v-list-item-title>更新时间</v-list-item-title>
-              </v-list-item-content>
-            </template>
-
-            <v-list-item @click="">
-              <v-list-item-title class="tit_1">更新时间</v-list-item-title>
-              <v-list-item-action>
-                <v-icon>mdi-check</v-icon>
-              </v-list-item-action>
-            </v-list-item>
-
-            <v-list-item @click="">
-              <v-list-item-title class="tit_1">创建时间</v-list-item-title>
-            </v-list-item>
-
-            <v-divider />
-
-            <v-list-item @click="">
-              <v-list-item-title class="tit_1">名称</v-list-item-title>
-            </v-list-item>
-
-            <v-list-item @click="">
-              <v-list-item-title class="tit_1">创建者</v-list-item-title>
-            </v-list-item>
-
-            <v-divider />
-
-            <v-list-item @click="">
-              <v-list-item-title class="tit_1">升序</v-list-item-title>
-            </v-list-item>
-
-            <v-list-item @click="">
-              <v-list-item-title class="tit_1">降序</v-list-item-title>
-              <v-list-item-action>
-                <v-icon>mdi-check</v-icon>
-              </v-list-item-action>
-            </v-list-item>
-          </v-list-group>
-        </v-list>
-      </button>
-      <button class="but_2">
-        <v-list width="100%" class="li_1">
-          <v-list-group>
-            <template v-slot:activator>
-              <v-list-item-content>
-                <v-list-item-title>全部类型</v-list-item-title>
-              </v-list-item-content>
-            </template>
-
-            <v-list-item @click="">
-              <v-list-item-title class="tit_1">全部类型</v-list-item-title>
-              <v-list-item-action>
-                <v-icon>mdi-check</v-icon>
-              </v-list-item-action>
-            </v-list-item>
-
-            <v-list-item @click="">
-              <v-list-item-title class="tit_1">原型图</v-list-item-title>
-            </v-list-item>
-
-
-            <v-list-item @click="">
-              <v-list-item-title class="tit_1">UML图</v-list-item-title>
-            </v-list-item>
-
-            <v-list-item @click="">
-              <v-list-item-title class="tit_1">文档</v-list-item-title>
-            </v-list-item>
-
-
-          </v-list-group>
-        </v-list>
-      </button>
-      <button class="but_3">
-        <v-list width="100%">
-          <v-list-group class="li_2">
-            <template v-slot:activator>
-              <v-list-item-icon>
-                <v-icon>mdi-menu</v-icon>
-              </v-list-item-icon>
-            </template>
-
-            <v-list-item @click="">
-              <v-list-item-icon>
-                <v-icon>mdi-menu</v-icon>
-              </v-list-item-icon>
-              <v-list-item-title class="tit_1_1">图标</v-list-item-title>
-              <v-list-item-action>
-                <v-icon>mdi-check</v-icon>
-              </v-list-item-action>
-            </v-list-item>
-
-            <v-list-item @click="">
-              <v-list-item-icon class="tit_1"><v-icon>mdi-format-list-bulleted</v-icon></v-list-item-icon>
-              <v-list-item-title class="tit_1_1">列表</v-list-item-title>
-            </v-list-item>
-
-          </v-list-group>
-        </v-list>
-      </button>
-    </div>
-    <div class="home-content" style="height: 400px">
-      <!--
-      <img src="../../assets/empty-all.png" class="empty-img" alt="">
-      <div class="empty-header">点击下方模块快速创建</div>
-         <span class="empty-desc is-hidden">请调整上方筛选项</span>
-      <div class="create-button-wrapper">
-        <div class="dbieLX">
-          <ul class="createBox" style="width: 480px;">
-            <li data-type="prototype" data-disabled="no" class="create-box-item prototype">
-              <span class="icon">
-                <img class="icon_1" src="../../assets/原型图.png" alt="">
-              </span>
-              <span class="name">原型图</span>
-            </li>
-            <li data-type="aboard" data-disabled="no" data-beta="false" class="create-box-item aboard">
-              <span class="icon">
-                <img class="icon_1" src="../../assets/UML图.png" alt="">
-              </span>
-              <span class="name">UML图</span>
-            </li>
-            <li data-type="profile" data-disabled="no" class="create-box-item profile">
-              <span class="icon">
-                <img class="icon_1" src="../../assets/文档.png" alt="">
-              </span>
-              <span class="name">文档</span>
-            </li>
-          </ul>
-          <input hidden multiple="" type="file" accept=".sketch">
-        </div>
-      </div>
-      <div class="list-group">
-        <div class="list-wrapper">
-          <ul class="list-group" style="list-style: none;margin: 0;padding: 0">
-            <v-col>
-              <li class="list-group-item" v-for="item in list">
-                <div class="list-group-item-wrapper">
-                  <span class="list-group-item-action">
-                    <img class="list-group-item-action-img" :src="item.img" alt="">
-                  </span>
-                  <div class="list-group-item-title">
-                    <span class="list-group-item-title-text">{{item.name}}</span>
-                  </div>
-                </div>
-              </li>
-            </v-col>
-          </ul>
-        </div>
-      </div>-->
-      <el-table
-          :data="this.txts"
-          height="400"
-          border
-          stripe
-          style="width: 800px;left:-50px;top:30px" @cell-click="findtxt">
-        <el-table-column
-            prop="file_name"
-            label="文件名"
-            width="200">
-        </el-table-column>
-        <el-table-column
-            prop="last_modify_time"
-            label="最后编辑时间"
-            width="200">
-        </el-table-column>
-        <el-table-column
-            prop="fileID"
-            label="文件id"
-            width="200">
-        </el-table-column>
-        <el-table-column
-            prop="file_type"
-            label="文件类型"
-            width="200">
-        </el-table-column>
-      </el-table>
+    <div>
+      <doxlists1></doxlists1>
     </div>
   </div>
-
-
 </template>
 
 <script>
 
 import qs from "qs";
-
+import doxlists1 from "./mydoclists.vue"
+import projectListsVue from "./projectLists.vue";
 export default {
+  components:{doxlists1},
   name: 'Home',
   data() {
     return {
-      list: [
-        {
-          name: '原型图',
-          img: '../assets/原型图.png',
-        },
-        {
-          name: 'UML图',
-          img: '../assets/UML图.png',
-        },
-        {
-          name: '文档',
-          img: '../assets/文档.png',
-        }
+      admins: [
+        ['成员管理', 'mdi-account-cog'],
+        ['操作日志', 'mdi-book-open-outline'],
       ],
-      txts:[],
-      projectid:0,
+      numproject:0,
+      projectlist:[],
+      teamid:0,
+
+      dialog: false,
+      headers: [
+        {
+          text: 'Dessert (100g serving)',
+          align: 'start',
+          sortable: false,
+          value: 'name',
+        },
+        { text: 'Calories', value: 'calories' },
+        { text: 'Fat (g)', value: 'fat' },
+        { text: 'Carbs (g)', value: 'carbs' },
+        { text: 'Protein (g)', value: 'protein' },
+        { text: 'Actions', value: 'actions', sortable: false },],
+      desserts: [],
+      editedIndex: -1,
+      editedItem: {
+        name: '',
+        calories: 0,
+        fat: 0,
+        carbs: 0,
+        protein: 0,
+      },
+      defaultItem: {
+        name: '',
+        calories: 0,
+        fat: 0,
+        carbs: 0,
+        protein: 0,
+      },
     }
+
+  },
+  computed: {
+    formTitle () {
+      return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
+    },
+  },
+
+  watch: {
+    dialog (val) {
+      val || this.close()
+    },
   },
   created() {
-    this.projectid = sessionStorage.getItem('ProjectID');
-    this.$axios({
-      method: 'post',           /* 指明请求方式，可以是 get 或 post */
-      url: '/file/get_my_filelist',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
-      data: qs.stringify({
-        projectID:this.projectid,
-      })
-    })
-        .then(res => {/* res 是 response 的缩写 */
-          if (res.data.errno === 0) {
-            this.txts=res.data.my_file_list;
-            this.$message.success("获取文件列表成功");
-          } else {
-            this.$message.error(res.data.msg);
-          }
-        })
-        .catch(err => {
-          console.log(err);         /* 若出现异常则在终端输出相关信息 */
-        });
+    this.teamid=sessionStorage.getItem('TeamID');
+
+    // alert(this.teamid);
+
+    //alert("项目当前团队"+this.teamid)
+    //this.$axios({
+    // method: 'post',
+    //url: '/project/get_project_list',
+    // data: qs.stringify({
+    // teamID: this.teamid
+    //})
+    //}).then(res => {
+    // console.log("获取项目信息", res.data);
+    //this.$message.success("获取项目列表成功");
+    //this.projectlist=res.data.project_list;
+    // console.log(this.user_list)
+    //})
   },
   methods:{
-    findtxt(row,column,cell,event){
-      console.log(row.fileID);
-      this.$axios({
-        method: 'post',           /* 指明请求方式，可以是 get 或 post */
-        url: '/file/read_file',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
-        data: qs.stringify({
-          fileID:row.fileID,
-        })
-      })
-          .then(res => {/* res 是 response 的缩写 */
-            //获取用户登录的三个基本信息并存放于sessionStorage
-            if (res.data.errno === 0) {
-              this.$message.success("打开成功");
-              sessionStorage.setItem('now_textid',JSON.stringify(res.data.fileID));
-              this.$router.push('/ed');
-            } else {
-              this.$message.error(res.data.msg);
-            }
-          })
-          .catch(err => {
-            console.log(err);         /* 若出现异常则在终端输出相关信息 */
-          })
+    findproject(row,column,cell,event){
+      console.log(row.projectID);
+      console.log(row.project_root_fileID);
+      sessionStorage.setItem('ProjectID',JSON.stringify(row.projectID));
+      sessionStorage.setItem('project_root_fileID',JSON.stringify(row.project_root_fileID));
+      //alert(row.project_root_fileID);
+      this.$router.push('/dashboard/demo/console');
     },
+    initialize () {
+      this.desserts = [
+        {
+          name: 'Frozen Yogurt',
+          calories: 159,
+          fat: 6.0,
+          carbs: 24,
+          protein: 4.0,
+        },
+
+      ]
+    },
+
+    editItem (item) {
+      this.editedIndex = this.desserts.indexOf(item)
+      this.editedItem = Object.assign({}, item)
+      this.dialog = true
+    },
+
+    deleteItem (item) {
+      const index = this.desserts.indexOf(item)
+      confirm('Are you sure you want to delete this item?') && this.desserts.splice(index, 1)
+    },
+
+    close () {
+      this.dialog = false
+      this.$nextTick(() => {
+        this.editedItem = Object.assign({}, this.defaultItem)
+        this.editedIndex = -1
+      })
+    },
+
+    save () {
+      if (this.editedIndex > -1) {
+        Object.assign(this.desserts[this.editedIndex], this.editedItem)
+      } else {
+        this.desserts.push(this.editedItem)
+      }
+      this.close()
+    },
+
   }
 }
 </script>
+
+
+
+
+
 <style scoped>
 .home {
   width: 1060px;
-  height: 167px;
+
   position: fixed;
   top: 20px;
   right: 0;
@@ -375,7 +247,7 @@ export default {
   align-items: center;
   position: fixed;
   left: 42%;
-  top: 37%;
+  top:37%;
   transform: translateY(-80px);
 }
 .home-content .empty-header {
@@ -385,80 +257,13 @@ export default {
   margin-top: 8px;
   font-weight: 500;
 }
-.home-content .empty-desc.is-hidden {
+.home-content .empty-desc.is-show {
   font-size: 12px;
   line-height: 16px;
   margin-top: 8px;
   color: rgb(79, 79, 79);
   font-weight: 400;
 }
-.home-content .create-button-wrapper {
-  margin-top: 16px;
-}
-.home-content .empty-img {
-  width: 100px;
-  height: 100px;
-}
-.dbieLX .createBox {
-  width: 480px;
-  display: flex;
-  flex-wrap: wrap;
-  -webkit-box-pack: center;
-  justify-content: center;
-  margin-top: -10px;
-}
-.dbieLX .createBox > li {
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  -webkit-box-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  justify-content: center;
-  cursor: pointer;
-}
-.dbieLX .createBox > li .icon {
-  display: flex;
-  -webkit-box-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  justify-content: center;
-  width: 100px;
-  height: 80px;
-  border-radius: 8px;
-  background-color: rgb(242, 242, 242);
-}
-.dbieLX .createBox > li .icon .icon_1 {
-  width: 50%;
-  height: 50%;
-}
-.dbieLX .createBox > li .name {
-  font-size: 14px;
-  line-height: 16px;
-  margin-top: 12px;
-  color: rgb(91, 107, 115);
-}
-.list-group {
-  display: flex;
-}
-.list-group-item {
-  display: flex;
-  margin-right: 52px;
-}
-.list-group-item-action {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100px;
-  height: 100px;
-  border-radius: 12px;
-  background-color: rgb(242, 242, 242);
-}
-.list-group-item-action-img {
-  width: 100%;
-  height: 100%;
-}
-.list-group-item-title {
-  text-align: center;
-}
 </style>
+
+

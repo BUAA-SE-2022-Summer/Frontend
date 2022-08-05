@@ -1,67 +1,13 @@
 <template>
-  <div class="home">
-    <div class="home-header">
-      <div class="home-header-left">
-        <div class="home-header-left-title">
-          <span>项目回收站</span>
-        </div>
-      </div>
-      <div class="home-header-right">
-        <div class="home-header-right-img">
-          <!--<v-btn style="border-radius: 50%">
-            <v-avatar size="40px" style="border-radius: 50%">
-              <img src="../../assets/logo.svg" alt="">
-            </v-avatar>
-          </v-btn>-->
+  <div>
+    <div class="home">
+      <div class="home-header">
+        <div class="home-header-left">
         </div>
       </div>
     </div>
-    <div class="home-content" style="">
-      <div class="left">
-        <v-icon>mdi-alert-circle</v-icon>
-        <div class="slogan">您删除的项目或文件将在此保留3天，然后将被永久删除</div>
-      </div>
-    </div>
-   <div class="home-content-1">
-      <div class="right">
-        <v-text-field
-            v-model="search"
-            label="搜索"
-            append-icon="mdi-magnify"
-            class="search"
-        ></v-text-field>
-      </div>
-    </div>
-    <div class="home-content-2" style="height: 400px">
-      <!--<img src="../../assets/empty-join.svg" class="empty-img empty-join-img" alt="">
-      <div class="empty-header">无项目</div>-->
-      <el-table
-          :data="this.txts"
-          height="400"
-          border
-          stripe
-          style="width: 800px;left:-330px;top:-30px" @cell-click="findtxt">
-        <el-table-column
-            prop="file_name"
-            label="文件名"
-            width="200">
-        </el-table-column>
-        <el-table-column
-            prop="delete_time"
-            label="删除时间"
-            width="200">
-        </el-table-column>
-        <el-table-column
-            prop="fileID"
-            label="文件id"
-            width="200">
-        </el-table-column>
-        <el-table-column
-            prop="file_type"
-            label="文件类型"
-            width="200">
-        </el-table-column>
-      </el-table>
+    <div>
+      <doxlists1></doxlists1>
     </div>
   </div>
 </template>
@@ -69,8 +15,10 @@
 <script>
 
 import qs from "qs";
-
+import doxlists1 from "./trashlists.vue"
+import projectListsVue from "./projectLists.vue";
 export default {
+  components:{doxlists1},
   name: 'Home',
   data() {
     return {
@@ -78,63 +26,118 @@ export default {
         ['成员管理', 'mdi-account-cog'],
         ['操作日志', 'mdi-book-open-outline'],
       ],
-      txts:[
-      ],
-      projectid:0,
+      numproject:0,
+      projectlist:[],
+      teamid:0,
+
+      dialog: false,
+      headers: [
+        {
+          text: 'Dessert (100g serving)',
+          align: 'start',
+          sortable: false,
+          value: 'name',
+        },
+        { text: 'Calories', value: 'calories' },
+        { text: 'Fat (g)', value: 'fat' },
+        { text: 'Carbs (g)', value: 'carbs' },
+        { text: 'Protein (g)', value: 'protein' },
+        { text: 'Actions', value: 'actions', sortable: false },],
+      desserts: [],
+      editedIndex: -1,
+      editedItem: {
+        name: '',
+        calories: 0,
+        fat: 0,
+        carbs: 0,
+        protein: 0,
+      },
+      defaultItem: {
+        name: '',
+        calories: 0,
+        fat: 0,
+        carbs: 0,
+        protein: 0,
+      },
     }
+
   },
-  created(){
-    this.projectid = sessionStorage.getItem('ProjectID');
-    this.$axios({
-      method: 'post',           /* 指明请求方式，可以是 get 或 post */
-      url: 'file/delete_filelist ',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
-      data: qs.stringify({
-        projectID:this.projectid,
-      })
-    })
-        .then(res => {/* res 是 response 的缩写 */
-          if (res.data.errno === 0) {
-            this.txts=res.data.delete_filelist;
-            this.$message.success("获取文件列表成功");
-          } else {
-            this.$message.error(res.data.msg);
-          }
-        })
-        .catch(err => {
-          console.log(err);         /* 若出现异常则在终端输出相关信息 */
-        });
+  computed: {
+    formTitle () {
+      return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
+    },
+  },
+
+  watch: {
+    dialog (val) {
+      val || this.close()
+    },
+  },
+  created() {
+    this.teamid=sessionStorage.getItem('TeamID');
   },
   methods:{
-    findtxt(row,column,cell,event){
-      console.log(row.fileID);
-      this.$axios({
-        method: 'post',           /* 指明请求方式，可以是 get 或 post */
-        url: '/file/read_file',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
-        data: qs.stringify({
-          fileID:row.fileID,
-        })
-      })
-          .then(res => {/* res 是 response 的缩写 */
-            //获取用户登录的三个基本信息并存放于sessionStorage
-            if (res.data.errno === 0) {
-              this.$message.success("打开成功");
-              sessionStorage.setItem('now_textid',JSON.stringify(res.data.fileID));
-              this.$router.push('/ed');
-            } else {
-              this.$message.error(res.data.msg);
-            }
-          })
-          .catch(err => {
-            console.log(err);         /* 若出现异常则在终端输出相关信息 */
-          })
+    findproject(row,column,cell,event){
+      console.log(row.projectID);
+      console.log(row.project_root_fileID);
+      sessionStorage.setItem('ProjectID',JSON.stringify(row.projectID));
+      sessionStorage.setItem('project_root_fileID',JSON.stringify(row.project_root_fileID));
+      //alert(row.project_root_fileID);
+      this.$router.push('/dashboard/demo/console');
     },
+    initialize () {
+      this.desserts = [
+        {
+          name: 'Frozen Yogurt',
+          calories: 159,
+          fat: 6.0,
+          carbs: 24,
+          protein: 4.0,
+        },
+
+      ]
+    },
+
+    editItem (item) {
+      this.editedIndex = this.desserts.indexOf(item)
+      this.editedItem = Object.assign({}, item)
+      this.dialog = true
+    },
+
+    deleteItem (item) {
+      const index = this.desserts.indexOf(item)
+      confirm('Are you sure you want to delete this item?') && this.desserts.splice(index, 1)
+    },
+
+    close () {
+      this.dialog = false
+      this.$nextTick(() => {
+        this.editedItem = Object.assign({}, this.defaultItem)
+        this.editedIndex = -1
+      })
+    },
+
+    save () {
+      if (this.editedIndex > -1) {
+        Object.assign(this.desserts[this.editedIndex], this.editedItem)
+      } else {
+        this.desserts.push(this.editedItem)
+      }
+      this.close()
+    },
+
   }
 }
 </script>
+
+
+
+
+
 <style scoped>
 .home {
   width: 1060px;
-  height: 90px;
+
   position: fixed;
   top: 20px;
   right: 0;
@@ -223,65 +226,28 @@ export default {
   display: flex;
   -webkit-box-pack: center;
   justify-content: center;
-  -webkit-box-align: center;
-  align-items: center;
-  position: fixed;
-  left: 31%;
-  top: 27%;
-  transform: translateY(-80px);
-}
-.home-content .left {
-  font-size: 14px;
-  color: rgb(125, 139, 148);
-  line-height: 1px;
-  display: flex;
-  -webkit-box-pack: center;
-  justify-content: center;
-  -webkit-box-align: center;
-  align-items: center;
-  padding: 14px 12px;
-  background: rgb(242, 242, 242);
-  border-radius: 4px;
-}
-.home-content-1 {
-  display: flex;
-  -webkit-box-pack: center;
-  justify-content: center;
-  -webkit-box-align: center;
-  align-items: center;
-  position: fixed;
-  right: 1%;
-  top: 27%;
-  transform: translateY(-80px);
-}
-.home-content-1 .right {
-  display: flex;
-  -webkit-box-pack: center;
-  justify-content: center;
-  -webkit-box-align: center;
-  align-items: center;
-  background: rgb(242, 242, 242);
-  border-radius: 4px;
-  padding: 14px 12px;
-  height: 53px;
-}
-.home-content-2 {
-  display: flex;
-  -webkit-box-pack: center;
-  justify-content: center;
   flex-flow: column wrap;
   -webkit-box-align: center;
   align-items: center;
   position: fixed;
-  left: 60%;
-  top: 50%;
+  left: 42%;
+  top:37%;
   transform: translateY(-80px);
 }
-.home-content-2 .empty-header {
+.home-content .empty-header {
   font-size: 18px;
   line-height: 16px;
   color: rgb(31, 41, 46);
   margin-top: 8px;
   font-weight: 500;
 }
+.home-content .empty-desc.is-show {
+  font-size: 12px;
+  line-height: 16px;
+  margin-top: 8px;
+  color: rgb(79, 79, 79);
+  font-weight: 400;
+}
 </style>
+
+

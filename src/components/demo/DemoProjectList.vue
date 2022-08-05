@@ -3,12 +3,8 @@
     <div class="home">
       <div class="home-header">
         <div class="home-header-left">
-
         </div>
-
       </div>
-
-
     </div>
     <div>
       <projectListsVue></projectListsVue>
@@ -94,26 +90,26 @@ export default {
     //this.projectlist=res.data.project_list;
     // console.log(this.user_list)
     //})
-    this.$axios({
-      method: 'post',
-      url: '/project/get_project_list',
-      data: qs.stringify({
-        teamID:this.teamid
-      })
-    })
-        .then(res => {
+   // this.$axios({
+      //method: 'post',
+     // url: '/project/get_project_list',
+     // data: qs.stringify({
+      //  teamID:this.teamid
+     // })
+   // })
+       // .then(res => {
           //console.log(res.data)
-          if (res.data.errno === 0) {
-            this.$message.success("获取项目列表成功");
-            this.projectlist=res.data.project_list;
-          } else {
-            alert(res.data.msg);
-            this.$message.error(res.data.msg);
-          }
-        })
-        .catch(err => {
-          console.log(err);         /* 若出现异常则在终端输出相关信息 */
-        })
+        //  if (res.data.errno === 0) {
+         //   this.$message.success("获取项目列表成功");
+          //  this.projectlist=res.data.project_list;
+         // } else {
+           // alert(res.data.msg);
+          //  this.$message.error(res.data.msg);
+         // }
+       // })
+       // .catch(err => {
+       //   console.log(err);         /* 若出现异常则在终端输出相关信息 */
+      //  })
   },
   methods:{
     findproject(row,column,cell,event){

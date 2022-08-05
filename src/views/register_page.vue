@@ -4,8 +4,8 @@
       :loading="loading"
       class="mx-auto my-12"
       width="450"
-     
-     
+     style="background-color: rgba(255, 255, 255, 0.85);"
+
     >
     <div style="width:100%;height:200px;margin-top: 20px;">
       <img src="https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/formtop.png" style="width:400px;margin-left: 15px;">
@@ -15,7 +15,7 @@
     <v-col>
       <v-text-field
               v-model="form.username"
-              label="昵称"    
+              label="昵称"
               clearable
               style="color:palevioletred"
        ></v-text-field>
@@ -69,11 +69,11 @@
             >
               <v-btn @click="register">
                 <span>注册</span>
-          
+
                 <v-icon>mdi-account-plus</v-icon>
               </v-btn>
-          
-            
+
+
         </v-bottom-navigation>
     </div>
     </v-card>

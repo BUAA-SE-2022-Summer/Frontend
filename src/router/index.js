@@ -91,7 +91,17 @@ const routes = [
             path: '/dashboard/demo/projectlist',
             name: 'projectlist',
             component: () => import('../components/demo/DemoProjectList')
-          }
+          },
+          //{
+          //  path: '/dashboard/demo/doxlist',
+           // name: 'doxlist',
+           // component: () => import('../components/demo/DemoConsole')
+        //  },
+          //{
+           // path: '/dashboard/demo/mydoclist',
+           // name: 'mydoclist',
+          //  component: () => import('../components/demo/DemoCreate')
+         // }
         ]
       }
     ]
