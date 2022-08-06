@@ -27,6 +27,7 @@ import VueQuillEditor from 'vue-quill-editor'
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
+import drawioEmbed from "drawio-embed"
 axios.defaults.baseURL = '/api'
 Vue.prototype.$axios = axios;
 Vue.prototype.$qs = qs

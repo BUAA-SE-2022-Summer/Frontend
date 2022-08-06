@@ -126,6 +126,11 @@ const routes = [
     name: 'test',
     component: () => import("../views/test.vue")
   },
+  {
+    path: '/function',
+    name: 'function',
+    component: () => import("../views/UML/function.vue")
+  }
 ]
 // {
 //   path: '/dashboard/demo',

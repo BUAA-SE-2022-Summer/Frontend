@@ -11,6 +11,7 @@
     "bootstrap": "^5.2.0",
     "bootstrap-vue": "^2.22.0",
     "core-js": "^3.8.3",
+    "drawio-embed": "^1.0.2",
     "element-ui": "^2.15.9",
     "mathjs": "^11.0.1",
     "qs": "^6.11.0",
