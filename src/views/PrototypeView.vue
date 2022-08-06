@@ -1,37 +1,56 @@
 <template>
-  <div class="Prototype">
-    <Toolbar />
+  <div>
+    <div>
+      <v-card class="mx-auto" max-width="300" tile>
+        <v-list dense>
+          <v-subheader>页面列表</v-subheader>
+          <v-list-item-group v-model="selectedItem" color="primary">
+            <v-list-item v-for="(item, i) in items" :key="i">
+              <v-list-item-icon>
+                <v-icon v-text="item.icon"></v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title v-text="item.text"></v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list-item-group>
+        </v-list>
+      </v-card>
+    </div>
+    <div class="Prototype">
+      <Toolbar />
 
-    <main>
-      <!-- 左侧组件列表 -->
-      <section class="left" overflow:auto>
-        <PageList :nameList=namelist />
-        <ComponentList />
-        <RealTimeComponentList />
-      </section>
-      <!-- 中间画布 -->
-      <section class="center">
-        <div class="content" @drop="handleDrop" @dragover="handleDragOver" @mousedown="handleMouseDown"
-          @mouseup="deselectCurComponent">
-          <Editor />
-        </div>
-      </section>
-      <!-- 右侧属性列表 -->
-      <section class="right">
-        <el-tabs v-if="curComponent" v-model="activeName">
-          <el-tab-pane label="属性" name="attr">
-            <component :is="curComponent.component + 'Attr'" />
-          </el-tab-pane>
-          <el-tab-pane label="动画" name="animation" style="padding-top: 20px;">
-            <AnimationList />
-          </el-tab-pane>
-          <el-tab-pane label="事件" name="events" style="padding-top: 20px;">
-            <EventList />
-          </el-tab-pane>
-        </el-tabs>
-        <CanvasAttr v-else></CanvasAttr>
-      </section>
-    </main>
+      <main>
+        <!-- 左侧组件列表 -->
+        <section class="left" overflow:auto>
+          <PageList :nameList=namelist />
+          <ComponentList />
+          <RealTimeComponentList />
+        </section>
+        <!-- 中间画布 -->
+        <section class="center">
+          <div class="content" @drop="handleDrop" @dragover="handleDragOver" @mousedown="handleMouseDown"
+            @mouseup="deselectCurComponent">
+            <Editor />
+          </div>
+        </section>
+        <!-- 右侧属性列表 -->
+        <section class="right">
+          <el-tabs v-if="curComponent" v-model="activeName">
+            <el-tab-pane label="属性" name="attr">
+              <component :is="curComponent.component + 'Attr'" />
+            </el-tab-pane>
+            <el-tab-pane label="动画" name="animation" style="padding-top: 20px;">
+              <AnimationList />
+            </el-tab-pane>
+            <el-tab-pane label="事件" name="events" style="padding-top: 20px;">
+              <EventList />
+            </el-tab-pane>
+          </el-tabs>
+          <CanvasAttr v-else></CanvasAttr>
+        </section>
+      </main>
+    </div>
   </div>
 </template>
 
@@ -72,10 +91,10 @@ export default {
     listenGlobalKeyDown()
   },
   mounted() {
-    if (location.href.indexOf("#reloaded") == -1) {
-      location.href = location.href + "#reloaded";
-      location.reload();
-    }
+    // if (location.href.indexOf("#reloaded") == -1) {
+    //   location.href = location.href + "#reloaded";
+    //   location.reload();
+    // }
   },
   methods: {
     restore() {

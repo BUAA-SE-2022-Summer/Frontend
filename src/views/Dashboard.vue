@@ -469,7 +469,8 @@ export default {
     dialog: false,
     teamid: JSON.parse(sessionStorage.getItem('TeamID')),
     click1: 0,
-    projectid: sessionStorage.getItem('ProjectID'),
+    projectid: JSON.parse(sessionStorage.getItem('ProjectID')), // 这里是获取projectID的代码
+    //projectid: sessionStorage.getItem('ProjectID'), // 这里是获取projectID的代码，没有用JSON.parse
     fatherid: sessionStorage.getItem('project_root_fileID'),
     appname: "",
     cwidth: "",
@@ -591,7 +592,7 @@ export default {
     },
     createdoc() {
       console.log(this.input5);
-      console.log("项目编号:"+this.projectid);
+      console.log("创建doc文件时的项目编号" + this.projectid);  // 控制台debug代码
       this.$axios({
         method: 'post',           /* 指明请求方式，可以是 get 或 post */
         url: '/file/create_file',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
