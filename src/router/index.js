@@ -94,14 +94,14 @@ const routes = [
           },
           //{
           //  path: '/dashboard/demo/doxlist',
-           // name: 'doxlist',
-           // component: () => import('../components/demo/DemoConsole')
-        //  },
+          // name: 'doxlist',
+          // component: () => import('../components/demo/DemoConsole')
+          //  },
           //{
-           // path: '/dashboard/demo/mydoclist',
-           // name: 'mydoclist',
+          // path: '/dashboard/demo/mydoclist',
+          // name: 'mydoclist',
           //  component: () => import('../components/demo/DemoCreate')
-         // }
+          // }
         ]
       }
     ]
@@ -126,6 +126,16 @@ const routes = [
     name: 'test',
     component: () => import("../views/test.vue")
   },
+  {
+    path:'/textbustest',
+    name:'textbustest',
+    component: () => import("../views/textbustest")
+  },
+  {
+    path:'/togethertest',
+    name:'togethertest',
+    component: () => import("../views/togethertest")
+  }
 ]
 // {
 //   path: '/dashboard/demo',
