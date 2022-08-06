@@ -135,6 +135,16 @@ const routes = [
     path:'/togethertest',
     name:'togethertest',
     component: () => import("../views/togethertest")
+  },
+  {
+    path:'/wsb',
+    name:'wsb',
+    component: () => import("../views/Workspacebanner")
+  },
+  {
+    path:'/plb',
+    name:'plb',
+    component: () => import("../views/Projectlevelbanner")
   }
 ]
 // {
