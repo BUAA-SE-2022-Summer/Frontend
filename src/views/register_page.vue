@@ -7,23 +7,26 @@
      style="background-color: rgba(255, 255, 255, 0.85);"
 
     >
-    <!-- <div style="width:100%;height:200px;margin-top: 20px;">
+    <div style="width:100%;height:200px;margin-top: 20px;">
       <img src="https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/formtop.png" style="width:400px;margin-left: 15px;">
-    </div> -->
-    <div style="width:350px;margin-left:50px;margin-top: 0px;">
+    </div>
+    <div style="width:350px;margin-left:50px;margin-top: 0px;color: palevioletred;">
     <v-row>
     <v-col>
       <v-text-field
               v-model="form.username"
               label="昵称"
               clearable
+              style="color:palevioletred"
        ></v-text-field>
     </v-col>
     <v-col>
       <v-text-field
               v-model="form.relname"
-              label="真实姓名（选填）"
+              label="真实姓名"
               clearable
+              style="color:palevioletred"
+              color="palevioletred"
          ></v-text-field>
     </v-col>
     </v-row>
@@ -96,6 +99,7 @@ export default {
   },
   methods: {
     register: function () {
+        var login_sucess=0
       this.$axios.post('/user/register ', qs.stringify({
             username: this.form.username,
             password: this.form.password_1,
@@ -109,7 +113,7 @@ export default {
           .then(res => {
             if (res.data.errno === 0) {
               this.$message.success("注册成功");
-              this.$router.push('/login');
+              this.$router.push('/');
               //setTimeout(() => {
               //window.open('/login', '_self');
               //}, 1000);
