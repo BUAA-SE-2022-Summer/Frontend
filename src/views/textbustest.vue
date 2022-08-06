@@ -1,6 +1,7 @@
 <template>
   <div>
     <div>
+      <img class="bgbox" id="bgbox" alt="" src="../../src/img/背景.jpg">
       <div style="width: 1540px;height:6vh;background-color: whitesmoke;" >
         <router-link to="/"><div><img :src="this.logourl" style="width: 20vh;height:6vh;position: absolute;"></div></router-link>
         <div style="left:25vh;position: absolute"><el-button type="text" icon="el-icon-arrow-left" style="background-color: whitesmoke;border-color: whitesmoke;height:6vh;position: absolute;">返回</el-button></div>
@@ -14,15 +15,18 @@
         <el-tooltip class="item" effect="dark" :content="this.now_textname" placement="bottom"><div style="left:62vh;position: absolute;top:1.5vh"><b>当前文档</b></div></el-tooltip>
       </div>
       <div>
-        <el-table :data="this.textdata" height="650" border stripe
+        <el-table :data="this.textdata" height="600" border stripe
                   style="position:absolute;width: 60vh;top:12vh" @cell-click="find">
-          <el-table-column prop="file_name" label="文档名" width:20vh>
+          <el-table-column prop="file_name" label="文档列表" width:20vh>
           </el-table-column>
-          <el-table-column prop="last_modify_time" label="最后编辑时间" width:20vh>
-          </el-table-column>
-          <el-table-column prop="fileID" label="文档id" width:20vh>
-          </el-table-column>
+          <!--<el-table-column prop="last_modify_time" label="最后编辑时间" width:20vh>
+          </el-table-column>-->
+          <!--<el-table-column prop="fileID" label="文档id" width:20vh>
+          </el-table-column>-->
         </el-table>
+      </div>
+      <div  style="position: absolute;width: 60vh;height:5vh;background-color: wheat;top:690px">
+        <div style="top:5px;position: absolute;left: 10px;cursor: pointer" @click="showtrash"><b>> 回收站</b></div>
       </div>
       <div v-if="this.ifnew===0">
       <el-tooltip class="item" effect="dark" content="新建文档" placement="bottom"><div style="position: absolute;width:40px;height:40px;left:60px;top:55px"><i class="el-icon-plus" style="" @click="changenew"></i></div></el-tooltip>
@@ -31,10 +35,14 @@
       </div>
       <div v-if="this.ifnew===1" style="width: 49vh;position: absolute;">
         <el-input v-model="inputname" placeholder="请输入文档名称"></el-input>
-        <el-button type="primary" style="position: absolute;width: 11vh;"@click="createnewtxt">确认</el-button>
+        <el-button type="primary" style="position: absolute;width: 11vh;" @click="createnewtxt">确认</el-button>
       </div>
-
-      <div ref="editorContainer" style="width: 130vh;position: absolute;left:60vh;height:100vh"></div>
+      <div v-if="this.ifshow===1" style="position: absolute;width: 60vh;height:91vh;background-color: whitesmoke"></div>
+      <div v-if="this.ifshow===1" style="position: absolute;width: 60vh;height:5vh;background-color: wheat;top:50px">
+        <div style="top:5px;position: absolute;left: 10px;cursor: pointer" @click="closetrash"><b>> 回收站</b></div>
+        <doxlists1></doxlists1>
+      </div>
+      <div ref="editorContainer" style="width: 145vh;position: absolute;left:60vh;height:100vh"></div>
       <!--<div style="position: absolute;left:700px;top:80vh"><v-btn text color="primary" @click="savetxt">保存当前文档</v-btn></div>
       <div style="position: absolute;left:900px;top:80vh"><v-btn text color="error" @click="deletetxt">删除当前文档</v-btn></div>
       <div style="position: absolute;left:1100px;top:80vh"><v-btn text color="primary" @click="createnewtxt">新建文档</v-btn></div>-->
@@ -45,8 +53,10 @@
 <script>
 import { createEditor } from '@textbus/editor';
 import '@textbus/editor/bundles/textbus.min.css';
+import doxlists1 from "../components/demo/trashlists";
 import qs from "qs";
 export default {
+  components:{doxlists1},
   name: "textbustest",
   data(){
     return{
@@ -62,10 +72,13 @@ export default {
       fatherid: sessionStorage.getItem('project_root_fileID'),
       textdata:[
       ],
+      trashlist:[
+      ],
       now_id:0,
       now_textname:'',
       ifnew:0,
       inputname:'',
+      ifshow:0,
     }
   },
   created() {
@@ -102,6 +115,12 @@ export default {
   methods:{
     load(){
       this.editor1.replaceContent(this.newContent);
+    },
+    closetrash(){
+      this.ifshow=0;
+    },
+    showtrash(){
+      this.ifshow=1;
     },
     changenew(){
       this.ifnew=1;
@@ -242,5 +261,17 @@ export default {
 </script>
 
 <style scoped>
-
+.bgbox {
+  display: block;
+  opacity: 1;
+  z-index: -3;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 1s,transform .25s,filter .25s;
+  backface-visibility: hidden;
+}
 </style>
