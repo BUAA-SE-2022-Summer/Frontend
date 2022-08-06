@@ -1,5 +1,19 @@
 <template>
   <div class="home">
+    <div>
+      <el-col :span="8">
+        <el-card shadow="hover">
+          <div>
+            当前团队:
+            <b v-if="this.teamid!==0">{{this.teamname}}</b>
+            <b v-else>当前还没选中团队哦</b>
+            当前项目:
+            <b v-if="this.projectID!==0">{{this.projectname}}</b>
+            <b v-else>当前还没进入项目哦</b>
+          </div>
+        </el-card>
+      </el-col>
+    </div>
     <div style="margin-top:100px;width:800px;margin-left: 200px;">
       <v-data-table :headers="headers" :items="desserts" sort-by="projectUser" class="elevation-1">
         <template v-slot:top>
@@ -82,8 +96,8 @@ export default {
       numproject: 0,
       projectlist: [],
       teamid: 0,
-
-
+      teamname: '',
+      projectname: '',
       dialog: false,
       dialog2: false,
       headers: [
@@ -132,9 +146,9 @@ export default {
     },
   },
   created() {
-
     this.teamid = sessionStorage.getItem('TeamID');
-
+    this.teamname = sessionStorage.getItem('TeamName');
+    this.projectname = sessionStorage.getItem('ProjectName');
   },
   methods: {
     findproject(row, column, cell, event) {
@@ -280,8 +294,7 @@ export default {
       console.log("存储当前项目名称: "+this.editedItem.projectName);
       sessionStorage.setItem('ProjectID', JSON.stringify(this.editedItem.projectID));
       sessionStorage.setItem('project_root_fileID', JSON.stringify(this.editedItem.project_root_fileID));
-      sessionStorage.setItem('ProjectName',JSON.stringify(this.editedItem.projectName));
-
+      sessionStorage.setItem('ProjectName',this.editedItem.projectName);
       //alert(row.project_root_fileID);
       this.$router.push('/dashboard/demo/console');
     },

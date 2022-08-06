@@ -1,6 +1,21 @@
 <template>
   <div class="home">
-    <div style="position: absolute;top:200px;left:30px;font-size: 30px"><b>{{this.projectname}}</b></div>
+    <div>
+      <el-col :span="8">
+        <el-card shadow="hover">
+          <div>
+            <div>
+              当前团队:
+              <b v-if="this.teamid!==0">{{this.teamname}}</b>
+              <b v-else>当前还没选中团队哦</b>
+              当前项目:
+              <b v-if="this.projectID!==0">{{this.projectname}}</b>
+              <b v-else>当前还没进入项目哦</b>
+            </div>
+          </div>
+        </el-card>
+      </el-col>
+    </div>
     <div style="margin-top:100px;width:800px;margin-left: 200px;">
       <v-data-table :headers="headers" :items="desserts" sort-by="projectUser" class="elevation-1">
         <template v-slot:top>
@@ -77,6 +92,7 @@ export default {
         ['成员管理', 'mdi-account-cog'],
         ['操作日志', 'mdi-book-open-outline'],
       ],
+      teamname:'',
       numproject: 0,
       projectlist: [],
       teamid: 0,
@@ -128,6 +144,7 @@ export default {
   created() {
     this.teamid = sessionStorage.getItem('TeamID');
     this.projectID = sessionStorage.getItem('ProjectID');
+    this.teamname = sessionStorage.getItem('TeamName');
   },
   methods: {
     findproject(row, column, cell, event) {
