@@ -189,7 +189,7 @@ export default {
     sendtoken() {
       // 发送token获取基础信息
       console.log("发送token")
-      var url = "/team/confirm_invitation"
+      var url = "/api/team/confirm_invitation"
       // this.$axios.get('/api/team/confirm_invitation').then(
       //   res => {
       //     console.log(res.data)
