@@ -47,19 +47,25 @@
       <div style="position: absolute;width: 300px;height:5vh;background-color: wheat;top:690px">
         <div style="top:5px;position: absolute;left: 10px;cursor: pointer" @click="showtrash"><b>> 回收站</b></div>
       </div>
+
       <div v-if="this.ifnew === 0">
         <el-tooltip class="item" effect="dark" content="新建文档" placement="bottom">
-          <div style="position: absolute;width:40px;height:40px;left:40px;top:55px"><i class="el-icon-plus" style=""
-              @click="changenew"></i></div>
+          <div style="position: absolute;width:40px;height:40px;left:20px;top:55px"><i class="el-icon-document-add"
+              style="" @click="changenew"></i></div>
         </el-tooltip>
         <el-tooltip class="item" effect="dark" content="删除当前文档" placement="bottom">
-          <div style="position: absolute;width:40px;height:40px;left:130px;top:55px"><i class="el-icon-delete-solid"
+          <div style="position: absolute;width:40px;height:40px;left:90px;top:55px"><i class="el-icon-delete-solid"
               style="" @click="deletetxt"></i></div>
         </el-tooltip>
         <el-tooltip class="item" effect="dark" content="保存文档" placement="bottom">
-          <div style="position: absolute;width:40px;height:40px;left:220px;top:55px"><i class="el-icon-document-checked"
+          <div style="position: absolute;width:40px;height:40px;left:160px;top:55px"><i class="el-icon-document-checked"
               style="" @click="savetxt"></i></div>
         </el-tooltip>
+        <el-tooltip class="item" effect="dark" content="选择模板" placement="bottom">
+          <div style="position: absolute;width:40px;height:40px;left:230px;top:55px"><i class="el-icon-edit-outline"
+              style="" @click="drawer = true"></i></div>
+        </el-tooltip>
+
       </div>
       <div v-if="this.ifnew === 1" style="width: 21vh;position: absolute;">
         <el-input v-model="inputname" placeholder="请输入文档名称"></el-input>
@@ -80,6 +86,33 @@
       <!--<div style="position: absolute;left:700px;top:80vh"><v-btn text color="primary" @click="outtxt">导出当前文档</v-btn></div>-->
       <!--<div style="position: absolute;left:900px;top:80vh"><v-btn text color="error" @click="deletetxt">删除当前文档</v-btn></div>
       <div style="position: absolute;left:1100px;top:80vh"><v-btn text color="primary" @click="createnewtxt">新建文档</v-btn></div>-->
+      <el-drawer title="请选择一个模板" :visible.sync="drawer" :direction="direction" :before-close="handleClose" :size="size">
+        <!--<span>我来啦!</span>-->
+        <div>
+          <el-button type="primary" icon="el-icon-s-management" style="width: 300px;background-color: red"
+            @click="open1">项目计划</el-button>
+        </div>
+        <div>
+          <el-button type="primary" icon="el-icon-s-management" style="width: 300px;background-color: orange"
+            @click="open2">会议纪要</el-button>
+        </div>
+        <div>
+          <el-button type="primary" icon="el-icon-s-management" style="width: 300px;background-color: yellowgreen"
+            @click="open3">项目管理</el-button>
+        </div>
+        <div>
+          <el-button type="primary" icon="el-icon-s-management" style="width: 300px;background-color: #b3d4fc"
+            @click="open4">工作周报</el-button>
+        </div>
+        <div>
+          <el-button type="primary" icon="el-icon-s-management" style="width: 300px;background-color: palevioletred"
+            @click="open5">需求调研报告</el-button>
+        </div>
+        <div>
+          <el-button type="primary" icon="el-icon-s-management" style="width: 300px; background-color: aqua"
+            @click="open6">需求规格说明书</el-button>
+        </div>
+      </el-drawer>
     </div>
     <!--<div><el-button @click="load">cnm</el-button></div>-->
   </div>
@@ -93,8 +126,12 @@ import qs from "qs";
 export default {
   components: { doxlists1, doxlist },
   name: "textbustest",
+
   data() {
     return {
+      size: '300px',//抽屉的宽度
+      drawer: false,
+      direction: 'ltr',
       editor1: null,
       newContent: '',
       logourl: 'https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/1.png',
@@ -103,17 +140,26 @@ export default {
       teamname: JSON.parse(sessionStorage.getItem('TeamName')),
       projectname: JSON.parse(sessionStorage.getItem('ProjectName')),
       projectid: JSON.parse(sessionStorage.getItem('ProjectID')),
+
       teamid: JSON.parse(sessionStorage.getItem('TeamID')),
       fatherid: JSON.parse(sessionStorage.getItem('project_root_fileID')),
       textdata: [
       ],
       trashlist: [
       ],
+
       now_id: 0,
       now_textname: '',
       ifnew: 0,
       inputname: '',
       ifshow: 0,
+      choice: 0,
+      projectplan: '<h1><strong>&nbsp;项目计划</strong></h1><h2>&nbsp;&nbsp;&nbsp;&nbsp;一、甲方需求</h2><h2>&nbsp;&nbsp;&nbsp;&nbsp;二、项目截止时间</h2><h2>&nbsp;&nbsp;&nbsp;&nbsp;三、工作安排分配</h2><p><br></p>',
+      meetingpoint: '<h1><strong>&nbsp;会议纪要</strong></h1><h2>&nbsp;&nbsp;&nbsp;&nbsp;1.会议时间</h2><h2>&nbsp;&nbsp;&nbsp;&nbsp;2.会议内容</h2><p><br></p>',
+      projecthold: '<h1><strong>项目管理</strong></h1><h2>&nbsp;</h2><p><br></p>',
+      workweekly: '<h1><strong>工作周报</strong></h1><h2>&nbsp;</h2><p><br></p>',
+      needlook: '<h1><strong>需求调研报告</strong></h1><h2>&nbsp;</h2><p><br></p>',
+      needbook: '<h1><strong>需求规格说明书</strong></h1><h2>&nbsp;</h2><p><br></p>'
     }
   },
   created() {
@@ -149,7 +195,86 @@ export default {
     console.log("当前文档id" + this.now_id);
   },
   methods: {
+    open1() {
+      this.choice = 1;
+      this.insertbody();
+    },
+    open2() {
+      this.choice = 2;
+      this.insertbody();
+    },
+    open3() {
+      this.choice = 3;
+      this.insertbody();
+    },
+    open4() {
+      this.choice = 4;
+      this.insertbody();
+    },
+    open5() {
+      this.choice = 5;
+      this.insertbody();
+    },
+    open6() {
+      this.choice = 6;
+      this.insertbody();
+    },
+    open7() {
+      this.choice = 7;
+      this.insertbody();
+    },
+    insertbody() {
+      if (this.now_id === 0) {
+        this.$message.error('当前未选择文档');
+      }
+      else {
+        this.$confirm('此操作会覆盖当前选择的文件内容, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$message({
+            type: 'success',
+            message: '导入成功!'
+          });
+          if (this.choice === 1) {
+            this.newContent = this.projectplan;
+          }
+          if (this.choice === 2) {
+            this.newContent = this.meetingpoint;
+          }
+          if (this.choice === 3) {
+            this.newContent = this.projecthold;
+          }
+          if (this.choice === 4) {
+            this.newContent = this.workweekly;
+          }
+          if (this.choice === 5) {
+            this.newContent = this.needlook;
+          }
+          if (this.choice === 6) {
+            this.newContent = this.needbook;
+          }
+          this.editor1.replaceContent(this.newContent);
+          this.savetxt();
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消导入'
+          });
+        });
+      }
+    },
+    handleClose(done) {
+      this.$confirm('确认关闭？')
+        .then(_ => {
+          done(
+          );
+        })
+        .catch(_ => { });
+    },
     load() {
+
       this.editor1.replaceContent(this.newContent);
     },
     outtxt() {
@@ -297,7 +422,7 @@ export default {
     _this.editor1.onReady.subscribe(() => {
       //alert(this.newContent);
       //_this.editor1.replaceContent(this.newContent);
-    })
+    });
   }
 }
 </script>
