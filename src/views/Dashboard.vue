@@ -592,13 +592,14 @@ export default {
     },
     createdoc() {
       console.log(this.input5);
+      console.log("创建doc文件时的项目编号[JSON.parse]" + JSON.parse(sessionStorage.getItem('ProjectID')));  // 控制台debug代码
       console.log("创建doc文件时的项目编号" + this.projectid);  // 控制台debug代码
       this.$axios({
         method: 'post',           /* 指明请求方式，可以是 get 或 post */
         url: '/file/create_file',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
         data: qs.stringify({
           teamID: this.teamid,
-          projectID: this.projectid,
+          projectID: JSON.parse(sessionStorage.getItem('ProjectID')),
           file_name: this.input5,
           file_type: 'doc',
           fatherID: this.fatherid
@@ -621,8 +622,9 @@ export default {
       console.log(this.teamid);
       console.log(this.appname);
       console.log(this.fatherid);
+      this.projectid = JSON.parse(sessionStorage.getItem('ProjectID'));
       console.log("debug: print projectid: " + this.projectid);
-      console.log("debug: session projectid: " + sessionStorage.getItem('ProjectID'))
+      console.log("debug: session projectid: " + JSON.parse(sessionStorage.getItem('ProjectID')))
       this.$axios.post(
         '/prototype/create_prototype',
         this.$qs.stringify({
@@ -635,6 +637,10 @@ export default {
         if (res.data.errno === 0) {
           this.$message.success("文档创建成功");
           this.operatenum = 0;
+          console.log("create pototype时的返回数据: ");
+          console.log(res.data);
+          sessionStorage.setItem('prototypeID', res.data.prototypeID);
+          console.log("debug: 存储后print prototypeID: " + sessionStorage.getItem('prototypeID'));
           this.$router.push('/prototype')
         } else {
           this.$message.error(res.data.msg);

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>
+    <!-- <div>
       <v-card class="mx-auto" max-width="300" tile>
         <v-list dense>
           <v-subheader>页面列表</v-subheader>
@@ -16,7 +16,7 @@
           </v-list-item-group>
         </v-list>
       </v-card>
-    </div>
+    </div> -->
     <div class="Prototype">
       <Toolbar />
 
@@ -91,27 +91,34 @@ export default {
     listenGlobalKeyDown()
   },
   mounted() {
-    // if (location.href.indexOf("#reloaded") == -1) {
-    //   location.href = location.href + "#reloaded";
-    //   location.reload();
-    // }
   },
   methods: {
     restore() {
       let teamID = sessionStorage.getItem('TeamID');
-      let projectID = sessionStorage.getItem('ProjectID');
-
+      let projectID = JSON.parse(sessionStorage.getItem('ProjectID'));
+      let prototypeID = sessionStorage.getItem('prototypeID');
+      console.log("open_prototype 时的teamID: " + teamID);
+      console.log("open_prototype 时的projectID: " + projectID);
       this.$axios.post(
         '/prototype/open_prototype',
         this.$qs.stringify({
           teamID: teamID,
-          prototypeID: projectID,
+          projectID: projectID,
+          prototypeID: prototypeID,
         })
       ).then(response => {
-        this.namelist = response.data.data.namelist;
-        this.$store.commit('setComponentData', response.data.data.first_component);
-        //todo
-        this.$store.commit('setCanvasStyle', response.data.data.first_component_style)
+        console.log("打开原型图的后端反馈 ", response.data);
+        this.namelist = response.data.namelist;
+        // 获取namelist的第一项
+        let firstItem = this.namelist[0];
+        console.log("debug: 打开原型图时存储首页的pageID: " + firstItem.pageID);
+        sessionStorage.setItem('pageID', firstItem.pageID);
+        console.log("debug: 打开原型图时的first_componentdata: ");
+        console.log(response.data.first_component);
+        console.log("debug: 打开原型图时的first_canvasStyle: ");
+        console.log(response.data.first_canvasStyle);
+        this.$store.commit('setComponentData', JSON.parse(response.data.first_component));
+        this.$store.commit('setCanvasStyle', JSON.parse(response.data.first_canvasStyle))
       }).catch(err => {
         console.error(err);
       })

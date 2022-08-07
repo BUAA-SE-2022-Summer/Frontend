@@ -78,16 +78,29 @@ export default {
         this.scale = this.canvasStyleData.scale
     },
     methods: {
-        // todo
+        // todo 新建页面后刷新pagelist
         newPage() {
+            let teamID = sessionStorage.getItem('TeamID');
+            let prototypeID = sessionStorage.getItem('prototypeID');
+            let pageID = sessionStorage.getItem('pageID');
+            let pageComponentData = this.componentData;
+            let pageCanvasStyleData = this.canvasStyleData;
             this.$axios.post(
                 '/prototype/create_page',
                 this.$qs.stringify({
-                    teamID: JSON.parse(sessionStorage.getItem('TeamID')),
-                    prototypeID: sessionStorage.getItem('ProjectID'),
+                    teamID: teamID,
+                    prototypeID: prototypeID,
                     pageName: "newpage"
                 })
-            )
+            ).then(res => {
+                console.log("新建页面的response")
+                console.log(res);
+                if (res.data.errno === 0) {
+                    this.$message.success('新建页面成功');
+                } else {
+                    this.$message.error('新建页面失败');
+                }
+            })
         },
         format(value) {
             return multiply(value, divide(parseFloat(this.scale), 100))
@@ -209,18 +222,34 @@ export default {
 
         save() {
             let teamID = sessionStorage.getItem('TeamID');
-            let projectID = sessionStorage.getItem('ProjectID');
+            let prototypeID = sessionStorage.getItem('prototypeID');
             let pageID = sessionStorage.getItem('pageID');
+            let pageComponentData = this.componentData;
+            let pageCanvasStyleData = this.canvasStyleData;
+            console.log("打印更改页面请求的参数");
+            console.log("teamID: " + teamID);
+            console.log("prototypeID: " + prototypeID);
+            console.log("pageID: " + pageID);
+            console.log("pageComponentData: ");
+            console.log(pageComponentData);
+            console.log("pageCanvasStyleData: ");
+            console.log(pageCanvasStyleData);
+            console.log("JSON格式的pageComponentData: ");
+            console.log(JSON.stringify(pageComponentData));
+            console.log("JSON格式的pageCanvasStyleData: ");
+            console.log(JSON.stringify(pageCanvasStyleData));
             this.$axios.post(
                 '/prototype/update_page',
                 this.$qs.stringify({
                     teamID: teamID,
-                    prototypeID: projectID,
+                    prototypeID: prototypeID,
                     pageID: pageID,
-                    pageComponentData: this.componentData,
-                    //pageComponentData_style: this.canvasStyleData
+                    pageComponentData: JSON.stringify(pageComponentData),
+                    pageCanvasStyle: JSON.stringify(pageCanvasStyleData)
                 })
             ).then(response => {
+                console.log("debug: 打印更改页面后的后端返回数据");
+                console.log(response.data);
                 if (response.data.errno === 0) {
                     this.$message.success(response.data.msg)
                 } else {
@@ -229,8 +258,18 @@ export default {
             }).catch(err => {
                 console.error(err);
             })
-            localStorage.setItem('canvasData', JSON.stringify(this.componentData))
-            localStorage.setItem('canvasStyle', JSON.stringify(this.canvasStyleData))
+            //localStorage.setItem('canvasData', JSON.stringify(this.componentData))
+            //localStorage.setItem('canvasStyle', JSON.stringify(this.canvasStyleData))
+            // console.log("在保存时打印当前的组件数据");
+            // console.log(JSON.stringify(this.componentData));
+            // console.log(this.$qs.stringify({
+            //     componentData: this.componentData
+            // }));
+            // console.log("在保存时打印当前的画布样式数据");
+            // console.log(this.canvasStyleData);
+            // console.log(this.$qs.stringify({
+            //     canvasStyle: this.canvasStyleData
+            // }));
             this.$message.success('保存成功')
         },
 

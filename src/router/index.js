@@ -122,11 +122,6 @@ const routes = [
     component: () => import("../views/email.vue")
   },
   {
-    path: '/test',
-    name: 'test',
-    component: () => import("../views/test.vue")
-  },
-  {
     path: '/textbustest',
     name: 'textbustest',
     component: () => import("../views/textbustest")
@@ -137,13 +132,13 @@ const routes = [
     component: () => import("../views/togethertest")
   },
   {
-    path:'/wsb',
-    name:'wsb',
+    path: '/wsb',
+    name: 'wsb',
     component: () => import("../views/Workspacebanner")
   },
   {
-    path:'/plb',
-    name:'plb',
+    path: '/plb',
+    name: 'plb',
     component: () => import("../views/Projectlevelbanner")
   }
 ]
