@@ -159,7 +159,7 @@ export default {
       console.log("获取团队信息", teamid)
       this.$axios({
         method: 'post',
-        url: '/team/get_team_info ',
+        url: '/api/team/get_team_info ',
         data: qs.stringify({
           "teamID": teamid
         })
@@ -187,7 +187,7 @@ export default {
       teamid = sessionStorage.getItem('TeamID')
       this.$axios({
         method: 'post',
-        url: '/team/invite_member',
+        url: '/api/team/invite_member',
         data: qs.stringify({
           "username": user_name,
           "teamID": teamid
@@ -207,7 +207,7 @@ export default {
       teamid = sessionStorage.getItem('TeamID')
       this.$axios({
         method: 'post',
-        url: '/team/kick_member',
+        url: '/api/team/kick_member',
         data: qs.stringify({
           "teamID": teamid,
           "username": user_name,
@@ -268,7 +268,7 @@ export default {
       teamid = sessionStorage.getItem('TeamID')
       this.$axios({
         method: 'post',
-        url: '/team/set_manager',
+        url: '/api/team/set_manager',
         data: qs.stringify({
           "teamID": teamid,
           "username": user_name,
@@ -286,7 +286,7 @@ export default {
       console.log(teamid, user_name)
       this.$axios({
         method: 'post',
-        url: '/team/delete_manager',
+        url: '/api/team/delete_manager',
         data: qs.stringify({
           "teamID": teamid,
           "username": user_name,

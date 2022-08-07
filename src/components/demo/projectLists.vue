@@ -171,7 +171,7 @@ export default {
       // ]
       this.$axios({
         method: 'post',
-        url: '/project/get_project_list',
+        url: '/api/project/get_project_list',
         data: qs.stringify({
 
           teamID: this.teamid
@@ -217,7 +217,7 @@ export default {
     delete_project(ID) {
       this.$axios({
         method: 'post',
-        url: '/project/delete_project',
+        url: '/api/project/delete_project',
         data: qs.stringify({
 
           projectID: ID,
@@ -252,7 +252,7 @@ export default {
       console.log("修改项目名称", ID, Name)
       this.$axios({
         method: 'post',
-        url: '/project/rename_project',
+        url: '/api/project/rename_project',
         data: qs.stringify({
           projectID: ID,
           teamID: this.teamid,

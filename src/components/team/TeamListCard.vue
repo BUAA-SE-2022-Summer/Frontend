@@ -36,7 +36,7 @@ export default {
   }),
   created() {
     this.$axios.post(
-      'team/show_my_team_list',
+      '/api/team/show_my_team_list',
     ).then(response => {
       console.log(response);
       this.items = response.data.team_list;
@@ -47,9 +47,9 @@ export default {
   methods: {
     changeCurrentTeamID(item) {
       sessionStorage.setItem('TeamID', item.teamID);
-      sessionStorage.setItem('TeamName',item.team_name);
+      sessionStorage.setItem('TeamName', item.team_name);
       sessionStorage.setItem('ProjectID', JSON.stringify(0));
-      window.location.reload();
+      this.$router.go(0);
     }
   }
 }

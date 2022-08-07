@@ -479,12 +479,12 @@ export default {
 
   }),
   created() {
-    this.$axios.get('/user/get_user_info ').then(
+    this.$axios.get('/api/user/get_user_info ').then(
       res => {
         this.user_info = res.data.data;
       }
     );
-    this.$axios.get('/user/get_user_info ').then(
+    this.$axios.get('/api/user/get_user_info ').then(
       res => {
         this.userhead = res.data.data.img;
         console.log(this.userhead)
@@ -545,7 +545,7 @@ export default {
       console.log(this.input1);
       this.$axios({
         method: 'post',           /* 指明请求方式，可以是 get 或 post */
-        url: '/team/create_team',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
+        url: '/api/team/create_team',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
         data: qs.stringify({
           team_name: this.input1,
         })
@@ -567,7 +567,7 @@ export default {
       console.log(this.teamid);
       this.$axios({
         method: 'post',           /* 指明请求方式，可以是 get 或 post */
-        url: '/project/create_project',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
+        url: '/api/project/create_project',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
         data: qs.stringify({
           project_name: this.input2,
           project_desc: '',
@@ -596,7 +596,7 @@ export default {
       console.log("创建doc文件时的项目编号" + this.projectid);  // 控制台debug代码
       this.$axios({
         method: 'post',           /* 指明请求方式，可以是 get 或 post */
-        url: '/file/create_file',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
+        url: '/api/file/create_file',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
         data: qs.stringify({
           teamID: this.teamid,
           projectID: JSON.parse(sessionStorage.getItem('ProjectID')),
@@ -626,7 +626,7 @@ export default {
       console.log("debug: print projectid: " + this.projectid);
       console.log("debug: session projectid: " + JSON.parse(sessionStorage.getItem('ProjectID')))
       this.$axios.post(
-        '/prototype/create_prototype',
+        '/api/prototype/create_prototype',
         this.$qs.stringify({
           teamID: this.teamid,
           prototypeName: this.appname,

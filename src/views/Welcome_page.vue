@@ -114,7 +114,7 @@ export default {
       this.overlay2 = false,
       this.overlay4 = false,
 
-      this.$axios.get('/user/get_user_info ').then(
+      this.$axios.get('/api/user/get_user_info').then(
         res => {
           this.username = res.data.data.username;
           this.userhead = res.data.data.img;

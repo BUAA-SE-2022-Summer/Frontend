@@ -100,7 +100,7 @@ export default {
       console.log("open_prototype 时的teamID: " + teamID);
       console.log("open_prototype 时的projectID: " + projectID);
       this.$axios.post(
-        '/prototype/open_prototype',
+        '/api/prototype/open_prototype',
         this.$qs.stringify({
           teamID: teamID,
           projectID: projectID,
@@ -118,7 +118,7 @@ export default {
         console.log("debug: 打开原型图时的first_canvasStyle: ");
         console.log(response.data.first_canvasStyle);
         this.$store.commit('setComponentData', JSON.parse(response.data.first_component));
-        this.$store.commit('setCanvasStyle', JSON.parse(response.data.first_canvasStyle))
+        this.$store.commit('setCanvasStyle', JSON.parse(response.data.first_canvasStyle));
       }).catch(err => {
         console.error(err);
       })
