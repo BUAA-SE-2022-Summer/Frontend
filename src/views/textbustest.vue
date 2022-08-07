@@ -82,10 +82,22 @@
       :size="size">
         <!--<span>我来啦!</span>-->
         <div>
-        <el-button type="primary" icon="el-icon-s-claim" style="width: 300px" @click="open1">项目计划</el-button>
+        <el-button type="primary" icon="el-icon-s-management" style="width: 300px;background-color: red" @click="open1">项目计划</el-button>
         </div>
         <div>
-        <el-button type="primary" icon="el-icon-s-management" style="width: 300px;background-color: #55a532" @click="open2">会议纪要</el-button>
+        <el-button type="primary" icon="el-icon-s-management" style="width: 300px;background-color: orange" @click="open2">会议纪要</el-button>
+        </div>
+        <div>
+          <el-button type="primary" icon="el-icon-s-management" style="width: 300px;background-color: yellowgreen" @click="open3">项目管理</el-button>
+        </div>
+        <div>
+          <el-button type="primary" icon="el-icon-s-management" style="width: 300px;background-color: #b3d4fc" @click="open4">工作周报</el-button>
+        </div>
+        <div>
+          <el-button type="primary" icon="el-icon-s-management" style="width: 300px;background-color: palevioletred" @click="open5">需求调研报告</el-button>
+        </div>
+        <div>
+          <el-button type="primary" icon="el-icon-s-management" style="width: 300px; background-color: aqua" @click="open6">需求规格说明书</el-button>
         </div>
       </el-drawer>
     </div>
@@ -131,7 +143,10 @@ export default {
       choice:0,
       projectplan:'<h1><strong>&nbsp;项目计划</strong></h1><h2>&nbsp;&nbsp;&nbsp;&nbsp;一、甲方需求</h2><h2>&nbsp;&nbsp;&nbsp;&nbsp;二、项目截止时间</h2><h2>&nbsp;&nbsp;&nbsp;&nbsp;三、工作安排分配</h2><p><br></p>',
       meetingpoint:'<h1><strong>&nbsp;会议纪要</strong></h1><h2>&nbsp;&nbsp;&nbsp;&nbsp;1.会议时间</h2><h2>&nbsp;&nbsp;&nbsp;&nbsp;2.会议内容</h2><p><br></p>',
-
+      projecthold:'<h1><strong>项目管理</strong></h1><h2>&nbsp;</h2><p><br></p>',
+      workweekly:'<h1><strong>工作周报</strong></h1><h2>&nbsp;</h2><p><br></p>',
+      needlook:'<h1><strong>需求调研报告</strong></h1><h2>&nbsp;</h2><p><br></p>',
+      needbook:'<h1><strong>需求规格说明书</strong></h1><h2>&nbsp;</h2><p><br></p>'
     }
   },
   created() {
@@ -175,6 +190,26 @@ export default {
       this.choice=2;
       this.insertbody();
     },
+    open3(){
+      this.choice=3;
+      this.insertbody();
+    },
+    open4(){
+      this.choice=4;
+      this.insertbody();
+    },
+    open5(){
+      this.choice=5;
+      this.insertbody();
+    },
+    open6(){
+      this.choice=6;
+      this.insertbody();
+    },
+    open7(){
+      this.choice=7;
+      this.insertbody();
+    },
     insertbody(){
       if(this.now_id===0){
         this.$message.error('当前未选择文档');
@@ -194,6 +229,18 @@ export default {
           }
           if(this.choice===2) {
             this.newContent = this.meetingpoint;
+          }
+          if(this.choice===3) {
+            this.newContent = this.projecthold;
+          }
+          if(this.choice===4) {
+            this.newContent = this.workweekly;
+          }
+          if(this.choice===5) {
+            this.newContent = this.needlook;
+          }
+          if(this.choice===6) {
+            this.newContent = this.needbook;
           }
           this.editor1.replaceContent(this.newContent);
           this.savetxt();

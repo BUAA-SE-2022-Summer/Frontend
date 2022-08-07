@@ -308,7 +308,13 @@ export default {
       sessionStorage.setItem('now_textid', JSON.stringify(this.editedItem.fileID));
       //alert("当前文档id为"+this.editedItem.fileID);
       sessionStorage.setItem('now_textname', JSON.stringify(this.editedItem.file_name));
-      this.$router.push('/textbustest');
+      if(this.$route.path!=='/textbustest') {
+        this.$router.push('/textbustest');
+      }
+      console.log(this.$route.path);
+      if(this.$route.path==='/textbustest'){
+        window.location.reload();
+      }
       //window.location.reload();
     },
   },
