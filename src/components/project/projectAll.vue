@@ -64,7 +64,8 @@
                     <span>复制</span>
                     <v-icon>mdi-plus</v-icon>
                   </v-btn>
-                  <router-link :to="{ path: '/textbustest' }" style="text-decoration:none;">
+                  <router-link :to="{ path: '/textbustest' }" target="_blank" rel="opener"
+                    style="text-decoration:none;">
                     <v-btn @click="openProject(item)">
                       <span>详情</span>
                       <v-icon>mdi-link</v-icon>

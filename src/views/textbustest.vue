@@ -44,7 +44,7 @@
           </el-table-column>
         </el-table>-->
       </div>
-      <div style="position: absolute;width: 300px;height:5vh;background-color: wheat;top:690px">
+      <div style="position: absolute;width: 300px;height:5vh;background-color: wheat;top:720px">
         <div style="top:5px;position: absolute;left: 10px;cursor: pointer" @click="showtrash"><b>> 回收站</b></div>
       </div>
 
@@ -75,7 +75,9 @@
       <div v-if="this.ifshow === 1" style="position: absolute;width: 300px;height:91vh;background-color: whitesmoke">
       </div>
       <div v-if="this.ifshow === 1" style="position: absolute;width: 300px;height:5vh;background-color: wheat;top:50px">
-        <div style="top:5px;position: absolute;left: 10px;cursor: pointer" @click="closetrash"><b>> 回收站</b></div>
+        <div style="top:5px;position: absolute;left: 10px;cursor: pointer" @click="closetrash"><b>
+            < 回收站</b>
+        </div>
         <doxlists1></doxlists1>
       </div>
       <div v-if="this.ifshow === 0"
