@@ -238,7 +238,7 @@ export default {
     return1() {
       window.history.go(-1);
     },
-    createtext(){
+    createtext() {
       this.$axios({
         method: 'post',           /* 指明请求方式，可以是 get 或 post */
         url: '/file/create_file',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
@@ -293,11 +293,11 @@ export default {
   mounted() {
     //this.content = this.inside;  // 请求后台返回的内容字符串
     //this.content = JSON.parse(sessionStorage.getItem('now_textinside'));
-    this.str = this.escapeStringHTML(this.content);
-    if (location.href.indexOf("#reloaded") == -1) {
-      location.href = location.href + "#reloaded";
-      location.reload();
-    }
+    // this.str = this.escapeStringHTML(this.content);
+    // if (location.href.indexOf("#reloaded") == -1) {
+    //   location.href = location.href + "#reloaded";
+    //   location.reload();
+    // }
   },
 }
 </script>

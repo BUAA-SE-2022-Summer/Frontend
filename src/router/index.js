@@ -122,28 +122,23 @@ const routes = [
     component: () => import("../views/email.vue")
   },
   {
-    path: '/test',
-    name: 'test',
-    component: () => import("../views/test.vue")
-  },
-  {
-    path:'/textbustest',
-    name:'textbustest',
+    path: '/textbustest',
+    name: 'textbustest',
     component: () => import("../views/textbustest")
   },
   {
-    path:'/togethertest',
-    name:'togethertest',
+    path: '/togethertest',
+    name: 'togethertest',
     component: () => import("../views/togethertest")
   },
   {
-    path:'/wsb',
-    name:'wsb',
+    path: '/wsb',
+    name: 'wsb',
     component: () => import("../views/Workspacebanner")
   },
   {
-    path:'/plb',
-    name:'plb',
+    path: '/plb',
+    name: 'plb',
     component: () => import("../views/Projectlevelbanner")
   }
 ]
@@ -167,13 +162,13 @@ const whiteList = ['/', '/register', '/login', '/email', 'test']
 
 
 // 全局验证的路由守卫
-router.beforeEach((to, from, next) => {
-  if (whiteList.indexOf(to.path) !== -1) {
-    // 放行，进入下一个路由
-    next()
-  } else if (!JSON.parse(sessionStorage.getItem('IfLogin'))) {
-    next('/');
-  } else {
-    next()
-  }
-})
+// router.beforeEach((to, from, next) => {
+//   if (whiteList.indexOf(to.path) !== -1) {
+//     // 放行，进入下一个路由
+//     next()
+//   } else if (!JSON.parse(sessionStorage.getItem('IfLogin'))) {
+//     next('/');
+//   } else {
+//     next()
+//   }
+// })

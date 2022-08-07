@@ -37,21 +37,24 @@ export default {
     methods: {
         changePageInPrototype(pageID) {
             let teamID = sessionStorage.getItem('TeamID');
-            let projectID = sessionStorage.getItem('ProjectID');
+            let prototypeID = sessionStorage.getItem('prototypeID');
+            sessionStorage.setItem('pageID', pageID);
             this.$axios.post(
                 'prototype/change_page',
                 this.$qs.stringify({
                     teamID: teamID,
-                    prototypeID: projectID,
+                    prototypeID: prototypeID,
                     pageID: pageID
                 })
             ).then(response => {
-                if (response.errno === 0) {
-                    this.$message.success(response.msg);
-                    this.$store.commit('setComponentData', response.data.data.componentData);
-                    this.$store.commit('setCanvasStyle', response.data.data.componentStyle)
+                console.log("打印change_page的response: ");
+                console.log(response);
+                if (response.data.errno === 0) {
+                    this.$message.success(response.data.msg);
+                    this.$store.commit('setComponentData', response.data.componentData);
+                    this.$store.commit('setCanvasStyle', response.data.canvasStyle)
                 } else {
-                    this.$message.error(response.msg);
+                    this.$message.error(response.data.msg);
                 }
             }).catch(err => {
                 console.error(err);

@@ -1,37 +1,56 @@
 <template>
-  <div class="Prototype">
-    <Toolbar />
+  <div>
+    <!-- <div>
+      <v-card class="mx-auto" max-width="300" tile>
+        <v-list dense>
+          <v-subheader>页面列表</v-subheader>
+          <v-list-item-group v-model="selectedItem" color="primary">
+            <v-list-item v-for="(item, i) in items" :key="i">
+              <v-list-item-icon>
+                <v-icon v-text="item.icon"></v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title v-text="item.text"></v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list-item-group>
+        </v-list>
+      </v-card>
+    </div> -->
+    <div class="Prototype">
+      <Toolbar />
 
-    <main>
-      <!-- 左侧组件列表 -->
-      <section class="left" overflow:auto>
-        <PageList :nameList=namelist />
-        <ComponentList />
-        <RealTimeComponentList />
-      </section>
-      <!-- 中间画布 -->
-      <section class="center">
-        <div class="content" @drop="handleDrop" @dragover="handleDragOver" @mousedown="handleMouseDown"
-          @mouseup="deselectCurComponent">
-          <Editor />
-        </div>
-      </section>
-      <!-- 右侧属性列表 -->
-      <section class="right">
-        <el-tabs v-if="curComponent" v-model="activeName">
-          <el-tab-pane label="属性" name="attr">
-            <component :is="curComponent.component + 'Attr'" />
-          </el-tab-pane>
-          <el-tab-pane label="动画" name="animation" style="padding-top: 20px;">
-            <AnimationList />
-          </el-tab-pane>
-          <el-tab-pane label="事件" name="events" style="padding-top: 20px;">
-            <EventList />
-          </el-tab-pane>
-        </el-tabs>
-        <CanvasAttr v-else></CanvasAttr>
-      </section>
-    </main>
+      <main>
+        <!-- 左侧组件列表 -->
+        <section class="left" overflow:auto>
+          <PageList :nameList=namelist />
+          <ComponentList />
+          <RealTimeComponentList />
+        </section>
+        <!-- 中间画布 -->
+        <section class="center">
+          <div class="content" @drop="handleDrop" @dragover="handleDragOver" @mousedown="handleMouseDown"
+            @mouseup="deselectCurComponent">
+            <Editor />
+          </div>
+        </section>
+        <!-- 右侧属性列表 -->
+        <section class="right">
+          <el-tabs v-if="curComponent" v-model="activeName">
+            <el-tab-pane label="属性" name="attr">
+              <component :is="curComponent.component + 'Attr'" />
+            </el-tab-pane>
+            <el-tab-pane label="动画" name="animation" style="padding-top: 20px;">
+              <AnimationList />
+            </el-tab-pane>
+            <el-tab-pane label="事件" name="events" style="padding-top: 20px;">
+              <EventList />
+            </el-tab-pane>
+          </el-tabs>
+          <CanvasAttr v-else></CanvasAttr>
+        </section>
+      </main>
+    </div>
   </div>
 </template>
 
@@ -72,27 +91,34 @@ export default {
     listenGlobalKeyDown()
   },
   mounted() {
-    if (location.href.indexOf("#reloaded") == -1) {
-      location.href = location.href + "#reloaded";
-      location.reload();
-    }
   },
   methods: {
     restore() {
       let teamID = sessionStorage.getItem('TeamID');
-      let projectID = sessionStorage.getItem('ProjectID');
-
+      let projectID = JSON.parse(sessionStorage.getItem('ProjectID'));
+      let prototypeID = sessionStorage.getItem('prototypeID');
+      console.log("open_prototype 时的teamID: " + teamID);
+      console.log("open_prototype 时的projectID: " + projectID);
       this.$axios.post(
         '/prototype/open_prototype',
         this.$qs.stringify({
           teamID: teamID,
-          prototypeID: projectID,
+          projectID: projectID,
+          prototypeID: prototypeID,
         })
       ).then(response => {
-        this.namelist = response.data.data.namelist;
-        this.$store.commit('setComponentData', response.data.data.first_component);
-        //todo
-        this.$store.commit('setCanvasStyle', response.data.data.first_component_style)
+        console.log("打开原型图的后端反馈 ", response.data);
+        this.namelist = response.data.namelist;
+        // 获取namelist的第一项
+        let firstItem = this.namelist[0];
+        console.log("debug: 打开原型图时存储首页的pageID: " + firstItem.pageID);
+        sessionStorage.setItem('pageID', firstItem.pageID);
+        console.log("debug: 打开原型图时的first_componentdata: ");
+        console.log(response.data.first_component);
+        console.log("debug: 打开原型图时的first_canvasStyle: ");
+        console.log(response.data.first_canvasStyle);
+        this.$store.commit('setComponentData', JSON.parse(response.data.first_component));
+        this.$store.commit('setCanvasStyle', JSON.parse(response.data.first_canvasStyle))
       }).catch(err => {
         console.error(err);
       })
