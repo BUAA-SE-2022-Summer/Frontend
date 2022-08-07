@@ -147,7 +147,7 @@ export default {
     this.teamname = sessionStorage.getItem('TeamName');
     this.$axios({
       method: 'post',
-      url: '/file/project_root_filelist',
+      url: '/api/file/project_root_filelist',
       data: qs.stringify({
         projectID: this.projectID,
       })
