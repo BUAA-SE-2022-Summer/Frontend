@@ -146,9 +146,9 @@ export default {
     },
   },
   created() {
-    this.teamid = sessionStorage.getItem('TeamID');
-    this.teamname = sessionStorage.getItem('TeamName');
-    this.projectname = sessionStorage.getItem('ProjectName');
+    this.teamid = JSON.parse(sessionStorage.getItem('TeamID'));
+    this.teamname = JSON.parse(sessionStorage.getItem('TeamName'));
+    this.projectname = JSON.parse(sessionStorage.getItem('ProjectName'));
   },
   methods: {
     findproject(row, column, cell, event) {
@@ -294,7 +294,7 @@ export default {
       console.log("存储当前项目名称: " + this.editedItem.projectName);
       sessionStorage.setItem('ProjectID', JSON.stringify(this.editedItem.projectID));// 这里是存储projectID的代码
       sessionStorage.setItem('project_root_fileID', JSON.stringify(this.editedItem.project_root_fileID));
-      sessionStorage.setItem('ProjectName', this.editedItem.projectName);
+      sessionStorage.setItem('ProjectName', JSON.stringify(this.editedItem.projectName));
       //alert(row.project_root_fileID);
       this.$router.push('/dashboard/demo/console');
     },

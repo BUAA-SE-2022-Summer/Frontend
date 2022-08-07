@@ -13,6 +13,7 @@ Vue.use(Vuex)
 
 const data = {
     state: {
+        pageList: [],
         ...animation.state,
         ...compose.state,
         ...contextmenu.state,
@@ -49,6 +50,10 @@ const data = {
         ...layer.mutations,
         ...snapshot.mutations,
         ...lock.mutations,
+
+        updatePageList(state, data) {
+            state.pageList = data
+        },
 
         setClickComponentStatus(state, status) {
             state.isClickComponent = status

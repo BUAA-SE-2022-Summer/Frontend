@@ -23,7 +23,7 @@
       <main>
         <!-- 左侧组件列表 -->
         <section class="left" overflow:auto>
-          <PageList :nameList=namelist />
+          <PageList />
           <ComponentList />
           <RealTimeComponentList />
         </section>
@@ -75,7 +75,10 @@ export default {
     return {
       activeName: 'attr',
       reSelectAnimateIndex: undefined,
-      namelist: [],
+      pageList: this.$store.state.pageList,
+      socket: null,
+      connectCount: 0,
+      heartInterval: null,
     }
   },
   computed: mapState([
@@ -89,30 +92,41 @@ export default {
     this.restore()
     // 全局监听按键事件
     listenGlobalKeyDown()
-  },
-  mounted() {
+
   },
   methods: {
+
+
+
+    /**
+     * 从后端获取数据初始化页面
+     */
     restore() {
-      let teamID = sessionStorage.getItem('TeamID');
+      let teamID = JSON.parse(sessionStorage.getItem('TeamID'));
       let projectID = JSON.parse(sessionStorage.getItem('ProjectID'));
-      let prototypeID = sessionStorage.getItem('prototypeID');
+      let prototypeID = JSON.parse(sessionStorage.getItem('prototypeID'));
+      let fatherID = JSON.parse(sessionStorage.getItem('project_root_fileID'));
       console.log("open_prototype 时的teamID: " + teamID);
       console.log("open_prototype 时的projectID: " + projectID);
+      console.log("open_prototype 时的prototypeID: " + prototypeID);
+      console.log("open_prototype 时的fatherID:" + fatherID);
       this.$axios.post(
         '/api/prototype/open_prototype',
         this.$qs.stringify({
           teamID: teamID,
           projectID: projectID,
+          fatherID: fatherID,
           prototypeID: prototypeID,
         })
       ).then(response => {
         console.log("打开原型图的后端反馈 ", response.data);
-        this.namelist = response.data.namelist;
+        this.$store.commit('updatePageList', response.data.namelist);
+        console.log(this.$store.state.pageList);
+        // this.namelist = response.data.namelist;
         // 获取namelist的第一项
-        let firstItem = this.namelist[0];
+        let firstItem = this.$store.state.pageList[0];
         console.log("debug: 打开原型图时存储首页的pageID: " + firstItem.pageID);
-        sessionStorage.setItem('pageID', firstItem.pageID);
+        sessionStorage.setItem('pageID', JSON.stringify(firstItem.pageID));
         console.log("debug: 打开原型图时的first_componentdata: ");
         console.log(response.data.first_component);
         console.log("debug: 打开原型图时的first_canvasStyle: ");
