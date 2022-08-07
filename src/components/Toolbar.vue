@@ -80,9 +80,9 @@ export default {
     methods: {
         // todo 新建页面后刷新pagelist
         newPage() {
-            let teamID = sessionStorage.getItem('TeamID');
-            let prototypeID = sessionStorage.getItem('prototypeID');
-            let pageID = sessionStorage.getItem('pageID');
+            let teamID = JSON.parse(sessionStorage.getItem('TeamID'));
+            let prototypeID = JSON.parse(sessionStorage.getItem('prototypeID'));
+            let pageID = JSON.parse(sessionStorage.getItem('pageID'));
             let pageComponentData = this.componentData;
             let pageCanvasStyleData = this.canvasStyleData;
             this.$axios.post(
@@ -221,9 +221,9 @@ export default {
         },
 
         save() {
-            let teamID = sessionStorage.getItem('TeamID');
-            let prototypeID = sessionStorage.getItem('prototypeID');
-            let pageID = sessionStorage.getItem('pageID');
+            let teamID = JSON.parse(sessionStorage.getItem('TeamID'));
+            let prototypeID = JSON.parse(sessionStorage.getItem('prototypeID'));
+            let pageID = JSON.parse(sessionStorage.getItem('pageID'));
             let pageComponentData = this.componentData;
             let pageCanvasStyleData = this.canvasStyleData;
             console.log("打印更改页面请求的参数");

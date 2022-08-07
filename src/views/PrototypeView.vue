@@ -76,6 +76,9 @@ export default {
       activeName: 'attr',
       reSelectAnimateIndex: undefined,
       namelist: [],
+      socket: null,
+      connectCount: 0,
+      heartInterval: null,
     }
   },
   computed: mapState([
@@ -89,21 +92,69 @@ export default {
     this.restore()
     // 全局监听按键事件
     listenGlobalKeyDown()
-  },
-  mounted() {
+    this.initSocket()
   },
   methods: {
+
+    /**
+     * 建立连接是http
+     * 消息推送都是tcp连接，没有同源限制
+     * 服务端人员try catch 消息推送不成功，则关闭连接
+     */
+    initSocket() {
+      // 建立连接 （线上环境）
+      const url = `${location.protocol === 'https:' ? 'wss' : 'ws'}://${location.host}/socket`
+      this.socket = new WebSocket(`${url}/meeting/wsServer/PC-${this.$store.getters.userId}`)
+
+      this.socket.onmessage = (evt) => {
+        if (evt.data === '连接成功' || evt.data.includes('refresh')) {
+          this.heartCheck() // 重置心跳检测
+          // this.onRefresh() // 接收到推送消息，刷新列表
+        }
+      }
+      // 监听窗口事件，当窗口关闭时，主动断开websocket连接
+      window.onbeforeunload = () => {
+        this.socket.close()
+        this.heartInterval && clearTimeout(this.heartInterval)
+      }
+    },
+    /**
+     * 定时发送心跳包
+     * 59s发送一次心跳，比nginx设置的最大连接时间短一点，以达到在临界点重置连接时间
+     */
+    heartCheck() {
+      const that = this
+      this.heartInterval && clearTimeout(this.heartInterval)
+      this.heartInterval = setInterval(() => {
+        if (this.socket.readyState === 1) { // 连接状态
+          this.socket.send('ping')
+        } else {
+          that.connectCount += 1
+          if (that.connectCount <= 5) {
+            this.initSocket() // 断点重连5次
+          }
+        }
+      }, 59 * 1000)
+    },
+
+    /**
+     * 从后端获取数据初始化页面
+     */
     restore() {
-      let teamID = sessionStorage.getItem('TeamID');
+      let teamID = JSON.parse(sessionStorage.getItem('TeamID'));
       let projectID = JSON.parse(sessionStorage.getItem('ProjectID'));
-      let prototypeID = sessionStorage.getItem('prototypeID');
+      let prototypeID = JSON.parse(sessionStorage.getItem('prototypeID'));
+      let fatherID = JSON.parse(sessionStorage.getItem('project_root_fileID'));
       console.log("open_prototype 时的teamID: " + teamID);
       console.log("open_prototype 时的projectID: " + projectID);
+      console.log("open_prototype 时的prototypeID: " + prototypeID);
+      console.log("open_prototype 时的fatherID:" + fatherID);
       this.$axios.post(
         '/api/prototype/open_prototype',
         this.$qs.stringify({
           teamID: teamID,
           projectID: projectID,
+          fatherID: fatherID,
           prototypeID: prototypeID,
         })
       ).then(response => {
@@ -112,7 +163,7 @@ export default {
         // 获取namelist的第一项
         let firstItem = this.namelist[0];
         console.log("debug: 打开原型图时存储首页的pageID: " + firstItem.pageID);
-        sessionStorage.setItem('pageID', firstItem.pageID);
+        sessionStorage.setItem('pageID', JSON.stringify(firstItem.pageID));
         console.log("debug: 打开原型图时的first_componentdata: ");
         console.log(response.data.first_component);
         console.log("debug: 打开原型图时的first_canvasStyle: ");

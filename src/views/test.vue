@@ -17,7 +17,7 @@ export default {
   methods: {
     //收藏功能,通过测试
     star_project(ID) {
-      var teamID = sessionStorage.getItem('TeamID');
+      var teamID = JSON.parse(sessionStorage.getItem('TeamID'));
       // console.log(teamID)
       this.$axios({
         method: 'post',
@@ -42,7 +42,7 @@ export default {
     },
     //取消收藏,通过测试
     unstar_project(ID) {
-      var teamID = sessionStorage.getItem('TeamID');
+      var teamID = JSON.parse(sessionStorage.getItem('TeamID'));
       this.$axios({
         method: 'post',
         url: '/api/project/unstar_project',
@@ -66,7 +66,7 @@ export default {
     },
     //创建项目，通过测试
     create_project(name) {
-      var teamID = sessionStorage.getItem('TeamID');
+      var teamID = JSON.parse(sessionStorage.getItem('TeamID'));
       this.$axios({
         method: 'post',
         url: '/api/project/create_project',
@@ -90,7 +90,7 @@ export default {
     },
     //删除项目,通过测试
     delete_project(ID) {
-      var teamID = sessionStorage.getItem('TeamID')
+      var teamID = JSON.parse(sessionStorage.getItem('TeamID'))
       this.$axios({
         method: 'post',
         url: '/api/project/delete_project',
@@ -119,7 +119,7 @@ export default {
     //重命名项目,通过测试
     rename_project(ID, Name) {
       console.log("修改项目名称", ID, Name)
-      var teamID = sessionStorage.getItem('TeamID');
+      var teamID = JSON.parse(sessionStorage.getItem('TeamID'));
       this.$axios({
         method: 'post',
         url: '/api/project/rename_project',
@@ -146,7 +146,7 @@ export default {
     },
     //查看改团队项目,通过测试
     get_star_project_list() {
-      var teamID = sessionStorage.getItem('TeamID');
+      var teamID = JSON.parse(sessionStorage.getItem('TeamID'));
       this.$axios({
         method: 'post',
         url: '/api/project/get_star_project_list',
@@ -167,7 +167,7 @@ export default {
     },
     //查看用户创建项目,通过测试
     get_create_project_list() {
-      var teamID = sessionStorage.getItem('TeamID');
+      var teamID = JSON.parse(sessionStorage.getItem('TeamID'));
       this.$axios({
         method: 'post',
         url: '/api/project/get_create_project_list',
@@ -188,7 +188,7 @@ export default {
     },
     //查看回收站项目,通过测试
     get_delete_project_list() {
-      var teamID = sessionStorage.getItem('TeamID');
+      var teamID = JSON.parse(sessionStorage.getItem('TeamID'));
       this.$axios({
         method: 'post',
         url: '/api/project/get_delete_project_list',
@@ -211,7 +211,7 @@ export default {
   },
   //回收站彻底删除项目
   delete_project_recycle_bin(ID) {
-    var teamID = sessionStorage.getItem('TeamID');
+    var teamID = JSON.parse(sessionStorage.getItem('TeamID'));
     this.$axios({
       method: 'post',
       url: '/api/project/get_delete_project_list',

@@ -15,7 +15,7 @@
       </el-col>
     </div>
     <div style="margin-top:40px;width:300px;margin-left: 0px;">
-      <v-data-table height="480px" :headers="headers" :items="desserts" sort-by="projectUser" class="elevation-1" >
+      <v-data-table height="480px" :headers="headers" :items="desserts" sort-by="projectUser" class="elevation-1">
         <template v-slot:top>
           <v-toolbar flat color="white">
             <v-toolbar-title>删除的文件</v-toolbar-title>
@@ -125,7 +125,7 @@ export default {
         projectTime: 0,
         is_star: 0,
       },
-      projectname: sessionStorage.getItem('ProjectName')
+      projectname: JSON.parse(sessionStorage.getItem('ProjectName'))
     }
   },
   computed: {
@@ -140,9 +140,9 @@ export default {
     },
   },
   created() {
-    this.teamid = sessionStorage.getItem('TeamID');
-    this.projectID = sessionStorage.getItem('ProjectID');
-    this.teamname = sessionStorage.getItem('TeamName');
+    this.teamid = JSON.parse(sessionStorage.getItem('TeamID'));
+    this.projectID = JSON.parse(sessionStorage.getItem('ProjectID'));
+    this.teamname = JSON.parse(sessionStorage.getItem('TeamName'));
     this.$axios({
       method: 'post',
       url: '/api/file/delete_filelist',

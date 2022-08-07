@@ -48,11 +48,23 @@
         <div style="top:5px;position: absolute;left: 10px;cursor: pointer" @click="showtrash"><b>> 回收站</b></div>
       </div>
 
-      <div v-if="this.ifnew===0">
-      <el-tooltip class="item" effect="dark" content="新建文档" placement="bottom"><div style="position: absolute;width:40px;height:40px;left:20px;top:55px"><i class="el-icon-document-add" style="" @click="changenew"></i></div></el-tooltip>
-      <el-tooltip class="item" effect="dark" content="删除当前文档" placement="bottom"><div style="position: absolute;width:40px;height:40px;left:90px;top:55px"><i class="el-icon-delete-solid" style="" @click="deletetxt"></i></div></el-tooltip>
-      <el-tooltip class="item" effect="dark" content="保存文档" placement="bottom"><div style="position: absolute;width:40px;height:40px;left:160px;top:55px"><i class="el-icon-document-checked" style="" @click="savetxt"></i></div></el-tooltip>
-        <el-tooltip class="item" effect="dark" content="选择模板" placement="bottom"><div style="position: absolute;width:40px;height:40px;left:230px;top:55px"><i class="el-icon-edit-outline" style="" @click="drawer = true"></i></div></el-tooltip>
+      <div v-if="this.ifnew === 0">
+        <el-tooltip class="item" effect="dark" content="新建文档" placement="bottom">
+          <div style="position: absolute;width:40px;height:40px;left:20px;top:55px"><i class="el-icon-document-add"
+              style="" @click="changenew"></i></div>
+        </el-tooltip>
+        <el-tooltip class="item" effect="dark" content="删除当前文档" placement="bottom">
+          <div style="position: absolute;width:40px;height:40px;left:90px;top:55px"><i class="el-icon-delete-solid"
+              style="" @click="deletetxt"></i></div>
+        </el-tooltip>
+        <el-tooltip class="item" effect="dark" content="保存文档" placement="bottom">
+          <div style="position: absolute;width:40px;height:40px;left:160px;top:55px"><i class="el-icon-document-checked"
+              style="" @click="savetxt"></i></div>
+        </el-tooltip>
+        <el-tooltip class="item" effect="dark" content="选择模板" placement="bottom">
+          <div style="position: absolute;width:40px;height:40px;left:230px;top:55px"><i class="el-icon-edit-outline"
+              style="" @click="drawer = true"></i></div>
+        </el-tooltip>
 
       </div>
       <div v-if="this.ifnew === 1" style="width: 21vh;position: absolute;">
@@ -74,30 +86,31 @@
       <!--<div style="position: absolute;left:700px;top:80vh"><v-btn text color="primary" @click="outtxt">导出当前文档</v-btn></div>-->
       <!--<div style="position: absolute;left:900px;top:80vh"><v-btn text color="error" @click="deletetxt">删除当前文档</v-btn></div>
       <div style="position: absolute;left:1100px;top:80vh"><v-btn text color="primary" @click="createnewtxt">新建文档</v-btn></div>-->
-      <el-drawer
-          title="请选择一个模板"
-          :visible.sync="drawer"
-          :direction="direction"
-          :before-close="handleClose"
-      :size="size">
+      <el-drawer title="请选择一个模板" :visible.sync="drawer" :direction="direction" :before-close="handleClose" :size="size">
         <!--<span>我来啦!</span>-->
         <div>
-        <el-button type="primary" icon="el-icon-s-management" style="width: 300px;background-color: red" @click="open1">项目计划</el-button>
+          <el-button type="primary" icon="el-icon-s-management" style="width: 300px;background-color: red"
+            @click="open1">项目计划</el-button>
         </div>
         <div>
-        <el-button type="primary" icon="el-icon-s-management" style="width: 300px;background-color: orange" @click="open2">会议纪要</el-button>
+          <el-button type="primary" icon="el-icon-s-management" style="width: 300px;background-color: orange"
+            @click="open2">会议纪要</el-button>
         </div>
         <div>
-          <el-button type="primary" icon="el-icon-s-management" style="width: 300px;background-color: yellowgreen" @click="open3">项目管理</el-button>
+          <el-button type="primary" icon="el-icon-s-management" style="width: 300px;background-color: yellowgreen"
+            @click="open3">项目管理</el-button>
         </div>
         <div>
-          <el-button type="primary" icon="el-icon-s-management" style="width: 300px;background-color: #b3d4fc" @click="open4">工作周报</el-button>
+          <el-button type="primary" icon="el-icon-s-management" style="width: 300px;background-color: #b3d4fc"
+            @click="open4">工作周报</el-button>
         </div>
         <div>
-          <el-button type="primary" icon="el-icon-s-management" style="width: 300px;background-color: palevioletred" @click="open5">需求调研报告</el-button>
+          <el-button type="primary" icon="el-icon-s-management" style="width: 300px;background-color: palevioletred"
+            @click="open5">需求调研报告</el-button>
         </div>
         <div>
-          <el-button type="primary" icon="el-icon-s-management" style="width: 300px; background-color: aqua" @click="open6">需求规格说明书</el-button>
+          <el-button type="primary" icon="el-icon-s-management" style="width: 300px; background-color: aqua"
+            @click="open6">需求规格说明书</el-button>
         </div>
       </el-drawer>
     </div>
@@ -114,27 +127,28 @@ export default {
   components: { doxlists1, doxlist },
   name: "textbustest",
 
-  data(){
-    return{
-      size:'300px',//抽屉的宽度
+  data() {
+    return {
+      size: '300px',//抽屉的宽度
       drawer: false,
       direction: 'ltr',
-      editor1:null,
-      newContent:'',
-      logourl:'https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/1.png',
-      userhead:'',
-      username:'',
-      teamname:sessionStorage.getItem('TeamName'),
-      projectname:sessionStorage.getItem('ProjectName'),
-      projectid:sessionStorage.getItem('ProjectID'),
+      editor1: null,
+      newContent: '',
+      logourl: 'https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/1.png',
+      userhead: '',
+      username: '',
+      teamname: JSON.parse(sessionStorage.getItem('TeamName')),
+      projectname: JSON.parse(sessionStorage.getItem('ProjectName')),
+      projectid: JSON.parse(sessionStorage.getItem('ProjectID')),
 
-      teamid: sessionStorage.getItem('TeamID'),
-      fatherid: sessionStorage.getItem('project_root_fileID'),
+      teamid: JSON.parse(sessionStorage.getItem('TeamID')),
+      fatherid: JSON.parse(sessionStorage.getItem('project_root_fileID')),
       textdata: [
       ],
       trashlist: [
       ],
 
+ 
       now_id:0,
       now_textname:'',
       ifnew:0,
@@ -147,6 +161,7 @@ export default {
       workweekly:'<h1><strong>xx工作周报</strong></h1><p><strong><br></strong></p><p><strong><br></strong></p><table class="tb-table"><tbody><tr><td colSpan="5" rowSpan="1" style="text-align:center"><strong style="font-family:SimHei, STHeiti;font-size:24px">xx工作周报<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x年x月x日<br></strong></td></tr><tr><td colSpan="5" rowSpan="1">项目名称</td></tr><tr><td colSpan="3" rowSpan="1">上周工作总结</td><td colSpan="2" rowSpan="1">下周工作注意事项</td></tr><tr><td colSpan="3" rowSpan="1">1.</td><td colSpan="2" rowSpan="1">1.</td></tr><tr><td colSpan="3" rowSpan="1">2.</td><td colSpan="2" rowSpan="1">2.</td></tr><tr><td colSpan="3" rowSpan="1">本周工作记录</td><td colSpan="2" rowSpan="1">本周工作存在问题及解决方法</td></tr><tr><td colSpan="1" rowSpan="1">具体时间</td><td colSpan="2" rowSpan="1">具体工作记录</td><td colSpan="1" rowSpan="1">具体问题</td><td colSpan="1" rowSpan="1">具体解决方法</td></tr><tr><td colSpan="1" rowSpan="1">x年x月x日</td><td colSpan="2" rowSpan="1">xxx</td><td colSpan="1" rowSpan="1">xxx</td><td colSpan="1" rowSpan="1">xxx</td></tr><tr><td colSpan="5" rowSpan="1">下周工作计划</td></tr><tr><td colSpan="2" rowSpan="1">时间</td><td colSpan="3" rowSpan="1">计划</td></tr><tr><td colSpan="2" rowSpan="1">xxx</td><td colSpan="3" rowSpan="1">xxx</td></tr><tr><td colSpan="2" rowSpan="1">xxx</td><td colSpan="3" rowSpan="1">xxx</td></tr><tr><td colSpan="2" rowSpan="1">xxx</td><td colSpan="3" rowSpan="1">xxx</td></tr><tr><td colSpan="2" rowSpan="1">xxx</td><td colSpan="3" rowSpan="1">xxx</td></tr></tbody></table><p><br></p><p style="text-align:center;font-family:宋体;font-size:10.5pt">&nbsp;</p><h2>&nbsp;</h2><p><br></p>',
       needlook:'<h1><strong>需求调研报告</strong></h1><h2>&nbsp;</h2><p><br></p>',
       needbook:'<h1><strong>需求规格说明书</strong></h1><h2>&nbsp;</h2><p><br></p>'
+
     }
   },
   created() {
@@ -181,37 +196,37 @@ export default {
     console.log("当前项目id" + this.projectid);
     console.log("当前文档id" + this.now_id);
   },
-  methods:{
-    open1(){
-      this.choice=1;
+  methods: {
+    open1() {
+      this.choice = 1;
       this.insertbody();
     },
-    open2(){
-      this.choice=2;
+    open2() {
+      this.choice = 2;
       this.insertbody();
     },
-    open3(){
-      this.choice=3;
+    open3() {
+      this.choice = 3;
       this.insertbody();
     },
-    open4(){
-      this.choice=4;
+    open4() {
+      this.choice = 4;
       this.insertbody();
     },
-    open5(){
-      this.choice=5;
+    open5() {
+      this.choice = 5;
       this.insertbody();
     },
-    open6(){
-      this.choice=6;
+    open6() {
+      this.choice = 6;
       this.insertbody();
     },
-    open7(){
-      this.choice=7;
+    open7() {
+      this.choice = 7;
       this.insertbody();
     },
-    insertbody(){
-      if(this.now_id===0){
+    insertbody() {
+      if (this.now_id === 0) {
         this.$message.error('当前未选择文档');
       }
       else {
@@ -224,22 +239,22 @@ export default {
             type: 'success',
             message: '导入成功!'
           });
-          if(this.choice===1) {
+          if (this.choice === 1) {
             this.newContent = this.projectplan;
           }
-          if(this.choice===2) {
+          if (this.choice === 2) {
             this.newContent = this.meetingpoint;
           }
-          if(this.choice===3) {
+          if (this.choice === 3) {
             this.newContent = this.projecthold;
           }
-          if(this.choice===4) {
+          if (this.choice === 4) {
             this.newContent = this.workweekly;
           }
-          if(this.choice===5) {
+          if (this.choice === 5) {
             this.newContent = this.needlook;
           }
-          if(this.choice===6) {
+          if (this.choice === 6) {
             this.newContent = this.needbook;
           }
           this.editor1.replaceContent(this.newContent);
@@ -254,13 +269,13 @@ export default {
     },
     handleClose(done) {
       this.$confirm('确认关闭？')
-          .then(_ => {
-            done(
-            );
-          })
-          .catch(_ => {});
+        .then(_ => {
+          done(
+          );
+        })
+        .catch(_ => { });
     },
-    load(){
+    load() {
 
       this.editor1.replaceContent(this.newContent);
     },

@@ -74,7 +74,7 @@ export default {
     },
   },
   created() {
-    this.teamid = sessionStorage.getItem('TeamID');
+    this.teamid = JSON.parse(sessionStorage.getItem('TeamID'));
 
     // alert(this.teamid);
 

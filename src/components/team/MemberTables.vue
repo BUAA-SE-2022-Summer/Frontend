@@ -134,7 +134,7 @@ export default {
 
   created() {
     // this.initialize()
-    this.teamid = sessionStorage.getItem('TeamID')
+    this.teamid = JSON.parse(sessionStorage.getItem('TeamID'))
     this.get_team_info(this.teamid)
     console.log("当前团队", this.teamid)
 
@@ -184,7 +184,7 @@ export default {
     },
     //邀请成员请求
     invite_people(teamid, user_name) {
-      teamid = sessionStorage.getItem('TeamID')
+      teamid = JSON.parse(sessionStorage.getItem('TeamID'))
       this.$axios({
         method: 'post',
         url: '/api/team/invite_member',
@@ -204,7 +204,7 @@ export default {
     //踢成员请求
     kick_member(teamid, user_name) {
       var e = 0
-      teamid = sessionStorage.getItem('TeamID')
+      teamid = JSON.parse(sessionStorage.getItem('TeamID'))
       this.$axios({
         method: 'post',
         url: '/api/team/kick_member',
@@ -265,7 +265,7 @@ export default {
       })
     },
     set_manager(teamid, user_name) {
-      teamid = sessionStorage.getItem('TeamID')
+      teamid = JSON.parse(sessionStorage.getItem('TeamID'))
       this.$axios({
         method: 'post',
         url: '/api/team/set_manager',
@@ -282,7 +282,7 @@ export default {
       })
     },
     delete_manager(teamid, user_name) {
-      teamid = sessionStorage.getItem('TeamID')
+      teamid = JSON.parse(sessionStorage.getItem('TeamID'));
       console.log(teamid, user_name)
       this.$axios({
         method: 'post',

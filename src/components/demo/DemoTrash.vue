@@ -18,7 +18,7 @@ import qs from "qs";
 import doxlists1 from "./trashlists.vue"
 import projectListsVue from "./projectLists.vue";
 export default {
-  components:{doxlists1},
+  components: { doxlists1 },
   name: 'Home',
   data() {
     return {
@@ -26,9 +26,9 @@ export default {
         ['成员管理', 'mdi-account-cog'],
         ['操作日志', 'mdi-book-open-outline'],
       ],
-      numproject:0,
-      projectlist:[],
-      teamid:0,
+      numproject: 0,
+      projectlist: [],
+      teamid: 0,
 
       dialog: false,
       headers: [
@@ -63,29 +63,29 @@ export default {
 
   },
   computed: {
-    formTitle () {
+    formTitle() {
       return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
     },
   },
 
   watch: {
-    dialog (val) {
+    dialog(val) {
       val || this.close()
     },
   },
   created() {
-    this.teamid=sessionStorage.getItem('TeamID');
+    this.teamid = JSON.parse(sessionStorage.getItem('TeamID'));
   },
-  methods:{
-    findproject(row,column,cell,event){
+  methods: {
+    findproject(row, column, cell, event) {
       console.log(row.projectID);
       console.log(row.project_root_fileID);
-      sessionStorage.setItem('ProjectID',JSON.stringify(row.projectID));
-      sessionStorage.setItem('project_root_fileID',JSON.stringify(row.project_root_fileID));
+      sessionStorage.setItem('ProjectID', JSON.stringify(row.projectID));
+      sessionStorage.setItem('project_root_fileID', JSON.stringify(row.project_root_fileID));
       //alert(row.project_root_fileID);
       this.$router.push('/dashboard/demo/console');
     },
-    initialize () {
+    initialize() {
       this.desserts = [
         {
           name: 'Frozen Yogurt',
@@ -98,18 +98,18 @@ export default {
       ]
     },
 
-    editItem (item) {
+    editItem(item) {
       this.editedIndex = this.desserts.indexOf(item)
       this.editedItem = Object.assign({}, item)
       this.dialog = true
     },
 
-    deleteItem (item) {
+    deleteItem(item) {
       const index = this.desserts.indexOf(item)
       confirm('Are you sure you want to delete this item?') && this.desserts.splice(index, 1)
     },
 
-    close () {
+    close() {
       this.dialog = false
       this.$nextTick(() => {
         this.editedItem = Object.assign({}, this.defaultItem)
@@ -117,7 +117,7 @@ export default {
       })
     },
 
-    save () {
+    save() {
       if (this.editedIndex > -1) {
         Object.assign(this.desserts[this.editedIndex], this.editedItem)
       } else {
@@ -143,6 +143,7 @@ export default {
   right: 0;
   border: 1px solid #ccc;
 }
+
 .home-header {
   width: 70%;
   height: 70px;
@@ -156,19 +157,23 @@ export default {
   top: 20px;
   right: 0;
 }
+
 .home-header-left {
   display: flex;
   align-items: center;
 }
+
 .home-header-left-title {
   font-size: 20px;
   font-weight: bold;
   color: #333;
 }
+
 .home-header-right {
   display: flex;
   align-items: center;
 }
+
 .home-header-right-img {
   width: 40px;
   height: 40px;
@@ -176,6 +181,7 @@ export default {
   background-color: #fff;
   margin-right: 20px;
 }
+
 .but_1 {
   position: fixed;
   top: 100px;
@@ -186,6 +192,7 @@ export default {
   box-shadow: 0 0 10px #e0e0e0;
   border-radius: 5px;
 }
+
 .but_2 {
   position: fixed;
   top: 100px;
@@ -196,6 +203,7 @@ export default {
   box-shadow: 0 0 10px #e0e0e0;
   border-radius: 5px;
 }
+
 .but_3 {
   position: fixed;
   top: 92px;
@@ -206,22 +214,27 @@ export default {
   box-shadow: 0 0 10px #e0e0e0;
   border-radius: 10px;
 }
+
 .li_1 {
   border: 1px solid #e0e0e0;
   border-radius: 10px;
 }
+
 .li_2 {
   height: 66px;
   border: 1px solid #e0e0e0;
   border-radius: 10px;
 }
+
 .tit_1 {
   text-align: left;
 }
+
 .tit_1_1 {
   text-align: left;
   margin-left: 20px;
 }
+
 .home-content {
   display: flex;
   -webkit-box-pack: center;
@@ -231,9 +244,10 @@ export default {
   align-items: center;
   position: fixed;
   left: 42%;
-  top:37%;
+  top: 37%;
   transform: translateY(-80px);
 }
+
 .home-content .empty-header {
   font-size: 18px;
   line-height: 16px;
@@ -241,6 +255,7 @@ export default {
   margin-top: 8px;
   font-weight: 500;
 }
+
 .home-content .empty-desc.is-show {
   font-size: 12px;
   line-height: 16px;
