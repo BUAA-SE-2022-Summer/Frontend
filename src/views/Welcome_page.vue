@@ -12,7 +12,7 @@
         <v-btn value="recent">
           <span style="color: black;font-size: large;" @click="overlay2 = !overlay2">修改个人信息</span>
         </v-btn>
-        <v-overlay :value="overlay2" dark=false :opacity="0.3">
+        <v-overlay :value="overlay2" :dark=isdark :opacity="0.3">
           <div>
             <user_centerVue></user_centerVue>
             <!-- <true_user_centerVue></true_user_centerVue> -->
@@ -28,7 +28,7 @@
         <v-btn value="recent">
           <span style="color: black;font-size: large;" @click="overlay = !overlay">个人中心</span>
         </v-btn>
-        <v-overlay :value="overlay" dark=false :opacity="0.3">
+        <v-overlay :value="overlay" :dark=isdark :opacity="0.3">
           <true_user_centerVue></true_user_centerVue>
           <div @click="overlay = false">
             <v-icon style="float:left;color:red;" x-large>mdi-arrow-left</v-icon>
@@ -38,7 +38,7 @@
         <v-btn value="recent">
           <span style="color: black;font-size: large;" @click="overlay3 = !overlay3">登录</span>
         </v-btn>
-        <v-overlay :value="overlay3" color="white" dark=false :opacity="0.3">
+        <v-overlay :value="overlay3" color="white" :dark=isdark :opacity="0.3">
           <login_pageVue></login_pageVue>
           <div @click="overlay3 = false">
             <v-icon style="float:left;color:red;" x-large>mdi-arrow-left</v-icon>
@@ -49,7 +49,7 @@
         <v-btn value="recent">
           <span style="color: black;font-size: large;" @click="overlay4 = !overlay4">注册</span>
         </v-btn>
-        <v-overlay :value="overlay4" dark=false :opacity="0.3">
+        <v-overlay :value="overlay4" :dark=isdark :opacity="0.3">
           <register_pageVue></register_pageVue>
           <div @click="overlay4 = false">
             <v-icon style="float:left;color:red;" x-large>mdi-arrow-left</v-icon>
@@ -106,7 +106,7 @@ export default {
       overlay4: false,
       // isreloaded: false,  //进入该页面先reload
       opacity: 0,
-      dark: false,
+      isdark: false,
     }
   },
   created() {

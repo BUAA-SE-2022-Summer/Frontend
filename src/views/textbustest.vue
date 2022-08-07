@@ -89,8 +89,8 @@
       <el-drawer title="请选择一个模板" :visible.sync="drawer" :direction="direction" :before-close="handleClose" :size="size">
         <!--<span>我来啦!</span>-->
         <div @mouseover="over1" @mouseleave="leave">
-          <el-button  type="primary" icon="el-icon-s-management" style="width: 300px;background-color: red"
-            @click="open1" >项目计划</el-button>
+          <el-button type="primary" icon="el-icon-s-management" style="width: 300px;background-color: red"
+            @click="open1">项目计划</el-button>
         </div>
         <div @mouseover="over2" @mouseleave="leave">
           <el-button type="primary" icon="el-icon-s-management" style="width: 300px;background-color: orange"
@@ -113,12 +113,18 @@
             @click="open6">需求规格说明书</el-button>
         </div>
       </el-drawer>
-      <div><img v-if="this.show===1" src="../img/项目计划.jpg" style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
-      <div><img v-if="this.show===2" src="../img/会议纪要.jpg" style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
-      <div><img v-if="this.show===3" src="../img/项目管理.jpg" style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
-      <div><img v-if="this.show===4" src="../img/工作周报.jpg" style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
-      <div><img v-if="this.show===5" src="../img/需求调研报告.jpg" style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
-      <div><img v-if="this.show===6" src="../img/需求规格说明书.jpg" style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
+      <div><img v-if="this.show === 1" src="../img/项目计划.jpg"
+          style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
+      <div><img v-if="this.show === 2" src="../img/会议纪要.jpg"
+          style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
+      <div><img v-if="this.show === 3" src="../img/项目管理.jpg"
+          style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
+      <div><img v-if="this.show === 4" src="../img/工作周报.jpg"
+          style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
+      <div><img v-if="this.show === 5" src="../img/需求调研报告.jpg"
+          style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
+      <div><img v-if="this.show === 6" src="../img/需求规格说明书.jpg"
+          style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
     </div>
     <!--<div><el-button @click="load">cnm</el-button></div>-->
   </div>
@@ -155,19 +161,19 @@ export default {
       ],
 
 
-      now_id:0,
-      now_textname:'',
-      ifnew:0,
-      inputname:'',
-      ifshow:0,
-      choice:0,
-      projectplan:'<h1 style="text-align:center"><strong>&nbsp;项目计划</strong></h1><h2>&nbsp;&nbsp;&nbsp;&nbsp;一、摘要</h2><h2>&nbsp;&nbsp;&nbsp;&nbsp;二、综述</h2><h2>&nbsp;&nbsp;&nbsp;&nbsp;三、甲方需求</h2><h2>&nbsp;&nbsp;&nbsp;&nbsp;四、技术与产品</h2><h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（1）：目前持有技术</h3><h3 style="background-color:rgb(255, 255, 255)"><strong style="color:rgb(73, 80, 96);font-family:Roboto, sans-serif;font-size:1.75rem;line-height:1.2">&nbsp;</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（2）：技术需求描述</h3><h3 style="background-color:rgb(255, 255, 255)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（3）：需要改进的技术</h3><h2 style="background-color:rgb(255, 255, 255)">&nbsp;&nbsp;&nbsp;&nbsp;五、市场分析</h2><h2 style="background-color:rgb(255, 255, 255)">&nbsp;&nbsp;&nbsp;&nbsp;六、初步项目进度计划及人员安排</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p><h3 style="background-color:rgb(255, 255, 255)"><strong style="color:rgb(73, 80, 96);font-family:Roboto, sans-serif;font-size:1.75rem;line-height:1.2">&nbsp;</strong></h3><p><br></p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p><p><br></p>',
-      meetingpoint:'<h1 style="text-align:center"><strong>&nbsp;XX科技公司</strong></h1><h3 style="text-align:center"><strong>XXX次会议纪要</strong></h3><p style="text-align:left"><strong>——————————————————————————————————————————————————————————————————————————————————————————————————————</strong></p><p style="text-align:left"><strong>会议时间：20xx年x月x日</strong></p><p><strong>会议地点：第x会议室</strong></p><p><strong>会议主持：xxx</strong></p><p><strong>记录人员：xxx</strong></p><p><strong>出席人员：xxx xxx xxx xxx</strong></p><p><strong>缺席人员: &nbsp;&nbsp;xxx xxx</strong></p><p><strong>会议内容：</strong></p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>一、讨论内容</strong></p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>二、决议事项</strong></p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.</p>',
-      projecthold:'<h1><strong>xx项目管理</strong></h1><p><strong><br></strong></p><table class="tb-table tb-table-textbus"><tbody><tr><td colSpan="1" rowSpan="1">Task Comtains<br>工作计划<br></td><td colSpan="1" rowSpan="1">Owner<br>责任人<br></td><td colSpan="1" rowSpan="1">Bar<br>进度<br></td><td colSpan="1" rowSpan="1">Start State<br>计划开始日期<br></td><td colSpan="1" rowSpan="1">Work Days<br>工作日<br></td><td colSpan="1" rowSpan="1">End State<br>计划完成日期<br></td><td colSpan="1" rowSpan="1">Actural Start<br>实际开始日期<br></td><td colSpan="1" rowSpan="1">Actural End<br>实际结束日期<br></td><td colSpan="1" rowSpan="1">Status<br>是否按计划进行<br></td></tr><tr><td colSpan="1" rowSpan="1">完成原型图部分后段对接</td><td colSpan="1" rowSpan="1">黄瑞</td><td colSpan="1" rowSpan="1">80%</td><td colSpan="1" rowSpan="1">2022/8/7</td><td colSpan="1" rowSpan="1">2</td><td colSpan="1" rowSpan="1">2022/8/9</td><td colSpan="1" rowSpan="1">2022/8/5</td><td colSpan="1" rowSpan="1">2022/8/6</td><td colSpan="1" rowSpan="1">是</td></tr><tr><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td></tr><tr><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td></tr><tr><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td></tr></tbody></table><h2>&nbsp;</h2><h2><strong>请于此处下方插入甘特图：</strong></h2><h3>（甘特图位置）</h3>',
-      workweekly:'<h1><strong>xx工作周报</strong></h1><p><strong><br></strong></p><p><strong><br></strong></p><table class="tb-table"><tbody><tr><td colSpan="5" rowSpan="1" style="text-align:center"><strong style="font-family:SimHei, STHeiti;font-size:24px">xx工作周报<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x年x月x日<br></strong></td></tr><tr><td colSpan="5" rowSpan="1">项目名称</td></tr><tr><td colSpan="3" rowSpan="1">上周工作总结</td><td colSpan="2" rowSpan="1">下周工作注意事项</td></tr><tr><td colSpan="3" rowSpan="1">1.</td><td colSpan="2" rowSpan="1">1.</td></tr><tr><td colSpan="3" rowSpan="1">2.</td><td colSpan="2" rowSpan="1">2.</td></tr><tr><td colSpan="3" rowSpan="1">本周工作记录</td><td colSpan="2" rowSpan="1">本周工作存在问题及解决方法</td></tr><tr><td colSpan="1" rowSpan="1">具体时间</td><td colSpan="2" rowSpan="1">具体工作记录</td><td colSpan="1" rowSpan="1">具体问题</td><td colSpan="1" rowSpan="1">具体解决方法</td></tr><tr><td colSpan="1" rowSpan="1">x年x月x日</td><td colSpan="2" rowSpan="1">xxx</td><td colSpan="1" rowSpan="1">xxx</td><td colSpan="1" rowSpan="1">xxx</td></tr><tr><td colSpan="5" rowSpan="1">下周工作计划</td></tr><tr><td colSpan="2" rowSpan="1">时间</td><td colSpan="3" rowSpan="1">计划</td></tr><tr><td colSpan="2" rowSpan="1">xxx</td><td colSpan="3" rowSpan="1">xxx</td></tr><tr><td colSpan="2" rowSpan="1">xxx</td><td colSpan="3" rowSpan="1">xxx</td></tr><tr><td colSpan="2" rowSpan="1">xxx</td><td colSpan="3" rowSpan="1">xxx</td></tr><tr><td colSpan="2" rowSpan="1">xxx</td><td colSpan="3" rowSpan="1">xxx</td></tr></tbody></table><p><br></p><p style="text-align:center;font-family:宋体;font-size:10.5pt">&nbsp;</p><h2>&nbsp;</h2><p><br></p>',
-      needlook:'<h1><strong>xx项目需求调研报告</strong></h1><p><strong><br></strong></p><table class="tb-table"><tbody><tr><td colSpan="2" rowSpan="1" style="text-align:center"><strong>软件开发项目需求调研报告模板</strong></td></tr><tr><td colSpan="2" rowSpan="1">项目名称：</td></tr><tr><td colSpan="2" rowSpan="1">调查方式：</td></tr><tr><td colSpan="1" rowSpan="1">调查人：</td><td colSpan="1" rowSpan="1">调查时间：</td></tr><tr><td colSpan="2" rowSpan="1">调查地点：</td></tr><tr><td colSpan="2" rowSpan="1">参与人员：</td></tr><tr><td colSpan="2" rowSpan="1">调研内容：</td></tr><tr><td colSpan="2" rowSpan="1">取得的原始材料：</td></tr><tr><td colSpan="2" rowSpan="1">收到的结果与反馈：</td></tr><tr><td colSpan="1" rowSpan="1">项目代表签字：</td><td colSpan="1" rowSpan="1">用户代表签字：</td></tr></tbody></table><h2>&nbsp;</h2><p><br></p>',
-      needbook:'<h1><strong>xx软件需求规格说明书</strong></h1><p><strong><br></strong></p><p><strong><br></strong></p><table class="tb-table"><tbody><tr><td colSpan="5" rowSpan="1" style="text-align:center"><strong style="font-size:20px">xx软件需求规格说明书</strong></td></tr><tr><td colSpan="5" rowSpan="1">硬件整体需求：</td></tr><tr><td colSpan="5" rowSpan="1">工作环境需求：</td></tr><tr><td colSpan="1" rowSpan="1">需求编号：</td><td colSpan="1" rowSpan="1">功能名称</td><td colSpan="1" rowSpan="1">功能需求标识</td><td colSpan="1" rowSpan="1">优先级</td><td colSpan="1" rowSpan="1">具体描述</td></tr><tr><td colSpan="1" rowSpan="1">1</td><td colSpan="1" rowSpan="1">系统入口</td><td colSpan="1" rowSpan="1">L1</td><td colSpan="1" rowSpan="1">最高</td><td colSpan="1" rowSpan="1">用户在该软件中进行一切操作的入口</td></tr></tbody></table><h2>&nbsp;</h2><p><br></p>',
-      show:0,
+      now_id: 0,
+      now_textname: '',
+      ifnew: 0,
+      inputname: '',
+      ifshow: 0,
+      choice: 0,
+      projectplan: '<h1 style="text-align:center"><strong>&nbsp;项目计划</strong></h1><h2>&nbsp;&nbsp;&nbsp;&nbsp;一、摘要</h2><h2>&nbsp;&nbsp;&nbsp;&nbsp;二、综述</h2><h2>&nbsp;&nbsp;&nbsp;&nbsp;三、甲方需求</h2><h2>&nbsp;&nbsp;&nbsp;&nbsp;四、技术与产品</h2><h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（1）：目前持有技术</h3><h3 style="background-color:rgb(255, 255, 255)"><strong style="color:rgb(73, 80, 96);font-family:Roboto, sans-serif;font-size:1.75rem;line-height:1.2">&nbsp;</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（2）：技术需求描述</h3><h3 style="background-color:rgb(255, 255, 255)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（3）：需要改进的技术</h3><h2 style="background-color:rgb(255, 255, 255)">&nbsp;&nbsp;&nbsp;&nbsp;五、市场分析</h2><h2 style="background-color:rgb(255, 255, 255)">&nbsp;&nbsp;&nbsp;&nbsp;六、初步项目进度计划及人员安排</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p><h3 style="background-color:rgb(255, 255, 255)"><strong style="color:rgb(73, 80, 96);font-family:Roboto, sans-serif;font-size:1.75rem;line-height:1.2">&nbsp;</strong></h3><p><br></p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p><p><br></p>',
+      meetingpoint: '<h1 style="text-align:center"><strong>&nbsp;XX科技公司</strong></h1><h3 style="text-align:center"><strong>XXX次会议纪要</strong></h3><p style="text-align:left"><strong>——————————————————————————————————————————————————————————————————————————————————————————————————————</strong></p><p style="text-align:left"><strong>会议时间：20xx年x月x日</strong></p><p><strong>会议地点：第x会议室</strong></p><p><strong>会议主持：xxx</strong></p><p><strong>记录人员：xxx</strong></p><p><strong>出席人员：xxx xxx xxx xxx</strong></p><p><strong>缺席人员: &nbsp;&nbsp;xxx xxx</strong></p><p><strong>会议内容：</strong></p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>一、讨论内容</strong></p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>二、决议事项</strong></p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.</p>',
+      projecthold: '<h1><strong>xx项目管理</strong></h1><p><strong><br></strong></p><table class="tb-table tb-table-textbus"><tbody><tr><td colSpan="1" rowSpan="1">Task Comtains<br>工作计划<br></td><td colSpan="1" rowSpan="1">Owner<br>责任人<br></td><td colSpan="1" rowSpan="1">Bar<br>进度<br></td><td colSpan="1" rowSpan="1">Start State<br>计划开始日期<br></td><td colSpan="1" rowSpan="1">Work Days<br>工作日<br></td><td colSpan="1" rowSpan="1">End State<br>计划完成日期<br></td><td colSpan="1" rowSpan="1">Actural Start<br>实际开始日期<br></td><td colSpan="1" rowSpan="1">Actural End<br>实际结束日期<br></td><td colSpan="1" rowSpan="1">Status<br>是否按计划进行<br></td></tr><tr><td colSpan="1" rowSpan="1">完成原型图部分后段对接</td><td colSpan="1" rowSpan="1">黄瑞</td><td colSpan="1" rowSpan="1">80%</td><td colSpan="1" rowSpan="1">2022/8/7</td><td colSpan="1" rowSpan="1">2</td><td colSpan="1" rowSpan="1">2022/8/9</td><td colSpan="1" rowSpan="1">2022/8/5</td><td colSpan="1" rowSpan="1">2022/8/6</td><td colSpan="1" rowSpan="1">是</td></tr><tr><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td></tr><tr><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td></tr><tr><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td></tr></tbody></table><h2>&nbsp;</h2><h2><strong>请于此处下方插入甘特图：</strong></h2><h3>（甘特图位置）</h3>',
+      workweekly: '<h1><strong>xx工作周报</strong></h1><p><strong><br></strong></p><p><strong><br></strong></p><table class="tb-table"><tbody><tr><td colSpan="5" rowSpan="1" style="text-align:center"><strong style="font-family:SimHei, STHeiti;font-size:24px">xx工作周报<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x年x月x日<br></strong></td></tr><tr><td colSpan="5" rowSpan="1">项目名称</td></tr><tr><td colSpan="3" rowSpan="1">上周工作总结</td><td colSpan="2" rowSpan="1">下周工作注意事项</td></tr><tr><td colSpan="3" rowSpan="1">1.</td><td colSpan="2" rowSpan="1">1.</td></tr><tr><td colSpan="3" rowSpan="1">2.</td><td colSpan="2" rowSpan="1">2.</td></tr><tr><td colSpan="3" rowSpan="1">本周工作记录</td><td colSpan="2" rowSpan="1">本周工作存在问题及解决方法</td></tr><tr><td colSpan="1" rowSpan="1">具体时间</td><td colSpan="2" rowSpan="1">具体工作记录</td><td colSpan="1" rowSpan="1">具体问题</td><td colSpan="1" rowSpan="1">具体解决方法</td></tr><tr><td colSpan="1" rowSpan="1">x年x月x日</td><td colSpan="2" rowSpan="1">xxx</td><td colSpan="1" rowSpan="1">xxx</td><td colSpan="1" rowSpan="1">xxx</td></tr><tr><td colSpan="5" rowSpan="1">下周工作计划</td></tr><tr><td colSpan="2" rowSpan="1">时间</td><td colSpan="3" rowSpan="1">计划</td></tr><tr><td colSpan="2" rowSpan="1">xxx</td><td colSpan="3" rowSpan="1">xxx</td></tr><tr><td colSpan="2" rowSpan="1">xxx</td><td colSpan="3" rowSpan="1">xxx</td></tr><tr><td colSpan="2" rowSpan="1">xxx</td><td colSpan="3" rowSpan="1">xxx</td></tr><tr><td colSpan="2" rowSpan="1">xxx</td><td colSpan="3" rowSpan="1">xxx</td></tr></tbody></table><p><br></p><p style="text-align:center;font-family:宋体;font-size:10.5pt">&nbsp;</p><h2>&nbsp;</h2><p><br></p>',
+      needlook: '<h1><strong>xx项目需求调研报告</strong></h1><p><strong><br></strong></p><table class="tb-table"><tbody><tr><td colSpan="2" rowSpan="1" style="text-align:center"><strong>软件开发项目需求调研报告模板</strong></td></tr><tr><td colSpan="2" rowSpan="1">项目名称：</td></tr><tr><td colSpan="2" rowSpan="1">调查方式：</td></tr><tr><td colSpan="1" rowSpan="1">调查人：</td><td colSpan="1" rowSpan="1">调查时间：</td></tr><tr><td colSpan="2" rowSpan="1">调查地点：</td></tr><tr><td colSpan="2" rowSpan="1">参与人员：</td></tr><tr><td colSpan="2" rowSpan="1">调研内容：</td></tr><tr><td colSpan="2" rowSpan="1">取得的原始材料：</td></tr><tr><td colSpan="2" rowSpan="1">收到的结果与反馈：</td></tr><tr><td colSpan="1" rowSpan="1">项目代表签字：</td><td colSpan="1" rowSpan="1">用户代表签字：</td></tr></tbody></table><h2>&nbsp;</h2><p><br></p>',
+      needbook: '<h1><strong>xx软件需求规格说明书</strong></h1><p><strong><br></strong></p><p><strong><br></strong></p><table class="tb-table"><tbody><tr><td colSpan="5" rowSpan="1" style="text-align:center"><strong style="font-size:20px">xx软件需求规格说明书</strong></td></tr><tr><td colSpan="5" rowSpan="1">硬件整体需求：</td></tr><tr><td colSpan="5" rowSpan="1">工作环境需求：</td></tr><tr><td colSpan="1" rowSpan="1">需求编号：</td><td colSpan="1" rowSpan="1">功能名称</td><td colSpan="1" rowSpan="1">功能需求标识</td><td colSpan="1" rowSpan="1">优先级</td><td colSpan="1" rowSpan="1">具体描述</td></tr><tr><td colSpan="1" rowSpan="1">1</td><td colSpan="1" rowSpan="1">系统入口</td><td colSpan="1" rowSpan="1">L1</td><td colSpan="1" rowSpan="1">最高</td><td colSpan="1" rowSpan="1">用户在该软件中进行一切操作的入口</td></tr></tbody></table><h2>&nbsp;</h2><p><br></p>',
+      show: 0,
     }
   },
   created() {
@@ -182,47 +188,31 @@ export default {
         console.log(this.userhead)
       }
     );
-    this.$axios({
-      method: 'post',           /* 指明请求方式，可以是 get 或 post */
-      url: '/api/file/project_root_filelist',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
-      data: qs.stringify({
-        projectID: this.projectid,
-      })
-    })
-      .then(res => {/* res 是 response 的缩写 */
-        if (res.data.errno === 0) {
-          this.textdata = res.data.filelist;
-        } else {
-          this.$message.error(res.data.msg);
-        }
-      })
-      .catch(err => {
-        console.log(err);         /* 若出现异常则在终端输出相关信息 */
-      });
+    console.log("debug当前项目id" + JSON.parse(sessionStorage.getItem('ProjectID')));
     console.log("当前项目id" + this.projectid);
     console.log("当前文档id" + this.now_id);
   },
   methods: {
-    leave(){
-      this.show=0;
+    leave() {
+      this.show = 0;
     },
     over1() {
-       this.show=1;
+      this.show = 1;
     },
     over2() {
-      this.show=2;
+      this.show = 2;
     },
     over3() {
-      this.show=3;
+      this.show = 3;
     },
     over4() {
-      this.show=4;
+      this.show = 4;
     },
     over5() {
-      this.show=5;
+      this.show = 5;
     },
     over6() {
-      this.show=6;
+      this.show = 6;
     },
     open1() {
       this.choice = 1;
@@ -417,29 +407,31 @@ export default {
     }
   },
   mounted() {
-    this.$axios({
-      method: 'post',           /* 指明请求方式，可以是 get 或 post */
-      url: '/api/file/read_file',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
-      data: qs.stringify({
-        fileID: this.now_id,
+    if (!this.now_id) {
+      this.$axios({
+        method: 'post',           /* 指明请求方式，可以是 get 或 post */
+        url: '/api/file/read_file',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
+        data: qs.stringify({
+          fileID: this.now_id,
+        })
       })
-    })
-      .then(res => {/* res 是 response 的缩写 */
-        //获取用户登录的三个基本信息并存放于sessionStorage
-        if (res.data.errno === 0) {
-          this.$message.success('导入文件成功');
-          this.newContent = res.data.content;
-          //alert(this.newContent);
-          _this.editor1.replaceContent(this.newContent);
-          //this.inside = res.data.content;
-          sessionStorage.setItem('now_textid', JSON.stringify(res.data.fileID));
-        } else {
-          this.$message.error(res.data.msg);
-        }
-      })
-      .catch(err => {
-        console.log(err);         /* 若出现异常则在终端输出相关信息 */
-      });
+        .then(res => {/* res 是 response 的缩写 */
+          //获取用户登录的三个基本信息并存放于sessionStorage
+          if (res.data.errno === 0) {
+            this.$message.success('导入文件成功');
+            this.newContent = res.data.content;
+            //alert(this.newContent);
+            _this.editor1.replaceContent(this.newContent);
+            //this.inside = res.data.content;
+            sessionStorage.setItem('now_textid', JSON.stringify(res.data.fileID));
+          } else {
+            this.$message.error(res.data.msg);
+          }
+        })
+        .catch(err => {
+          console.log(err);         /* 若出现异常则在终端输出相关信息 */
+        });
+    }
     const _this = this;
     _this.editor1 = createEditor();
     //const editor = createEditor();

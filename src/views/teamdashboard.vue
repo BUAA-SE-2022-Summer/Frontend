@@ -202,8 +202,11 @@ export default {
       this.itemsPerPage = number
     },
     goTeam(item) {
-      sessionStorage.setItem('TeamID', JSON.stringify(item.TeamID));
-      this.$router.push('');
+      sessionStorage.setItem('TeamID', JSON.stringify(item.teamID));
+      console.log("选择的团队id为: " + item.teamID);
+      sessionStorage.setItem('TeamName', JSON.stringify(item.team_name));
+      console.log("选择的团队名为: " + item.team_name);
+      this.$router.push('/projectdashboard');
     }
   },
   created() {
