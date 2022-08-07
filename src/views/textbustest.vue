@@ -15,36 +15,34 @@
         <el-tooltip class="item" effect="dark" :content="this.now_textname" placement="bottom"><div style="left:62vh;position: absolute;top:1.5vh"><b>当前文档</b></div></el-tooltip>
       </div>
       <div>
-        <el-table :data="this.textdata" height="600" border stripe
+        <!--<el-table :data="this.textdata" height="600" border stripe
                   style="position:absolute;width: 60vh;top:12vh" @cell-click="find">
           <el-table-column prop="file_name" label="文档列表" width:20vh>
           </el-table-column>
-          <!--<el-table-column prop="last_modify_time" label="最后编辑时间" width:20vh>
-          </el-table-column>-->
-          <!--<el-table-column prop="fileID" label="文档id" width:20vh>
-          </el-table-column>-->
-        </el-table>
+        </el-table>-->
       </div>
-      <div  style="position: absolute;width: 60vh;height:5vh;background-color: wheat;top:690px">
+      <div  style="position: absolute;width: 300px;height:5vh;background-color: wheat;top:690px">
         <div style="top:5px;position: absolute;left: 10px;cursor: pointer" @click="showtrash"><b>> 回收站</b></div>
       </div>
       <div v-if="this.ifnew===0">
-      <el-tooltip class="item" effect="dark" content="新建文档" placement="bottom"><div style="position: absolute;width:40px;height:40px;left:60px;top:55px"><i class="el-icon-plus" style="" @click="changenew"></i></div></el-tooltip>
-      <el-tooltip class="item" effect="dark" content="删除当前文档" placement="bottom"><div style="position: absolute;width:40px;height:40px;left:220px;top:55px"><i class="el-icon-delete-solid" style="" @click="deletetxt"></i></div></el-tooltip>
-      <el-tooltip class="item" effect="dark" content="保存文档" placement="bottom"><div style="position: absolute;width:40px;height:40px;left:380px;top:55px"><i class="el-icon-document-checked" style="" @click="savetxt"></i></div></el-tooltip>
+      <el-tooltip class="item" effect="dark" content="新建文档" placement="bottom"><div style="position: absolute;width:40px;height:40px;left:40px;top:55px"><i class="el-icon-plus" style="" @click="changenew"></i></div></el-tooltip>
+      <el-tooltip class="item" effect="dark" content="删除当前文档" placement="bottom"><div style="position: absolute;width:40px;height:40px;left:130px;top:55px"><i class="el-icon-delete-solid" style="" @click="deletetxt"></i></div></el-tooltip>
+      <el-tooltip class="item" effect="dark" content="保存文档" placement="bottom"><div style="position: absolute;width:40px;height:40px;left:220px;top:55px"><i class="el-icon-document-checked" style="" @click="savetxt"></i></div></el-tooltip>
       </div>
-      <div v-if="this.ifnew===1" style="width: 49vh;position: absolute;">
+      <div v-if="this.ifnew===1" style="width: 21vh;position: absolute;">
         <el-input v-model="inputname" placeholder="请输入文档名称"></el-input>
-        <el-button type="primary" style="position: absolute;width: 11vh;" @click="createnewtxt">确认</el-button>
+        <el-button type="primary" style="position: absolute;width: 9vh;" @click="createnewtxt">确认</el-button>
+        <el-button type="error" style="position: absolute;width: 9vh;left:220px" @click="closecreate">取消</el-button>
       </div>
-      <div v-if="this.ifshow===1" style="position: absolute;width: 60vh;height:91vh;background-color: whitesmoke"></div>
-      <div v-if="this.ifshow===1" style="position: absolute;width: 60vh;height:5vh;background-color: wheat;top:50px">
+      <div v-if="this.ifshow===1" style="position: absolute;width: 300px;height:91vh;background-color: whitesmoke"></div>
+      <div v-if="this.ifshow===1" style="position: absolute;width: 300px;height:5vh;background-color: wheat;top:50px">
         <div style="top:5px;position: absolute;left: 10px;cursor: pointer" @click="closetrash"><b>> 回收站</b></div>
         <doxlists1></doxlists1>
       </div>
-      <div ref="editorContainer" style="width: 145vh;position: absolute;left:60vh;height:100vh"></div>
-      <!--<div style="position: absolute;left:700px;top:80vh"><v-btn text color="primary" @click="savetxt">保存当前文档</v-btn></div>
-      <div style="position: absolute;left:900px;top:80vh"><v-btn text color="error" @click="deletetxt">删除当前文档</v-btn></div>
+      <div v-if="this.ifshow===0" style="position: absolute;width: 300px;height:80vh;background-color: whitesmoke;top:12vh"><doxlist></doxlist></div>
+      <div ref="editorContainer" style="width: 165vh;position: absolute;left:40vh;height:100vh;minHeight: 100vh"></div>
+      <!--<div style="position: absolute;left:700px;top:80vh"><v-btn text color="primary" @click="outtxt">导出当前文档</v-btn></div>-->
+      <!--<div style="position: absolute;left:900px;top:80vh"><v-btn text color="error" @click="deletetxt">删除当前文档</v-btn></div>
       <div style="position: absolute;left:1100px;top:80vh"><v-btn text color="primary" @click="createnewtxt">新建文档</v-btn></div>-->
     </div>
     <!--<div><el-button @click="load">cnm</el-button></div>-->
@@ -54,9 +52,10 @@
 import { createEditor } from '@textbus/editor';
 import '@textbus/editor/bundles/textbus.min.css';
 import doxlists1 from "../components/demo/trashlists";
+import doxlist from "../components/demo/doxlists";
 import qs from "qs";
 export default {
-  components:{doxlists1},
+  components:{doxlists1,doxlist},
   name: "textbustest",
   data(){
     return{
@@ -84,6 +83,7 @@ export default {
   created() {
     //alert('进入详情页');
     this.now_id = JSON.parse(sessionStorage.getItem('now_textid'));
+    //alert("textbus当前文档id为"+this.now_id);
     this.now_textname = JSON.parse(sessionStorage.getItem('now_textname'));
     this.$axios.get('/user/get_user_info ').then(
         res => {
@@ -115,6 +115,12 @@ export default {
   methods:{
     load(){
       this.editor1.replaceContent(this.newContent);
+    },
+    outtxt(){
+
+    },
+    closecreate(){
+      this.ifnew=0;
     },
     closetrash(){
       this.ifshow=0;
@@ -273,5 +279,14 @@ export default {
   object-fit: cover;
   transition: opacity 1s,transform .25s,filter .25s;
   backface-visibility: hidden;
+}
+.textbus-container {
+  line-height: 1.428;
+  border-radius: 5px;
+  height: 583px;
+  color: #495060;
+  position: relative;
+  display: flex;
+  flex-direction: column;
 }
 </style>
