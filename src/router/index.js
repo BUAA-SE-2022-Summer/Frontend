@@ -140,6 +140,11 @@ const routes = [
     path: '/plb',
     name: 'plb',
     component: () => import("../views/Projectlevelbanner")
+  },
+  {
+    path:'/filetree',
+    name:'filetree',
+    component: () => import("../views/filetreetest")
   }
 ]
 // {

@@ -44,9 +44,9 @@
           </el-table-column>
         </el-table>-->
       </div>
-      <div style="position: absolute;width: 300px;height:5vh;background-color: wheat;top:690px">
+     <!-- <div style="position: absolute;width: 300px;height:5vh;background-color: wheat;top:690px">
         <div style="top:5px;position: absolute;left: 10px;cursor: pointer" @click="showtrash"><b>> 回收站</b></div>
-      </div>
+      </div>-->
 
       <div v-if="this.ifnew === 0">
         <el-tooltip class="item" effect="dark" content="新建文档" placement="bottom">
@@ -81,6 +81,9 @@
       <div v-if="this.ifshow === 0"
         style="position: absolute;width: 300px;height:80vh;background-color: whitesmoke;top:12vh">
         <doxlist></doxlist>
+      </div>
+      <div style="position: absolute;width: 300px;height:5vh;background-color: wheat;top:690px">
+        <div style="top:5px;position: absolute;left: 10px;cursor: pointer" @click="showtrash"><b>> 回收站</b></div>
       </div>
       <div ref="editorContainer" style="width: 165vh;position: absolute;left:40vh;height:100vh;minHeight: 100vh"></div>
       <!--<div style="position: absolute;left:700px;top:80vh"><v-btn text color="primary" @click="outtxt">导出当前文档</v-btn></div>-->
