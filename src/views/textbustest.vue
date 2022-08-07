@@ -185,6 +185,9 @@ export default {
     this.now_id = JSON.parse(sessionStorage.getItem('now_textid'));
     //alert("textbus当前文档id为"+this.now_id);
     this.now_textname = JSON.parse(sessionStorage.getItem('now_textname'));
+    if(this.now_textname===null){
+      this.now_textname='当前没有选择文档';
+    }
     this.$axios.get('/api/user/get_user_info ').then(
       res => {
         this.userhead = res.data.data.img;
