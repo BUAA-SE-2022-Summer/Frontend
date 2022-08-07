@@ -63,6 +63,9 @@ export default {
             isScreenshot: false,
         }
     },
+    props: {
+        nameList: []
+    },
     computed: mapState([
         'componentData',
         'canvasStyleData',
@@ -100,6 +103,27 @@ export default {
                 } else {
                     this.$message.error('新建页面失败');
                 }
+            })
+            this.getpagelist();
+        },
+        getpagelist() {
+            let teamID = JSON.parse(sessionStorage.getItem('TeamID'));
+            let projectID = JSON.parse(sessionStorage.getItem('ProjectID'));
+            let prototypeID = JSON.parse(sessionStorage.getItem('prototypeID'));
+            let fatherID = JSON.parse(sessionStorage.getItem('project_root_fileID'));
+            this.$axios.post(
+                '/api/prototype/open_prototype',
+                this.$qs.stringify({
+                    teamID: teamID,
+                    projectID: projectID,
+                    fatherID: fatherID,
+                    prototypeID: prototypeID,
+                })
+            ).then(response => {
+                console.log("打开原型图的后端反馈 ", response.data);
+                this.$store.commit('updatePageList', response.data.namelist);
+            }).catch(err => {
+                console.error(err);
             })
         },
         format(value) {
@@ -226,7 +250,7 @@ export default {
             let pageID = JSON.parse(sessionStorage.getItem('pageID'));
             let pageComponentData = this.componentData;
             let pageCanvasStyleData = this.canvasStyleData;
-            console.log("打印更改页面请求的参数");
+            console.log("打印保存页面请求的参数");
             console.log("teamID: " + teamID);
             console.log("prototypeID: " + prototypeID);
             console.log("pageID: " + pageID);

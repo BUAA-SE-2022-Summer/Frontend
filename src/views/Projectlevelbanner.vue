@@ -42,10 +42,7 @@ export default {
       userhead: '',
       username: '',
       teamname: JSON.parse(sessionStorage.getItem('TeamName')),
-      projectname: JSON.parse(sessionStorage.getItem('ProjectName')),
-      projectid: JSON.parse(sessionStorage.getItem('ProjectID')),
       teamid: JSON.parse(sessionStorage.getItem('TeamID')),
-      fatherid: JSON.parse(sessionStorage.getItem('project_root_fileID')),
       textdata: [
       ],
       now_id: 0,
