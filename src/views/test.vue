@@ -1,10 +1,10 @@
-<template>  
+<template>
 
 </template>
 <script>
 import qs from 'qs'
 export default {
-  created(){
+  created() {
     // this.star_project(1)
     // this.unstar_project(1)
     // this.create_project("first")
@@ -14,16 +14,16 @@ export default {
     // this.delete_project(1)
     // this.get_delete_project_list()
   },
-  methods:{
+  methods: {
     //收藏功能,通过测试
-    star_project(ID){
-      var teamID=sessionStorage.getItem('TeamID');
+    star_project(ID) {
+      var teamID = sessionStorage.getItem('TeamID');
       // console.log(teamID)
       this.$axios({
         method: 'post',
-        url: '/project/star_project',
+        url: '/api/project/star_project',
         data: qs.stringify({
-          projectID:ID,
+          projectID: ID,
           teamID: teamID
           // teamID: 1
         })
@@ -41,13 +41,13 @@ export default {
         })
     },
     //取消收藏,通过测试
-    unstar_project(ID){
-      var teamID=sessionStorage.getItem('TeamID');
+    unstar_project(ID) {
+      var teamID = sessionStorage.getItem('TeamID');
       this.$axios({
         method: 'post',
-        url: '/project/unstar_project',
+        url: '/api/project/unstar_project',
         data: qs.stringify({
-          projectID:ID,
+          projectID: ID,
           teamID: teamID
           // teamID:1
         })
@@ -65,13 +65,13 @@ export default {
         })
     },
     //创建项目，通过测试
-    create_project(name){
-      var teamID=sessionStorage.getItem('TeamID');
+    create_project(name) {
+      var teamID = sessionStorage.getItem('TeamID');
       this.$axios({
         method: 'post',
-        url: '/project/create_project',
+        url: '/api/project/create_project',
         data: qs.stringify({
-          project_name:name,
+          project_name: name,
           teamID: teamID
           // teamID: 1
         })
@@ -93,7 +93,7 @@ export default {
       var teamID = sessionStorage.getItem('TeamID')
       this.$axios({
         method: 'post',
-        url: '/project/delete_project',
+        url: '/api/project/delete_project',
         data: qs.stringify({
 
           projectID: ID,
@@ -119,10 +119,10 @@ export default {
     //重命名项目,通过测试
     rename_project(ID, Name) {
       console.log("修改项目名称", ID, Name)
-      var teamID=sessionStorage.getItem('TeamID');
+      var teamID = sessionStorage.getItem('TeamID');
       this.$axios({
         method: 'post',
-        url: '/project/rename_project',
+        url: '/api/project/rename_project',
         data: qs.stringify({
           projectID: ID,
           // teamID: teamID,
@@ -145,11 +145,11 @@ export default {
         })
     },
     //查看改团队项目,通过测试
-    get_star_project_list(){
-      var teamID=sessionStorage.getItem('TeamID');
+    get_star_project_list() {
+      var teamID = sessionStorage.getItem('TeamID');
       this.$axios({
         method: 'post',
-        url: '/project/get_star_project_list',
+        url: '/api/project/get_star_project_list',
         data: qs.stringify({
           // teamID: teamID
           teamID: 1
@@ -159,18 +159,18 @@ export default {
           console.log(res.data)
           if (res.data.errno === 0) {
             console.log(res.data)
-          } 
+          }
         })
         .catch(err => {
           console.log(err);         /* 若出现异常则在终端输出相关信息 */
         })
     },
     //查看用户创建项目,通过测试
-    get_create_project_list(){
-      var teamID=sessionStorage.getItem('TeamID');
+    get_create_project_list() {
+      var teamID = sessionStorage.getItem('TeamID');
       this.$axios({
         method: 'post',
-        url: '/project/get_create_project_list',
+        url: '/api/project/get_create_project_list',
         data: qs.stringify({
           teamID: teamID
           // teamID: 1
@@ -180,18 +180,18 @@ export default {
           console.log(res.data)
           if (res.data.errno === 0) {
             console.log(res.data)
-          } 
+          }
         })
         .catch(err => {
           console.log(err);         /* 若出现异常则在终端输出相关信息 */
         })
     },
     //查看回收站项目,通过测试
-    get_delete_project_list(){
-      var teamID=sessionStorage.getItem('TeamID');
+    get_delete_project_list() {
+      var teamID = sessionStorage.getItem('TeamID');
       this.$axios({
         method: 'post',
-        url: '/project/get_delete_project_list',
+        url: '/api/project/get_delete_project_list',
         data: qs.stringify({
           teamID: teamID
           // teamID: 1
@@ -201,7 +201,7 @@ export default {
           console.log(res.data)
           if (res.data.errno === 0) {
             console.log(res.data)
-          } 
+          }
         })
         .catch(err => {
           console.log(err);         /* 若出现异常则在终端输出相关信息 */
@@ -210,25 +210,25 @@ export default {
 
   },
   //回收站彻底删除项目
-  delete_project_recycle_bin(ID){
-    var teamID=sessionStorage.getItem('TeamID');
-      this.$axios({
-        method: 'post',
-        url: '/project/get_delete_project_list',
-        data: qs.stringify({
-          teamID: teamID
-          // teamID: 1
-        })
+  delete_project_recycle_bin(ID) {
+    var teamID = sessionStorage.getItem('TeamID');
+    this.$axios({
+      method: 'post',
+      url: '/api/project/get_delete_project_list',
+      data: qs.stringify({
+        teamID: teamID
+        // teamID: 1
       })
-        .then(res => {
+    })
+      .then(res => {
+        console.log(res.data)
+        if (res.data.errno === 0) {
           console.log(res.data)
-          if (res.data.errno === 0) {
-            console.log(res.data)
-          } 
-        })
-        .catch(err => {
-          console.log(err);         /* 若出现异常则在终端输出相关信息 */
-        })
+        }
+      })
+      .catch(err => {
+        console.log(err);         /* 若出现异常则在终端输出相关信息 */
+      })
   }
 }
 </script>
