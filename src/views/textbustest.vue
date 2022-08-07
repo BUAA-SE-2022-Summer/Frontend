@@ -88,31 +88,37 @@
       <div style="position: absolute;left:1100px;top:80vh"><v-btn text color="primary" @click="createnewtxt">新建文档</v-btn></div>-->
       <el-drawer title="请选择一个模板" :visible.sync="drawer" :direction="direction" :before-close="handleClose" :size="size">
         <!--<span>我来啦!</span>-->
-        <div>
-          <el-button type="primary" icon="el-icon-s-management" style="width: 300px;background-color: red"
-            @click="open1">项目计划</el-button>
+        <div @mouseover="over1" @mouseleave="leave">
+          <el-button  type="primary" icon="el-icon-s-management" style="width: 300px;background-color: red"
+            @click="open1" >项目计划</el-button>
         </div>
-        <div>
+        <div @mouseover="over2" @mouseleave="leave">
           <el-button type="primary" icon="el-icon-s-management" style="width: 300px;background-color: orange"
             @click="open2">会议纪要</el-button>
         </div>
-        <div>
+        <div @mouseover="over3" @mouseleave="leave">
           <el-button type="primary" icon="el-icon-s-management" style="width: 300px;background-color: yellowgreen"
             @click="open3">项目管理</el-button>
         </div>
-        <div>
+        <div @mouseover="over4" @mouseleave="leave">
           <el-button type="primary" icon="el-icon-s-management" style="width: 300px;background-color: #b3d4fc"
             @click="open4">工作周报</el-button>
         </div>
-        <div>
+        <div @mouseover="over5" @mouseleave="leave">
           <el-button type="primary" icon="el-icon-s-management" style="width: 300px;background-color: palevioletred"
             @click="open5">需求调研报告</el-button>
         </div>
-        <div>
+        <div @mouseover="over6" @mouseleave="leave">
           <el-button type="primary" icon="el-icon-s-management" style="width: 300px; background-color: aqua"
             @click="open6">需求规格说明书</el-button>
         </div>
       </el-drawer>
+      <div><img v-if="this.show===1" src="../img/项目计划.jpg" style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
+      <div><img v-if="this.show===2" src="../img/会议纪要.jpg" style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
+      <div><img v-if="this.show===3" src="../img/项目管理.jpg" style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
+      <div><img v-if="this.show===4" src="../img/工作周报.jpg" style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
+      <div><img v-if="this.show===5" src="../img/需求调研报告.jpg" style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
+      <div><img v-if="this.show===6" src="../img/需求规格说明书.jpg" style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
     </div>
     <!--<div><el-button @click="load">cnm</el-button></div>-->
   </div>
@@ -160,8 +166,8 @@ export default {
       projecthold:'<h1><strong>xx项目管理</strong></h1><p><strong><br></strong></p><table class="tb-table tb-table-textbus"><tbody><tr><td colSpan="1" rowSpan="1">Task Comtains<br>工作计划<br></td><td colSpan="1" rowSpan="1">Owner<br>责任人<br></td><td colSpan="1" rowSpan="1">Bar<br>进度<br></td><td colSpan="1" rowSpan="1">Start State<br>计划开始日期<br></td><td colSpan="1" rowSpan="1">Work Days<br>工作日<br></td><td colSpan="1" rowSpan="1">End State<br>计划完成日期<br></td><td colSpan="1" rowSpan="1">Actural Start<br>实际开始日期<br></td><td colSpan="1" rowSpan="1">Actural End<br>实际结束日期<br></td><td colSpan="1" rowSpan="1">Status<br>是否按计划进行<br></td></tr><tr><td colSpan="1" rowSpan="1">完成原型图部分后段对接</td><td colSpan="1" rowSpan="1">黄瑞</td><td colSpan="1" rowSpan="1">80%</td><td colSpan="1" rowSpan="1">2022/8/7</td><td colSpan="1" rowSpan="1">2</td><td colSpan="1" rowSpan="1">2022/8/9</td><td colSpan="1" rowSpan="1">2022/8/5</td><td colSpan="1" rowSpan="1">2022/8/6</td><td colSpan="1" rowSpan="1">是</td></tr><tr><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td></tr><tr><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td></tr><tr><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td></tr></tbody></table><h2>&nbsp;</h2><h2><strong>请于此处下方插入甘特图：</strong></h2><h3>（甘特图位置）</h3>',
       workweekly:'<h1><strong>xx工作周报</strong></h1><p><strong><br></strong></p><p><strong><br></strong></p><table class="tb-table"><tbody><tr><td colSpan="5" rowSpan="1" style="text-align:center"><strong style="font-family:SimHei, STHeiti;font-size:24px">xx工作周报<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x年x月x日<br></strong></td></tr><tr><td colSpan="5" rowSpan="1">项目名称</td></tr><tr><td colSpan="3" rowSpan="1">上周工作总结</td><td colSpan="2" rowSpan="1">下周工作注意事项</td></tr><tr><td colSpan="3" rowSpan="1">1.</td><td colSpan="2" rowSpan="1">1.</td></tr><tr><td colSpan="3" rowSpan="1">2.</td><td colSpan="2" rowSpan="1">2.</td></tr><tr><td colSpan="3" rowSpan="1">本周工作记录</td><td colSpan="2" rowSpan="1">本周工作存在问题及解决方法</td></tr><tr><td colSpan="1" rowSpan="1">具体时间</td><td colSpan="2" rowSpan="1">具体工作记录</td><td colSpan="1" rowSpan="1">具体问题</td><td colSpan="1" rowSpan="1">具体解决方法</td></tr><tr><td colSpan="1" rowSpan="1">x年x月x日</td><td colSpan="2" rowSpan="1">xxx</td><td colSpan="1" rowSpan="1">xxx</td><td colSpan="1" rowSpan="1">xxx</td></tr><tr><td colSpan="5" rowSpan="1">下周工作计划</td></tr><tr><td colSpan="2" rowSpan="1">时间</td><td colSpan="3" rowSpan="1">计划</td></tr><tr><td colSpan="2" rowSpan="1">xxx</td><td colSpan="3" rowSpan="1">xxx</td></tr><tr><td colSpan="2" rowSpan="1">xxx</td><td colSpan="3" rowSpan="1">xxx</td></tr><tr><td colSpan="2" rowSpan="1">xxx</td><td colSpan="3" rowSpan="1">xxx</td></tr><tr><td colSpan="2" rowSpan="1">xxx</td><td colSpan="3" rowSpan="1">xxx</td></tr></tbody></table><p><br></p><p style="text-align:center;font-family:宋体;font-size:10.5pt">&nbsp;</p><h2>&nbsp;</h2><p><br></p>',
       needlook:'<h1><strong>xx项目需求调研报告</strong></h1><p><strong><br></strong></p><table class="tb-table"><tbody><tr><td colSpan="2" rowSpan="1" style="text-align:center"><strong>软件开发项目需求调研报告模板</strong></td></tr><tr><td colSpan="2" rowSpan="1">项目名称：</td></tr><tr><td colSpan="2" rowSpan="1">调查方式：</td></tr><tr><td colSpan="1" rowSpan="1">调查人：</td><td colSpan="1" rowSpan="1">调查时间：</td></tr><tr><td colSpan="2" rowSpan="1">调查地点：</td></tr><tr><td colSpan="2" rowSpan="1">参与人员：</td></tr><tr><td colSpan="2" rowSpan="1">调研内容：</td></tr><tr><td colSpan="2" rowSpan="1">取得的原始材料：</td></tr><tr><td colSpan="2" rowSpan="1">收到的结果与反馈：</td></tr><tr><td colSpan="1" rowSpan="1">项目代表签字：</td><td colSpan="1" rowSpan="1">用户代表签字：</td></tr></tbody></table><h2>&nbsp;</h2><p><br></p>',
-      needbook:'<h1><strong>xx软件需求规格说明书</strong></h1><p><strong><br></strong></p><p><strong><br></strong></p><table class="tb-table"><tbody><tr><td colSpan="5" rowSpan="1" style="text-align:center"><strong style="font-size:20px">xx软件需求规格说明书</strong></td></tr><tr><td colSpan="5" rowSpan="1">硬件整体需求：</td></tr><tr><td colSpan="5" rowSpan="1">工作环境需求：</td></tr><tr><td colSpan="1" rowSpan="1">需求编号：</td><td colSpan="1" rowSpan="1">功能名称</td><td colSpan="1" rowSpan="1">功能需求标识</td><td colSpan="1" rowSpan="1">优先级</td><td colSpan="1" rowSpan="1">具体描述</td></tr><tr><td colSpan="1" rowSpan="1">1</td><td colSpan="1" rowSpan="1">系统入口</td><td colSpan="1" rowSpan="1">L1</td><td colSpan="1" rowSpan="1">最高</td><td colSpan="1" rowSpan="1">用户在该软件中进行一切操作的入口</td></tr></tbody></table><h2>&nbsp;</h2><p><br></p>'
-
+      needbook:'<h1><strong>xx软件需求规格说明书</strong></h1><p><strong><br></strong></p><p><strong><br></strong></p><table class="tb-table"><tbody><tr><td colSpan="5" rowSpan="1" style="text-align:center"><strong style="font-size:20px">xx软件需求规格说明书</strong></td></tr><tr><td colSpan="5" rowSpan="1">硬件整体需求：</td></tr><tr><td colSpan="5" rowSpan="1">工作环境需求：</td></tr><tr><td colSpan="1" rowSpan="1">需求编号：</td><td colSpan="1" rowSpan="1">功能名称</td><td colSpan="1" rowSpan="1">功能需求标识</td><td colSpan="1" rowSpan="1">优先级</td><td colSpan="1" rowSpan="1">具体描述</td></tr><tr><td colSpan="1" rowSpan="1">1</td><td colSpan="1" rowSpan="1">系统入口</td><td colSpan="1" rowSpan="1">L1</td><td colSpan="1" rowSpan="1">最高</td><td colSpan="1" rowSpan="1">用户在该软件中进行一切操作的入口</td></tr></tbody></table><h2>&nbsp;</h2><p><br></p>',
+      show:0,
     }
   },
   created() {
@@ -197,8 +203,30 @@ export default {
     console.log("当前文档id" + this.now_id);
   },
   methods: {
+    leave(){
+      this.show=0;
+    },
+    over1() {
+       this.show=1;
+    },
+    over2() {
+      this.show=2;
+    },
+    over3() {
+      this.show=3;
+    },
+    over4() {
+      this.show=4;
+    },
+    over5() {
+      this.show=5;
+    },
+    over6() {
+      this.show=6;
+    },
     open1() {
       this.choice = 1;
+      this.show = 0;
       this.insertbody();
     },
     open2() {
