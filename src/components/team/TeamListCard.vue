@@ -46,8 +46,8 @@ export default {
   },
   methods: {
     changeCurrentTeamID(item) {
-      sessionStorage.setItem('TeamID', item.teamID);
-      sessionStorage.setItem('TeamName', item.team_name);
+      sessionStorage.setItem('TeamID', JSON.stringify(item.teamID));
+      sessionStorage.setItem('TeamName', JSON.stringify(item.team_name));
       sessionStorage.setItem('ProjectID', JSON.stringify(0));
       this.$router.go(0);
     }

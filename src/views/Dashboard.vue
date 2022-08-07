@@ -470,8 +470,8 @@ export default {
     teamid: JSON.parse(sessionStorage.getItem('TeamID')),
     click1: 0,
     projectid: JSON.parse(sessionStorage.getItem('ProjectID')), // 这里是获取projectID的代码
-    //projectid: sessionStorage.getItem('ProjectID'), // 这里是获取projectID的代码，没有用JSON.parse
-    fatherid: sessionStorage.getItem('project_root_fileID'),
+    //projectid: JSON.parse(sessionStorage.getItem('ProjectID')), // 这里是获取projectID的代码，没有用JSON.parse
+    fatherid: JSON.parse(sessionStorage.getItem('project_root_fileID')),
     appname: "",
     cwidth: "",
     cheight: "",
@@ -619,28 +619,31 @@ export default {
         });
     },
     createPrototype() {
-      console.log(this.teamid);
-      console.log(this.appname);
-      console.log(this.fatherid);
       this.projectid = JSON.parse(sessionStorage.getItem('ProjectID'));
-      console.log("debug: print projectid: " + this.projectid);
-      console.log("debug: session projectid: " + JSON.parse(sessionStorage.getItem('ProjectID')))
+      let teamID = JSON.parse(sessionStorage.getItem('TeamID'));
+      let projectID = JSON.parse(sessionStorage.getItem('ProjectID'));
+      let fatherID = JSON.parse(sessionStorage.getItem('project_root_fileID'));
+      console.log("createPrototype 时的teamID: " + teamID);
+      console.log("createPrototype 时的projectID: " + projectID);
+      console.log("createPrototype 时的fatherID:" + fatherID);
       this.$axios.post(
         '/api/prototype/create_prototype',
         this.$qs.stringify({
-          teamID: this.teamid,
+          teamID: teamID,
           prototypeName: this.appname,
-          fatherID: this.fatherid,
-          projectID: sessionStorage.getItem('ProjectID')
+          fatherID: fatherID,
+          projectID: projectID
         })
       ).then(res => {
+        console.log("create_prototype: print res: ");
+        console.log(res);
         if (res.data.errno === 0) {
           this.$message.success("文档创建成功");
           this.operatenum = 0;
           console.log("create pototype时的返回数据: ");
           console.log(res.data);
-          sessionStorage.setItem('prototypeID', res.data.prototypeID);
-          console.log("debug: 存储后print prototypeID: " + sessionStorage.getItem('prototypeID'));
+          sessionStorage.setItem('prototypeID', JSON.stringify(res.data.prototypeID));
+          console.log("debug: 存储后print prototypeID: " + JSON.parse(sessionStorage.getItem('prototypeID')));
           this.$router.push('/prototype')
         } else {
           this.$message.error(res.data.msg);

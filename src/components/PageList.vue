@@ -36,9 +36,9 @@ export default {
     },
     methods: {
         changePageInPrototype(pageID) {
-            let teamID = sessionStorage.getItem('TeamID');
-            let prototypeID = sessionStorage.getItem('prototypeID');
-            sessionStorage.setItem('pageID', pageID);
+            let teamID = JSON.parse(sessionStorage.getItem('TeamID'));
+            let prototypeID = JSON.parse(sessionStorage.getItem('prototypeID'));
+            sessionStorage.setItem('pageID', JSON.stringify(pageID));
             this.$axios.post(
                 '/api/prototype/change_page',
                 this.$qs.stringify({

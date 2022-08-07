@@ -127,7 +127,7 @@ export default {
         projectTime: 0,
         is_star: 0,
       },
-      projectname: sessionStorage.getItem('ProjectName')
+      projectname: JSON.parse(sessionStorage.getItem('ProjectName'))
     }
   },
   computed: {
@@ -142,9 +142,9 @@ export default {
     },
   },
   created() {
-    this.teamid = sessionStorage.getItem('TeamID');
-    this.projectID = sessionStorage.getItem('ProjectID');
-    this.teamname = sessionStorage.getItem('TeamName');
+    this.teamid = JSON.parse(sessionStorage.getItem('TeamID'));
+    this.projectID = JSON.parse(sessionStorage.getItem('ProjectID'));
+    this.teamname = JSON.parse(sessionStorage.getItem('TeamName'));
     this.$axios({
       method: 'post',
       url: '/api/file/project_root_filelist',
