@@ -23,7 +23,7 @@
       <main>
         <!-- 左侧组件列表 -->
         <section class="left" overflow:auto>
-          <PageList :nameList=namelist />
+          <PageList />
           <ComponentList />
           <RealTimeComponentList />
         </section>
@@ -75,7 +75,7 @@ export default {
     return {
       activeName: 'attr',
       reSelectAnimateIndex: undefined,
-      namelist: [],
+      pageList: this.$store.state.pageList,
       socket: null,
       connectCount: 0,
       heartInterval: null,
@@ -92,50 +92,11 @@ export default {
     this.restore()
     // 全局监听按键事件
     listenGlobalKeyDown()
-    this.initSocket()
+
   },
   methods: {
 
-    /**
-     * 建立连接是http
-     * 消息推送都是tcp连接，没有同源限制
-     * 服务端人员try catch 消息推送不成功，则关闭连接
-     */
-    initSocket() {
-      // 建立连接 （线上环境）
-      const url = `${location.protocol === 'https:' ? 'wss' : 'ws'}://${location.host}/socket`
-      this.socket = new WebSocket(`${url}/meeting/wsServer/PC-${this.$store.getters.userId}`)
 
-      this.socket.onmessage = (evt) => {
-        if (evt.data === '连接成功' || evt.data.includes('refresh')) {
-          this.heartCheck() // 重置心跳检测
-          // this.onRefresh() // 接收到推送消息，刷新列表
-        }
-      }
-      // 监听窗口事件，当窗口关闭时，主动断开websocket连接
-      window.onbeforeunload = () => {
-        this.socket.close()
-        this.heartInterval && clearTimeout(this.heartInterval)
-      }
-    },
-    /**
-     * 定时发送心跳包
-     * 59s发送一次心跳，比nginx设置的最大连接时间短一点，以达到在临界点重置连接时间
-     */
-    heartCheck() {
-      const that = this
-      this.heartInterval && clearTimeout(this.heartInterval)
-      this.heartInterval = setInterval(() => {
-        if (this.socket.readyState === 1) { // 连接状态
-          this.socket.send('ping')
-        } else {
-          that.connectCount += 1
-          if (that.connectCount <= 5) {
-            this.initSocket() // 断点重连5次
-          }
-        }
-      }, 59 * 1000)
-    },
 
     /**
      * 从后端获取数据初始化页面
@@ -159,9 +120,11 @@ export default {
         })
       ).then(response => {
         console.log("打开原型图的后端反馈 ", response.data);
-        this.namelist = response.data.namelist;
+        this.$store.commit('updatePageList', response.data.namelist);
+        console.log(this.$store.state.pageList);
+        // this.namelist = response.data.namelist;
         // 获取namelist的第一项
-        let firstItem = this.namelist[0];
+        let firstItem = this.$store.state.pageList[0];
         console.log("debug: 打开原型图时存储首页的pageID: " + firstItem.pageID);
         sessionStorage.setItem('pageID', JSON.stringify(firstItem.pageID));
         console.log("debug: 打开原型图时的first_componentdata: ");
