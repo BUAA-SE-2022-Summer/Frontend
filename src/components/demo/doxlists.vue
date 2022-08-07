@@ -285,7 +285,8 @@ export default {
       //alert(row.project_root_fileID);
      // this.$router.push('/dashboard/demo/console');
       sessionStorage.setItem('now_textid',JSON.stringify(this.editedItem.fileID));
-      this.$router.push('/ed');
+      sessionStorage.setItem('now_textname',JSON.stringify(this.editedItem.file_name));
+      this.$router.push('/textbustest');
     },
   },
 

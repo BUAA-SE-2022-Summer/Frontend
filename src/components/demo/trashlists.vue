@@ -2,7 +2,7 @@
   <div class="home">
     <div>
       <el-col :span="8">
-        <el-card shadow="hover">
+       <!-- <el-card shadow="hover">
           <div>
             当前团队:
             <b v-if="this.teamid!==0">{{this.teamname}}</b>
@@ -11,10 +11,10 @@
             <b v-if="this.projectID!==0">{{this.projectname}}</b>
             <b v-else>当前还没进入项目哦</b>
           </div>
-        </el-card>
+        </el-card>-->
       </el-col>
     </div>
-    <div style="margin-top:100px;width:800px;margin-left: 200px;">
+    <div style="margin-top:40px;width:500px;margin-left: 0px;">
       <v-data-table :headers="headers" :items="desserts" sort-by="projectUser" class="elevation-1">
         <template v-slot:top>
           <v-toolbar flat color="white">
@@ -73,7 +73,7 @@
           </v-icon>-->
         </template>
         <template v-slot:no-data>
-          <v-btn color="primary" @click="initialize">打开回收站</v-btn>
+          <!--<v-btn color="primary" @click="initialize">打开回收站</v-btn>-->
         </template>
       </v-data-table>
     </div>
@@ -104,10 +104,10 @@ export default {
           sortable: false,
           value: 'file_name',
         },
-        { text: '文档编号', value: 'fileID' },
-        { text: '删除时间 ', value: 'delete_time' },
-        { text: '文档类型 ', value: 'file_type'},
-        { text: '操作', value: 'actions', sortable: false },
+        //{ text: '文档编号', value: 'fileID' },
+        //{ text: '删除时间 ', value: 'delete_time' },
+        //{ text: '文档类型 ', value: 'file_type'},
+        { text: '恢复文档', value: 'actions', sortable: false },
       ],
       desserts: [],
       editedIndex: -1,
@@ -143,6 +143,26 @@ export default {
     this.teamid = sessionStorage.getItem('TeamID');
     this.projectID = sessionStorage.getItem('ProjectID');
     this.teamname = sessionStorage.getItem('TeamName');
+    this.$axios({
+      method: 'post',
+      url: '/file/delete_filelist',
+      data: qs.stringify({
+        projectID: this.projectID,
+      })
+    }).then(res => {
+      console.log(res.data)
+      if (res.data.errno === 0) {
+        this.$message.success("获取回收站内容成功");
+        this.desserts = res.data.delete_filelist
+        console.log(this.desserts)
+      } else {
+        alert(res.data.msg);
+        this.$message.error(res.data.msg);
+      }
+    })
+        .catch(err => {
+          console.log(err);         /* 若出现异常则在终端输出相关信息 */
+        });
   },
   methods: {
     findproject(row, column, cell, event) {

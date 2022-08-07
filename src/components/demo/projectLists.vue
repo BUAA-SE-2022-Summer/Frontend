@@ -5,10 +5,10 @@
         <el-card shadow="hover">
           <div>
             当前团队:
-            <b v-if="this.teamid!==0">{{this.teamname}}</b>
+            <b v-if="this.teamid !== 0">{{ this.teamname }}</b>
             <b v-else>当前还没选中团队哦</b>
             当前项目:
-            <b v-if="this.projectID!==0">{{this.projectname}}</b>
+            <b v-if="this.projectID !== 0">{{ this.projectname }}</b>
             <b v-else>当前还没进入项目哦</b>
           </div>
         </el-card>
@@ -111,7 +111,7 @@ export default {
         { text: '项目创建者', value: 'projectUser' },
         { text: '项目ID', value: 'projectID' },
         { text: '创建时间', value: 'projectTime' },
-        { text: '是否星标', value: 'is_star',sortable: false, },
+        { text: '是否星标', value: 'is_star', sortable: false, },
         { text: '操作', value: 'actions', sortable: false },
 
       ],
@@ -290,11 +290,11 @@ export default {
       this.editedItem = Object.assign({}, item)
       console.log(this.editedItem.projectID);
       console.log(this.editedItem.project_root_fileID);
-      console.log("存储当前更改的projectID: " + this.editedItem.projectID);
-      console.log("存储当前项目名称: "+this.editedItem.projectName);
-      sessionStorage.setItem('ProjectID', JSON.stringify(this.editedItem.projectID));
+      console.log("存储当前更改的projectID: " + this.editedItem.projectID);//这里是打印更改后的projectID的代码
+      console.log("存储当前项目名称: " + this.editedItem.projectName);
+      sessionStorage.setItem('ProjectID', JSON.stringify(this.editedItem.projectID));// 这里是存储projectID的代码
       sessionStorage.setItem('project_root_fileID', JSON.stringify(this.editedItem.project_root_fileID));
-      sessionStorage.setItem('ProjectName',this.editedItem.projectName);
+      sessionStorage.setItem('ProjectName', this.editedItem.projectName);
       //alert(row.project_root_fileID);
       this.$router.push('/dashboard/demo/console');
     },
