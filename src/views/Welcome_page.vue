@@ -150,7 +150,7 @@ export default {
     },
     toMain() {
       if (this.login != 0) {
-        this.$router.push('/dashboard/demo/console')
+        this.$router.push('/teamdashboard')
       } else {
         this.$message.push("请先登录")
       }
