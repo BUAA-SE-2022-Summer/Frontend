@@ -2,28 +2,29 @@
   <div>
 
     <v-card class="mx-auto my-12" width="400px" style="float:left;">
-            <div style="width:100%;height:200px;margin-top: 20px;">
-      <img src="https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/login.png" style="width:350px;margin-left: 15px;">
-    </div>
+      <div style="width:100%;height:200px;margin-top: 20px;">
+        <img src="https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/login.png"
+          style="width:350px;margin-left: 15px;">
+      </div>
 
-              <div style="width:300px;margin-left:50px;margin-top: 10px;">
-                <v-text-field v-model="form.username" label="昵称" outlined clearable></v-text-field>
-                <v-text-field v-model="form.password" label="密码" outlined clearable></v-text-field>
-                <!-- <v-app id="inspire"> -->
-                <v-bottom-navigation :value="value" >
-                  <v-btn @click="login">
-                    <span>登录</span>
+      <div style="width:300px;margin-left:50px;margin-top: 10px;">
+        <v-text-field v-model="form.username" label="昵称" outlined clearable></v-text-field>
+        <v-text-field v-model="form.password" label="密码" outlined clearable></v-text-field>
+        <!-- <v-app id="inspire"> -->
+        <v-bottom-navigation :value="value">
+          <v-btn @click="login">
+            <span>登录</span>
 
-                    <v-icon>mdi-login</v-icon>
-                  </v-btn>
-
-
+            <v-icon>mdi-login</v-icon>
+          </v-btn>
 
 
-                </v-bottom-navigation>
 
-              </div>
-            </v-card>
+
+        </v-bottom-navigation>
+
+      </div>
+    </v-card>
   </div>
 </template>
 
@@ -51,7 +52,7 @@ export default {
       }
       this.$axios({
         method: 'post',           /* 指明请求方式，可以是 get 或 post */
-        url: '/user/login',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
+        url: '/api/user/login',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
         data: qs.stringify({
           username: this.form.username,
           password: this.form.password

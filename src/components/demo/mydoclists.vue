@@ -5,10 +5,10 @@
         <el-card shadow="hover">
           <div>
             当前团队:
-            <b v-if="this.teamid!==0">{{this.teamname}}</b>
+            <b v-if="this.teamid !== 0">{{ this.teamname }}</b>
             <b v-else>当前还没选中团队哦</b>
             当前项目:
-            <b v-if="this.projectID!==0">{{this.projectname}}</b>
+            <b v-if="this.projectID !== 0">{{ this.projectname }}</b>
             <b v-else>当前还没进入项目哦</b>
           </div>
         </el-card>
@@ -90,11 +90,11 @@ export default {
         ['成员管理', 'mdi-account-cog'],
         ['操作日志', 'mdi-book-open-outline'],
       ],
-      teamname:'',
+      teamname: '',
       numproject: 0,
       projectlist: [],
       teamid: 0,
-      projectID:0,
+      projectID: 0,
       dialog: false,
       dialog2: false,
       headers: [
@@ -106,7 +106,7 @@ export default {
         },
         { text: '文档编号', value: 'fileID' },
         { text: '最后修改时间 ', value: 'last_modify_time' },
-        { text: '文档类型 ', value: 'file_type'},
+        { text: '文档类型 ', value: 'file_type' },
         { text: '操作', value: 'actions', sortable: false },
       ],
       desserts: [],
@@ -125,7 +125,7 @@ export default {
         projectTime: 0,
         is_star: 0,
       },
-      projectname:sessionStorage.getItem('ProjectName')
+      projectname: sessionStorage.getItem('ProjectName')
     }
   },
   computed: {
@@ -155,7 +155,7 @@ export default {
     initialize() {
       this.$axios({
         method: 'post',
-        url: '/file/get_my_filelist',
+        url: '/api/file/get_my_filelist',
         data: qs.stringify({
           projectID: this.projectID,
         })
@@ -170,9 +170,9 @@ export default {
           this.$message.error(res.data.msg);
         }
       })
-          .catch(err => {
-            console.log(err);         /* 若出现异常则在终端输出相关信息 */
-          });
+        .catch(err => {
+          console.log(err);         /* 若出现异常则在终端输出相关信息 */
+        });
       //this.desserts = [{
       // fileID: 1,
       //file_name:'黄瑞yyds',
@@ -204,24 +204,24 @@ export default {
     delete_doc(ID) {
       this.$axios({
         method: 'post',
-        url: '/file/delete_file',
+        url: '/api/file/delete_file',
         data: qs.stringify({
-          fileID:ID,
+          fileID: ID,
         })
       })
-          .then(res => {
-            console.log(res.data)
-            if (res.data.errno === 0) {
-              this.$message.success("删除成功");
-              this.initialize()
-            } else {
-              alert(res.data.msg);
-              this.$message.error(res.data.msg);
-            }
-          })
-          .catch(err => {
-            console.log(err);         /* 若出现异常则在终端输出相关信息 */
-          })
+        .then(res => {
+          console.log(res.data)
+          if (res.data.errno === 0) {
+            this.$message.success("删除成功");
+            this.initialize()
+          } else {
+            alert(res.data.msg);
+            this.$message.error(res.data.msg);
+          }
+        })
+        .catch(err => {
+          console.log(err);         /* 若出现异常则在终端输出相关信息 */
+        })
 
     },
     close() {
@@ -236,7 +236,7 @@ export default {
       console.log("修改项目名称", ID, Name)
       this.$axios({
         method: 'post',
-        url: '/project/rename_project',
+        url: '/api/project/rename_project',
         data: qs.stringify({
           projectID: ID,
           teamID: this.teamid,
@@ -244,18 +244,18 @@ export default {
 
         })
       })
-          .then(res => {
-            console.log(res.data)
-            if (res.data.errno === 0) {
-              this.$message.success("成功");
-            } else {
-              alert(res.data.msg);
-              this.$message.error(res.data.msg);
-            }
-          })
-          .catch(err => {
-            console.log(err);         /* 若出现异常则在终端输出相关信息 */
-          })
+        .then(res => {
+          console.log(res.data)
+          if (res.data.errno === 0) {
+            this.$message.success("成功");
+          } else {
+            alert(res.data.msg);
+            this.$message.error(res.data.msg);
+          }
+        })
+        .catch(err => {
+          console.log(err);         /* 若出现异常则在终端输出相关信息 */
+        })
     },
 
     save() {
@@ -272,14 +272,14 @@ export default {
       console.log("跳转文档详情页")
       const index = this.desserts.indexOf(item)
       this.editedItem = Object.assign({}, item)
-      console.log('存储文档id:'+this.editedItem.fileID);
+      console.log('存储文档id:' + this.editedItem.fileID);
       //console.log(this.editedItem.project_root_fileID);
       //console.log("存储当前更改的projectID: " + this.editedItem.projectID)
       //sessionStorage.setItem('ProjectID', JSON.stringify(this.editedItem.projectID));
       //sessionStorage.setItem('project_root_fileID', JSON.stringify(this.editedItem.project_root_fileID));
       //alert(row.project_root_fileID);
       // this.$router.push('/dashboard/demo/console');
-      sessionStorage.setItem('now_textid',JSON.stringify(this.editedItem.fileID));
+      sessionStorage.setItem('now_textid', JSON.stringify(this.editedItem.fileID));
       this.$router.push('/ed');
     },
   },

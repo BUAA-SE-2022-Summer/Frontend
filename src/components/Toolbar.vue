@@ -86,7 +86,7 @@ export default {
             let pageComponentData = this.componentData;
             let pageCanvasStyleData = this.canvasStyleData;
             this.$axios.post(
-                '/prototype/create_page',
+                '/api/prototype/create_page',
                 this.$qs.stringify({
                     teamID: teamID,
                     prototypeID: prototypeID,
@@ -239,7 +239,7 @@ export default {
             console.log("JSON格式的pageCanvasStyleData: ");
             console.log(JSON.stringify(pageCanvasStyleData));
             this.$axios.post(
-                '/prototype/update_page',
+                '/api/prototype/update_page',
                 this.$qs.stringify({
                     teamID: teamID,
                     prototypeID: prototypeID,

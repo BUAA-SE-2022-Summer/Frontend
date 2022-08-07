@@ -2,7 +2,7 @@
   <div class="home">
     <div>
       <el-col :span="8">
-       <!-- <el-card shadow="hover">
+        <!-- <el-card shadow="hover">
           <div>
             当前团队:
             <b v-if="this.teamid!==0">{{this.teamname}}</b>
@@ -90,11 +90,11 @@ export default {
         ['成员管理', 'mdi-account-cog'],
         ['操作日志', 'mdi-book-open-outline'],
       ],
-      teamname:'',
+      teamname: '',
       numproject: 0,
       projectlist: [],
       teamid: 0,
-      projectID:0,
+      projectID: 0,
       dialog: false,
       dialog2: false,
       headers: [
@@ -125,7 +125,7 @@ export default {
         projectTime: 0,
         is_star: 0,
       },
-      projectname:sessionStorage.getItem('ProjectName')
+      projectname: sessionStorage.getItem('ProjectName')
     }
   },
   computed: {
@@ -145,7 +145,7 @@ export default {
     this.teamname = sessionStorage.getItem('TeamName');
     this.$axios({
       method: 'post',
-      url: '/file/delete_filelist',
+      url: '/api/file/delete_filelist',
       data: qs.stringify({
         projectID: this.projectID,
       })
@@ -160,9 +160,9 @@ export default {
         this.$message.error(res.data.msg);
       }
     })
-        .catch(err => {
-          console.log(err);         /* 若出现异常则在终端输出相关信息 */
-        });
+      .catch(err => {
+        console.log(err);         /* 若出现异常则在终端输出相关信息 */
+      });
   },
   methods: {
     findproject(row, column, cell, event) {
@@ -175,7 +175,7 @@ export default {
     initialize() {
       this.$axios({
         method: 'post',
-        url: '/file/delete_filelist',
+        url: '/api/file/delete_filelist',
         data: qs.stringify({
           projectID: this.projectID,
         })
@@ -190,9 +190,9 @@ export default {
           this.$message.error(res.data.msg);
         }
       })
-          .catch(err => {
-            console.log(err);         /* 若出现异常则在终端输出相关信息 */
-          });
+        .catch(err => {
+          console.log(err);         /* 若出现异常则在终端输出相关信息 */
+        });
       //this.desserts = [{
       // fileID: 1,
       //file_name:'黄瑞yyds',
@@ -218,7 +218,7 @@ export default {
       this.dialog2 = true
       // confirm('Are you sure you want to delete this item?') && this.desserts.splice(index, 1)
     },
-    reviewItem(item){
+    reviewItem(item) {
       const index = this.desserts.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
@@ -229,37 +229,37 @@ export default {
       this.delete_project(this.editedItem.projectID)
       this.close()
     },
-    review(){
+    review() {
       console.log("恢复", this.editedItem)
       this.review_doc(this.editedItem.fileID)
       this.close()
     },
-    review_doc(ID){
+    review_doc(ID) {
       this.$axios({
         method: 'post',
-        url: '/file/restore_file',
+        url: '/api/file/restore_file',
         data: qs.stringify({
-          fileID:ID,
+          fileID: ID,
         })
       })
-          .then(res => {
-            console.log(res.data)
-            if (res.data.errno === 0) {
-              this.$message.success("恢复成功");
-              this.initialize()
-            } else {
-              alert(res.data.msg);
-              this.$message.error(res.data.msg);
-            }
-          })
-          .catch(err => {
-            console.log(err);         /* 若出现异常则在终端输出相关信息 */
-          })
+        .then(res => {
+          console.log(res.data)
+          if (res.data.errno === 0) {
+            this.$message.success("恢复成功");
+            this.initialize()
+          } else {
+            alert(res.data.msg);
+            this.$message.error(res.data.msg);
+          }
+        })
+        .catch(err => {
+          console.log(err);         /* 若出现异常则在终端输出相关信息 */
+        })
     },
     delete_project(ID) {
       this.$axios({
         method: 'post',
-        url: '/project/delete_project',
+        url: '/api/project/delete_project',
         data: qs.stringify({
 
           projectID: ID,
@@ -267,19 +267,19 @@ export default {
 
         })
       })
-          .then(res => {
-            console.log(res.data)
-            if (res.data.errno === 0) {
-              this.$message.success("成功");
-              this.initialize()
-            } else {
-              alert(res.data.msg);
-              this.$message.error(res.data.msg);
-            }
-          })
-          .catch(err => {
-            console.log(err);         /* 若出现异常则在终端输出相关信息 */
-          })
+        .then(res => {
+          console.log(res.data)
+          if (res.data.errno === 0) {
+            this.$message.success("成功");
+            this.initialize()
+          } else {
+            alert(res.data.msg);
+            this.$message.error(res.data.msg);
+          }
+        })
+        .catch(err => {
+          console.log(err);         /* 若出现异常则在终端输出相关信息 */
+        })
 
     },
     close() {
@@ -294,7 +294,7 @@ export default {
       console.log("修改项目名称", ID, Name)
       this.$axios({
         method: 'post',
-        url: '/project/rename_project',
+        url: '/api/project/rename_project',
         data: qs.stringify({
           projectID: ID,
           teamID: this.teamid,
@@ -302,18 +302,18 @@ export default {
 
         })
       })
-          .then(res => {
-            console.log(res.data)
-            if (res.data.errno === 0) {
-              this.$message.success("成功");
-            } else {
-              alert(res.data.msg);
-              this.$message.error(res.data.msg);
-            }
-          })
-          .catch(err => {
-            console.log(err);         /* 若出现异常则在终端输出相关信息 */
-          })
+        .then(res => {
+          console.log(res.data)
+          if (res.data.errno === 0) {
+            this.$message.success("成功");
+          } else {
+            alert(res.data.msg);
+            this.$message.error(res.data.msg);
+          }
+        })
+        .catch(err => {
+          console.log(err);         /* 若出现异常则在终端输出相关信息 */
+        })
     },
 
     save() {
@@ -330,14 +330,14 @@ export default {
       console.log("跳转文档详情页")
       const index = this.desserts.indexOf(item)
       this.editedItem = Object.assign({}, item)
-      console.log('存储文档id:'+this.editedItem.fileID);
+      console.log('存储文档id:' + this.editedItem.fileID);
       //console.log(this.editedItem.project_root_fileID);
       //console.log("存储当前更改的projectID: " + this.editedItem.projectID)
       //sessionStorage.setItem('ProjectID', JSON.stringify(this.editedItem.projectID));
       //sessionStorage.setItem('project_root_fileID', JSON.stringify(this.editedItem.project_root_fileID));
       //alert(row.project_root_fileID);
       // this.$router.push('/dashboard/demo/console');
-      sessionStorage.setItem('now_textid',JSON.stringify(this.editedItem.fileID));
+      sessionStorage.setItem('now_textid', JSON.stringify(this.editedItem.fileID));
       this.$router.push('/ed');
     },
   },

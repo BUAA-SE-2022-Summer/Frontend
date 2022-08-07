@@ -141,7 +141,7 @@ export default {
     console.log("网页token", this.token)
     this.sendtoken()
     // this.sendConfirm()
-    this.$axios.get('/user/get_user_info').then(
+    this.$axios.get('/api/user/get_user_info').then(
       res => {
         this.username = res.data.data.username;
         this.userhead = res.data.data.img;
@@ -190,7 +190,7 @@ export default {
       // 发送token获取基础信息
       console.log("发送token")
       var url = "/team/confirm_invitation"
-      // this.$axios.get('/team/confirm_invitation').then(
+      // this.$axios.get('/api/team/confirm_invitation').then(
       //   res => {
       //     console.log(res.data)
       //   }
@@ -211,7 +211,7 @@ export default {
         this.invitedName = result.username
         this.invitedHead = result.user_avater
       })
-      //  this.$axios.get('/team/invite_member').then(res=>{
+      //  this.$axios.get('/api/team/invite_member').then(res=>{
       //         var result = res.data
       //         console.log(result)
       //         this.teamName=result.team_name
@@ -227,7 +227,7 @@ export default {
     sendConfirm() {
       //发送接收邀请
       console.log("开始发送确认申请", this.token)
-      var url = "/team/accept_invitation"
+      var url = "/api/team/accept_invitation"
       this.$axios({
         method: 'post',
         url: url,

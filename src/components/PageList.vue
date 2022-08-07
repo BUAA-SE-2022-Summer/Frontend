@@ -40,7 +40,7 @@ export default {
             let prototypeID = sessionStorage.getItem('prototypeID');
             sessionStorage.setItem('pageID', pageID);
             this.$axios.post(
-                'prototype/change_page',
+                '/api/prototype/change_page',
                 this.$qs.stringify({
                     teamID: teamID,
                     prototypeID: prototypeID,
@@ -53,6 +53,7 @@ export default {
                     this.$message.success(response.data.msg);
                     this.$store.commit('setComponentData', response.data.componentData);
                     this.$store.commit('setCanvasStyle', response.data.canvasStyle)
+                    this.$router.go(0);
                 } else {
                     this.$message.error(response.data.msg);
                 }

@@ -94,7 +94,7 @@ export default {
     this.now_id = JSON.parse(sessionStorage.getItem('now_textid'));
     this.$axios({
       method: 'post',           /* 指明请求方式，可以是 get 或 post */
-      url: '/file/project_root_filelist',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
+      url: '/api/file/project_root_filelist',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
       data: qs.stringify({
         projectID: this.projectid,
       })
@@ -111,7 +111,7 @@ export default {
       });
     this.$axios({
       method: 'post',           /* 指明请求方式，可以是 get 或 post */
-      url: '/file/read_file',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
+      url: '/api/file/read_file',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
       data: qs.stringify({
         fileID: this.now_id,
       })
@@ -152,7 +152,7 @@ export default {
       console.log(row.fileID);
       this.$axios({
         method: 'post',           /* 指明请求方式，可以是 get 或 post */
-        url: '/file/read_file',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
+        url: '/api/file/read_file',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
         data: qs.stringify({
           fileID: row.fileID,
         })
@@ -174,7 +174,7 @@ export default {
     find1() {
       this.$axios({
         method: 'post',           /* 指明请求方式，可以是 get 或 post */
-        url: '/file/read_file',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
+        url: '/api/file/read_file',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
         data: qs.stringify({
           fileID: this.input2,
         })
@@ -196,7 +196,7 @@ export default {
     delete1() {
       this.$axios({
         method: 'post',           /* 指明请求方式，可以是 get 或 post */
-        url: '/file/delete_file',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
+        url: '/api/file/delete_file',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
         data: qs.stringify({
           fileID: this.input3,
         })
@@ -217,7 +217,7 @@ export default {
     delete2() {
       this.$axios({
         method: 'post',           /* 指明请求方式，可以是 get 或 post */
-        url: '/file/delete_file',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
+        url: '/api/file/delete_file',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
         data: qs.stringify({
           fileID: this.now_id,
         })
@@ -241,7 +241,7 @@ export default {
     createtext() {
       this.$axios({
         method: 'post',           /* 指明请求方式，可以是 get 或 post */
-        url: '/file/create_file',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
+        url: '/api/file/create_file',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
         data: qs.stringify({
           teamID: this.teamid,
           projectID: this.projectid,
@@ -266,7 +266,7 @@ export default {
     savetext() {
       this.$axios({
         method: 'post',           /* 指明请求方式，可以是 get 或 post */
-        url: '/file/edit_file ',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
+        url: '/api/file/edit_file ',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
         data: qs.stringify({
           fileID: this.now_id,
           content: this.content
