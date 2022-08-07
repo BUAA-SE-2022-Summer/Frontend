@@ -14,8 +14,8 @@
         </el-card>-->
       </el-col>
     </div>
-    <div style="margin-top:40px;width:500px;margin-left: 0px;">
-      <v-data-table :headers="headers" :items="desserts" sort-by="projectUser" class="elevation-1">
+    <div style="margin-top:40px;width:300px;margin-left: 0px;">
+      <v-data-table height="480px" :headers="headers" :items="desserts" sort-by="projectUser" class="elevation-1" >
         <template v-slot:top>
           <v-toolbar flat color="white">
             <v-toolbar-title>删除的文件</v-toolbar-title>

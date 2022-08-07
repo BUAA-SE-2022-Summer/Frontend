@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <div>
+    <!--<div>
       <el-col :span="8">
         <el-card shadow="hover">
           <div>
@@ -15,9 +15,9 @@
           </div>
         </el-card>
       </el-col>
-    </div>
-    <div style="margin-top:100px;width:800px;margin-left: 200px;">
-      <v-data-table :headers="headers" :items="desserts" sort-by="projectUser" class="elevation-1">
+    </div>-->
+    <div style="margin-top:0px;width:300px;margin-left: 0px;">
+      <v-data-table height="445px" :headers="headers" :items="desserts" sort-by="projectUser" class="elevation-1">
         <template v-slot:top>
           <v-toolbar flat color="white">
             <v-toolbar-title>全部文件</v-toolbar-title>
@@ -75,7 +75,7 @@
           </v-icon>
         </template>
         <template v-slot:no-data>
-          <v-btn color="primary" @click="initialize">打开文件列表</v-btn>
+          <!--<v-btn color="primary" @click="initialize">打开文件列表</v-btn>-->
         </template>
       </v-data-table>
     </div>
@@ -106,9 +106,9 @@ export default {
           sortable: false,
           value: 'file_name',
         },
-        { text: '文档编号', value: 'fileID' },
-        { text: '最后修改时间 ', value: 'last_modify_time' },
-        { text: '文档类型 ', value: 'file_type' },
+        //{ text: '文档编号', value: 'fileID' },
+        //{ text: '最后修改时间 ', value: 'last_modify_time' },
+        //{ text: '文档类型 ', value: 'file_type'},
         { text: '操作', value: 'actions', sortable: false },
       ],
       desserts: [],
@@ -145,6 +145,26 @@ export default {
     this.teamid = sessionStorage.getItem('TeamID');
     this.projectID = sessionStorage.getItem('ProjectID');
     this.teamname = sessionStorage.getItem('TeamName');
+    this.$axios({
+      method: 'post',
+      url: '/file/project_root_filelist',
+      data: qs.stringify({
+        projectID: this.projectID,
+      })
+    }).then(res => {
+      console.log(res.data)
+      if (res.data.errno === 0) {
+        this.$message.success("获取文件列表成功");
+        this.desserts = res.data.filelist
+        console.log(this.desserts)
+      } else {
+        alert(res.data.msg);
+        this.$message.error(res.data.msg);
+      }
+    })
+      .catch(err => {
+        console.log(err);         /* 若出现异常则在终端输出相关信息 */
+      });
   },
   methods: {
     findproject(row, column, cell, event) {
@@ -275,6 +295,7 @@ export default {
     },
     toItem(item) {
       console.log("跳转文档详情页")
+      //alert("跳转文档详情页");
       const index = this.desserts.indexOf(item)
       this.editedItem = Object.assign({}, item)
       console.log('存储文档id:' + this.editedItem.fileID);
@@ -285,8 +306,10 @@ export default {
       //alert(row.project_root_fileID);
       // this.$router.push('/dashboard/demo/console');
       sessionStorage.setItem('now_textid', JSON.stringify(this.editedItem.fileID));
+      //alert("当前文档id为"+this.editedItem.fileID);
       sessionStorage.setItem('now_textname', JSON.stringify(this.editedItem.file_name));
       this.$router.push('/textbustest');
+      window.location.reload();
     },
   },
 
