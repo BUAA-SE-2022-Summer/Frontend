@@ -252,7 +252,7 @@ export default {
         data: qs.stringify({
           projectID: ID,
           projectName:this.copyName,
-          teamID: teamID
+          // teamID: teamID
         })
       })
         .then(res => {
@@ -260,7 +260,7 @@ export default {
           if (res.data.errno === 0) {
             this.$message.success("复制项目成功");
             console.log(res.data)
-            this.$router.go(0)
+            // this.$router.go(0)
           } else {
             alert(res.data.msg);
             this.$message.error(res.data.msg);
@@ -370,7 +370,7 @@ export default {
       var teamID = sessionStorage.getItem('TeamID')
       this.$axios({
         method: 'post',
-        url: '/project/delete_project',
+        url: '/api/project/delete_project',
         data: qs.stringify({
 
           projectID: ID,

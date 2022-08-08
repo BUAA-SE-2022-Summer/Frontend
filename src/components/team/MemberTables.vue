@@ -33,8 +33,8 @@
             <v-card-title class="text-h5">您确定要踢出该成员吗</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
-              <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
+              <v-btn color="blue darken-1" text @click="close">返回</v-btn>
+              <v-btn color="blue darken-1" text @click="deleteItemConfirm">确认</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
@@ -44,10 +44,11 @@
           <v-card>
             <v-card-title class="text-h5">添加新成员</v-card-title>
             <v-text-field label="昵称" v-model="addName"></v-text-field>
+            <v-text-field label="邀请链接" v-model="url"></v-text-field>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
-              <v-btn color="blue darken-1" text @click="addConfirm">OK</v-btn>
+              <v-btn color="blue darken-1" text @click="close">返回</v-btn>
+              <v-btn color="blue darken-1" text @click="addConfirm">获取邀请链接</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
@@ -79,14 +80,15 @@
       </v-icon>
     </template>
     <template v-slot:no-data>
-      <v-btn color="primary" @click="initialize">
+      <!-- <v-btn color="primary" @click="initialize">
         Reset
-      </v-btn>
+      </v-btn> -->
     </template>
   </v-data-table>
 </template>
 <script>
 import qs from 'qs'
+import { falseDependencies } from 'mathjs'
 export default {
   data: () => ({
     dialog: false,
@@ -108,6 +110,7 @@ export default {
     editedIndex: -1,
     editedItem: {
     },
+    url:"",
   }),
   // 计算属性
   computed: {
@@ -134,8 +137,10 @@ export default {
 
   created() {
     // this.initialize()
+    this.dialog=false
+    this.dialogDelete=false
     this.teamid = JSON.parse(sessionStorage.getItem('TeamID'))
-    this.get_team_info(this.teamid)
+    this.get_team_info()
     console.log("当前团队", this.teamid)
 
   },
@@ -155,7 +160,8 @@ export default {
       ]
     },
     // 获取团队信息
-    get_team_info(teamid) {
+    get_team_info() {
+      var teamid = JSON.parse(sessionStorage.getItem('TeamID'))
       console.log("获取团队信息", teamid)
       this.$axios({
         method: 'post',
@@ -183,8 +189,8 @@ export default {
       })
     },
     //邀请成员请求
-    invite_people(teamid) {
-      teamid = JSON.parse(sessionStorage.getItem('TeamID'))
+    invite_people() {
+       var teamid = JSON.parse(sessionStorage.getItem('TeamID'))
       this.$axios({
         method: 'post',
         url: '/api/team/invite_member',
@@ -195,16 +201,19 @@ export default {
       }).then(res => {
         var result = res.data
         console.log("邀请成员结果", result)
-        alert(result.msg)
-        // if (result.errno == 0) {
-        //   this.$router.go(0)
-        // }
+        // alert(result.msg)
+        if (result.errno == 0) {
+          this.url=result.url
+          // this.$message.success("获取邀请链接成功")
+          // alert(url)
+        }else{
+          this.$message.error(result.msg)
+        }
       })
     },
     //踢成员请求
-    kick_member(teamid, user_name) {
-      var e = 0
-      teamid = JSON.parse(sessionStorage.getItem('TeamID'))
+    kick_member(user_name) {
+      var teamid = JSON.parse(sessionStorage.getItem('TeamID'))
       this.$axios({
         method: 'post',
         url: '/api/team/kick_member',
@@ -215,13 +224,15 @@ export default {
       }).then(res => {
         var result = res.data
         console.log(result)
-        alert(result.msg)
         // e=result.errno
         if (result.errno == 0) {
+          this.$message.success(result.msg)
           this.$router.go(0)
+        }else{
+          this.$message.error(result.msg)
+          this.close()
         }
       })
-      return e
     },
 
     editItem(item) {
@@ -242,15 +253,15 @@ export default {
     },
     addConfirm() {
       console.log("添加", this.addName)
-      this.invite_people(11, this.addName)
-      this.close()
+      this.invite_people()
+      // this.close()
     },
     deleteItemConfirm() {
       // 确认删除该成员
       console.log("delete", this.editedItem)
       // this.desserts.splice(this.editedIndex, 1)
       //未向后端发送信息
-      this.kick_member(11, this.editedItem.username)
+      this.kick_member(this.editedItem.username)
       this.close()
     },
 
@@ -264,8 +275,8 @@ export default {
         this.editedIndex = -1
       })
     },
-    set_manager(teamid, user_name) {
-      teamid = JSON.parse(sessionStorage.getItem('TeamID'))
+    set_manager(user_name) {
+      var teamid = JSON.parse(sessionStorage.getItem('TeamID'))
       this.$axios({
         method: 'post',
         url: '/api/team/set_manager',
@@ -275,14 +286,17 @@ export default {
         })
       }).then(res => {
         var result = res.data
-        alert(result.msg)
+        // alert(result.msg)
         if (result.errno == 0) {
+          this.$message.success(result.msg)
           this.$router.go(0)
+        }else{
+          this.$message.error(result.msg)
         }
       })
     },
-    delete_manager(teamid, user_name) {
-      teamid = JSON.parse(sessionStorage.getItem('TeamID'));
+    delete_manager(user_name) {
+     var  teamid = JSON.parse(sessionStorage.getItem('TeamID'));
       console.log(teamid, user_name)
       this.$axios({
         method: 'post',
@@ -293,9 +307,12 @@ export default {
         })
       }).then(res => {
         var result = res.data
-        alert(result.msg)
+        // alert(result.msg)
         if (result.errno == 0) {
+          this.$message.success(result.msg)
           this.$router.go(0)
+        }else{
+          this.$message.error(result.msg)
         }
       })
     },
@@ -311,10 +328,10 @@ export default {
           var errno
           if (new_identity == '管理员') {
             console.log("设置为管理员")
-            errno = this.set_manager(11, username)
+            errno = this.set_manager(username)
           } else if (new_identity == '普通成员') {
             errno = console.log("设置为普通成员")
-            this.delete_manager(11, username)
+            this.delete_manager(username)
           }
         }
         this.close()
