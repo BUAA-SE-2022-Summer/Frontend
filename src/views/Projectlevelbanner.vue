@@ -6,7 +6,7 @@
       </router-link>
       <div style="left:25vh;position: absolute">
         <el-button type="text" icon="el-icon-arrow-left"
-          style="background-color: whitesmoke;border-color: whitesmoke;height:6vh;position: absolute;">返回</el-button>
+          style="background-color: whitesmoke;border-color: whitesmoke;height:6vh;position: absolute;" @click="returnbefore">返回</el-button>
       </div>
       <div style="left:90vh;position: absolute">
         <el-button type="text" icon="el-icon-s-claim"
@@ -61,6 +61,7 @@ export default {
     );
   },
   methods:{
+
     toProject(){
       console.log("跳转到项目层")
       this.$router.push("/projectdashboard")
@@ -68,8 +69,12 @@ export default {
     toMem(){
       console.log("跳转到成员管理")
       this.$router.push("/memberMain")
-    }
-  }
+    },
+    returnbefore(){
+      this.$router.go(-1);
+    },
+  },
+
 }
 </script>
 

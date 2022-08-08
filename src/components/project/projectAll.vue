@@ -82,6 +82,7 @@
                     <span>复制</span>
                     <v-icon>mdi-plus</v-icon>
                   </v-btn>
+
                   
                   <v-dialog v-model="copy" max-width="500px">
                     <v-card>
@@ -101,6 +102,7 @@
                     </v-card>
                   </v-dialog>
                   <router-link :to="{ path: '/textbustest' }" style="text-decoration:none;">
+
                     <v-btn @click="openProject(item)">
                       <span>详情</span>
                       <v-icon>mdi-link</v-icon>
@@ -211,6 +213,8 @@ export default {
       sessionStorage.setItem('ProjectID', JSON.stringify(project.projectID));
       console.log("当前选中项目的id是: " + project.projectID);
       sessionStorage.setItem('project_root_fileID', JSON.stringify(project.project_root_fileID));
+      sessionStorage.setItem('projectName',JSON.stringify(project.projectName));
+      console.log('当前选中项目的项目名称是'+project.projectName);
       console.log("当前选中项目的root_fileID是: " + project.project_root_fileID);
     },
     get_all_project_list() {
@@ -389,6 +393,7 @@ export default {
           console.log(err);         /* 若出现异常则在终端输出相关信息 */
         })
     },
+
     getMore(ID) {
         
     },

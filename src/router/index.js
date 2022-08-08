@@ -36,14 +36,17 @@ const routes = [
     component: () => import("../views/teamdashboard")
   },
   {
+
     path: '/projectdashboard',
     name: 'projectdashboard',
     component: () => import("../components/project/projectMain")
+
   },
   {
     path:'/memberMain',
     name:'memberMain',
     component:()=>import("../components/team/MemberManage.vue")
+
   }
 ]
 

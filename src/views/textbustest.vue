@@ -6,10 +6,6 @@
         <router-link to="/">
           <div><img :src="this.logourl" style="width: 20vh;height:6vh;position: absolute;"></div>
         </router-link>
-        <div style="left:25vh;position: absolute">
-          <el-button type="text" icon="el-icon-arrow-left"
-            style="background-color: whitesmoke;border-color: whitesmoke;height:6vh;position: absolute;">返回</el-button>
-        </div>
         <div style="left:90vh;position: absolute">
           <el-button type="text" icon="el-icon-document"
             style="background-color: whitesmoke;border-color: whitesmoke;height:6vh;position: absolute;">文档</el-button>
@@ -44,9 +40,11 @@
           </el-table-column>
         </el-table>-->
       </div>
-      <div style="position: absolute;width: 300px;height:5vh;background-color: wheat;top:690px">
+
+      <!-- <div style="position: absolute;width: 300px;height:5vh;background-color: wheat;top:720px">
         <div style="top:5px;position: absolute;left: 10px;cursor: pointer" @click="showtrash"><b>> 回收站</b></div>
-      </div>
+      </div> -->
+
 
       <div v-if="this.ifnew === 0">
         <el-tooltip class="item" effect="dark" content="新建文档" placement="bottom">
@@ -72,15 +70,23 @@
         <el-button type="primary" style="position: absolute;width: 9vh;" @click="createnewtxt">确认</el-button>
         <el-button type="error" style="position: absolute;width: 9vh;left:220px" @click="closecreate">取消</el-button>
       </div>
-      <div v-if="this.ifshow === 1" style="position: absolute;width: 300px;height:91vh;background-color: whitesmoke">
+      <div v-if="this.ifshow === 1" style="position: absolute;width: 300px;height:91vh;background-color: white">
       </div>
       <div v-if="this.ifshow === 1" style="position: absolute;width: 300px;height:5vh;background-color: wheat;top:50px">
-        <div style="top:5px;position: absolute;left: 10px;cursor: pointer" @click="closetrash"><b>> 回收站</b></div>
+        <div style="top:5px;position: absolute;left: 10px;cursor: pointer" @click="closetrash"><b>
+            < 回收站</b>
+        </div>
         <doxlists1></doxlists1>
       </div>
       <div v-if="this.ifshow === 0"
-        style="position: absolute;width: 300px;height:80vh;background-color: whitesmoke;top:12vh">
+        style="position: absolute;width: 300px;height:80vh;background-color: white;top:12vh">
         <doxlist></doxlist>
+      </div>
+
+      <div v-if="this.ifshow === 0"
+        style="position: absolute;width: 300px;height:5vh;background-color: wheat;top:700px">
+
+        <div style="top:5px;position: absolute;left: 10px;cursor: pointer" @click="showtrash"><b>> 回收站</b></div>
       </div>
       <div ref="editorContainer" style="width: 165vh;position: absolute;left:40vh;height:100vh;minHeight: 100vh"></div>
       <!--<div style="position: absolute;left:700px;top:80vh"><v-btn text color="primary" @click="outtxt">导出当前文档</v-btn></div>-->
@@ -150,7 +156,7 @@ export default {
       userhead: '',
       username: '',
       teamname: JSON.parse(sessionStorage.getItem('TeamName')),
-      projectname: JSON.parse(sessionStorage.getItem('ProjectName')),
+      projectname: JSON.parse(sessionStorage.getItem('projectName')),
       projectid: JSON.parse(sessionStorage.getItem('ProjectID')),
 
       teamid: JSON.parse(sessionStorage.getItem('TeamID')),
@@ -159,8 +165,6 @@ export default {
       ],
       trashlist: [
       ],
-
-
       now_id: 0,
       now_textname: '',
       ifnew: 0,
@@ -181,6 +185,9 @@ export default {
     this.now_id = JSON.parse(sessionStorage.getItem('now_textid'));
     //alert("textbus当前文档id为"+this.now_id);
     this.now_textname = JSON.parse(sessionStorage.getItem('now_textname'));
+    if(this.now_textname===null){
+      this.now_textname='当前没有选择文档';
+    }
     this.$axios.get('/api/user/get_user_info ').then(
       res => {
         this.userhead = res.data.data.img;
@@ -193,6 +200,10 @@ export default {
     console.log("当前文档id" + this.now_id);
   },
   methods: {
+    returnbefore(){
+      this.$router.push('/projectdashboard');
+    }
+    ,
     leave() {
       this.show = 0;
     },
@@ -407,31 +418,30 @@ export default {
     }
   },
   mounted() {
-    if (!this.now_id) {
-      this.$axios({
-        method: 'post',           /* 指明请求方式，可以是 get 或 post */
-        url: '/api/file/read_file',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
-        data: qs.stringify({
-          fileID: this.now_id,
+      if(!(this.now_id===null)) {
+        this.$axios({
+          method: 'post',           /* 指明请求方式，可以是 get 或 post */
+          url: '/api/file/read_file',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
+          data: qs.stringify({
+            fileID: this.now_id,
+          })
         })
-      })
-        .then(res => {/* res 是 response 的缩写 */
-          //获取用户登录的三个基本信息并存放于sessionStorage
-          if (res.data.errno === 0) {
-            this.$message.success('导入文件成功');
-            this.newContent = res.data.content;
-            //alert(this.newContent);
-            _this.editor1.replaceContent(this.newContent);
-            //this.inside = res.data.content;
-            sessionStorage.setItem('now_textid', JSON.stringify(res.data.fileID));
-          } else {
-            this.$message.error(res.data.msg);
-          }
-        })
-        .catch(err => {
-          console.log(err);         /* 若出现异常则在终端输出相关信息 */
-        });
-    }
+            .then(res => {/* res 是 response 的缩写 */
+              //获取用户登录的三个基本信息并存放于sessionStorage
+              if (res.data.errno === 0) {
+                this.$message.success('导入文件成功');
+                this.newContent = res.data.content;
+                _this.editor1.replaceContent(this.newContent);
+                //this.inside = res.data.content;
+                sessionStorage.setItem('now_textid', JSON.stringify(res.data.fileID));
+              } else {
+                this.$message.error(res.data.msg);
+              }
+            })
+            .catch(err => {
+              console.log(err);         /* 若出现异常则在终端输出相关信息 */
+            });
+      }
     const _this = this;
     _this.editor1 = createEditor();
     //const editor = createEditor();

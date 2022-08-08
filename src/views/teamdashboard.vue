@@ -34,7 +34,7 @@
                         </v-list-item-content>
                       </v-list-item>
                     </v-list>
-                    <v-card-actions class="text-h6 white--text" style="height: 55px display: flex;">
+                    <v-card-actions class="text-h6 white--text" style="height: 55px; display: flex;">
                       <v-btn :class="{ 'show-btns': hover }" depressed outlined color="primary"
                         style="border-radius: 4px;height: 35px;" @click="goTeam(item)">
                         进入团队
@@ -123,7 +123,7 @@
                         </v-list-item-content>
                       </v-list-item>
                     </v-list>
-                    <v-card-actions class="text-h6 white--text" style="height: 55px display: flex;">
+                    <v-card-actions class="text-h6 white--text" style="height: 55px; display: flex;">
                       <v-btn :class="{ 'show-btns': hover }" depressed outlined color="primary"
                         style="border-radius: 4px;height: 35px;" @click="goTeam(item)">
                         进入团队
