@@ -202,7 +202,7 @@ export default {
         .then(res => {
           console.log(res.data)
           if (res.data.errno === 0) {
-            console.log(res.data)
+            console.log("我收藏的：",res.data)
             this.items=res.data.project_list
           } 
         })
