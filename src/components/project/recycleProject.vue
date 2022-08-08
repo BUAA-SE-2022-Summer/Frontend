@@ -5,7 +5,7 @@
         :sort-by="sortBy" :sort-desc="sortDesc" hide-default-footer>
         <template v-slot:header>
           <v-toolbar dark color="blue darken-4" class="mb-1">
-            <span>回收站：</span>
+            <v-btn style="background-color: transparent" x-large @click="empty_recycle_bin">清空回收站</v-btn>
             <v-text-field v-model="search" clearable flat solo-inverted hide-details label="Search"></v-text-field>
             <template v-if="$vuetify.breakpoint.mdAndUp">
               <v-spacer></v-spacer>
@@ -145,13 +145,7 @@ export default {
         'is_star',
       ],
       items: [
-        {
-          projectName: 'Frozen Yogurt',
-          projectDesc: 159,
-          projectTime: 6.0,
-          last_modify_time: 24,
-          is_star: 4.0,
-        },
+      
 
       ],
       rename:false,
@@ -253,7 +247,6 @@ export default {
         })
       })
         .then(res => {
-          console.log(res.data)
           if (res.data.errno === 0) {
             console.log("回收站：",res.data)
             this.items = res.data.project_list
@@ -471,7 +464,32 @@ export default {
           console.log(err);         /* 若出现异常则在终端输出相关信息 */
         })
     },
+    empty_recycle_bin(){
+        var teamID = sessionStorage.getItem('TeamID')
+      this.$axios({
+        method: 'post',
+        url: '/api/project/empty_recycle_bin',
+        data: qs.stringify({
+          teamID: teamID,
+          // teamID: 1
 
+        })
+      })
+        .then(res => {
+          console.log(res.data)
+          if (res.data.errno === 0) {
+            this.$message.success("删除成功");
+            this.items=[]
+            // this.initialize()
+          } else {
+            // alert(res.data.msg);
+            this.$message.error(res.data.msg);
+          }
+        })
+        .catch(err => {
+          console.log(err);         /* 若出现异常则在终端输出相关信息 */
+        })
+    },
     getMore(ID) {
         
     },

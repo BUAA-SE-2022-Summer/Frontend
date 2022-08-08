@@ -155,13 +155,7 @@ export default {
         'is_star',
       ],
       items: [
-        {
-          projectName: 'Frozen Yogurt',
-          projectDesc: 159,
-          projectTime: 6.0,
-          last_modify_time: 24,
-          is_star: 4.0,
-        },
+       
 
       ],
       rename:false,
@@ -231,7 +225,6 @@ export default {
         })
       })
         .then(res => {
-          console.log(res.data)
           if (res.data.errno === 0) {
             console.log("我创建的：",res.data)
             this.items=res.data.project_list

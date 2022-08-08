@@ -3,7 +3,7 @@
     <v-card-title>
             创建项目
         <v-divider></v-divider>    
-        <v-btn @click="create_project()" style="margin-top: 10px;">
+        <v-btn @click="create_project()" style="margin-top: 10px;background-color: white;">
             <span>创建</span>
             <v-icon>mdi-file-plus</v-icon>
           </v-btn>

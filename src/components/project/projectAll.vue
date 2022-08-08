@@ -155,14 +155,7 @@ export default {
         'is_star',
       ],
       items: [
-        {
-          projectName: 'Frozen Yogurt',
-          projectDesc: 159,
-          projectTime: 6.0,
-          last_modify_time: 24,
-          is_star: 4.0,
-        },
-
+       
       ],
       rename:false,
       copy:false,
@@ -231,7 +224,7 @@ export default {
         })
       })
         .then(res => {
-          console.log(res.data)
+          console.log("全部项目",res.data)
           if (res.data.errno === 0) {
             this.$message.success("获取项目列表成功");
             // console.log(res.data)
