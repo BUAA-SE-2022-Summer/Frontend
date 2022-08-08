@@ -1,37 +1,25 @@
 <template>
   <div>
     <div>
-      <img class="bgbox" id="bgbox" alt="" src="../../src/img/背景.jpg">
+      <!--<img class="bgbox" id="bgbox" alt="" src="../../src/img/背景.jpg">-->
       <div style="width: 1540px;height:6vh;background-color: whitesmoke;">
         <router-link to="/">
           <div><img :src="this.logourl" style="width: 20vh;height:6vh;position: absolute;"></div>
         </router-link>
-        <div style="left:90vh;position: absolute">
-          <el-button type="text" icon="el-icon-document"
-            style="background-color: whitesmoke;border-color: whitesmoke;height:6vh;position: absolute;">文档</el-button>
-        </div>
-        <div style="left:105vh;position: absolute">
-          <el-button type="text" icon="el-icon-s-platform"
-            style="background-color: whitesmoke;border-color: whitesmoke;height:6vh;position: absolute;">原型设计
-          </el-button>
-        </div>
-        <div style="left:123vh;position: absolute">
-          <el-button type="text" icon="el-icon-picture"
-            style="background-color: whitesmoke;border-color: whitesmoke;height:6vh;position: absolute;">UML绘制
-          </el-button>
-        </div>
         <div style="left:175vh;position: absolute"><img :src="this.userhead"
-            style="border-radius: 50%;width: 6vh;height: 6vh"></div>
+                                                        style="border-radius: 50%;width: 6vh;height: 6vh"></div>
         <div style="left:185vh;position: absolute;top:1.5vh"><b>{{ this.username }}</b></div>
         <el-tooltip class="item" effect="dark" :content="this.teamname" placement="bottom">
-          <div style="left:42vh;position: absolute;top:1.5vh"><b>当前团队</b></div>
+          <div style="left:42vh;position: absolute;top:1.5vh"><b>当前团队:</b></div>
         </el-tooltip>
-        <el-tooltip class="item" effect="dark" :content="this.projectname" placement="bottom">
+        <div style="left:53vh;position: absolute;top:1.5vh"><b>{{ this.teamname }}</b></div>
+        <div style="left:100vh;position: absolute;top:1.5vh;"><b>团队文档中心</b></div>
+        <!--<el-tooltip class="item" effect="dark" :content="this.projectname" placement="bottom">
           <div style="left:52vh;position: absolute;top:1.5vh"><b>当前项目</b></div>
-        </el-tooltip>
-        <el-tooltip class="item" effect="dark" :content="this.now_textname" placement="bottom">
+        </el-tooltip>-->
+        <!--<el-tooltip class="item" effect="dark" :content="this.now_textname" placement="bottom">
           <div style="left:62vh;position: absolute;top:1.5vh"><b>当前文档</b></div>
-        </el-tooltip>
+        </el-tooltip>-->
       </div>
       <div>
         <!--<el-table :data="this.textdata" height="600" border stripe
@@ -47,46 +35,62 @@
 
 
       <div v-if="this.ifnew === 0">
-        <el-tooltip class="item" effect="dark" content="新建文档" placement="bottom">
-          <div style="position: absolute;width:40px;height:40px;left:20px;top:55px"><i class="el-icon-document-add"
-              style="" @click="changenew"></i></div>
-        </el-tooltip>
-        <el-tooltip class="item" effect="dark" content="删除当前文档" placement="bottom">
-          <div style="position: absolute;width:40px;height:40px;left:90px;top:55px"><i class="el-icon-delete-solid"
-              style="" @click="deletetxt"></i></div>
-        </el-tooltip>
+        <!--<el-tooltip class="item" effect="dark" content="新建团队文档" placement="bottom">
+          <div style="position: absolute;width:40px;height:40px;left:10px;top:55px"><i class="el-icon-document-add"
+                                                                                       style="" @click="changenew"></i></div>
+        </el-tooltip>-->
+        <!--<el-tooltip class="item" effect="dark" content="删除当前文档" placement="bottom">
+          <div style="position: absolute;width:40px;height:40px;left:70px;top:55px"><i class="el-icon-delete-solid"
+                                                                                       style="" @click="deletetxt"></i></div>
+        </el-tooltip>-->
         <el-tooltip class="item" effect="dark" content="保存文档" placement="bottom">
-          <div style="position: absolute;width:40px;height:40px;left:160px;top:55px"><i class="el-icon-document-checked"
-              style="" @click="savetxt"></i></div>
+          <div style="position: absolute;width:40px;height:40px;left:10px;top:55px"><i class="el-icon-document-checked"
+                                                                                        style="" @click="savetxt"></i></div>
         </el-tooltip>
         <el-tooltip class="item" effect="dark" content="选择模板" placement="bottom">
-          <div style="position: absolute;width:40px;height:40px;left:230px;top:55px"><i class="el-icon-edit-outline"
-              style="" @click="drawer = true"></i></div>
+          <div style="position: absolute;width:40px;height:40px;left:130px;top:55px"><i class="el-icon-edit-outline" style="" @click="drawer = true"></i></div>
         </el-tooltip>
-
+        <el-tooltip class="item" effect="dark" content="新建团队根文件夹" placement="bottom">
+          <div style="position: absolute;width:40px;height:40px;left:250px;top:55px"><i class="el-icon-folder-add" style="" @click="createteamdir"></i></div>
+        </el-tooltip>
       </div>
       <div v-if="this.ifnew === 1" style="width: 21vh;position: absolute;">
         <el-input v-model="inputname" placeholder="请输入文档名称"></el-input>
         <el-button type="primary" style="position: absolute;width: 9vh;" @click="createnewtxt">确认</el-button>
         <el-button type="error" style="position: absolute;width: 9vh;left:220px" @click="closecreate">取消</el-button>
       </div>
-      <div v-if="this.ifshow === 1" style="position: absolute;width: 300px;height:91vh;background-color: white">
+      <div v-if="this.ifnew === 2" style="width: 21vh;position: absolute;">
+        <el-input v-model="inputdirname" placeholder="请输入团队文件夹名称"></el-input>
+        <el-button type="primary" style="position: absolute;width: 9vh;" @click="createteamdir1">确认</el-button>
+        <el-button type="error" style="position: absolute;width: 9vh;left:220px" @click="closecreate">取消</el-button>
       </div>
+      <div v-if="this.ifnew === 3" style="width: 21vh;position: absolute;">
+        <el-input v-model="inputdirname1" placeholder="请输入团队文件夹名称"></el-input>
+        <el-button type="primary" style="position: absolute;width: 9vh;" @click="createsondir1">确认</el-button>
+        <el-button type="error" style="position: absolute;width: 9vh;left:220px" @click="closecreate">取消</el-button>
+      </div>
+      <div v-if="this.ifnew === 4" style="width: 21vh;position: absolute;">
+        <el-input v-model="inputfilename" placeholder="请输入团队文件名称"></el-input>
+        <el-button type="primary" style="position: absolute;width: 9vh;" @click="createsondoc1">确认</el-button>
+        <el-button type="error" style="position: absolute;width: 9vh;left:220px" @click="closecreate">取消</el-button>
+      </div>
+      <!--<div v-if="this.ifshow === 1" style="position: absolute;width: 300px;height:91vh;background-color: white">
+      </div>-->
       <div v-if="this.ifshow === 1" style="position: absolute;width: 300px;height:5vh;background-color: wheat;top:50px">
         <div style="top:5px;position: absolute;left: 10px;cursor: pointer" @click="closetrash"><b>
-            < 回收站</b>
+          < 团队文档回收站</b>
         </div>
-        <doxlists1></doxlists1>
+        <!--<doxlists1></doxlists1>-->
       </div>
       <div v-if="this.ifshow === 0"
-        style="position: absolute;width: 300px;height:80vh;background-color: white;top:12vh">
-        <doxlist></doxlist>
+           style="position: absolute;width: 300px;height:80vh;background-color: white;top:12vh;display: block;overflow-y: scroll;">
+        <!--<doxlist></doxlist>-->
       </div>
 
       <div v-if="this.ifshow === 0"
-        style="position: absolute;width: 300px;height:5vh;background-color: wheat;top:700px">
+           style="position: absolute;width: 300px;height:5vh;background-color: wheat;top:700px">
 
-        <div style="top:5px;position: absolute;left: 10px;cursor: pointer" @click="showtrash"><b>> 回收站</b></div>
+        <div style="top:5px;position: absolute;left: 10px;cursor: pointer" @click="showtrash"><b>> 团队文档回收站</b></div>
       </div>
       <div ref="editorContainer" style="width: 165vh;position: absolute;left:40vh;height:100vh;minHeight: 100vh"></div>
       <!--<div style="position: absolute;left:700px;top:80vh"><v-btn text color="primary" @click="outtxt">导出当前文档</v-btn></div>-->
@@ -96,41 +100,76 @@
         <!--<span>我来啦!</span>-->
         <div @mouseover="over1" @mouseleave="leave">
           <el-button type="primary" icon="el-icon-s-management" style="width: 300px;background-color: red"
-            @click="open1">项目计划</el-button>
+                     @click="open1">项目计划</el-button>
         </div>
         <div @mouseover="over2" @mouseleave="leave">
           <el-button type="primary" icon="el-icon-s-management" style="width: 300px;background-color: orange"
-            @click="open2">会议纪要</el-button>
+                     @click="open2">会议纪要</el-button>
         </div>
         <div @mouseover="over3" @mouseleave="leave">
           <el-button type="primary" icon="el-icon-s-management" style="width: 300px;background-color: yellowgreen"
-            @click="open3">项目管理</el-button>
+                     @click="open3">项目管理</el-button>
         </div>
         <div @mouseover="over4" @mouseleave="leave">
           <el-button type="primary" icon="el-icon-s-management" style="width: 300px;background-color: #b3d4fc"
-            @click="open4">工作周报</el-button>
+                     @click="open4">工作周报</el-button>
         </div>
         <div @mouseover="over5" @mouseleave="leave">
           <el-button type="primary" icon="el-icon-s-management" style="width: 300px;background-color: palevioletred"
-            @click="open5">需求调研报告</el-button>
+                     @click="open5">需求调研报告</el-button>
         </div>
         <div @mouseover="over6" @mouseleave="leave">
           <el-button type="primary" icon="el-icon-s-management" style="width: 300px; background-color: aqua"
-            @click="open6">需求规格说明书</el-button>
+                     @click="open6">需求规格说明书</el-button>
         </div>
       </el-drawer>
       <div><img v-if="this.show === 1" src="../img/项目计划.jpg"
-          style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
+                style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
       <div><img v-if="this.show === 2" src="../img/会议纪要.jpg"
-          style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
+                style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
       <div><img v-if="this.show === 3" src="../img/项目管理.jpg"
-          style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
+                style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
       <div><img v-if="this.show === 4" src="../img/工作周报.jpg"
-          style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
+                style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
       <div><img v-if="this.show === 5" src="../img/需求调研报告.jpg"
-          style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
+                style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
       <div><img v-if="this.show === 6" src="../img/需求规格说明书.jpg"
-          style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
+                style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
+      <div  style="height:80vh;width:300px;display: block;overflow-y: scroll;position: absolute;top:12vh;background-color: whitesmoke">
+        <v-treeview
+            v-if="this.ifshow===0"
+            v-model="tree"
+            :open="open"
+            :items="items"
+            color="blue"
+            activatable
+            item-key="name"
+            open-on-click
+            :active.sync="active"
+        >
+          <template v-slot:prepend="{ item, open }">
+            <v-icon v-if="item.is_dir===true" @click="opendir1(item)">
+              {{ open ? 'mdi-folder-open' : 'mdi-folder' }}
+            </v-icon>
+            <v-icon v-else >
+              mdi-file-document-outline
+            </v-icon>
+            <v-icon v-if="item.is_dir===false" @click="edit(item)">
+              mdi-pencil
+            </v-icon>
+            <v-icon v-if="item.is_dir===false" @click="delete1(item)">
+              mdi-delete
+            </v-icon>
+            <v-icon v-if="item.is_dir===true && item.is_pro===false" @click="createsondir(item)">
+              mdi-folder-plus-outline
+            </v-icon>
+            <v-icon v-if="item.is_dir===true && item.is_pro===false" @click="createsondoc(item)">
+              mdi-file-plus-outline
+            </v-icon>
+            <div v-if="item.is_pro===true" style="display: inline-block"><b>(项目文档)</b></div>
+          </template>
+        </v-treeview>
+      </div>
     </div>
     <!--<div><el-button @click="load">cnm</el-button></div>-->
   </div>
@@ -147,6 +186,15 @@ export default {
 
   data() {
     return {
+      open: ['public'],
+      active:[],
+      selection:[],
+      tree: [],
+      items: [
+      ],
+      inputdirname:'',
+      inputdirname1:'',
+      inputfilename:'',
       size: '300px',//抽屉的宽度
       drawer: false,
       direction: 'ltr',
@@ -179,6 +227,7 @@ export default {
       needbook: '<h1><strong>xx软件需求规格说明书</strong></h1><p><strong><br></strong></p><p><strong><br></strong></p><table class="tb-table"><tbody><tr><td colSpan="5" rowSpan="1" style="text-align:center"><strong style="font-size:20px">xx软件需求规格说明书</strong></td></tr><tr><td colSpan="5" rowSpan="1">硬件整体需求：</td></tr><tr><td colSpan="5" rowSpan="1">工作环境需求：</td></tr><tr><td colSpan="1" rowSpan="1">需求编号：</td><td colSpan="1" rowSpan="1">功能名称</td><td colSpan="1" rowSpan="1">功能需求标识</td><td colSpan="1" rowSpan="1">优先级</td><td colSpan="1" rowSpan="1">具体描述</td></tr><tr><td colSpan="1" rowSpan="1">1</td><td colSpan="1" rowSpan="1">系统入口</td><td colSpan="1" rowSpan="1">L1</td><td colSpan="1" rowSpan="1">最高</td><td colSpan="1" rowSpan="1">用户在该软件中进行一切操作的入口</td></tr></tbody></table><h2>&nbsp;</h2><p><br></p>',
       show: 0,
       if_save:0,
+      opendir:0,
     }
   },
   created() {
@@ -190,18 +239,161 @@ export default {
     if(this.now_textname===null){
       this.now_textname='当前没有选择文档';
     }
+
     this.$axios.get('/api/user/get_user_info ').then(
-      res => {
-        this.userhead = res.data.data.img;
-        this.username = res.data.data.username;
-        console.log(this.userhead)
-      }
+        res => {
+          this.userhead = res.data.data.img;
+          this.username = res.data.data.username;
+          console.log(this.userhead)
+        }
     );
+    this.$axios({
+      method: 'post',           /* 指明请求方式，可以是 get 或 post */
+      url: '/api/file/get_file_centre_list',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
+      data: qs.stringify({
+        teamID: this.teamid,
+      })
+    })
+        .then(res => {/* res 是 response 的缩写 */
+          if (res.data.errno === 0) {
+            this.$message.success("获取团队文档列表成功");
+            this.items=res.data.items;
+            //this.$router.go(0);
+          } else {
+            this.$message.error(res.data.msg);
+          }
+        })
+        .catch(err => {
+          console.log(err);         /* 若出现异常则在终端输出相关信息 */
+        });
     console.log("debug当前项目id" + JSON.parse(sessionStorage.getItem('ProjectID')));
     console.log("当前项目id" + this.projectid);
     console.log("当前文档id" + this.now_id);
   },
   methods: {
+    createsondir(item){
+      this.ifnew=3;
+      this.opendir=item.id;
+    },
+    createsondir1(){
+      console.log("当前团队id为"+this.teamid);
+      console.log("当前父文件夹的id为"+this.opendir);
+      this.$axios({
+        method: 'post',           /* 指明请求方式，可以是 get 或 post */
+        url: '/api/file/create_team_file',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
+        data: qs.stringify({
+          teamID:this.teamid,
+          file_name:this.inputdirname1,
+          file_type:'dir',
+          fatherID:this.opendir,
+        })
+      })
+          .then(res => {/* res 是 response 的缩写 */
+            //获取用户登录的三个基本信息并存放于sessionStorage
+            if (res.data.errno === 0) {
+              this.$message.success('创建团队子文件夹成功');
+              window.location.reload();
+            } else {
+              this.$message.error(res.data.msg);
+            }
+          })
+          .catch(err => {
+            console.log(err);         /* 若出现异常则在终端输出相关信息 */
+          });
+    },
+    createsondoc(item){
+      this.ifnew=4;
+      this.opendir=item.id;
+    },
+    createsondoc1(item){
+      console.log("当前团队id为"+this.teamid);
+      console.log("当前父文件夹的id为"+this.opendir);
+      this.$axios({
+        method: 'post',           /* 指明请求方式，可以是 get 或 post */
+        url: '/api/file/create_team_file',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
+        data: qs.stringify({
+          teamID:this.teamid,
+          file_name:this.inputfilename,
+          file_type:'doc',
+          fatherID: this.opendir
+        })
+      })
+          .then(res => {/* res 是 response 的缩写 */
+            //获取用户登录的三个基本信息并存放于sessionStorage
+            if (res.data.errno === 0) {
+              this.$message.success('创建团队文件成功');
+              window.location.reload();
+            } else {
+              this.$message.error(res.data.msg);
+            }
+          })
+          .catch(err => {
+            console.log(err);         /* 若出现异常则在终端输出相关信息 */
+          });
+    },
+    createteamdir(){
+        this.ifnew=2;
+    },
+    createteamdir1(){
+      console.log(this.teamid);
+      this.$axios({
+        method: 'post',           /* 指明请求方式，可以是 get 或 post */
+        url: '/api/file/create_team_file',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
+        data: qs.stringify({
+          teamID:this.teamid,
+          file_name:this.inputdirname,
+          file_type:'dir',
+          fatherID:0
+        })
+      })
+          .then(res => {/* res 是 response 的缩写 */
+            //获取用户登录的三个基本信息并存放于sessionStorage
+            if (res.data.errno === 0) {
+              this.$message.success('创建团队文件夹成功');
+              window.location.reload();
+            } else {
+              this.$message.error(res.data.msg);
+            }
+          })
+          .catch(err => {
+            console.log(err);         /* 若出现异常则在终端输出相关信息 */
+          });
+    },
+    opendir1(item){
+      //this.$message.success(item.id);
+      this.opendir=item.id;//当前打开的文件夹id
+    },
+    edit(item){
+      //this.$message.success(item.id);
+      //sessionStorage.setItem('now_textid', JSON.stringify(item.id));
+      this.now_id=item.id;
+      console.log(this.now_id);
+      if(!(this.now_id===null)) {
+        this.$axios({
+          method: 'post',           /* 指明请求方式，可以是 get 或 post */
+          url: '/api/file/read_file',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
+          data: qs.stringify({
+            fileID: this.now_id,
+          })
+        })
+            .then(res => {/* res 是 response 的缩写 */
+              //获取用户登录的三个基本信息并存放于sessionStorage
+              if (res.data.errno === 0) {
+                this.$message.success('导入文件成功');
+                this.newContent = res.data.content;
+                this.editor1.replaceContent(this.newContent);
+                //console.log(this.newContent);
+                //this.inside = res.data.content;
+                //sessionStorage.setItem('now_textid', JSON.stringify(res.data.fileID));
+              } else {
+                this.$message.error(res.data.msg);
+              }
+            })
+            .catch(err => {
+              console.log(err);         /* 若出现异常则在终端输出相关信息 */
+            });
+      }
+    },
     returnbefore(){
       this.$router.push('/projectdashboard');
     }
@@ -300,11 +492,11 @@ export default {
     },
     handleClose(done) {
       this.$confirm('确认关闭？')
-        .then(_ => {
-          done(
-          );
-        })
-        .catch(_ => { });
+          .then(_ => {
+            done(
+            );
+          })
+          .catch(_ => { });
     },
     load() {
 
@@ -337,18 +529,18 @@ export default {
           fatherID: this.fatherid
         })
       })
-        .then(res => {/* res 是 response 的缩写 */
-          if (res.data.errno === 0) {
-            this.$message.success("文档创建成功");
-            window.location.reload();
-            //this.$router.go(0);
-          } else {
-            this.$message.error(res.data.msg);
-          }
-        })
-        .catch(err => {
-          console.log(err);         /* 若出现异常则在终端输出相关信息 */
-        });
+          .then(res => {/* res 是 response 的缩写 */
+            if (res.data.errno === 0) {
+              this.$message.success("文档创建成功");
+              window.location.reload();
+              //this.$router.go(0);
+            } else {
+              this.$message.error(res.data.msg);
+            }
+          })
+          .catch(err => {
+            console.log(err);         /* 若出现异常则在终端输出相关信息 */
+          });
       this.ifnew = 0;
     },
     deletetxt() {
@@ -359,19 +551,19 @@ export default {
           fileID: this.now_id,
         })
       })
-        .then(res => {
-          console.log(res.data)
-          if (res.data.errno === 0) {
-            this.$message.success("删除成功");
-            window.location.reload();
-          } else {
-            alert(res.data.msg);
-            this.$message.error(res.data.msg);
-          }
-        })
-        .catch(err => {
-          console.log(err);         /* 若出现异常则在终端输出相关信息 */
-        })
+          .then(res => {
+            console.log(res.data)
+            if (res.data.errno === 0) {
+              this.$message.success("删除成功");
+              window.location.reload();
+            } else {
+              alert(res.data.msg);
+              this.$message.error(res.data.msg);
+            }
+          })
+          .catch(err => {
+            console.log(err);         /* 若出现异常则在终端输出相关信息 */
+          })
     },
     find(row, column, cell, event) {
       //alert(row.fileID);
@@ -382,20 +574,20 @@ export default {
           fileID: row.fileID,
         })
       })
-        .then(res => {/* res 是 response 的缩写 */
-          //获取用户登录的三个基本信息并存放于sessionStorage
-          if (res.data.errno === 0) {
-            this.$message.success("打开成功");
-            sessionStorage.setItem('now_textid', JSON.stringify(res.data.fileID));
-            sessionStorage.setItem('now_textname', JSON.stringify(res.data.file_name));
-            window.location.reload();
-          } else {
-            this.$message.error(res.data.msg);
-          }
-        })
-        .catch(err => {
-          console.log(err);         /* 若出现异常则在终端输出相关信息 */
-        })
+          .then(res => {/* res 是 response 的缩写 */
+            //获取用户登录的三个基本信息并存放于sessionStorage
+            if (res.data.errno === 0) {
+              this.$message.success("打开成功");
+              sessionStorage.setItem('now_textid', JSON.stringify(res.data.fileID));
+              sessionStorage.setItem('now_textname', JSON.stringify(res.data.file_name));
+              window.location.reload();
+            } else {
+              this.$message.error(res.data.msg);
+            }
+          })
+          .catch(err => {
+            console.log(err);         /* 若出现异常则在终端输出相关信息 */
+          })
     },
     savetxt() {
       this.if_save=1;
@@ -408,44 +600,44 @@ export default {
           content: this.editor1.getContents().content
         })
       })
-        .then(res => {/* res 是 response 的缩写 */
-          //获取用户登录的三个基本信息并存放于sessionStorage
-          if (res.data.errno === 0) {
-            this.$message.success("保存文件成功");
-          } else {
-            this.$message.error(res.data.msg);
-          }
-        })
-        .catch(err => {
-          console.log(err);         /* 若出现异常则在终端输出相关信息 */
-        })
+          .then(res => {/* res 是 response 的缩写 */
+            //获取用户登录的三个基本信息并存放于sessionStorage
+            if (res.data.errno === 0) {
+              this.$message.success("保存文件成功");
+            } else {
+              this.$message.error(res.data.msg);
+            }
+          })
+          .catch(err => {
+            console.log(err);         /* 若出现异常则在终端输出相关信息 */
+          })
     }
   },
   mounted() {
-      if(!(this.now_id===null)) {
-        this.$axios({
-          method: 'post',           /* 指明请求方式，可以是 get 或 post */
-          url: '/api/file/read_file',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
-          data: qs.stringify({
-            fileID: this.now_id,
-          })
+    if(!(this.now_id===null)) {
+      this.$axios({
+        method: 'post',           /* 指明请求方式，可以是 get 或 post */
+        url: '/api/file/read_file',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
+        data: qs.stringify({
+          fileID: this.now_id,
         })
-            .then(res => {/* res 是 response 的缩写 */
-              //获取用户登录的三个基本信息并存放于sessionStorage
-              if (res.data.errno === 0) {
-                this.$message.success('导入文件成功');
-                this.newContent = res.data.content;
-                _this.editor1.replaceContent(this.newContent);
-                //this.inside = res.data.content;
-                sessionStorage.setItem('now_textid', JSON.stringify(res.data.fileID));
-              } else {
-                this.$message.error(res.data.msg);
-              }
-            })
-            .catch(err => {
-              console.log(err);         /* 若出现异常则在终端输出相关信息 */
-            });
-      }
+      })
+          .then(res => {/* res 是 response 的缩写 */
+            //获取用户登录的三个基本信息并存放于sessionStorage
+            if (res.data.errno === 0) {
+              this.$message.success('导入文件成功');
+              this.newContent = res.data.content;
+              _this.editor1.replaceContent(this.newContent);
+              //this.inside = res.data.content;
+              sessionStorage.setItem('now_textid', JSON.stringify(res.data.fileID));
+            } else {
+              this.$message.error(res.data.msg);
+            }
+          })
+          .catch(err => {
+            console.log(err);         /* 若出现异常则在终端输出相关信息 */
+          });
+    }
     const _this = this;
     _this.editor1 = createEditor();
     //const editor = createEditor();

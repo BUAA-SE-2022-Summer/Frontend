@@ -41,6 +41,16 @@ const routes = [
     name: 'projectdashboard',
     component: () => import("../components/project/projectMain")
 
+  },
+  {
+    path:'/filetreetest',
+    name:'filetreetest',
+    component: () => import("../views/filetreetest")
+  },
+  {
+    path:'/filetreetry',
+    name:'filetreetry',
+    component: () => import("../views/filetreetry")
   }
 ]
 

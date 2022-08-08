@@ -294,6 +294,9 @@ export default {
       this.close()
     },
     toItem(item) {
+      if(JSON.parse(sessionStorage.getItem('if_save'))===0){
+          alert('当前文档未保存');
+      }
       console.log("跳转文档详情页")
       //alert("跳转文档详情页");
       const index = this.desserts.indexOf(item)
