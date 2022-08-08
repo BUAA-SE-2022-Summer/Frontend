@@ -5,7 +5,7 @@
         :sort-by="sortBy" :sort-desc="sortDesc" hide-default-footer>
         <template v-slot:header>
           <v-toolbar dark color="blue darken-4" class="mb-1">
-            <span>全部项目：</span>
+            <span>我创建的项目：</span>
             <v-text-field v-model="search" clearable flat solo-inverted hide-details label="Search"></v-text-field>
             <template v-if="$vuetify.breakpoint.mdAndUp">
               <v-spacer></v-spacer>
@@ -79,10 +79,10 @@
                     <span>删除</span>
                     <v-icon style="color:#D50000">mdi-delete</v-icon>
                   </v-btn>
-                  <v-btn @click="Copy(item.projectName)">
+                  <!-- <v-btn @click="Copy(item.projectName)">
                     <span>复制</span>
                     <v-icon style="color:#1B5E20">mdi-plus</v-icon>
-                  </v-btn>
+                  </v-btn> -->
 
                   
                   <v-dialog v-model="copy" max-width="500px">
@@ -168,7 +168,7 @@ export default {
       copy:false,
       newname:"新名称",
       copyName:"xin",
-    
+      showPage:0,
     }
 
   },
@@ -181,8 +181,8 @@ export default {
     },
   },
   created() {
-    // sessionStorage.setItem('TeamID', 6);
-    this.projectLists = this.get_all_project_list()
+    sessionStorage.setItem('TeamID', 6);
+    this.get_create_project_list()
     this.rename=false
     this.copy=false
     // this.copy_project(35)
@@ -219,6 +219,27 @@ export default {
       console.log('当前选中项目的项目名称是'+project.projectName);
       console.log("当前选中项目的root_fileID是: " + project.project_root_fileID);
       this.$router.push("/textbustest")
+    },
+    get_create_project_list(){
+      var teamID=sessionStorage.getItem('TeamID');
+      this.$axios({
+        method: 'post',
+        url: '/api/project/get_create_project_list',
+        data: qs.stringify({
+          teamID: teamID
+          // teamID: 1
+        })
+      })
+        .then(res => {
+          console.log(res.data)
+          if (res.data.errno === 0) {
+            console.log("我创建的：",res.data)
+            this.items=res.data.project_list
+          } 
+        })
+        .catch(err => {
+          console.log(err);         /* 若出现异常则在终端输出相关信息 */
+        })
     },
     get_all_project_list() {
       var teamID = JSON.parse(sessionStorage.getItem('TeamID'));

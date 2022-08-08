@@ -152,7 +152,7 @@ export default {
           console.log(err);         /* 若出现异常则在终端输出相关信息 */
         })
     },
-    //查看改团队项目,通过测试
+    //查看收藏项目,通过测试
     get_star_project_list(){
       var teamID=sessionStorage.getItem('TeamID');
       this.$axios({
@@ -232,6 +232,7 @@ export default {
           console.log(res.data)
           if (res.data.errno === 0) {
             this.$message.success("删除项目成功");
+            
           } else {
             this.$message.error(res.data.msg);
           }

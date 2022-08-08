@@ -16,11 +16,11 @@
           <div>
             <user_centerVue></user_centerVue>
             <!-- <true_user_centerVue></true_user_centerVue> -->
-            <v-btn @click="overlay2=false" style="font-size=40px">
+            <div @click="overlay2=false" style="font-size=40px">
 
               <v-icon style="float:left;color:red;font-weight: 500;" x-large>mdi-arrow-left</v-icon>
 
-            </v-btn>
+            </div>
 
           </div>
         </v-overlay>
@@ -61,7 +61,12 @@
         <v-btn value="recent">
           <span style="color: black;font-size: large;" @click="forget">忘记密码</span>
         </v-btn>
-
+         <v-overlay :value="overlay5" :dark=isdark :opacity="0.3">
+          <ResetCode></ResetCode>
+          <div @click="overlay5 = false">
+            <v-icon style="float:left;color:red;" x-large>mdi-arrow-left</v-icon>
+          </div>
+        </v-overlay>
         <div class="mobook_head">
           <img v-if="this.iflogin === 1" :src="this.userhead"
             style="position: absolute;top:20px;left:70px;width: 50px;height: 50px;border-color: white;border-width: 1px;margin-right: 50px;margin-top: 0px;border-radius: 50%;">
@@ -94,8 +99,9 @@ import register_pageVue from './register_page.vue';
 import user_centerVue from './user_info_change.vue';
 import true_user_centerVue from './true_user_center.vue';
 import qs from 'qs'
+import ResetCode from '../components/resetCode.vue';
 export default {
-  components: { user_centerVue, true_user_centerVue, login_pageVue, register_pageVue },
+  components: { user_centerVue, true_user_centerVue, login_pageVue, register_pageVue, ResetCode },
   name: "Welcome_page",
   data() {
     return {
@@ -107,6 +113,7 @@ export default {
       overlay2: false,
       overlay3: false,
       overlay4: false,
+      overlay5:false,
       // isreloaded: false,  //进入该页面先reload
       opacity: 0,
       isdark: false,
@@ -116,7 +123,7 @@ export default {
     this.overlay = false,
       this.overlay2 = false,
       this.overlay4 = false,
-
+      this.overlay5=false
       this.$axios.get('/api/user/get_user_info').then(
         res => {
           this.username = res.data.data.username;
@@ -181,7 +188,7 @@ export default {
       console.log("2:", e)
     },
     forget(){
-
+      this.overlay5=true
     },
     send_code(){
      

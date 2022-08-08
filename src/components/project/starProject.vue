@@ -5,7 +5,7 @@
         :sort-by="sortBy" :sort-desc="sortDesc" hide-default-footer>
         <template v-slot:header>
           <v-toolbar dark color="blue darken-4" class="mb-1">
-            <span>全部项目：</span>
+            <span>我收藏的项目：</span>
             <v-text-field v-model="search" clearable flat solo-inverted hide-details label="Search"></v-text-field>
             <template v-if="$vuetify.breakpoint.mdAndUp">
               <v-spacer></v-spacer>
@@ -79,10 +79,10 @@
                     <span>删除</span>
                     <v-icon style="color:#D50000">mdi-delete</v-icon>
                   </v-btn>
-                  <v-btn @click="Copy(item.projectName)">
+                  <!-- <v-btn @click="Copy(item.projectName)">
                     <span>复制</span>
                     <v-icon style="color:#1B5E20">mdi-plus</v-icon>
-                  </v-btn>
+                  </v-btn> -->
 
                   
                   <v-dialog v-model="copy" max-width="500px">
@@ -182,12 +182,34 @@ export default {
   },
   created() {
     // sessionStorage.setItem('TeamID', 6);
-    this.projectLists = this.get_all_project_list()
+    // this.projectLists = this.get_all_project_list()
+    this.get_star_project_list()
     this.rename=false
     this.copy=false
     // this.copy_project(35)
   },
   methods: {
+    get_star_project_list(){
+      var teamID=sessionStorage.getItem('TeamID');
+      this.$axios({
+        method: 'post',
+        url: '/api/project/get_star_project_list',
+        data: qs.stringify({
+          teamID: teamID
+        //   teamID: 1
+        })
+      })
+        .then(res => {
+          console.log(res.data)
+          if (res.data.errno === 0) {
+            console.log(res.data)
+            this.items=res.data.project_list
+          } 
+        })
+        .catch(err => {
+          console.log(err);         /* 若出现异常则在终端输出相关信息 */
+        })
+    },
     Star(item){
       console.log("收藏，解除收藏")
       console.log(item)
@@ -336,12 +358,7 @@ export default {
           console.log(res.data)
           if (res.data.errno === 0) {
             this.$message.success("取消收藏项目成功");
-            for(var i=0;i<this.items.length;i++){
-              if(this.items[i].projectID==ID){
-                this.items[i].is_star=false
-              }
-            }
-            // this.$router.go(0)
+            this.$router.go(0)
           } else {
             this.$message.error(res.data.msg);
           }
@@ -369,12 +386,7 @@ export default {
           console.log(res.data)
           if (res.data.errno === 0) {
             this.$message.success("收藏项目成功,您可以在我的收藏中进行查看");
-            for(var i=0;i<this.items.length;i++){
-              if(this.items[i].projectID==ID){
-                this.items[i].is_star=true
-              }
-            }
-            // this.$router.go(0)
+            this.$router.go(0)
           } else {
             this.$message.error(res.data.msg);
           }
@@ -382,7 +394,7 @@ export default {
         .catch(err => {
           console.log(err);         /* 若出现异常则在终端输出相关信息 */
         })
-      // this.$router.go(0)
+      this.$router.go(0)
     },
     //删除项目,报错404
     delete_project(ID) {
@@ -402,11 +414,6 @@ export default {
           console.log(res.data)
           if (res.data.errno === 0) {
             this.$message.success("删除成功");
-            for(var i=0;i<this.items.length;i++){
-              if(this.items[i].projectID==ID){
-                this.items.splice(i, 1)
-              }
-            }
             // this.initialize()
           } else {
             // alert(res.data.msg);
