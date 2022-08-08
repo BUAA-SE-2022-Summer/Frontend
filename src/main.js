@@ -27,6 +27,7 @@ import VueQuillEditor from 'vue-quill-editor'
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
+import Print from 'vue-print-nb'
 axios.defaults.baseURL = '/'
 Vue.prototype.$axios = axios;
 Vue.prototype.$qs = qs
@@ -39,6 +40,7 @@ Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 Vue.use(ElementUI)
 Vue.use(Vuetify)
+Vue.use(Print);
 new Vue({
   router,
   store,

@@ -169,7 +169,14 @@
             <div v-if="item.is_pro===true" style="display: inline-block"><b>(项目文档)</b></div>
           </template>
         </v-treeview>
+        <!--<div style="position: absolute;left:500px;top:700px">
+          <el-button>导出文件</el-button>
+        </div>-->
       </div>
+      <div style="position: absolute;left:500px;top:700px">
+         <el-button @click="exportword">导出word</el-button>
+         <el-button @click="exportpdf">导出pdf</el-button>
+     </div>
     </div>
     <!--<div><el-button @click="load">cnm</el-button></div>-->
   </div>
@@ -180,6 +187,9 @@ import '@textbus/editor/bundles/textbus.min.css';
 import doxlists1 from "../components/demo/trashlists";
 import doxlist from "../components/demo/doxlists";
 import qs from "qs";
+import { exportWord } from 'mhtml-to-word'
+import { saveAs } from 'file-saver'
+
 export default {
   components: { doxlists1, doxlist },
   name: "textbustest",
@@ -228,6 +238,7 @@ export default {
       show: 0,
       if_save:0,
       opendir:0,
+      now_file_name:'',
     }
   },
   created() {
@@ -271,6 +282,16 @@ export default {
     console.log("当前文档id" + this.now_id);
   },
   methods: {
+    exportword(){
+      let html = this.editor1.getContents().content;
+      let blob = new Blob([html],{type:"application/msword;charset=utf-8"});
+      //let blob = new Blob([html],{type:"application/pdf;charset=utf-8"});
+      saveAs(blob,this.now_file_name);
+    },
+    exportpdf(){
+      sessionStorage.setItem('pdf',JSON.stringify(this.editor1.getContents().content));
+      this.$router.push('/pdftest');
+    },
     createsondir(item){
       this.ifnew=3;
       this.opendir=item.id;
@@ -367,6 +388,7 @@ export default {
       //this.$message.success(item.id);
       //sessionStorage.setItem('now_textid', JSON.stringify(item.id));
       this.now_id=item.id;
+      this.now_file_name=item.name;
       console.log(this.now_id);
       if(!(this.now_id===null)) {
         this.$axios({
@@ -499,7 +521,6 @@ export default {
           .catch(_ => { });
     },
     load() {
-
       this.editor1.replaceContent(this.newContent);
     },
     outtxt() {

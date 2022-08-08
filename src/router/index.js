@@ -57,6 +57,11 @@ const routes = [
     path:'/memberMain',
     name:'memberMain',
     component:()=>import("../components/team/MemberManage.vue")
+  },
+  {
+    path:'/pdftest',
+    name:'pdftest',
+    component:()=>import("../views/pdftest")
   }
 ]
 
