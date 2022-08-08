@@ -10,11 +10,11 @@
       </div>
       <div style="left:90vh;position: absolute">
         <el-button type="text" icon="el-icon-s-claim"
-          style="background-color: whitesmoke;border-color: whitesmoke;height:6vh;position: absolute;">项目管理</el-button>
+          style="background-color: whitesmoke;border-color: whitesmoke;height:6vh;position: absolute;" @click="toProject">项目管理</el-button>
       </div>
       <div style="left:110vh;position: absolute">
         <el-button type="text" icon="el-icon-user-solid"
-          style="background-color: whitesmoke;border-color: whitesmoke;height:6vh;position: absolute;">成员管理</el-button>
+          style="background-color: whitesmoke;border-color: whitesmoke;height:6vh;position: absolute;" @click="toMem">成员管理</el-button>
       </div>
       <!-- <div style="left:123vh;position: absolute"><el-button type="text" icon="el-icon-picture" style="background-color: whitesmoke;border-color: whitesmoke;height:6vh;position: absolute;">UML绘制</el-button></div>-->
       <div style="left:175vh;position: absolute"><img :src="this.userhead"
@@ -59,6 +59,16 @@ export default {
         console.log(this.userhead)
       }
     );
+  },
+  methods:{
+    toProject(){
+      console.log("跳转到项目层")
+      this.$router.push("/projectdashboard")
+    },
+    toMem(){
+      console.log("跳转到成员管理")
+      this.$router.push("/memberMain")
+    }
   }
 }
 </script>

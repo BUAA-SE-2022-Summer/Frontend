@@ -33,7 +33,7 @@
                     {{ item.projectName }}
                   </span>
                   <v-divider></v-divider>
-                  <v-btn @click="star_project(item.projectID)">
+                  <v-btn @click="Star(item)">
                     <v-icon style="color: pink;" v-show="item.is_star">mdi-star</v-icon>
                     <v-icon color="grey" v-show="!item.is_star">mdi-star</v-icon>
                     收藏
@@ -51,19 +51,55 @@
                   </v-list-item>
                 </v-list>
                 <v-bottom-navigation>
-                  <v-btn>
+                  <!-- <v-btn @click="reaname=!rename"> -->
+                  <v-btn @click="Rename(item.projectName)">
                     <span>重命名</span>
                     <v-icon>mdi-history</v-icon>
                   </v-btn>
-
+                  
+                  <v-dialog v-model="rename" max-width="500px">
+                    <v-card>
+                      <v-card-title>
+                        重命名
+                      </v-card-title>
+                      <v-text-field outlined v-model="newname" placeholder="新的名称"></v-text-field>
+                      <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn color="blue darken-1" text @click="close">
+                          Cancel
+                        </v-btn>
+                        <v-btn color="blue darken-1" text @click="rename_project(item.projectID)">
+                          Save
+                        </v-btn>
+                      </v-card-actions>
+                    </v-card>
+                  </v-dialog>
                   <v-btn @click="delete_project(item.projectID)">
                     <span>删除</span>
                     <v-icon>mdi-delete</v-icon>
                   </v-btn>
-                  <v-btn>
+                  <v-btn @click="Copy(item.projectName)">
                     <span>复制</span>
                     <v-icon>mdi-plus</v-icon>
                   </v-btn>
+                  
+                  <v-dialog v-model="copy" max-width="500px">
+                    <v-card>
+                      <v-card-title>
+                        复制项目的新名称：
+                      </v-card-title>
+                      <v-text-field outlined v-model="copyName" placeholder="新的名称"></v-text-field>
+                      <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn color="blue darken-1" text @click="close">
+                          Cancel
+                        </v-btn>
+                        <v-btn color="blue darken-1" text @click="copy_project(item.projectID)">
+                          Save
+                        </v-btn>
+                      </v-card-actions>
+                    </v-card>
+                  </v-dialog>
                   <router-link :to="{ path: '/textbustest' }" style="text-decoration:none;">
                     <v-btn @click="openProject(item)">
                       <span>详情</span>
@@ -125,6 +161,10 @@ export default {
         },
 
       ],
+      rename:false,
+      copy:false,
+      newname:"新名称",
+      copyName:"xin",
     }
 
   },
@@ -139,9 +179,34 @@ export default {
   created() {
     // sessionStorage.setItem('TeamID', 6);
     this.projectLists = this.get_all_project_list()
+    this.rename=false
+    this.copy=false
     // this.copy_project(35)
   },
   methods: {
+    Star(item){
+      console.log("收藏，解除收藏")
+      console.log(item)
+      if(item.is_star){
+        console.log("解除收藏")
+        this.unstar_project(item.projectID)
+      }else{
+        console.log("收藏")
+        this.star_project(item.projectID)
+      }
+    },
+    Rename(name){
+      this.newname=name
+      this.rename=true
+    },
+    Copy(name){
+      this.copyName=name
+      this.copy=true
+    },
+    close(){
+      this.rename=false
+      this.copy=false
+    },
     openProject(project) {
       sessionStorage.setItem('ProjectID', JSON.stringify(project.projectID));
       console.log("当前选中项目的id是: " + project.projectID);
@@ -173,13 +238,16 @@ export default {
           console.log(err);         /* 若出现异常则在终端输出相关信息 */
         })
     },
+    //复制项目报错500
     copy_project(ID) {
       var teamID = sessionStorage.getItem('TeamID');
+      console.log("复制项目", ID, this.copyName)
       this.$axios({
         method: 'post',
         url: '/api/project/copy_project',
         data: qs.stringify({
           projectID: ID,
+          projectName:this.copyName,
           teamID: teamID
         })
       })
@@ -188,14 +256,17 @@ export default {
           if (res.data.errno === 0) {
             this.$message.success("复制项目成功");
             console.log(res.data)
+            this.$router.go(0)
           } else {
             alert(res.data.msg);
             this.$message.error(res.data.msg);
+            this.copy=false
           }
         })
         .catch(err => {
           console.log(err);         /* 若出现异常则在终端输出相关信息 */
         })
+        this.copy=false
     },
     nextPage() {
       if (this.page + 1 <= this.numberOfPages) this.page += 1
@@ -207,17 +278,17 @@ export default {
       this.itemsPerPage = number
     },
     //重命名项目,通过测试
-    rename_project(ID, Name) {
-      console.log("修改项目名称", ID, Name)
+    rename_project(ID) {
+      console.log("修改项目名称", ID, this.newname)
       var teamID = sessionStorage.getItem('TeamID');
       this.$axios({
         method: 'post',
         url: '/api/project/rename_project',
         data: qs.stringify({
           projectID: ID,
-          // teamID: teamID,
-          teamID: 1,
-          project_name: Name
+          teamID: teamID,
+          // teamID: 1,
+          project_name: this.newname
 
         })
       })
@@ -225,9 +296,11 @@ export default {
           console.log(res.data)
           if (res.data.errno === 0) {
             this.$message.success("重命名项目成功");
+            this.$router.go(0)
           } else {
             // alert(res.data.msg);
             this.$message.error(res.data.msg);
+            this.rename=false
           }
         })
         .catch(err => {
@@ -250,6 +323,7 @@ export default {
           console.log(res.data)
           if (res.data.errno === 0) {
             this.$message.success("取消收藏项目成功");
+            this.$router.go(0)
           } else {
             this.$message.error(res.data.msg);
           }
@@ -277,6 +351,7 @@ export default {
           console.log(res.data)
           if (res.data.errno === 0) {
             this.$message.success("收藏项目成功,您可以在我的收藏中进行查看");
+            this.$router.go(0)
           } else {
             this.$message.error(res.data.msg);
           }
@@ -286,7 +361,7 @@ export default {
         })
       this.$router.go(0)
     },
-    //删除项目,通过测试
+    //删除项目,报错404
     delete_project(ID) {
       var teamID = sessionStorage.getItem('TeamID')
       this.$axios({
@@ -314,37 +389,10 @@ export default {
           console.log(err);         /* 若出现异常则在终端输出相关信息 */
         })
     },
-    //重命名项目,通过测试
-    rename_project(ID, Name) {
-      console.log("修改项目名称", ID, Name)
-      var teamID = sessionStorage.getItem('TeamID');
-      this.$axios({
-        method: 'post',
-        url: '/api/project/rename_project',
-        data: qs.stringify({
-          projectID: ID,
-          // teamID: teamID,
-          teamID: 1,
-          project_name: Name
-
-        })
-      })
-        .then(res => {
-          console.log(res.data)
-          if (res.data.errno === 0) {
-            this.$message.success("重命名项目成功");
-          } else {
-            // alert(res.data.msg);
-            this.$message.error(res.data.msg);
-          }
-        })
-        .catch(err => {
-          console.log(err);         /* 若出现异常则在终端输出相关信息 */
-        })
-    },
     getMore(ID) {
-
-    }
+        
+    },
+  
   },
 
 }

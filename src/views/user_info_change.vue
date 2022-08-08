@@ -14,12 +14,12 @@
         </el-tooltip>
       </div>
       <div style="margin-top:200px;">
-        <v-text-field v-model="username" :rules="nameRules" :counter="20" label="昵称" required color="palevioletred">
+        <v-text-field v-model="username"  :counter="20" label="昵称" required color="palevioletred">
           {{ this.username }}</v-text-field>
-        <v-text-field v-model="real_name" :rules="nameRules" :counter="10" label="真实姓名" required></v-text-field>
-        <v-text-field v-model="email" :rules="nameRules" :counter="20" label="邮箱" required></v-text-field>
-        <v-text-field v-model="phone" :rules="nameRules" :counter="20" label="手机号码" required></v-text-field>
-        <v-text-field v-model="profile" :rules="nameRules" :counter="20" label="个人简介" required></v-text-field>
+        <v-text-field v-model="real_name"  :counter="10" label="真实姓名" required></v-text-field>
+        <v-text-field v-model="email"  :counter="20" label="邮箱" required></v-text-field>
+        <v-text-field v-model="phone"  :counter="20" label="手机号码" required></v-text-field>
+        <v-text-field v-model="profile"  :counter="20" label="个人简介" required></v-text-field>
         <div @click="update" style="color:black;text-align: center;width: 100%;font-size: 20px;">
           <span>更新资料</span>
         </div>
@@ -69,6 +69,7 @@ export default {
   created() {
     this.$axios.get('/api/user/get_user_info ').then(
       res => {
+        console.log("个人信息哦：", res.data)
         this.username = res.data.data.username;
         this.userhead = res.data.data.img;
         this.real_name = res.data.data.real_name;

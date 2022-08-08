@@ -183,22 +183,22 @@ export default {
       })
     },
     //邀请成员请求
-    invite_people(teamid, user_name) {
+    invite_people(teamid) {
       teamid = JSON.parse(sessionStorage.getItem('TeamID'))
       this.$axios({
         method: 'post',
         url: '/api/team/invite_member',
         data: qs.stringify({
-          "username": user_name,
+          "username": this.addName,
           "teamID": teamid
         })
       }).then(res => {
         var result = res.data
         console.log("邀请成员结果", result)
         alert(result.msg)
-        if (result.errno == 0) {
-          this.$router.go(0)
-        }
+        // if (result.errno == 0) {
+        //   this.$router.go(0)
+        // }
       })
     },
     //踢成员请求
