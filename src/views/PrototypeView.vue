@@ -35,7 +35,7 @@
           </div>
         </section>
         <!-- 右侧属性列表 -->
-        <section class="right">
+        <!-- <section class="right">
           <el-tabs v-if="curComponent" v-model="activeName">
             <el-tab-pane label="属性" name="attr">
               <component :is="curComponent.component + 'Attr'" />
@@ -48,7 +48,7 @@
             </el-tab-pane>
           </el-tabs>
           <CanvasAttr v-else></CanvasAttr>
-        </section>
+        </section> -->
       </main>
     </div>
   </div>
@@ -121,6 +121,7 @@ export default {
       ).then(response => {
         console.log("打开原型图的后端反馈 ", response.data);
         this.$store.commit('updatePageList', response.data.namelist);
+        console.log("存储pageList到Vuex");
         console.log(this.$store.state.pageList);
         // this.namelist = response.data.namelist;
         // 获取namelist的第一项
@@ -225,7 +226,6 @@ export default {
 
     .center {
       margin-left: 200px;
-      margin-right: 288px;
       background: #f5f5f5;
       height: 100%;
       overflow: auto;

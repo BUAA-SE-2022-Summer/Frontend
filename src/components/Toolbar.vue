@@ -122,6 +122,7 @@ export default {
             ).then(response => {
                 console.log("打开原型图的后端反馈 ", response.data);
                 this.$store.commit('updatePageList', response.data.namelist);
+                console.log("新增page后更新Vuex的pageList", this.$store.state.pageList);
             }).catch(err => {
                 console.error(err);
             })
