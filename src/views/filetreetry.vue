@@ -92,7 +92,7 @@
 
         <div style="top:5px;position: absolute;left: 10px;cursor: pointer" @click="showtrash"><b>> 团队文档回收站</b></div>
       </div>
-      <div ref="editorContainer" style="width: 165vh;position: absolute;left:40vh;height:100vh;minHeight: 100vh"></div>
+      <!--<div ref="editorContainer" style="width: 165vh;position: absolute;left:40vh;height:100vh;minHeight: 100vh"></div>-->
       <!--<div style="position: absolute;left:700px;top:80vh"><v-btn text color="primary" @click="outtxt">导出当前文档</v-btn></div>-->
       <!--<div style="position: absolute;left:900px;top:80vh"><v-btn text color="error" @click="deletetxt">删除当前文档</v-btn></div>
       <div style="position: absolute;left:1100px;top:80vh"><v-btn text color="primary" @click="createnewtxt">新建文档</v-btn></div>-->
@@ -135,7 +135,7 @@
                 style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
       <div><img v-if="this.show === 6" src="../img/需求规格说明书.jpg"
                 style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
-      <div  style="height:75vh;width:300px;display: block;overflow-y: scroll;position: absolute;top:12vh;background-color: whitesmoke">
+      <div v-if="this.ifshow===0" style="height:75vh;width:300px;display: block;overflow-y: scroll;position: absolute;top:12vh;background-color: whitesmoke">
         <v-treeview
             v-if="this.ifshow===0"
             v-model="tree"
@@ -166,17 +166,44 @@
             <v-icon v-if="item.is_dir===true && item.is_pro===false" @click="createsondoc(item)">
               mdi-file-plus-outline
             </v-icon>
+            <v-icon v-if="item.is_dir===true && item.is_pro===false" @click="createsondoc(item)">
+              mdi-delete
+            </v-icon>
             <div v-if="item.is_pro===true" style="display: inline-block"><b>(项目文档)</b></div>
           </template>
         </v-treeview>
-        <!--<div style="position: absolute;left:500px;top:700px">
-          <el-button>导出文件</el-button>
-        </div>-->
       </div>
-      <div style="position: absolute;top:87vh">
+      <div v-if="this.ifshow===1" style="height:80vh;width:300px;display: block;overflow-y: scroll;position: absolute;top:12vh;background-color: whitesmoke">
+        <v-treeview
+            v-if="this.ifshow===1"
+            v-model="tree"
+            :open="open"
+            :items="items"
+            color="blue"
+            activatable
+            item-key="name"
+            open-on-click
+            :active.sync="active"
+        >
+          <template v-slot:prepend="{ item, open }">
+            <v-icon v-if="item.is_dir===true">
+              {{ open ? 'mdi-folder-open' : 'mdi-folder' }}
+            </v-icon>
+            <v-icon v-else >
+              mdi-file-document-outline
+            </v-icon>
+            <v-icon @click="review(item)">
+              mdi-autorenew
+            </v-icon>
+            <div v-if="item.is_pro===true" style="display: inline-block"><b>(项目文档)</b></div>
+          </template>
+        </v-treeview>
+      </div>
+      <div v-if="this.ifshow===0"  style="position: absolute;top:87vh">
          <el-button @click="exportword" style="width: 9.6vw">导出word</el-button>
      </div>
-      <div style="position: absolute;top:87vh;left:9.6vw"><el-button @click="exportpdf" style="width: 9.6vw">导出pdf</el-button></div>
+      <div  v-if="this.ifshow===0" style="position: absolute;top:87vh;left:9.6vw"><el-button @click="exportpdf" style="width: 9.6vw">导出pdf</el-button></div>
+      <div ref="editorContainer" style="width: 165vh;position: absolute;left:40vh;height:100vh;minHeight: 100vh"></div>
     </div>
     <!--<div><el-button @click="load">cnm</el-button></div>-->
   </div>
@@ -283,6 +310,9 @@ export default {
     console.log("当前文档id" + this.now_id);
   },
   methods: {
+    review(item){
+      this.$message.success("恢复触发成功");
+    },
     exportword(){
       if(this.if_choose_file===0){
         this.$message.error('请先选择文档');
