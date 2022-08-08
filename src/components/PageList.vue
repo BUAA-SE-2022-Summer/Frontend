@@ -62,6 +62,26 @@ export default {
             })
         },
         updatePageList() {
+            let teamID = JSON.parse(sessionStorage.getItem('TeamID'));
+            let projectID = JSON.parse(sessionStorage.getItem('ProjectID'));
+            let prototypeID = JSON.parse(sessionStorage.getItem('prototypeID'));
+            let fatherID = JSON.parse(sessionStorage.getItem('project_root_fileID'));
+            this.$axios.post(
+                '/api/prototype/open_prototype',
+                this.$qs.stringify({
+                    teamID: teamID,
+                    projectID: projectID,
+                    fatherID: fatherID,
+                    prototypeID: prototypeID,
+                })
+            ).then(response => {
+                console.log("打开原型图的后端反馈 ", response.data);
+                this.$store.commit('updatePageList', response.data.namelist);
+                console.log("存储pageList到Vuex");
+                console.log(this.$store.state.pageList);
+            }).catch(err => {
+                console.error(err);
+            })
             this.namelist = this.$store.state.pageList
             console.log("打印更新页面列表后的页面列表", this.namelist);
         }

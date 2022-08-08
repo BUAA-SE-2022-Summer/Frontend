@@ -147,7 +147,7 @@ export default {
     this.teamname = JSON.parse(sessionStorage.getItem('TeamName'));
     this.$axios({
       method: 'post',
-      url: '/api/file/project_root_doc_list',
+      url: '/api/file/project_root_pro_list',
       data: qs.stringify({
         projectID: this.projectID,
       })
@@ -294,27 +294,29 @@ export default {
       this.close()
     },
     toItem(item) {
-      console.log("跳转文档详情页")
-      //alert("跳转文档详情页");
-      const index = this.desserts.indexOf(item)
-      this.editedItem = Object.assign({}, item)
-      console.log('存储文档id:' + this.editedItem.fileID);
+      console.log("跳转prototype详情页 选中的prototype为: ")
+      console.log(item);
+      sessionStorage.setItem('prototypeID', JSON.stringify(item.fileID));
+      // //alert("跳转文档详情页");
+      // const index = this.desserts.indexOf(item)
+      // this.editedItem = Object.assign({}, item)
+      // console.log('存储文档id:' + this.editedItem.fileID);
       //console.log(this.editedItem.project_root_fileID);
       //console.log("存储当前更改的projectID: " + this.editedItem.projectID)
       //sessionStorage.setItem('ProjectID', JSON.stringify(this.editedItem.projectID));
       //sessionStorage.setItem('project_root_fileID', JSON.stringify(this.editedItem.project_root_fileID));
       //alert(row.project_root_fileID);
       // this.$router.push('/dashboard/demo/console');
-      sessionStorage.setItem('now_textid', JSON.stringify(this.editedItem.fileID));
-      //alert("当前文档id为"+this.editedItem.fileID);
-      sessionStorage.setItem('now_textname', JSON.stringify(this.editedItem.file_name));
-      if(this.$route.path!=='/textbustest') {
-        this.$router.push('/textbustest');
-      }
-      console.log(this.$route.path);
-      if(this.$route.path==='/textbustest'){
-        window.location.reload();
-      }
+      // sessionStorage.setItem('now_textid', JSON.stringify(this.editedItem.fileID));
+      // //alert("当前文档id为"+this.editedItem.fileID);
+      // sessionStorage.setItem('now_textname', JSON.stringify(this.editedItem.file_name));
+      // if (this.$route.path !== '/prototype') {
+      this.$router.push('/prototype');
+      // }
+      // console.log(this.$route.path);
+      // if (this.$route.path === '/textbustest') {
+      //   window.location.reload();
+      // }
       //window.location.reload();
     },
   },

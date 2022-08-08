@@ -246,43 +246,50 @@ export default {
         },
 
         save() {
-            let teamID = JSON.parse(sessionStorage.getItem('TeamID'));
-            let prototypeID = JSON.parse(sessionStorage.getItem('prototypeID'));
-            let pageID = JSON.parse(sessionStorage.getItem('pageID'));
-            let pageComponentData = this.componentData;
-            let pageCanvasStyleData = this.canvasStyleData;
-            console.log("打印保存页面请求的参数");
-            console.log("teamID: " + teamID);
-            console.log("prototypeID: " + prototypeID);
-            console.log("pageID: " + pageID);
-            console.log("pageComponentData: ");
-            console.log(pageComponentData);
-            console.log("pageCanvasStyleData: ");
-            console.log(pageCanvasStyleData);
-            console.log("JSON格式的pageComponentData: ");
-            console.log(JSON.stringify(pageComponentData));
-            console.log("JSON格式的pageCanvasStyleData: ");
-            console.log(JSON.stringify(pageCanvasStyleData));
-            this.$axios.post(
-                '/api/prototype/update_page',
-                this.$qs.stringify({
-                    teamID: teamID,
-                    prototypeID: prototypeID,
-                    pageID: pageID,
-                    pageComponentData: JSON.stringify(pageComponentData),
-                    pageCanvasStyle: JSON.stringify(pageCanvasStyleData)
-                })
-            ).then(response => {
-                console.log("debug: 打印更改页面后的后端返回数据");
-                console.log(response.data);
-                if (response.data.errno === 0) {
-                    this.$message.success(response.data.msg)
-                } else {
-                    this.$message.error(response.data.msg)
-                }
-            }).catch(err => {
-                console.error(err);
-            })
+            this.$parent.websocketsend()
+            /**
+            * axios 版本
+            */
+            // let teamID = JSON.parse(sessionStorage.getItem('TeamID'));
+            // let prototypeID = JSON.parse(sessionStorage.getItem('prototypeID'));
+            // let pageID = JSON.parse(sessionStorage.getItem('pageID'));
+            // let pageComponentData = this.componentData;
+            // let pageCanvasStyleData = this.canvasStyleData;
+            // console.log("打印保存页面请求的参数");
+            // console.log("teamID: " + teamID);
+            // console.log("prototypeID: " + prototypeID);
+            // console.log("pageID: " + pageID);
+            // console.log("pageComponentData: ");
+            // console.log(pageComponentData);
+            // console.log("pageCanvasStyleData: ");
+            // console.log(pageCanvasStyleData);
+            // console.log("JSON格式的pageComponentData: ");
+            // console.log(JSON.stringify(pageComponentData));
+            // console.log("JSON格式的pageCanvasStyleData: ");
+            // console.log(JSON.stringify(pageCanvasStyleData));
+            // this.$axios.post(
+            //     '/api/prototype/update_page',
+            //     this.$qs.stringify({
+            //         teamID: teamID,
+            //         prototypeID: prototypeID,
+            //         pageID: pageID,
+            //         pageComponentData: JSON.stringify(pageComponentData),
+            //         pageCanvasStyle: JSON.stringify(pageCanvasStyleData)
+            //     })
+            // ).then(response => {
+            //     console.log("debug: 打印更改页面后的后端返回数据");
+            //     console.log(response.data);
+            //     if (response.data.errno === 0) {
+            //         this.$message.success(response.data.msg)
+            //     } else {
+            //         this.$message.error(response.data.msg)
+            //     }
+            // }).catch(err => {
+            //     console.error(err);
+            // })
+            /**
+             * localstorage 版本
+             */
             //localStorage.setItem('canvasData', JSON.stringify(this.componentData))
             //localStorage.setItem('canvasStyle', JSON.stringify(this.canvasStyleData))
             // console.log("在保存时打印当前的组件数据");
