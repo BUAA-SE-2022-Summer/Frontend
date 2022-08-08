@@ -43,14 +43,20 @@ const routes = [
 
   },
   {
+
     path:'/filetreetest',
     name:'filetreetest',
     component: () => import("../views/filetreetest")
   },
   {
-    path:'/filetreetry',
-    name:'filetreetry',
+    path: '/filetreetry',
+    name: 'filetreetry',
     component: () => import("../views/filetreetry")
+  },
+  {
+    path:'/memberMain',
+    name:'memberMain',
+    component:()=>import("../components/team/MemberManage.vue")
   }
 ]
 

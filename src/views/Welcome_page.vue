@@ -10,17 +10,17 @@
         </v-btn>
         <v-divider></v-divider>
         <v-btn value="recent">
-          <span style="color: black;font-size: large;" @click="overlay2 = !overlay2">修改个人信息</span>
+          <span style="color: black;font-size: large;" @click="overlay2= !overlay2">修改个人信息</span>
         </v-btn>
         <v-overlay :value="overlay2" :dark=isdark :opacity="0.3">
           <div>
             <user_centerVue></user_centerVue>
             <!-- <true_user_centerVue></true_user_centerVue> -->
-            <div @click="overlay2 = false" style="font-size=40px">
+            <v-btn @click="overlay2=false" style="font-size=40px">
 
               <v-icon style="float:left;color:red;font-weight: 500;" x-large>mdi-arrow-left</v-icon>
 
-            </div>
+            </v-btn>
 
           </div>
         </v-overlay>
@@ -58,7 +58,9 @@
         <v-btn value="recent">
           <span style="color: black;font-size: large;" @click="logout">退出登录</span>
         </v-btn>
-
+        <v-btn value="recent">
+          <span style="color: black;font-size: large;" @click="forget">忘记密码</span>
+        </v-btn>
 
         <div class="mobook_head">
           <img v-if="this.iflogin === 1" :src="this.userhead"
@@ -91,6 +93,7 @@ import login_pageVue from './login_page.vue';
 import register_pageVue from './register_page.vue';
 import user_centerVue from './user_info_change.vue';
 import true_user_centerVue from './true_user_center.vue';
+import qs from 'qs'
 export default {
   components: { user_centerVue, true_user_centerVue, login_pageVue, register_pageVue },
   name: "Welcome_page",
@@ -150,7 +153,7 @@ export default {
     },
     toMain() {
       if (this.login != 0) {
-        this.$router.push('/teamdashboard')
+        this.$router.push('/teamdashboard');
       } else {
         this.$message.push("请先登录")
       }
@@ -169,6 +172,19 @@ export default {
     },
     gouc() {
       this.$router.push('/true_user_center')
+    },
+    close(){
+      this.overlay2=false
+      console.log("关闭", this.overlay2)
+    },
+    open2(e){
+      console.log("2:", e)
+    },
+    forget(){
+
+    },
+    send_code(){
+     
     }
   }
 }
@@ -192,8 +208,8 @@ export default {
   background-size: cover;
 }
 
-.topBar {
+/* .topBar {
   background: url("https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/welBack2.png");
   background-size: cover;
-}
+} */
 </style>
