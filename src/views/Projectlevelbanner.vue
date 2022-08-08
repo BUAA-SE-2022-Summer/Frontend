@@ -145,6 +145,9 @@ export default {
   methods:{
     changeteam(teamid){
       console.log(teamid);
+      sessionStorage.setItem('TeamID', JSON.stringify(teamid));
+      //页面刷新
+      window.location.reload();
       this.changeproject(teamid);
     },
     changeproject(teamid) {
