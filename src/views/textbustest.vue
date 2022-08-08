@@ -2,7 +2,7 @@
   <div>
     <div>
       <img class="bgbox" id="bgbox" alt="" src="../../src/img/背景.jpg">
-      <div style="width: 1540px;height:6vh;background-color: whitesmoke;">
+      <div style="width: 100vw;height:6vh;background-color: whitesmoke;">
         <router-link to="/">
           <div><img :src="this.logourl" style="width: 20vh;height:6vh;position: absolute;"></div>
         </router-link>
@@ -88,7 +88,12 @@
 
         <div style="top:5px;position: absolute;left: 10px;cursor: pointer" @click="showtrash"><b>> 回收站</b></div>
       </div>
-      <div ref="editorContainer" style="width: 165vh;position: absolute;left:40vh;height:100vh;minHeight: 100vh"></div>
+      <div v-if="this.ifshow===0" style="position: absolute;top:87vh">
+        <el-button @click="exportword" style="width: 9.6vw">导出word</el-button>
+      </div>
+      <div v-if="this.ifshow===0" style="position: absolute;top:87vh;left:9.6vw"><el-button @click="exportpdf" style="width: 9.6vw">导出pdf</el-button></div>
+      <div style="position: absolute;left: 40vh">
+        <div ref="editorContainer" style="width: 165vh;left:40vh;height:100vh;minHeight: 100vh"></div></div>
       <!--<div style="position: absolute;left:700px;top:80vh"><v-btn text color="primary" @click="outtxt">导出当前文档</v-btn></div>-->
       <!--<div style="position: absolute;left:900px;top:80vh"><v-btn text color="error" @click="deletetxt">删除当前文档</v-btn></div>
       <div style="position: absolute;left:1100px;top:80vh"><v-btn text color="primary" @click="createnewtxt">新建文档</v-btn></div>-->
@@ -131,6 +136,10 @@
           style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
       <div><img v-if="this.show === 6" src="../img/需求规格说明书.jpg"
           style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
+      <!--<div v-if="this.ifshow===0" style="position: absolute;top:87vh">
+        <el-button @click="exportword" style="width: 9.6vw">导出word</el-button>
+      </div>
+      <div v-if="this.ifshow===0" style="position: absolute;top:87vh;left:9.6vw"><el-button @click="exportpdf" style="width: 9.6vw">导出pdf</el-button></div>-->
     </div>
     <!--<div><el-button @click="load">cnm</el-button></div>-->
   </div>
@@ -141,6 +150,8 @@ import '@textbus/editor/bundles/textbus.min.css';
 import doxlists1 from "../components/demo/trashlists";
 import doxlist from "../components/demo/doxlists";
 import qs from "qs";
+import { exportWord } from 'mhtml-to-word'
+import { saveAs } from 'file-saver'
 export default {
   components: { doxlists1, doxlist },
   name: "textbustest",
@@ -179,6 +190,8 @@ export default {
       needbook: '<h1><strong>xx软件需求规格说明书</strong></h1><p><strong><br></strong></p><p><strong><br></strong></p><table class="tb-table"><tbody><tr><td colSpan="5" rowSpan="1" style="text-align:center"><strong style="font-size:20px">xx软件需求规格说明书</strong></td></tr><tr><td colSpan="5" rowSpan="1">硬件整体需求：</td></tr><tr><td colSpan="5" rowSpan="1">工作环境需求：</td></tr><tr><td colSpan="1" rowSpan="1">需求编号：</td><td colSpan="1" rowSpan="1">功能名称</td><td colSpan="1" rowSpan="1">功能需求标识</td><td colSpan="1" rowSpan="1">优先级</td><td colSpan="1" rowSpan="1">具体描述</td></tr><tr><td colSpan="1" rowSpan="1">1</td><td colSpan="1" rowSpan="1">系统入口</td><td colSpan="1" rowSpan="1">L1</td><td colSpan="1" rowSpan="1">最高</td><td colSpan="1" rowSpan="1">用户在该软件中进行一切操作的入口</td></tr></tbody></table><h2>&nbsp;</h2><p><br></p>',
       show: 0,
       if_save:0,
+      if_choose_file:JSON.parse(sessionStorage.getItem('if_choose_file')),
+      now_file_name:JSON.parse(sessionStorage.getItem('now_textname')),
     }
   },
   created() {
@@ -202,6 +215,26 @@ export default {
     console.log("当前文档id" + this.now_id);
   },
   methods: {
+    exportword(){
+      if(this.if_choose_file===0){
+        this.$message.error('请先选择文档');
+      }
+      else {
+        let html = this.editor1.getContents().content;
+        let blob = new Blob([html], {type: "application/msword;charset=utf-8"});
+        //let blob = new Blob([html],{type:"application/pdf;charset=utf-8"});
+        saveAs(blob, this.now_file_name);
+      }
+    },
+    exportpdf(){
+      if(this.if_choose_file===0){
+        this.$message.error('请先选择文档');
+      }
+      else {
+        sessionStorage.setItem('pdf', JSON.stringify(this.editor1.getContents().content));
+        this.$router.push('/pdftest');
+      }
+    },
     returnbefore(){
       this.$router.push('/projectdashboard');
     }
@@ -374,6 +407,7 @@ export default {
         })
     },
     find(row, column, cell, event) {
+      //this.if_choose_file=1;
       //alert(row.fileID);
       this.$axios({
         method: 'post',           /* 指明请求方式，可以是 get 或 post */

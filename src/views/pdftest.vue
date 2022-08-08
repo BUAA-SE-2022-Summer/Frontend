@@ -1,7 +1,7 @@
 <template>
 <div>
   <div id="printme" v-html="this.init"></div>
-  <button v-print="printObj">导出pdf</button>
+  <el-button v-print="printObj" style="margin-left: 47vw">导出pdf</el-button>
 </div>
 </template>
 

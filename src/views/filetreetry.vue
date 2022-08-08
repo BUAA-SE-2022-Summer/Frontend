@@ -2,7 +2,7 @@
   <div>
     <div>
       <!--<img class="bgbox" id="bgbox" alt="" src="../../src/img/背景.jpg">-->
-      <div style="width: 1540px;height:6vh;background-color: whitesmoke;">
+      <div style="width: 100vw;height:6vh;background-color: whitesmoke;">
         <router-link to="/">
           <div><img :src="this.logourl" style="width: 20vh;height:6vh;position: absolute;"></div>
         </router-link>
@@ -135,7 +135,7 @@
                 style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
       <div><img v-if="this.show === 6" src="../img/需求规格说明书.jpg"
                 style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
-      <div  style="height:80vh;width:300px;display: block;overflow-y: scroll;position: absolute;top:12vh;background-color: whitesmoke">
+      <div  style="height:75vh;width:300px;display: block;overflow-y: scroll;position: absolute;top:12vh;background-color: whitesmoke">
         <v-treeview
             v-if="this.ifshow===0"
             v-model="tree"
@@ -173,10 +173,10 @@
           <el-button>导出文件</el-button>
         </div>-->
       </div>
-      <div style="position: absolute;left:500px;top:700px">
-         <el-button @click="exportword">导出word</el-button>
-         <el-button @click="exportpdf">导出pdf</el-button>
+      <div style="position: absolute;top:87vh">
+         <el-button @click="exportword" style="width: 9.6vw">导出word</el-button>
      </div>
+      <div style="position: absolute;top:87vh;left:9.6vw"><el-button @click="exportpdf" style="width: 9.6vw">导出pdf</el-button></div>
     </div>
     <!--<div><el-button @click="load">cnm</el-button></div>-->
   </div>
@@ -239,6 +239,7 @@ export default {
       if_save:0,
       opendir:0,
       now_file_name:'',
+      if_choose_file:0,
     }
   },
   created() {
@@ -283,14 +284,24 @@ export default {
   },
   methods: {
     exportword(){
-      let html = this.editor1.getContents().content;
-      let blob = new Blob([html],{type:"application/msword;charset=utf-8"});
-      //let blob = new Blob([html],{type:"application/pdf;charset=utf-8"});
-      saveAs(blob,this.now_file_name);
+      if(this.if_choose_file===0){
+        this.$message.error('请先选择文档');
+      }
+      else {
+        let html = this.editor1.getContents().content;
+        let blob = new Blob([html], {type: "application/msword;charset=utf-8"});
+        //let blob = new Blob([html],{type:"application/pdf;charset=utf-8"});
+        saveAs(blob, this.now_file_name);
+      }
     },
     exportpdf(){
-      sessionStorage.setItem('pdf',JSON.stringify(this.editor1.getContents().content));
-      this.$router.push('/pdftest');
+      if(this.if_choose_file===0){
+        this.$message.error('请先选择文档');
+      }
+      else {
+        sessionStorage.setItem('pdf', JSON.stringify(this.editor1.getContents().content));
+        this.$router.push('/pdftest');
+      }
     },
     createsondir(item){
       this.ifnew=3;
@@ -387,6 +398,7 @@ export default {
     edit(item){
       //this.$message.success(item.id);
       //sessionStorage.setItem('now_textid', JSON.stringify(item.id));
+      this.if_choose_file=1;
       this.now_id=item.id;
       this.now_file_name=item.name;
       console.log(this.now_id);
@@ -570,6 +582,28 @@ export default {
         url: '/api/file/delete_file',
         data: qs.stringify({
           fileID: this.now_id,
+        })
+      })
+          .then(res => {
+            console.log(res.data)
+            if (res.data.errno === 0) {
+              this.$message.success("删除成功");
+              window.location.reload();
+            } else {
+              alert(res.data.msg);
+              this.$message.error(res.data.msg);
+            }
+          })
+          .catch(err => {
+            console.log(err);         /* 若出现异常则在终端输出相关信息 */
+          })
+    },
+    delete1(item){
+      this.$axios({
+        method: 'post',
+        url: '/api/file/delete_file',
+        data: qs.stringify({
+          fileID: item.id,
         })
       })
           .then(res => {

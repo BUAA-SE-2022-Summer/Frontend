@@ -295,8 +295,10 @@ export default {
     },
     toItem(item) {
       if(JSON.parse(sessionStorage.getItem('if_save'))===0){
-          alert('当前文档未保存');
+          //alert('当前文档未保存');
+        //this.$message.error('当前文档未保存');
       }
+      sessionStorage.setItem('if_choose_file',JSON.stringify(1));
       console.log("跳转文档详情页")
       //alert("跳转文档详情页");
       const index = this.desserts.indexOf(item)
