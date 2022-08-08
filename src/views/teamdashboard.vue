@@ -34,16 +34,14 @@
                         </v-list-item-content>
                       </v-list-item>
                     </v-list>
-                    <v-card-actions class="text-h6 white--text" style="height: 55px">
+                    <v-card-actions class="text-h6 white--text" style="height: 55px; display: flex;">
                       <v-btn :class="{ 'show-btns': hover }" depressed outlined color="primary"
-                        style="border-radius: 4px;height: 35px;position: absolute;left:30px"
-                        @click="toProject(project.id)">
+                        style="border-radius: 4px;height: 35px;" @click="goTeam(item)">
                         进入团队
                       </v-btn>
-                      <v-btn :class="{ 'show-btns': hover }" depressed outlined
-                        style="border-radius: 4px;height: 35px;position: absolute;left:160px"
-                        @click="exitProject(project.id)">
-                        退出团队
+                      <v-btn :class="{ 'show-btns': hover }" depressed outlined style="border-radius: 4px;height: 35px;margin-left: auto;
+ order:2" @click="exitProject(project.id)">
+                        查看团队信息
                       </v-btn>
                     </v-card-actions>
                   </v-card>
@@ -58,14 +56,15 @@
           :sort-by="sortBy.toLowerCase()" :sort-desc="sortDesc" hide-default-footer>
           <template v-slot:header>
             <v-toolbar dark color="blue darken-3" class="mb-1" style="width: 1280px;height: 58px">
-              <span>全部团队</span>
+              <span style="float:left;">全部团队</span>
               <v-text-field v-model="search" clearable flat solo-inverted hide-details prepend-inner-icon="mdi-magnify"
                 label="Search" style="position: absolute;left:125px;width:200px;"></v-text-field>
               <template v-if="$vuetify.breakpoint.mdAndUp">
                 <v-select v-model="sortBy" flat solo-inverted hide-details :items="keys"
                   prepend-inner-icon="mdi-magnify" label="Sort by" style="position: absolute;left:350px;width:200px;">
                 </v-select>
-                <v-btn-toggle v-model="sortDesc" mandatory style="position: absolute;left:575px;width:98px;">
+                <v-divider style="margin: 1px"></v-divider>
+                <v-btn-toggle v-model="sortDesc" mandatory style="float:right;">
                   <v-btn depressed color="blue" :value="false">
                     <v-icon>mdi-arrow-up</v-icon>
                   </v-btn>
@@ -78,7 +77,7 @@
           </template>
           <template v-slot:default="props">
             <v-row>
-              <v-col>
+              <!-- <v-col>
                 <v-hover v-slot="{ hover }">
                   <v-card :elevation="hover ? 15 : 2" height="252px" width="280px" style="border-radius: 10px;">
                     <v-img style="border-radius: 10px;">
@@ -100,7 +99,7 @@
                     </v-img>
                   </v-card>
                 </v-hover>
-              </v-col>
+              </v-col> -->
               <v-col v-for="item in props.items" :key="item.name" cols="12" sm="6" md="3" lg="3">
                 <v-hover v-slot="{ hover }">
                   <v-card :elevation="hover ? 15 : 2" style="border-radius: 10px;width: 280px">
@@ -124,16 +123,14 @@
                         </v-list-item-content>
                       </v-list-item>
                     </v-list>
-                    <v-card-actions class="text-h6 white--text" style="height: 55px">
+                    <v-card-actions class="text-h6 white--text" style="height: 55px; display: flex;">
                       <v-btn :class="{ 'show-btns': hover }" depressed outlined color="primary"
-                        style="border-radius: 4px;height: 35px;position: absolute;left:30px"
-                        @click="toProject(project.id)">
+                        style="border-radius: 4px;height: 35px;" @click="goTeam(item)">
                         进入团队
                       </v-btn>
-                      <v-btn :class="{ 'show-btns': hover }" depressed outlined
-                        style="border-radius: 4px;height: 35px;position: absolute;left:160px"
-                        @click="exitProject(project.id)">
-                        退出团队
+                      <v-btn :class="{ 'show-btns': hover }" depressed outlined style="border-radius: 4px;height: 35px;margin-left: auto;
+ order:2" @click="exitProject(project.id)">
+                        查看团队信息
                       </v-btn>
                     </v-card-actions>
                   </v-card>
@@ -144,34 +141,16 @@
 
           <template v-slot:footer>
             <v-row class="mt-2" align="center" justify="center">
-              <span class="grey--text" style="position: relative;left:1px;top:3px">Items per page</span>
-              <v-menu offset-y>
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn dark text color="primary" class="ml-2" v-bind="attrs" v-on="on"
-                    style="width: 60px;position: relative;left:-510px;top:-25px">
-                    {{ itemsPerPage }}
-                    <v-icon>mdi-chevron-down</v-icon>
-                  </v-btn>
-                </template>
-                <v-list>
-                  <v-list-item v-for="(number, index) in itemsPerPageArray" :key="index"
-                    @click="updateItemsPerPage(number)">
-                    <v-list-item-title>{{ number }}</v-list-item-title>
-                  </v-list-item>
-                </v-list>
-              </v-menu>
-
-              <v-spacer></v-spacer>
-
-              <span class="mr-4 grey--text" style="position: relative;left:1050px;top:-50px">
-                Page {{ page }} of {{ numberOfPages }}
-              </span>
-              <v-btn fab small dark color="blue darken-3" class="mr-1" @click="formerPage"
-                style="position: relative;left: 540px;top: -84px">
+              <div style="display:flex">
+                <div class="grey--text" style="float:left">4 Items per page</div>
+                <div class="mr-4 grey--text" style="margin-left:auto;float:right">
+                  Page {{ page }} of {{ numberOfPages }}
+                </div>
+              </div>
+              <v-btn fab small dark color="blue darken-3" class="mr-1" @click="formerPage">
                 <v-icon>mdi-chevron-left</v-icon>
               </v-btn>
-              <v-btn fab small dark color="blue darken-3" class="ml-1" @click="nextPage"
-                style="position: relative;left: 550px;top: -84px">
+              <v-btn fab small dark color="blue darken-3" class="ml-1" @click="nextPage">
                 <v-icon>mdi-chevron-right</v-icon>
               </v-btn>
             </v-row>
@@ -186,100 +165,19 @@ import Workspacebanner from "@/views/Workspacebanner";
 export default {
   data() {
     return {
-      itemsPerPageArray: [3, 7, 11],
       search: '',
       filter: {},
       sortDesc: false,
       page: 1,
-      itemsPerPage: 3,
+      itemsPerPage: 4,
       sortBy: 'name',
       keys: [
         'team_name',
         'team_manager',
         'member_num',
       ],
-      teams: [
-        {
-          name: '团队一',
-          creator: 'actor',
-          time: '2000-01-01',
-          number: 1,
-        },
-        {
-          name: '团队二',
-          creator: 'actor',
-          time: '2000-01-01',
-          number: 2,
-        },
-        {
-          name: '团队三',
-          creator: 'actor',
-          time: '2000-01-01',
-          number: 3,
-        },
-        {
-          name: '团队四',
-          creator: 'actor',
-          time: '2000-01-01',
-          number: 1,
-        },
-        {
-          name: '团队四',
-          creator: 'actor',
-          time: '2000-01-01',
-          number: 1,
-        },
-        {
-          name: '团队四',
-          creator: 'actor',
-          time: '2000-01-01',
-          number: 1,
-        },
-        {
-          name: '团队四',
-          creator: 'actor',
-          time: '2000-01-01',
-          number: 1,
-        },
-        {
-          name: '团队四',
-          creator: 'actor',
-          time: '2000-01-01',
-          number: 1,
-        },
-        {
-          name: '团队四',
-          creator: 'actor',
-          time: '2000-01-01',
-          number: 1,
-        },
-      ],
-      recentTeams: [
-        {
-          name: '团队四',
-          actor: 'actor',
-          time: '2000-01-01',
-          number: 1,
-        },
-        {
-          name: '团队四',
-          actor: 'actor',
-          time: '2000-01-01',
-          number: 1,
-        },
-        {
-          name: '团队四',
-          actor: 'actor',
-          time: '2000-01-01',
-          number: 1,
-        },
-        {
-          name: '团队四',
-          actor: 'actor',
-          time: '2000-01-01',
-          number: 1,
-        },
-      ],
+      teams: [],
+      recentTeams: [],
     }
   },
   components: {
@@ -303,6 +201,22 @@ export default {
     updateItemsPerPage(number) {
       this.itemsPerPage = number
     },
+    goTeam(item) {
+      sessionStorage.setItem('TeamID', JSON.stringify(item.teamID));
+      console.log("选择的团队id为: " + item.teamID);
+      sessionStorage.setItem('TeamName', JSON.stringify(item.team_name));
+      console.log("选择的团队名为: " + item.team_name);
+      this.$router.push('/projectdashboard');
+    }
   },
+  created() {
+    this.$axios.post(
+      '/api/team/show_my_team_list'
+    ).then(res => {
+      this.teams = res.data.team_list;
+      // 获取team_list的最近团队4个
+      this.recentTeams = res.data.team_list.slice(0, 4);
+    });
+  }
 }
 </script>

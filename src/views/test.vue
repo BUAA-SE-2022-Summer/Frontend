@@ -1,20 +1,10 @@
 <template>
-<div>
-  <div class="top">
-
-  </div>
-  <div>
-    <div style="float:left">
-      <project-menu></project-menu>
-    </div>
-    <div style="float:left">
-
-    </div>
-  </div>
-</div>
+<v-card>
+    <v-card-title>密码重置</v-card-title>
+</v-card>
 </template>
 <script>
-import projectMenuVue from "../components/project/projectMenu.vue";
-import projectAllVue from "../components/project/projectAll.vue";
-
+export default {
+    
+}
 </script>

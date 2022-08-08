@@ -6,6 +6,7 @@ on:
       # mian分支，你也可以改成其他分支
       - main
       - dev
+      - dev-refactor
 jobs:
   # 任务ID
   build:

@@ -1,5 +1,10 @@
 <template>
-    <div style="width:1100px;margin: 0;height: 600px;">
+    <div>
+    <div>
+        <projectlevelbanner></projectlevelbanner>
+    </div>
+    
+    <div style="width:1100px;height: 600px;margin: auto;margin-top: 150px;">
         <v-toolbar flat>
             <v-icon color="pink" x-large>mdi-heart</v-icon>
             <v-toolbar-title style="font-size: 30px;font-weight: 500;">成员管理</v-toolbar-title>
@@ -11,10 +16,14 @@
         <MemberTables v-show="this.memTable == 1"></MemberTables>
 
     </div>
+   
+    </div>
 </template>
 <script>
 import qs from 'qs'
 import MemberTables from './MemberTables.vue'
+import projectlevelbanner from "../../views/Projectlevelbanner";
+import Projectlevelbanner from '../../views/Projectlevelbanner.vue';
 export default {
     data() {
         return {
@@ -22,7 +31,7 @@ export default {
             user_list: [],
         };
     },
-    components: { MemberTables },
+    components: { MemberTables,projectlevelbanner, Projectlevelbanner },
     computed: {
         getTeamid() {
             return this.$store.state.teamid
