@@ -699,7 +699,7 @@ export default {
     }
   },
   mounted() {
-    if(!(this.now_id===null)) {
+    if(!(this.now_id===0)) {
       this.$axios({
         method: 'post',           /* 指明请求方式，可以是 get 或 post */
         url: '/api/file/read_file',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */

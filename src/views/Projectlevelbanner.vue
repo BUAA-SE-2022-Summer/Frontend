@@ -16,6 +16,10 @@
         <el-button type="text" icon="el-icon-user-solid"
           style="background-color: whitesmoke;border-color: whitesmoke;height:6vh;position: absolute;" @click="toMem">成员管理</el-button>
       </div>
+      <div style="left:130vh;position: absolute">
+        <el-button type="text" icon="el-icon-user-solid"
+                   style="background-color: whitesmoke;border-color: whitesmoke;height:6vh;position: absolute;" @click="tofilecenter">团队文档中心</el-button>
+      </div>
       <!-- <div style="left:123vh;position: absolute"><el-button type="text" icon="el-icon-picture" style="background-color: whitesmoke;border-color: whitesmoke;height:6vh;position: absolute;">UML绘制</el-button></div>-->
       <div style="left:175vh;position: absolute"><img :src="this.userhead"
           style="border-radius: 50%;width: 6vh;height: 6vh"></div>
@@ -185,6 +189,11 @@ export default {
     toMem(){
       console.log("跳转到成员管理")
       this.$router.push("/memberMain")
+    },
+    tofilecenter(){
+      console.log("跳转到文档中心");
+      sessionStorage.setItem('now_textid',JSON.stringify(0));
+      this.$router.push("/filetreetry");
     },
     returnbefore(){
       this.$router.go(-1);
