@@ -1,9 +1,7 @@
-
-
 <template>
     <v-card class="mx-auto" outlined max-width="300" tile>
         <v-list flat>
-            <v-subheader>企业人员</v-subheader>
+            <v-subheader>团队列表</v-subheader>
             <v-list-item-group v-model="selectedItem" color="primary">
                 <v-list-item v-for="(item, i) in items" :key="i">
 
@@ -21,28 +19,24 @@
         </v-list>
     </v-card>
 </template>
-x
+
 <script>
-// import Avatar from 'vue-avatar'
+import Avatar from 'vue-avatar'
 
 export default {
+    components: {
+        Avatar
+    },
     data: () => ({
         selectedItem: 1,
         items: [
             { name: '皮瑞', introduce: 'short' },
             { name: 'Pi rui', introduce: 'long' },
             { name: 'Green Rui', introduce: 'short' },
-
             { name: 'Yellow Rui', introduce: 'short' },
-
             { name: 'Brother', introduce: 'short' },
         ],
     }),
-    components: {
-        // Avatar
-    },
-
-
 }
 
 </script>

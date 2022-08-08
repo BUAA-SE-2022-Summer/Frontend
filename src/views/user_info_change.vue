@@ -20,6 +20,7 @@
         <v-text-field v-model="email"  :counter="20" label="邮箱" required></v-text-field>
         <v-text-field v-model="phone"  :counter="20" label="手机号码" required></v-text-field>
         <v-text-field v-model="profile"  :counter="20" label="个人简介" required></v-text-field>
+        <v-text-field v-model="password"  :counter="20" label="密码" required></v-text-field>
         <div @click="update" style="color:black;text-align: center;width: 100%;font-size: 20px;">
           <span>更新资料</span>
         </div>
@@ -77,7 +78,7 @@ export default {
         this.phone = res.data.data.phone;
         this.profile = res.data.data.profile;
         this.username1 = this.username;
-        this.password = res.data.data.password;
+        // this.password = res.data.data.password;
         console.log(this.profile);
         console.log(this.password);
         console.log(this.userhead)

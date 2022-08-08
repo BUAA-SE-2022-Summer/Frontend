@@ -25,7 +25,8 @@
               </v-col>
             </v-row>
             <v-card-text style="font-size:20px;color: black;font-weight: 500;">
-              {{ this.invitedName }}邀请您加入{{ this.teamName }}团队,确认请点击以下链接：</v-card-text>
+              {{ this.inviteName }}邀请您加入{{ this.teamName }}团队,确认请点击以下链接：</v-card-text>
+            <v-text-field outlined label="请输入您的密码" v-model="password"> </v-text-field>
             <v-btn width="100%" @click="sendConfirm"
               style="background: transparent; border-left: transparent;border-right: transparent;">确认加入</v-btn>
           </div>
@@ -70,6 +71,7 @@ export default {
       absolute: false,
       opacity: 0.46,
       zIndex: 5,
+      password:"",
     }
   },
   created() {
@@ -169,13 +171,17 @@ export default {
         url: url,
         data: qs.stringify({
           "token": this.token,
+          password:this.password,
         })
       }).then(res => {
         var result = res.data
         console.log(result)
         alert(result.msg)
         if (result.errno === 0) {
+          this.$message.success(result.msg)
           this.$router.push('/')
+        }else{
+          this.$message.error(result.msg)
         }
       })
 
