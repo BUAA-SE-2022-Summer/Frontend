@@ -67,6 +67,11 @@ const routes = [
     path:'/pdftest',
     name:'pdftest',
     component:()=>import("../views/pdftest")
+  },
+  {
+    path:'/project/uml',
+    name:'projectUML',
+    component:()=>import("../views/UML.vue")
   }
 ]
 
