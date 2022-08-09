@@ -175,7 +175,7 @@ export default {
     },
   },
   created() {
-    sessionStorage.setItem('TeamID', 6);
+    // sessionStorage.setItem('TeamID', 6);
     this.get_create_project_list()
     this.rename=false
     this.copy=false
