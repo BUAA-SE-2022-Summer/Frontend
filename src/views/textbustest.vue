@@ -11,9 +11,11 @@
             style="background-color: whitesmoke;border-color: whitesmoke;height:6vh;position: absolute;">文档</el-button>
         </div>
         <div style="left:105vh;position: absolute">
-          <el-button type="text" icon="el-icon-s-platform"
-            style="background-color: whitesmoke;border-color: whitesmoke;height:6vh;position: absolute;">原型设计
-          </el-button>
+          <router-link to="/prototype">
+            <el-button type="text" icon="el-icon-s-platform"
+              style="background-color: whitesmoke;border-color: whitesmoke;height:6vh;position: absolute;">原型设计
+            </el-button>
+          </router-link>
         </div>
         <div style="left:123vh;position: absolute">
           <el-button type="text" icon="el-icon-picture"
@@ -88,12 +90,15 @@
 
         <div style="top:5px;position: absolute;left: 10px;cursor: pointer" @click="showtrash"><b>> 回收站</b></div>
       </div>
-      <div v-if="this.ifshow===0" style="position: absolute;top:87vh">
+      <div v-if="this.ifshow === 0" style="position: absolute;top:87vh">
         <el-button @click="exportword" style="width: 9.6vw">导出word</el-button>
       </div>
-      <div v-if="this.ifshow===0" style="position: absolute;top:87vh;left:9.6vw"><el-button @click="exportpdf" style="width: 9.6vw">导出pdf</el-button></div>
+      <div v-if="this.ifshow === 0" style="position: absolute;top:87vh;left:9.6vw">
+        <el-button @click="exportpdf" style="width: 9.6vw">导出pdf</el-button>
+      </div>
       <div style="position: absolute;left: 40vh">
-        <div ref="editorContainer" style="width: 165vh;left:40vh;height:100vh;minHeight: 100vh"></div></div>
+        <div ref="editorContainer" style="width: 165vh;left:40vh;height:100vh;minHeight: 100vh"></div>
+      </div>
       <!--<div style="position: absolute;left:700px;top:80vh"><v-btn text color="primary" @click="outtxt">导出当前文档</v-btn></div>-->
       <!--<div style="position: absolute;left:900px;top:80vh"><v-btn text color="error" @click="deletetxt">删除当前文档</v-btn></div>
       <div style="position: absolute;left:1100px;top:80vh"><v-btn text color="primary" @click="createnewtxt">新建文档</v-btn></div>-->
@@ -189,19 +194,19 @@ export default {
       needlook: '<h1><strong>xx项目需求调研报告</strong></h1><p><strong><br></strong></p><table class="tb-table"><tbody><tr><td colSpan="2" rowSpan="1" style="text-align:center"><strong>软件开发项目需求调研报告模板</strong></td></tr><tr><td colSpan="2" rowSpan="1">项目名称：</td></tr><tr><td colSpan="2" rowSpan="1">调查方式：</td></tr><tr><td colSpan="1" rowSpan="1">调查人：</td><td colSpan="1" rowSpan="1">调查时间：</td></tr><tr><td colSpan="2" rowSpan="1">调查地点：</td></tr><tr><td colSpan="2" rowSpan="1">参与人员：</td></tr><tr><td colSpan="2" rowSpan="1">调研内容：</td></tr><tr><td colSpan="2" rowSpan="1">取得的原始材料：</td></tr><tr><td colSpan="2" rowSpan="1">收到的结果与反馈：</td></tr><tr><td colSpan="1" rowSpan="1">项目代表签字：</td><td colSpan="1" rowSpan="1">用户代表签字：</td></tr></tbody></table><h2>&nbsp;</h2><p><br></p>',
       needbook: '<h1><strong>xx软件需求规格说明书</strong></h1><p><strong><br></strong></p><p><strong><br></strong></p><table class="tb-table"><tbody><tr><td colSpan="5" rowSpan="1" style="text-align:center"><strong style="font-size:20px">xx软件需求规格说明书</strong></td></tr><tr><td colSpan="5" rowSpan="1">硬件整体需求：</td></tr><tr><td colSpan="5" rowSpan="1">工作环境需求：</td></tr><tr><td colSpan="1" rowSpan="1">需求编号：</td><td colSpan="1" rowSpan="1">功能名称</td><td colSpan="1" rowSpan="1">功能需求标识</td><td colSpan="1" rowSpan="1">优先级</td><td colSpan="1" rowSpan="1">具体描述</td></tr><tr><td colSpan="1" rowSpan="1">1</td><td colSpan="1" rowSpan="1">系统入口</td><td colSpan="1" rowSpan="1">L1</td><td colSpan="1" rowSpan="1">最高</td><td colSpan="1" rowSpan="1">用户在该软件中进行一切操作的入口</td></tr></tbody></table><h2>&nbsp;</h2><p><br></p>',
       show: 0,
-      if_save:0,
-      if_choose_file:JSON.parse(sessionStorage.getItem('if_choose_file')),
-      now_file_name:JSON.parse(sessionStorage.getItem('now_textname')),
+      if_save: 0,
+      if_choose_file: JSON.parse(sessionStorage.getItem('if_choose_file')),
+      now_file_name: JSON.parse(sessionStorage.getItem('now_textname')),
     }
   },
   created() {
-    sessionStorage.setItem('if_save',JSON.stringify(this.if_save));
+    sessionStorage.setItem('if_save', JSON.stringify(this.if_save));
     //alert('进入详情页');
     this.now_id = JSON.parse(sessionStorage.getItem('now_textid'));
     //alert("textbus当前文档id为"+this.now_id);
     this.now_textname = JSON.parse(sessionStorage.getItem('now_textname'));
-    if(this.now_textname===null){
-      this.now_textname='当前没有选择文档';
+    if (this.now_textname === null) {
+      this.now_textname = '当前没有选择文档';
     }
     this.$axios.get('/api/user/get_user_info ').then(
       res => {
@@ -215,19 +220,19 @@ export default {
     console.log("当前文档id" + this.now_id);
   },
   methods: {
-    exportword(){
-      if(this.if_choose_file===0){
+    exportword() {
+      if (this.if_choose_file === 0) {
         this.$message.error('请先选择文档');
       }
       else {
         let html = this.editor1.getContents().content;
-        let blob = new Blob([html], {type: "application/msword;charset=utf-8"});
+        let blob = new Blob([html], { type: "application/msword;charset=utf-8" });
         //let blob = new Blob([html],{type:"application/pdf;charset=utf-8"});
         saveAs(blob, this.now_file_name);
       }
     },
-    exportpdf(){
-      if(this.if_choose_file===0){
+    exportpdf() {
+      if (this.if_choose_file === 0) {
         this.$message.error('请先选择文档');
       }
       else {
@@ -235,7 +240,7 @@ export default {
         this.$router.push('/pdftest');
       }
     },
-    returnbefore(){
+    returnbefore() {
       this.$router.push('/projectdashboard');
     }
     ,
@@ -432,8 +437,8 @@ export default {
         })
     },
     savetxt() {
-      this.if_save=1;
-      sessionStorage.setItem('if_save',JSON.stringify(this.if_save));
+      this.if_save = 1;
+      sessionStorage.setItem('if_save', JSON.stringify(this.if_save));
       this.$axios({
         method: 'post',           /* 指明请求方式，可以是 get 或 post */
         url: '/api/file/edit_file ',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
@@ -456,30 +461,30 @@ export default {
     }
   },
   mounted() {
-      if(!(this.now_id===null)) {
-        this.$axios({
-          method: 'post',           /* 指明请求方式，可以是 get 或 post */
-          url: '/api/file/read_file',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
-          data: qs.stringify({
-            fileID: this.now_id,
-          })
+    if (!(this.now_id === null)) {
+      this.$axios({
+        method: 'post',           /* 指明请求方式，可以是 get 或 post */
+        url: '/api/file/read_file',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
+        data: qs.stringify({
+          fileID: this.now_id,
         })
-            .then(res => {/* res 是 response 的缩写 */
-              //获取用户登录的三个基本信息并存放于sessionStorage
-              if (res.data.errno === 0) {
-                this.$message.success('导入文件成功');
-                this.newContent = res.data.content;
-                _this.editor1.replaceContent(this.newContent);
-                //this.inside = res.data.content;
-                sessionStorage.setItem('now_textid', JSON.stringify(res.data.fileID));
-              } else {
-                this.$message.error(res.data.msg);
-              }
-            })
-            .catch(err => {
-              console.log(err);         /* 若出现异常则在终端输出相关信息 */
-            });
-      }
+      })
+        .then(res => {/* res 是 response 的缩写 */
+          //获取用户登录的三个基本信息并存放于sessionStorage
+          if (res.data.errno === 0) {
+            this.$message.success('导入文件成功');
+            this.newContent = res.data.content;
+            _this.editor1.replaceContent(this.newContent);
+            //this.inside = res.data.content;
+            sessionStorage.setItem('now_textid', JSON.stringify(res.data.fileID));
+          } else {
+            this.$message.error(res.data.msg);
+          }
+        })
+        .catch(err => {
+          console.log(err);         /* 若出现异常则在终端输出相关信息 */
+        });
+    }
     const _this = this;
     _this.editor1 = createEditor();
     //const editor = createEditor();

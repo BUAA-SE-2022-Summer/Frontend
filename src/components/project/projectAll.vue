@@ -214,7 +214,6 @@ export default {
       sessionStorage.setItem('projectName', JSON.stringify(project.projectName));
       console.log('当前选中项目的项目名称是' + project.projectName);
       console.log("当前选中项目的root_fileID是: " + project.project_root_fileID);
-      this.$router.push("/textbustest", target = "_blank")
     },
     get_all_project_list() {
       var teamID = JSON.parse(sessionStorage.getItem('TeamID'));
