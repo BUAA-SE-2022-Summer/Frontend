@@ -1,22 +1,42 @@
 <template>
   <div>
-    <!-- <div>
-      <v-card class="mx-auto" max-width="300" tile>
-        <v-list dense>
-          <v-subheader>页面列表</v-subheader>
-          <v-list-item-group v-model="selectedItem" color="primary">
-            <v-list-item v-for="(item, i) in items" :key="i">
-              <v-list-item-icon>
-                <v-icon v-text="item.icon"></v-icon>
-              </v-list-item-icon>
-              <v-list-item-content>
-                <v-list-item-title v-text="item.text"></v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list-item-group>
-        </v-list>
-      </v-card>
-    </div> -->
+    <!-- <img class="bgbox" id="bgbox" alt="" src="../../src/img/背景.jpg"> -->
+    <div style="width: 100vw;height:6vh;background-color: whitesmoke;">
+      <router-link to="/">
+        <div><img src="https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/1.png"
+            style="width: 20vh;height:6vh;margin-left: 1vw;position: absolute;"></div>
+      </router-link>
+      <div style="left:90vh;position: absolute">
+        <router-link to="/textbustest ">
+          <el-button type="text" icon="el-icon-document"
+            style="background-color: whitesmoke;border-color: whitesmoke;height:6vh;position: absolute;">文档</el-button>
+        </router-link>
+      </div>
+      <div style="left:105vh;position: absolute">
+        <router-link to="/prototype">
+          <el-button type="text" icon="el-icon-s-platform"
+            style="background-color: whitesmoke;border-color: whitesmoke;height:6vh;position: absolute;">原型设计
+          </el-button>
+        </router-link>
+      </div>
+      <div style="left:123vh;position: absolute">
+        <el-button type="text" icon="el-icon-picture"
+          style="background-color: whitesmoke;border-color: whitesmoke;height:6vh;position: absolute;">UML绘制
+        </el-button>
+      </div>
+      <div style="left:175vh;position: absolute"><img :src="this.userhead"
+          style="border-radius: 50%;width: 6vh;height: 6vh"></div>
+      <div style="left:185vh;position: absolute;top:1.5vh"><b>{{ this.username }}</b></div>
+      <el-tooltip class="item" effect="dark" :content="this.teamname" placement="bottom">
+        <div style="left:42vh;position: absolute;top:1.5vh"><b>当前团队</b></div>
+      </el-tooltip>
+      <el-tooltip class="item" effect="dark" :content="this.projectname" placement="bottom">
+        <div style="left:52vh;position: absolute;top:1.5vh"><b>当前项目</b></div>
+      </el-tooltip>
+      <el-tooltip class="item" effect="dark" :content="this.now_textname" placement="bottom">
+        <div style="left:62vh;position: absolute;top:1.5vh"><b>当前文档</b></div>
+      </el-tooltip>
+    </div>
     <div class="Prototype">
       <Toolbar ref="toolbar" />
 
@@ -319,6 +339,20 @@ export default {
 </script>
 
 <style lang="scss">
+.bgbox {
+  display: block;
+  opacity: 1;
+  z-index: -3;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 1s, transform .25s, filter .25s;
+  backface-visibility: hidden;
+}
+
 .Prototype {
   height: 100vh;
   background: #fff;

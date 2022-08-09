@@ -159,10 +159,12 @@ export default {
       this.$router.push('/login')
     },
     toMain() {
-      if (this.login != 0) {
+      // console.log()
+      console.log(this.iflogin)
+      if (this.iflogin) {
         this.$router.push('/teamdashboard');
       } else {
-        this.$message.push("请先登录")
+        this.$message.error("请先登录")
       }
     },
     clickintroduction() {

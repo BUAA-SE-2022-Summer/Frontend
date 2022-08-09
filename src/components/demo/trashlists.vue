@@ -145,7 +145,7 @@ export default {
     this.teamname = JSON.parse(sessionStorage.getItem('TeamName'));
     this.$axios({
       method: 'post',
-      url: '/api/file/delete_filelist',
+      url: '/api/file/delete_filelist_in_project ',
       data: qs.stringify({
         projectID: this.projectID,
       })
@@ -175,7 +175,7 @@ export default {
     initialize() {
       this.$axios({
         method: 'post',
-        url: '/api/file/delete_filelist',
+        url: '/api/file/delete_filelist_in_project',
         data: qs.stringify({
           projectID: this.projectID,
         })
@@ -183,7 +183,7 @@ export default {
         console.log(res.data)
         if (res.data.errno === 0) {
           this.$message.success("获取回收站内容成功");
-          this.desserts = res.data.delete_filelist
+          this.desserts = res.data.delete_filelist;
           console.log(this.desserts)
         } else {
           alert(res.data.msg);
@@ -237,7 +237,7 @@ export default {
     review_doc(ID) {
       this.$axios({
         method: 'post',
-        url: '/api/file/restore_file',
+        url: '/api/file/restore_file ',
         data: qs.stringify({
           fileID: ID,
         })

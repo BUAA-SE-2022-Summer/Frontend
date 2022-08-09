@@ -184,7 +184,7 @@ export default {
       }).then(res => {
         console.log(res.data)
         if (res.data.errno === 0) {
-          this.$message.success("获取文件列表成功");
+          //this.$message.success("获取文件列表成功");
           this.desserts = res.data.filelist
           console.log(this.desserts)
         } else {

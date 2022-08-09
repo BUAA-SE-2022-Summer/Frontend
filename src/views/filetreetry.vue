@@ -88,7 +88,7 @@
       </div>
 
       <div v-if="this.ifshow === 0"
-           style="position: absolute;width: 300px;height:5vh;background-color: wheat;top:700px">
+           style="position: absolute;width: 300px;height:5vh;background-color: wheat;top:95vh">
 
         <div style="top:5px;position: absolute;left: 10px;cursor: pointer" @click="showtrash"><b>> 团队文档回收站</b></div>
       </div>
@@ -135,7 +135,7 @@
                 style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
       <div><img v-if="this.show === 6" src="../img/需求规格说明书.jpg"
                 style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
-      <div v-if="this.ifshow===0" style="height:75vh;width:300px;display: block;overflow-y: scroll;position: absolute;top:12vh;background-color: whitesmoke">
+      <div v-if="this.ifshow===0" style="height:78vh;width:300px;display: block;overflow-y: scroll;position: absolute;top:12vh;background-color: whitesmoke">
         <v-treeview
             v-if="this.ifshow===0"
             v-model="tree"
@@ -148,37 +148,37 @@
             :active.sync="active"
         >
           <template v-slot:prepend="{ item, open }">
-            <v-icon v-if="item.is_dir===true" @click="opendir1(item)">
+            <v-icon v-if="item.is_dir===true" @click="opendir1(item)" color="#FFAB00">
               {{ open ? 'mdi-folder-open' : 'mdi-folder' }}
             </v-icon>
-            <v-icon v-else >
-              mdi-file-document-outline
+            <v-icon v-else color="blue-grey darken-1">
+              mdi-file-document
             </v-icon>
-            <v-icon v-if="item.is_dir===false" @click="edit(item)">
+            <v-icon v-if="item.is_dir===false" @click="edit(item)" color="#F50057">
               mdi-pencil
             </v-icon>
             <v-icon v-if="item.is_dir===false" @click="delete1(item)">
               mdi-delete
             </v-icon>
-            <v-icon v-if="item.is_dir===true && item.is_pro===false" @click="createsondir(item)">
-              mdi-folder-plus-outline
+            <v-icon v-if="item.is_dir===true && item.is_pro===false" @click="createsondir(item)" color="light-blue accent-4">
+              mdi-folder-plus
             </v-icon>
-            <v-icon v-if="item.is_dir===true && item.is_pro===false" @click="createsondoc(item)">
-              mdi-file-plus-outline
+            <v-icon v-if="item.is_dir===true && item.is_pro===false" @click="createsondoc(item)" color="light-blue accent-4">
+              mdi-file-plus
             </v-icon>
-            <v-icon v-if="item.is_dir===true && item.is_pro===false" @click="createsondoc(item)">
+            <v-icon v-if="item.is_dir===true && item.is_pro===false" @click="delete1(item)">
               mdi-delete
             </v-icon>
             <div v-if="item.is_pro===true" style="display: inline-block"><b>(项目文档)</b></div>
           </template>
         </v-treeview>
       </div>
-      <div v-if="this.ifshow===1" style="height:80vh;width:300px;display: block;overflow-y: scroll;position: absolute;top:12vh;background-color: whitesmoke">
+      <div v-if="this.ifshow===1" style="height:88vh;width:300px;display: block;overflow-y: scroll;position: absolute;top:12vh;background-color: whitesmoke">
         <v-treeview
             v-if="this.ifshow===1"
             v-model="tree"
             :open="open"
-            :items="items"
+            :items="items1"
             color="blue"
             activatable
             item-key="name"
@@ -186,23 +186,26 @@
             :active.sync="active"
         >
           <template v-slot:prepend="{ item, open }">
-            <v-icon v-if="item.is_dir===true">
+            <v-icon v-if="item.is_dir===true" color="#FFAB00">
               {{ open ? 'mdi-folder-open' : 'mdi-folder' }}
             </v-icon>
-            <v-icon v-else >
-              mdi-file-document-outline
+            <v-icon v-else color="blue-grey darken-1">
+              mdi-file-document
             </v-icon>
-            <v-icon @click="review(item)">
+            <v-icon v-if="!(item.is_dir===true&&item.is_pro===true)" @click="review(item)" color="light-blue accent-4">
               mdi-autorenew
+            </v-icon>
+            <v-icon v-if="!(item.is_dir===true&&item.is_pro===true)" @click="deleteforever(item)" color="#FF1744">
+              mdi-delete
             </v-icon>
             <div v-if="item.is_pro===true" style="display: inline-block"><b>(项目文档)</b></div>
           </template>
         </v-treeview>
       </div>
-      <div v-if="this.ifshow===0"  style="position: absolute;top:87vh">
+      <div v-if="this.ifshow===0"  style="position: absolute;top:90vh;height: 5vh">
          <el-button @click="exportword" style="width: 9.6vw;background-color: #4ccaf0">导出word</el-button>
      </div>
-      <div  v-if="this.ifshow===0" style="position: absolute;top:87vh;left:9.6vw"><el-button @click="exportpdf" style="width: 9.6vw;background-color: #E65100">预览pdf</el-button></div>
+      <div  v-if="this.ifshow===0" style="position: absolute;top:90vh;left:9.6vw;height:5vh"><el-button @click="exportpdf" style="width: 9.6vw;background-color: #E65100">预览pdf</el-button></div>
       <div ref="editorContainer" style="width: 165vh;position: absolute;left:40vh;height:100vh;minHeight: 100vh"></div>
     </div>
     <!--<div><el-button @click="load">cnm</el-button></div>-->
@@ -229,6 +232,7 @@ export default {
       tree: [],
       items: [
       ],
+      items1:[],
       inputdirname:'',
       inputdirname1:'',
       inputfilename:'',
@@ -305,13 +309,125 @@ export default {
         .catch(err => {
           console.log(err);         /* 若出现异常则在终端输出相关信息 */
         });
+    this.$axios({
+      method: 'post',           /* 指明请求方式，可以是 get 或 post */
+      url: '/api/file/delete_filelist_in_centre',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
+      data: qs.stringify({
+        teamID: this.teamid,
+      })
+    })
+        .then(res => {/* res 是 response 的缩写 */
+          if (res.data.errno === 0) {
+            this.$message.success("获取团队回收站文档列表成功");
+            this.items1=res.data.items;
+            //this.$router.go(0);
+          } else {
+            this.$message.error(res.data.msg);
+          }
+        })
+        .catch(err => {
+          console.log(err);         /* 若出现异常则在终端输出相关信息 */
+        });
     console.log("debug当前项目id" + JSON.parse(sessionStorage.getItem('ProjectID')));
     console.log("当前项目id" + this.projectid);
     console.log("当前文档id" + this.now_id);
   },
   methods: {
+    deleteforever(item){
+      this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$axios({
+          method: 'post',           /* 指明请求方式，可以是 get 或 post */
+          url: '/api/file/completely_delete_file',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
+          data: qs.stringify({
+            fileID: item.id,
+          })
+        })
+            .then(res => {/* res 是 response 的缩写 */
+              if (res.data.errno === 0) {
+                this.$message.success("删除成功");
+                this.reload1();
+              } else {
+                this.$message.error(res.data.msg);
+              }
+            })
+            .catch(err => {
+              console.log(err);         /* 若出现异常则在终端输出相关信息 */
+            });
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        });
+      });
+    },
+    reload(){
+      this.$axios({
+        method: 'post',           /* 指明请求方式，可以是 get 或 post */
+        url: '/api/file/get_file_centre_list',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
+        data: qs.stringify({
+          teamID: this.teamid,
+        })
+      })
+          .then(res => {/* res 是 response 的缩写 */
+            if (res.data.errno === 0) {
+              //this.$message.success("获取团队文档列表成功");
+              this.items=res.data.items;
+              //this.$router.go(0);
+            } else {
+              this.$message.error(res.data.msg);
+            }
+          })
+          .catch(err => {
+            console.log(err);         /* 若出现异常则在终端输出相关信息 */
+          });
+    },
+    reload1(){
+      this.$axios({
+        method: 'post',           /* 指明请求方式，可以是 get 或 post */
+        url: '/api/file/delete_filelist_in_centre',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
+        data: qs.stringify({
+          teamID: this.teamid,
+        })
+      })
+          .then(res => {/* res 是 response 的缩写 */
+            if (res.data.errno === 0) {
+              //this.$message.success("获取团队回收站文档列表成功");
+              this.items1=res.data.items;
+              //this.$router.go(0);
+            } else {
+              this.$message.error(res.data.msg);
+            }
+          })
+          .catch(err => {
+            console.log(err);         /* 若出现异常则在终端输出相关信息 */
+          });
+    },
     review(item){
       this.$message.success("恢复触发成功");
+      this.$axios({
+        method: 'post',           /* 指明请求方式，可以是 get 或 post */
+        url: '/api/file/restore_file',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
+        data: qs.stringify({
+          fileID:item.id
+        })
+      })
+          .then(res => {/* res 是 response 的缩写 */
+            //获取用户登录的三个基本信息并存放于sessionStorage
+            if (res.data.errno === 0) {
+              this.$message.success('恢复文件(夹)成功');
+              this.reload1();
+              //window.location.reload();
+            } else {
+              this.$message.error(res.data.msg);
+            }
+          })
+          .catch(err => {
+            console.log(err);         /* 若出现异常则在终端输出相关信息 */
+          });
     },
     exportword(){
       if(this.if_choose_file===0){
@@ -354,7 +470,8 @@ export default {
             //获取用户登录的三个基本信息并存放于sessionStorage
             if (res.data.errno === 0) {
               this.$message.success('创建团队子文件夹成功');
-              window.location.reload();
+              this.reload();
+              //window.location.reload();
             } else {
               this.$message.error(res.data.msg);
             }
@@ -384,7 +501,8 @@ export default {
             //获取用户登录的三个基本信息并存放于sessionStorage
             if (res.data.errno === 0) {
               this.$message.success('创建团队文件成功');
-              window.location.reload();
+              this.reload();
+              //window.location.reload();
             } else {
               this.$message.error(res.data.msg);
             }
@@ -412,7 +530,8 @@ export default {
             //获取用户登录的三个基本信息并存放于sessionStorage
             if (res.data.errno === 0) {
               this.$message.success('创建团队文件夹成功');
-              window.location.reload();
+              this.reload();
+              //window.location.reload();
             } else {
               this.$message.error(res.data.msg);
             }
@@ -573,9 +692,11 @@ export default {
     },
     closetrash() {
       this.ifshow = 0;
+      this.reload();
     },
     showtrash() {
       this.ifshow = 1;
+      this.reload1();
     },
     changenew() {
       this.ifnew = 1;
@@ -595,7 +716,8 @@ export default {
           .then(res => {/* res 是 response 的缩写 */
             if (res.data.errno === 0) {
               this.$message.success("文档创建成功");
-              window.location.reload();
+              this.reload();
+              //window.location.reload();
               //this.$router.go(0);
             } else {
               this.$message.error(res.data.msg);
@@ -618,7 +740,8 @@ export default {
             console.log(res.data)
             if (res.data.errno === 0) {
               this.$message.success("删除成功");
-              window.location.reload();
+              this.reload();
+              //window.location.reload();
             } else {
               alert(res.data.msg);
               this.$message.error(res.data.msg);
@@ -640,7 +763,8 @@ export default {
             console.log(res.data)
             if (res.data.errno === 0) {
               this.$message.success("删除成功");
-              window.location.reload();
+              this.reload();
+              //window.location.reload();
             } else {
               alert(res.data.msg);
               this.$message.error(res.data.msg);

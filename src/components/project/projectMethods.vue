@@ -5,7 +5,7 @@
 import qs from 'qs'
 export default {
   created(){
-    sessionStorage.setItem('TeamID', 6);
+    // sessionStorage.setItem('TeamID', 6);
     // this.star_project(1)
     // this.unstar_project(1)
     var name=""

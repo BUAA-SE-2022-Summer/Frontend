@@ -34,7 +34,7 @@
     <div style="left:62vh;position: absolute;top:1.5vh"><b>当前文档</b></div>
   </el-tooltip>
 </div>
-  <iframe src="http://horik.cn:8080/" frameborder="1" style="width:100%;height: 100vh;"></iframe>
+  <iframe src="http://horik.cn:8080/" frameborder="1" style="width:100%;height: 94vh;"></iframe>
   </div>
 </template>
 <script>
