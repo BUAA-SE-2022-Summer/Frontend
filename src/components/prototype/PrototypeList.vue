@@ -49,9 +49,6 @@
                 </template>
 
                 <template v-slot:item.actions="{ item }">
-                    <!-- <v-btn @click="toItem(item)" small style="background-color: palevioletred;border: 0;">
-                        详情
-                    </v-btn> -->
                     <v-icon small class="mr-2" @click="toItem(item)" color="purple">
                         mdi-pencil
                     </v-icon>
@@ -134,17 +131,16 @@ export default {
         }).then(res => {
             console.log(res.data)
             if (res.data.errno === 0) {
-                this.$message.success("获取文件列表成功");
+                // this.$message.success("获取文件列表成功");
                 this.desserts = res.data.filelist
                 console.log(this.desserts)
             } else {
                 alert(res.data.msg);
                 this.$message.error(res.data.msg);
             }
-        })
-            .catch(err => {
-                console.log(err);         /* 若出现异常则在终端输出相关信息 */
-            });
+        }).catch(err => {
+            console.log(err);         /* 若出现异常则在终端输出相关信息 */
+        });
     },
     methods: {
         initialize() {
@@ -157,38 +153,19 @@ export default {
             }).then(res => {
                 console.log(res.data)
                 if (res.data.errno === 0) {
-                    this.$message.success("获取文件列表成功");
+                    // this.$message.success("获取文件列表成功");
                     this.desserts = res.data.filelist
                     console.log(this.desserts)
                 } else {
                     alert(res.data.msg);
                     this.$message.error(res.data.msg);
                 }
-            })
-                .catch(err => {
-                    console.log(err);         /* 若出现异常则在终端输出相关信息 */
-                });
-            //this.desserts = [{
-            // fileID: 1,
-            //file_name:'黄瑞yyds',
-            //create_time: '8/5',
-            // last_modify_time :'8/6',
-            // file_type: 'dox',
-            // }
-            // ]
+            }).catch(err => {
+                console.log(err);         /* 若出现异常则在终端输出相关信息 */
+            });
         },
-
-        editItem(item) {
-
-            this.editedIndex = this.desserts.indexOf(item)
-            this.editedItem = Object.assign({}, item)
-            this.dialog = true
-        },
-
 
         deleteItem(item) {
-
-            const index = this.desserts.indexOf(item)
             this.editedItem = Object.assign({}, item)
             this.dialog2 = true
             // confirm('Are you sure you want to delete this item?') && this.desserts.splice(index, 1)
@@ -257,7 +234,6 @@ export default {
         },
 
         save() {
-
             if (this.editedIndex > -1) {
                 Object.assign(this.desserts[this.editedIndex], this.editedItem)
                 this.rename_project(this.editedItem.projectID, this.editedItem.projectName)
@@ -267,36 +243,35 @@ export default {
             this.close()
         },
         toItem(item) {
-            if (JSON.parse(sessionStorage.getItem('if_save')) === 0) {
-                //alert('当前文档未保存');
-                //this.$message.error('当前文档未保存');
-            }
-            sessionStorage.setItem('if_choose_file', JSON.stringify(1));
-            console.log("跳转文档详情页")
-            //alert("跳转文档详情页");
-            const index = this.desserts.indexOf(item)
             this.editedItem = Object.assign({}, item)
-            console.log('存储文档id:' + this.editedItem.fileID);
-            //console.log(this.editedItem.project_root_fileID);
-            //console.log("存储当前更改的projectID: " + this.editedItem.projectID)
-            //sessionStorage.setItem('ProjectID', JSON.stringify(this.editedItem.projectID));
-            //sessionStorage.setItem('project_root_fileID', JSON.stringify(this.editedItem.project_root_fileID));
-            //alert(row.project_root_fileID);
-            // this.$router.push('/dashboard/demo/console');
-            sessionStorage.setItem('now_textid', JSON.stringify(this.editedItem.fileID));
-            //alert("当前文档id为"+this.editedItem.fileID);
-            sessionStorage.setItem('now_textname', JSON.stringify(this.editedItem.file_name));
-            if (this.$route.path !== '/textbustest') {
-                this.$router.push('/textbustest');
-            }
-            console.log(this.$route.path);
-            if (this.$route.path === '/textbustest') {
-                window.location.reload();
-            }
-            //window.location.reload();
-        },
-    },
-
+            console.log('即将打开原型图,其id为: ' + this.editedItem.fileID);
+            sessionStorage.setItem('prototypeID', JSON.stringify(this.editedItem.fileID));
+            this.$axios.post(
+                '/api/prototype/open_prototype',
+                this.$qs.stringify({
+                    teamID: JSON.parse(sessionStorage.getItem('TeamID')),
+                    projectID: JSON.parse(sessionStorage.getItem('ProjectID')),
+                    fatherID: JSON.parse(sessionStorage.getItem('project_root_fileID')),
+                    prototypeID: JSON.parse(sessionStorage.getItem('prototypeID')),
+                })
+            ).then(response => {
+                console.log("打开原型图的后端反馈 ", response.data);
+                this.$store.commit('updatePageList', response.data.namelist);
+                console.log("存储pageList到Vuex");
+                console.log(this.$store.state.pageList);
+                let firstItem = this.$store.state.pageList[0];
+                sessionStorage.setItem('pageID', JSON.stringify(firstItem.pageID));
+                console.log("debug: 打开原型图时的first_componentdata: ");
+                console.log(response.data.first_component);
+                console.log("debug: 打开原型图时的first_canvasStyle: ");
+                console.log(response.data.first_canvasStyle);
+                this.$store.commit('setComponentData', JSON.parse(response.data.first_component));
+                this.$store.commit('setCanvasStyle', JSON.parse(response.data.first_canvasStyle));
+            }).catch(err => {
+                console.error(err);
+            })
+        }
+    }
 }
 </script>
 
