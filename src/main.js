@@ -5,7 +5,8 @@ import store from './store'
 import axios from 'axios'
 import qs from 'qs'
 // import vuetify from './plugins/vuetify'
-
+import aDrawio from './utils/aDrawio'
+Vue.prototype.$aDrawio = aDrawio
 // Import Bootstrap and BootstrapVue CSS files (order is important)
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
@@ -28,6 +29,7 @@ import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
 import Print from 'vue-print-nb'
+import { apply } from 'mathjs'
 axios.defaults.baseURL = '/'
 Vue.prototype.$axios = axios;
 Vue.prototype.$qs = qs
@@ -49,3 +51,6 @@ new Vue({
   vuetify,
   render: h => h(App),
 }).$mount('#app')
+
+window.$ = window.jQuery=require('jquery')
+require("./utils/aDrawio")
