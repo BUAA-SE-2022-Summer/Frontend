@@ -6,9 +6,9 @@
                 <v-card
       max-width="300"
       class="mx-auto"
-      
+
     >
-  
+
 
       <v-app-bar
         dark
@@ -16,13 +16,13 @@
         style="background:#01579B;"
       >
         <v-app-bar-nav-icon></v-app-bar-nav-icon>
-  
+
         <v-toolbar-title>菜单栏</v-toolbar-title>
-  
+
         <v-spacer></v-spacer>
         <!-- <v-btn @click="deBug">debug</v-btn> -->
       </v-app-bar>
-  
+
       <v-container>
          <v-btn style="width: 100%;font-size: 20px;height: 70px;background-color: #E0F2F1;"
          @click="create=!create"
@@ -34,7 +34,7 @@
             <createProjectVue />
             <div @click="create=false" style="width: 400px;text-align: center;font-size: 20px;color: white;">返回</div>
          </v-overlay>
-         
+
          <v-btn style="width: 100%;font-size: 20px;height: 70px;background-color: #E1F5FE;" @click="showPage=0">
          <v-icon>mdi-all-inclusive</v-icon>
           全部项目
@@ -53,13 +53,12 @@
          </v-btn>
       </v-container>
     </v-card>
-
             </div>
             <div style="float: left" >
-                    <projectAll v-show="showPage==0"></projectAll>
-                    <MyProject v-show="showPage==1"></MyProject>
-                    <StarProject v-show="showPage==2"></StarProject>
-                    <RecycleProject v-show="showPage==3"></RecycleProject>
+                    <projectAll v-show="showPage===0"></projectAll>
+                    <MyProject v-show="showPage===1"></MyProject>
+                    <StarProject v-show="showPage===2" :tmp="tmp"></StarProject>
+                    <RecycleProject v-show="showPage===3"></RecycleProject>
                 <!-- <createProjectVue /> -->
             </div>
         </div>
@@ -93,6 +92,7 @@ export default {
             create:false,
             isdark:false,
             showPage:0,
+          tmp:[],
         }
     },
     create(){
@@ -105,7 +105,7 @@ export default {
         },
         deBug(){
             console.log(this.showPage)
-        }
+        },
     }
 }
 

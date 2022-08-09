@@ -164,7 +164,7 @@ export default {
       copy: false,
       newname: "新名称",
       copyName: "xin",
-
+      tmp1:[],
     }
 
   },
@@ -369,6 +369,7 @@ export default {
                 this.items[i].is_star = true
               }
             }
+            this.get_star_project_list();
             // this.$router.go(0)
           } else {
             this.$message.error(res.data.msg);

@@ -57,7 +57,7 @@
                     <span>重命名</span>
                     <v-icon style="color:#673AB7">mdi-history</v-icon>
                   </v-btn>
-                  
+
                   <v-dialog v-model="rename" max-width="500px" persistent>
                     <v-card>
                       <v-card-title>
@@ -84,7 +84,7 @@
                     <v-icon style="color:#1B5E20">mdi-plus</v-icon>
                   </v-btn> -->
 
-                  
+
                   <v-dialog v-model="copy" max-width="500px">
                     <v-card>
                       <v-card-title>
@@ -155,13 +155,13 @@ export default {
         'is_star',
       ],
       items: [
-        
+
       ],
       rename:false,
       copy:false,
       newname:"新名称",
       copyName:"xin",
-    
+
     }
 
   },
@@ -196,21 +196,24 @@ export default {
           if (res.data.errno === 0) {
             console.log("我收藏的：",res.data)
             this.items=res.data.project_list
-          } 
+          }
         })
         .catch(err => {
           console.log(err);         /* 若出现异常则在终端输出相关信息 */
         })
     },
+
     Star(item){
       console.log("收藏，解除收藏")
       console.log(item)
       if(item.is_star){
         console.log("解除收藏")
-        this.unstar_project(item.projectID)
+        this.unstar_project(item.projectID);
+
       }else{
-        console.log("收藏")
-        this.star_project(item.projectID)
+        console.log("收藏");
+        this.star_project(item.projectID);
+
       }
     },
     Rename(name){
@@ -245,6 +248,7 @@ export default {
         })
       })
         .then(res => {
+          console.log("成功");
           console.log(res.data)
           if (res.data.errno === 0) {
             this.$message.success("获取项目列表成功");
@@ -350,7 +354,8 @@ export default {
           console.log(res.data)
           if (res.data.errno === 0) {
             this.$message.success("取消收藏项目成功");
-            this.$router.go(0)
+            //this.$router.go(0)
+            this.get_star_project_list();
           } else {
             this.$message.error(res.data.msg);
           }
@@ -379,6 +384,7 @@ export default {
           if (res.data.errno === 0) {
             this.$message.success("收藏项目成功,您可以在我的收藏中进行查看");
             this.$router.go(0)
+            //window.location.reload();
           } else {
             this.$message.error(res.data.msg);
           }
@@ -418,9 +424,9 @@ export default {
     },
 
     getMore(ID) {
-        
+
     },
-  
+
   },
 
 }

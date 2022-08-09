@@ -31,7 +31,7 @@ import Print from 'vue-print-nb'
 axios.defaults.baseURL = '/'
 Vue.prototype.$axios = axios;
 Vue.prototype.$qs = qs
-
+Vue.prototype.$bus = new Vue();
 Vue.config.productionTip = false
 
 // Make BootstrapVue available throughout your project
