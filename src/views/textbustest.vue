@@ -87,20 +87,20 @@
         <doxlists1></doxlists1>
       </div>
       <div v-if="this.ifshow === 0"
-        style="position: absolute;width: 300px;height:80vh;background-color: white;top:12vh">
+        style="position: absolute;width: 300px;height:67vh;background-color: white;top:12vh">
         <doxlist @onEmitIndex="onEmitIndex"></doxlist>
       </div>
 
       <div v-if="this.ifshow === 0"
-        style="position: absolute;width: 300px;height:5vh;background-color: wheat;top:700px">
+        style="position: absolute;width: 300px;height:5vh;background-color: wheat;top:95vh">
 
         <div style="top:5px;position: absolute;left: 10px;cursor: pointer" @click="showtrash"><b>> 回收站</b></div>
       </div>
 
-      <div v-if="this.ifshow===0" style="position: absolute;top:87vh">
-        <el-button @click="exportword" style="width: 9.6vw;background-color: #4ccaf0"><b>导出word</b></el-button>
+      <div v-if="this.ifshow===0" style="position: absolute;top:89vh">
+        <el-button @click="exportword" style="width: 9.6vw;background-color: #4ccaf0;height:6vh"><b>导出word</b></el-button>
       </div>
-      <div v-if="this.ifshow===0" style="position: absolute;top:87vh;left:9.6vw"><el-button @click="exportpdf" style="width: 9.6vw;background-color: #E65100"><b>预览pdf</b></el-button></div>
+      <div v-if="this.ifshow===0" style="position: absolute;top:89vh;left:9.6vw;"><el-button @click="exportpdf" style="width: 9.6vw;background-color: #E65100;height: 6vh"><b>预览pdf</b></el-button></div>
 
       <div style="position: absolute;left: 40vh;height:100vh">
         <div ref="editorContainer" style="width: 165vh;left:40vh;height:100vh;minHeight: 100vh"></div>
@@ -243,6 +243,9 @@ export default {
             //获取用户登录的三个基本信息并存放于sessionStorage
             if (res.data.errno === 0) {
               this.newContent = res.data.content;
+              if(this.newContent===null){
+                this.newContent='<p><strong><em>请在此开始编辑文档……</em></strong></p>';
+              }
               this.editor1.replaceContent(this.newContent);
             } else {
               this.$message.error(res.data.msg);
@@ -259,7 +262,6 @@ export default {
       else {
         let html = this.editor1.getContents().content;
         let blob = new Blob([html], { type: "application/msword;charset=utf-8" });
-        //let blob = new Blob([html],{type:"application/pdf;charset=utf-8"});
         saveAs(blob, this.now_file_name);
       }
     },

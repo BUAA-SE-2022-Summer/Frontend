@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div style="margin-top:0px;width:300px;margin-left: 0px;">
-      <v-data-table height="445px" :headers="headers" :items="desserts" sort-by="projectUser" class="elevation-1">
+      <v-data-table height="57vh" :headers="headers" :items="desserts" sort-by="projectUser" class="elevation-1">
         <template v-slot:top>
           <v-toolbar flat color="white">
             <v-toolbar-title>全部文件</v-toolbar-title>

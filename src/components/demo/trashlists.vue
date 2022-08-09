@@ -68,9 +68,9 @@
           <v-icon small class="mr-2" @click="reviewItem(item)" color="purple">
             mdi-arrow-u-up-left-bold
           </v-icon>
-          <!--<v-icon small @click="deleteItem(item)">
+          <v-icon small @click="deleteforever(item)" color="red">
             mdi-delete
-          </v-icon>-->
+          </v-icon>
         </template>
         <template v-slot:no-data>
           <!--<v-btn color="primary" @click="initialize">打开回收站</v-btn>-->
@@ -107,7 +107,7 @@ export default {
         //{ text: '文档编号', value: 'fileID' },
         //{ text: '删除时间 ', value: 'delete_time' },
         //{ text: '文档类型 ', value: 'file_type'},
-        { text: '恢复文档', value: 'actions', sortable: false },
+        { text: '操作', value: 'actions', sortable: false },
       ],
       desserts: [],
       editedIndex: -1,
@@ -193,14 +193,6 @@ export default {
         .catch(err => {
           console.log(err);         /* 若出现异常则在终端输出相关信息 */
         });
-      //this.desserts = [{
-      // fileID: 1,
-      //file_name:'黄瑞yyds',
-      //create_time: '8/5',
-      // last_modify_time :'8/6',
-      // file_type: 'dox',
-      // }
-      // ]
     },
 
     editItem(item) {
@@ -210,6 +202,38 @@ export default {
       this.dialog = true
     },
 
+    deleteforever(item) {
+       //item.fileID
+      this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$axios({
+          method: 'post',           /* 指明请求方式，可以是 get 或 post */
+          url: '/api/file/completely_delete_file',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
+          data: qs.stringify({
+            fileID: item.fileID,
+          })
+        })
+            .then(res => {/* res 是 response 的缩写 */
+              if (res.data.errno === 0) {
+                this.$message.success("删除成功");
+                this.initialize();
+              } else {
+                this.$message.error(res.data.msg);
+              }
+            })
+            .catch(err => {
+              console.log(err);         /* 若出现异常则在终端输出相关信息 */
+            });
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        });
+      });
+    },
 
     deleteItem(item) {
 

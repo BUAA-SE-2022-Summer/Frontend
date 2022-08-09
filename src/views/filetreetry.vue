@@ -470,6 +470,7 @@ export default {
             //获取用户登录的三个基本信息并存放于sessionStorage
             if (res.data.errno === 0) {
               this.$message.success('创建团队子文件夹成功');
+              this.ifnew=0;
               this.reload();
               //window.location.reload();
             } else {
@@ -501,6 +502,7 @@ export default {
             //获取用户登录的三个基本信息并存放于sessionStorage
             if (res.data.errno === 0) {
               this.$message.success('创建团队文件成功');
+              this.ifnew=0;
               this.reload();
               //window.location.reload();
             } else {
@@ -530,6 +532,7 @@ export default {
             //获取用户登录的三个基本信息并存放于sessionStorage
             if (res.data.errno === 0) {
               this.$message.success('创建团队文件夹成功');
+              this.ifnew=0;
               this.reload();
               //window.location.reload();
             } else {
@@ -564,6 +567,9 @@ export default {
               if (res.data.errno === 0) {
                 this.$message.success('导入文件成功');
                 this.newContent = res.data.content;
+                if(this.newContent===null){
+                  this.newContent='<p><strong><em>请在此开始编辑文档……</em></strong></p>';
+                }
                 this.editor1.replaceContent(this.newContent);
                 //console.log(this.newContent);
                 //this.inside = res.data.content;
