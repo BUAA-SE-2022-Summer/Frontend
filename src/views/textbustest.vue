@@ -1,10 +1,10 @@
 <template>
   <div>
     <div>
-      <img class="bgbox" id="bgbox" alt="" src="../../src/img/背景.jpg">
+      <!-- <img class="bgbox" id="bgbox" alt="" src="../../src/img/背景.jpg"> -->
       <div style="width: 100vw;height:6vh;background-color: whitesmoke;">
         <router-link to="/">
-          <div><img :src="this.logourl" style="width: 20vh;height:6vh;position: absolute;"></div>
+          <div><img :src="this.logourl" style="width: 20vh;height:6vh;margin-left: 1vw;position: absolute;"></div>
         </router-link>
         <div style="left:90vh;position: absolute">
           <el-button type="text" icon="el-icon-document"
