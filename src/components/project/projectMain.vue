@@ -55,10 +55,14 @@
     </v-card>
             </div>
             <div style="float: left" >
-                    <projectAll v-show="showPage===0"></projectAll>
+                    <!--<projectAll v-show="showPage===0"></projectAll>
                     <MyProject v-show="showPage===1"></MyProject>
                     <StarProject v-show="showPage===2" :tmp="tmp"></StarProject>
-                    <RecycleProject v-show="showPage===3"></RecycleProject>
+                    <RecycleProject v-show="showPage===3"></RecycleProject>-->
+              <projectAll v-if="this.showPage===0"></projectAll>
+              <MyProject v-if="this.showPage===1"></MyProject>
+              <StarProject v-if="this.showPage===2"></StarProject>
+              <RecycleProject v-if="this.showPage===3"></RecycleProject>
                 <!-- <createProjectVue /> -->
             </div>
         </div>
