@@ -1,52 +1,15 @@
 <template>
   <div>
-    <!-- <img class="bgbox" id="bgbox" alt="" src="../../src/img/背景.jpg"> -->
-    <div style="width: 100vw;height:6vh;background-color: whitesmoke;">
-      <router-link to="/">
-        <div><img src="https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/1.png"
-            style="width: 20vh;height:6vh;margin-left: 1vw;position: absolute;"></div>
-      </router-link>
-      <div style="left:90vh;position: absolute">
-        <router-link to="/textbustest ">
-          <el-button type="text" icon="el-icon-document"
-            style="background-color: whitesmoke;border-color: whitesmoke;height:6vh;position: absolute;">文档</el-button>
-        </router-link>
-      </div>
-      <div style="left:105vh;position: absolute">
-        <router-link to="/prototype">
-          <el-button type="text" icon="el-icon-s-platform"
-            style="background-color: whitesmoke;border-color: whitesmoke;height:6vh;position: absolute;">原型设计
-          </el-button>
-        </router-link>
-      </div>
-      <div style="left:123vh;position: absolute">
-        <el-button type="text" icon="el-icon-picture"
-          style="background-color: whitesmoke;border-color: whitesmoke;height:6vh;position: absolute;">UML绘制
-        </el-button>
-      </div>
-      <div style="left:175vh;position: absolute"><img :src="this.userhead"
-          style="border-radius: 50%;width: 6vh;height: 6vh"></div>
-      <div style="left:185vh;position: absolute;top:1.5vh"><b>{{ this.username }}</b></div>
-      <el-tooltip class="item" effect="dark" :content="this.teamname" placement="bottom">
-        <div style="left:42vh;position: absolute;top:1.5vh"><b>当前团队</b></div>
-      </el-tooltip>
-      <el-tooltip class="item" effect="dark" :content="this.projectname" placement="bottom">
-        <div style="left:52vh;position: absolute;top:1.5vh"><b>当前项目</b></div>
-      </el-tooltip>
-      <el-tooltip class="item" effect="dark" :content="this.now_textname" placement="bottom">
-        <div style="left:62vh;position: absolute;top:1.5vh"><b>当前文档</b></div>
-      </el-tooltip>
-    </div>
     <div class="Prototype">
-      <Toolbar ref="toolbar" />
+      <!-- <Toolbar ref="toolbar" /> -->
 
       <main>
         <!-- 左侧组件列表 -->
-        <section class="left" overflow:auto>
+        <!-- <section class="left" overflow:auto>
           <PageList />
           <ComponentList />
           <RealTimeComponentList />
-        </section>
+        </section> -->
         <!-- 中间画布 -->
         <section class="center">
           <div class="content" @drop="handleDrop" @dragover="handleDragOver" @mousedown="handleMouseDown"
@@ -339,66 +302,51 @@ export default {
 </script>
 
 <style lang="scss">
-.bgbox {
-  display: block;
-  opacity: 1;
-  z-index: -3;
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: opacity 1s, transform .25s, filter .25s;
-  backface-visibility: hidden;
-}
-
 .Prototype {
-  height: 100vh;
+  height: auto;
   background: #fff;
 
   main {
-    height: calc(100% - 64px);
-    position: relative;
+    // height: calc(100%);
+    // position: relative;
 
-    .left {
-      position: absolute;
-      height: 100%;
-      width: 200px;
-      left: 0;
-      top: 0;
+    // .left {
+    //   position: absolute;
+    //   height: 100%;
+    //   width: 200px;
+    //   left: 300px;
+    //   top: 0;
 
-      &>div {
-        overflow: auto;
+    //   &>div {
+    //     overflow: auto;
 
-        &:first-child {
-          border-bottom: 1px solid #ddd;
-        }
-      }
-    }
+    //     &:first-child {
+    //       border-bottom: 1px solid #ddd;
+    //     }
+    //   }
+    // }
 
-    .right {
-      position: absolute;
-      height: 100%;
-      width: 288px;
-      right: 0;
-      top: 0;
+    // .right {
+    //   position: absolute;
+    //   height: 100%;
+    //   width: 288px;
+    //   right: 0;
+    //   top: 0;
 
-      .el-select {
-        width: 100%;
-      }
-    }
+    //   .el-select {
+    //     width: 100%;
+    //   }
+    // }
 
     .center {
-      margin-left: 200px;
+      margin-left: 300px;
       background: #f5f5f5;
-      height: 100%;
+      height: auto;
       overflow: auto;
-      padding: 20px;
 
       .content {
-        width: 100%;
-        height: 100%;
+        width: auto;
+        height: auto;
         overflow: auto;
       }
     }
@@ -409,8 +357,8 @@ export default {
     color: #333;
   }
 
-  .global-attr {
-    padding: 10px;
-  }
+  // .global-attr {
+  //   padding: 10px;
+  // }
 }
 </style>
