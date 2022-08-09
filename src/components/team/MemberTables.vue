@@ -142,7 +142,6 @@ export default {
     this.teamid = JSON.parse(sessionStorage.getItem('TeamID'))
     this.get_team_info()
     console.log("当前团队", this.teamid)
-
   },
 
   methods: {
@@ -162,7 +161,9 @@ export default {
     // 获取团队信息
     get_team_info() {
       var teamid = JSON.parse(sessionStorage.getItem('TeamID'))
+      //this.teamid = JSON.parse(sessionStorage.getItem('TeamID'))
       console.log("获取团队信息", teamid)
+      //console.log("获取团队信息", this.teamid)
       this.$axios({
         method: 'post',
         url: '/api/team/get_team_info ',

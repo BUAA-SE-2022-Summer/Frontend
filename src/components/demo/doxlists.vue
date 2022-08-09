@@ -177,7 +177,7 @@ export default {
     initialize() {
       this.$axios({
         method: 'post',
-        url: '/api/file/project_root_filelist',
+        url: '/api/file/project_root_doc_list',
         data: qs.stringify({
           projectID: this.projectID,
         })

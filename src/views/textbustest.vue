@@ -1,12 +1,11 @@
 <template>
   <div>
     <div>
-      <img class="bgbox" id="bgbox" alt="" src="../../src/img/背景.jpg">
       <div style="width: 100vw;height:6vh;background-color: whitesmoke;">
         <router-link to="/">
           <div><img :src="this.logourl" style="width: 20vh;height:6vh;position: absolute;"></div>
         </router-link>
-        <div style="left:90vh;position: absolute">
+        <!--<div style="left:90vh;position: absolute">
           <el-button type="text" icon="el-icon-document"
             style="background-color: whitesmoke;border-color: whitesmoke;height:6vh;position: absolute;">文档</el-button>
         </div>
@@ -19,6 +18,13 @@
           <el-button type="text" icon="el-icon-picture"
             style="background-color: whitesmoke;border-color: whitesmoke;height:6vh;position: absolute;">UML绘制
           </el-button>
+        </div>-->
+        <div style="position: absolute;left:90vh;height:6vh;background-color: whitesmoke">
+        <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="" style="background-color: whitesmoke;height: 7vh;top:-1vh" text-color="black" active-text-color="red" >
+          <el-menu-item index="1"><b>文档</b></el-menu-item>
+          <el-menu-item index="2"><b>原型设计</b></el-menu-item>
+          <el-menu-item index="3"><b>uml绘制</b></el-menu-item>
+        </el-menu>
         </div>
         <div style="left:175vh;position: absolute"><img :src="this.userhead"
             style="border-radius: 50%;width: 6vh;height: 6vh"></div>
@@ -89,9 +95,9 @@
         <div style="top:5px;position: absolute;left: 10px;cursor: pointer" @click="showtrash"><b>> 回收站</b></div>
       </div>
       <div v-if="this.ifshow===0" style="position: absolute;top:87vh">
-        <el-button @click="exportword" style="width: 9.6vw">导出word</el-button>
+        <el-button @click="exportword" style="width: 9.6vw;background-color: #4ccaf0"><b>导出word</b></el-button>
       </div>
-      <div v-if="this.ifshow===0" style="position: absolute;top:87vh;left:9.6vw"><el-button @click="exportpdf" style="width: 9.6vw">导出pdf</el-button></div>
+      <div v-if="this.ifshow===0" style="position: absolute;top:87vh;left:9.6vw"><el-button @click="exportpdf" style="width: 9.6vw;background-color: #E65100"><b>预览pdf</b></el-button></div>
       <div style="position: absolute;left: 40vh">
         <div ref="editorContainer" style="width: 165vh;left:40vh;height:100vh;minHeight: 100vh"></div></div>
       <!--<div style="position: absolute;left:700px;top:80vh"><v-btn text color="primary" @click="outtxt">导出当前文档</v-btn></div>-->
@@ -158,6 +164,7 @@ export default {
 
   data() {
     return {
+      activeIndex:'1',
       size: '300px',//抽屉的宽度
       drawer: false,
       direction: 'ltr',

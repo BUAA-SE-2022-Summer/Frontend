@@ -200,9 +200,9 @@
         </v-treeview>
       </div>
       <div v-if="this.ifshow===0"  style="position: absolute;top:87vh">
-         <el-button @click="exportword" style="width: 9.6vw">导出word</el-button>
+         <el-button @click="exportword" style="width: 9.6vw;background-color: #4ccaf0">导出word</el-button>
      </div>
-      <div  v-if="this.ifshow===0" style="position: absolute;top:87vh;left:9.6vw"><el-button @click="exportpdf" style="width: 9.6vw">导出pdf</el-button></div>
+      <div  v-if="this.ifshow===0" style="position: absolute;top:87vh;left:9.6vw"><el-button @click="exportpdf" style="width: 9.6vw;background-color: #E65100">预览pdf</el-button></div>
       <div ref="editorContainer" style="width: 165vh;position: absolute;left:40vh;height:100vh;minHeight: 100vh"></div>
     </div>
     <!--<div><el-button @click="load">cnm</el-button></div>-->

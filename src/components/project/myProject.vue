@@ -57,7 +57,7 @@
                     <span>重命名</span>
                     <v-icon style="color:#673AB7">mdi-history</v-icon>
                   </v-btn>
-                  
+
                   <v-dialog v-model="rename" max-width="500px" persistent>
                     <v-card>
                       <v-card-title>
@@ -84,7 +84,7 @@
                     <v-icon style="color:#1B5E20">mdi-plus</v-icon>
                   </v-btn> -->
 
-                  
+
                   <v-dialog v-model="copy" max-width="500px">
                     <v-card>
                       <v-card-title>
@@ -155,7 +155,7 @@ export default {
         'is_star',
       ],
       items: [
-       
+
 
       ],
       rename:false,
@@ -175,7 +175,7 @@ export default {
     },
   },
   created() {
-    sessionStorage.setItem('TeamID', 6);
+    //sessionStorage.setItem('TeamID', 6);
     this.get_create_project_list()
     this.rename=false
     this.copy=false
@@ -228,7 +228,7 @@ export default {
           if (res.data.errno === 0) {
             console.log("我创建的：",res.data)
             this.items=res.data.project_list
-          } 
+          }
         })
         .catch(err => {
           console.log(err);         /* 若出现异常则在终端输出相关信息 */
@@ -433,9 +433,9 @@ export default {
     },
 
     getMore(ID) {
-        
+
     },
-  
+
   },
 
 }
