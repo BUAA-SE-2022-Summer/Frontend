@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import prototype from '../views/PrototypeView.vue'
 
 Vue.use(VueRouter)
 
@@ -18,7 +17,7 @@ const routes = [
   {
     path: '/prototype',
     name: 'prototype',
-    component: prototype
+    component: () => import('../views/prototype.vue')
   },
   {
     path: '/ed',
@@ -49,8 +48,8 @@ const routes = [
   },
   {
 
-    path:'/filetreetest',
-    name:'filetreetest',
+    path: '/filetreetest',
+    name: 'filetreetest',
     component: () => import("../views/filetreetest")
   },
   {
@@ -59,19 +58,19 @@ const routes = [
     component: () => import("../views/filetreetry")
   },
   {
-    path:'/memberMain',
-    name:'memberMain',
-    component:()=>import("../components/team/MemberManage.vue")
+    path: '/memberMain',
+    name: 'memberMain',
+    component: () => import("../components/team/MemberManage.vue")
   },
   {
-    path:'/pdftest',
-    name:'pdftest',
-    component:()=>import("../views/pdftest")
+    path: '/pdftest',
+    name: 'pdftest',
+    component: () => import("../views/pdftest")
   },
   {
-    path:'/project/uml',
-    name:'projectUML',
-    component:()=>import("../views/UML.vue")
+    path: '/project/uml',
+    name: 'projectUML',
+    component: () => import("../views/UML.vue")
   }
 ]
 
