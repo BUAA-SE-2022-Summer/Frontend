@@ -59,9 +59,8 @@ export default {
       activeName: 'attr',
       reSelectAnimateIndex: undefined,
       pageList: this.$store.state.pageList,
-
       /**
-       * webSocket
+       *  websocket
        */
       lockReconnect: false, //是否真正建立连接
       timeout: 58 * 1000, //58秒一次心跳
@@ -78,7 +77,6 @@ export default {
     'editor',
   ]),
   created() {
-    this.restore()
     // 全局监听按键事件
     listenGlobalKeyDown()
     // 初始化webSocket
@@ -213,44 +211,9 @@ export default {
     },
 
     /**
-     * 从后端获取数据初始化页面
+     * 从后端获取数据初始化页面[现已废弃]
      */
     restore() {
-      let teamID = JSON.parse(sessionStorage.getItem('TeamID'));
-      let projectID = JSON.parse(sessionStorage.getItem('ProjectID'));
-      let prototypeID = JSON.parse(sessionStorage.getItem('prototypeID'));
-      let fatherID = JSON.parse(sessionStorage.getItem('project_root_fileID'));
-      console.log("open_prototype 时的teamID: " + teamID);
-      console.log("open_prototype 时的projectID: " + projectID);
-      console.log("open_prototype 时的prototypeID: " + prototypeID);
-      console.log("open_prototype 时的fatherID:" + fatherID);
-      this.$axios.post(
-        '/api/prototype/open_prototype',
-        this.$qs.stringify({
-          teamID: teamID,
-          projectID: projectID,
-          fatherID: fatherID,
-          prototypeID: prototypeID,
-        })
-      ).then(response => {
-        console.log("打开原型图的后端反馈 ", response.data);
-        this.$store.commit('updatePageList', response.data.namelist);
-        console.log("存储pageList到Vuex");
-        console.log(this.$store.state.pageList);
-        // this.namelist = response.data.namelist;
-        // 获取namelist的第一项
-        let firstItem = this.$store.state.pageList[0];
-        console.log("debug: 打开原型图时存储首页的pageID: " + firstItem.pageID);
-        sessionStorage.setItem('pageID', JSON.stringify(firstItem.pageID));
-        console.log("debug: 打开原型图时的first_componentdata: ");
-        console.log(response.data.first_component);
-        console.log("debug: 打开原型图时的first_canvasStyle: ");
-        console.log(response.data.first_canvasStyle);
-        this.$store.commit('setComponentData', JSON.parse(response.data.first_component));
-        this.$store.commit('setCanvasStyle', JSON.parse(response.data.first_canvasStyle));
-      }).catch(err => {
-        console.error(err);
-      })
       // // 用保存的数据恢复画布
       // if (localStorage.getItem('canvasData')) {
       //   this.$store.commit('setComponentData', JSON.parse(localStorage.getItem('canvasData')))

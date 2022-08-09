@@ -8,30 +8,20 @@
                             style="width: 20vh;height:6vh;margin-left: 1vw;position: absolute;">
                     </div>
                 </router-link>
-                <div style="left:90vh;position: absolute">
-                    <el-button type="text" icon="el-icon-document"
-                        style="background-color: whitesmoke;border-color: whitesmoke;height:6vh;position: absolute;">文档
-                    </el-button>
-                </div>
-                <div style="left:105vh;position: absolute">
-                    <router-link to="/prototype">
-                        <el-button type="text" icon="el-icon-s-platform"
-                            style="background-color: whitesmoke;border-color: whitesmoke;height:6vh;position: absolute;">
-                            原型设计
-                        </el-button>
-                    </router-link>
-                </div>
-                <div style="left:123vh;position: absolute">
-                    <el-button type="text" icon="el-icon-picture"
-                        style="background-color: whitesmoke;border-color: whitesmoke;height:6vh;position: absolute;">
-                        UML绘制
-                    </el-button>
+                <div style="position: absolute;left:90vh;height:6vh;background-color: whitesmoke">
+                    <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select=""
+                        style="background-color: whitesmoke;height: 7vh;top:-1vh" text-color="black"
+                        active-text-color="red">
+                        <el-menu-item index="1"><b>文档</b></el-menu-item>
+                        <el-menu-item index="2"><b>原型设计</b></el-menu-item>
+                        <el-menu-item index="3"><b>uml绘制</b></el-menu-item>
+                    </el-menu>
                 </div>
                 <div v-if="this.userhead" style="left:175vh;position: absolute"><img :src="this.userhead"
                         style="border-radius: 50%;width: 6vh;height: 6vh"></div>
                 <div v-else style="left:175vh;position: absolute; margin-top:3px">
-                    <Avatar :username="this.username" :backgroundcolor="this.team_name" color="#fff" size="40"
-                        style="vertical-align: middle;" :inline="true" />
+                    <Avatar :username="this.username" :background-color="this.username" color="#fff"
+                        :size="this.AvatarSize" style="vertical-align: middle;" :inline="true" />
                 </div>
                 <div style="left:185vh;position: absolute;top:1.5vh"><b>{{ this.username }}</b></div>
                 <el-tooltip class="item" effect="dark" :content="this.teamname" placement="bottom">
@@ -55,7 +45,7 @@
                 </el-tooltip>
                 <el-tooltip class="item" effect="dark" content="保存原型图" placement="bottom">
                     <div style="position: absolute;width:40px;height:40px;left:160px;top:55px"><i
-                            class="el-icon-document-checked" style="" @click="savetxt"></i></div>
+                            class="el-icon-document-checked" style="" @click="savepro"></i></div>
                 </el-tooltip>
                 <el-tooltip class="item" effect="dark" content="选择模板" placement="bottom">
                     <div style="position: absolute;width:40px;height:40px;left:230px;top:55px"><i
@@ -68,10 +58,7 @@
                 <el-button type="error" style="position: absolute;width: 9vh;left:220px" @click="closecreate">取消
                 </el-button>
             </div>
-            <div v-if="this.ifshow === 1" style="position: absolute;width: 300px;height:91vh;background-color: white">
-            </div>
-            <div v-if="this.ifshow === 0"
-                style="position: absolute;width: 300px;height:80vh;background-color: white;top:12vh">
+            <div style="position: absolute;width: 300px;height:80vh;background-color: white;top:12vh">
                 <prolist />
             </div>
             <div style="display: flex;">
@@ -134,7 +121,9 @@ export default {
 
     data() {
         return {
-            size: '300px',//抽屉的宽度
+            activeIndex: '2',    // 当前激活的tab页
+            AvatarSize: 40,// 用户头像大小
+            size: '300',//抽屉的宽度
             drawer: false,
             direction: 'ltr',
             editor1: null,
@@ -144,18 +133,10 @@ export default {
             teamname: JSON.parse(sessionStorage.getItem('TeamName')),
             projectname: JSON.parse(sessionStorage.getItem('projectName')),
             projectid: JSON.parse(sessionStorage.getItem('ProjectID')),
-
             teamid: JSON.parse(sessionStorage.getItem('TeamID')),
             fatherid: JSON.parse(sessionStorage.getItem('project_root_fileID')),
-            textdata: [
-            ],
-            trashlist: [
-            ],
-            now_id: 0,
-            now_textname: '',
             ifnew: 0,
             inputname: '',
-            ifshow: 0,
             choice: 0,
             projectplan: '<h1 style="text-align:center"><strong>&nbsp;项目计划</strong></h1><h2>&nbsp;&nbsp;&nbsp;&nbsp;一、摘要</h2><h2>&nbsp;&nbsp;&nbsp;&nbsp;二、综述</h2><h2>&nbsp;&nbsp;&nbsp;&nbsp;三、甲方需求</h2><h2>&nbsp;&nbsp;&nbsp;&nbsp;四、技术与产品</h2><h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（1）：目前持有技术</h3><h3 style="background-color:rgb(255, 255, 255)"><strong style="color:rgb(73, 80, 96);font-family:Roboto, sans-serif;font-size:1.75rem;line-height:1.2">&nbsp;</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（2）：技术需求描述</h3><h3 style="background-color:rgb(255, 255, 255)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（3）：需要改进的技术</h3><h2 style="background-color:rgb(255, 255, 255)">&nbsp;&nbsp;&nbsp;&nbsp;五、市场分析</h2><h2 style="background-color:rgb(255, 255, 255)">&nbsp;&nbsp;&nbsp;&nbsp;六、初步项目进度计划及人员安排</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p><h3 style="background-color:rgb(255, 255, 255)"><strong style="color:rgb(73, 80, 96);font-family:Roboto, sans-serif;font-size:1.75rem;line-height:1.2">&nbsp;</strong></h3><p><br></p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p><p><br></p>',
             meetingpoint: '<h1 style="text-align:center"><strong>&nbsp;XX科技公司</strong></h1><h3 style="text-align:center"><strong>XXX次会议纪要</strong></h3><p style="text-align:left"><strong>——————————————————————————————————————————————————————————————————————————————————————————————————————</strong></p><p style="text-align:left"><strong>会议时间：20xx年x月x日</strong></p><p><strong>会议地点：第x会议室</strong></p><p><strong>会议主持：xxx</strong></p><p><strong>记录人员：xxx</strong></p><p><strong>出席人员：xxx xxx xxx xxx</strong></p><p><strong>缺席人员: &nbsp;&nbsp;xxx xxx</strong></p><p><strong>会议内容：</strong></p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>一、讨论内容</strong></p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>二、决议事项</strong></p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.</p>',
@@ -164,9 +145,6 @@ export default {
             needlook: '<h1><strong>xx项目需求调研报告</strong></h1><p><strong><br></strong></p><table class="tb-table"><tbody><tr><td colSpan="2" rowSpan="1" style="text-align:center"><strong>软件开发项目需求调研报告模板</strong></td></tr><tr><td colSpan="2" rowSpan="1">项目名称：</td></tr><tr><td colSpan="2" rowSpan="1">调查方式：</td></tr><tr><td colSpan="1" rowSpan="1">调查人：</td><td colSpan="1" rowSpan="1">调查时间：</td></tr><tr><td colSpan="2" rowSpan="1">调查地点：</td></tr><tr><td colSpan="2" rowSpan="1">参与人员：</td></tr><tr><td colSpan="2" rowSpan="1">调研内容：</td></tr><tr><td colSpan="2" rowSpan="1">取得的原始材料：</td></tr><tr><td colSpan="2" rowSpan="1">收到的结果与反馈：</td></tr><tr><td colSpan="1" rowSpan="1">项目代表签字：</td><td colSpan="1" rowSpan="1">用户代表签字：</td></tr></tbody></table><h2>&nbsp;</h2><p><br></p>',
             needbook: '<h1><strong>xx软件需求规格说明书</strong></h1><p><strong><br></strong></p><p><strong><br></strong></p><table class="tb-table"><tbody><tr><td colSpan="5" rowSpan="1" style="text-align:center"><strong style="font-size:20px">xx软件需求规格说明书</strong></td></tr><tr><td colSpan="5" rowSpan="1">硬件整体需求：</td></tr><tr><td colSpan="5" rowSpan="1">工作环境需求：</td></tr><tr><td colSpan="1" rowSpan="1">需求编号：</td><td colSpan="1" rowSpan="1">功能名称</td><td colSpan="1" rowSpan="1">功能需求标识</td><td colSpan="1" rowSpan="1">优先级</td><td colSpan="1" rowSpan="1">具体描述</td></tr><tr><td colSpan="1" rowSpan="1">1</td><td colSpan="1" rowSpan="1">系统入口</td><td colSpan="1" rowSpan="1">L1</td><td colSpan="1" rowSpan="1">最高</td><td colSpan="1" rowSpan="1">用户在该软件中进行一切操作的入口</td></tr></tbody></table><h2>&nbsp;</h2><p><br></p>',
             show: 0,
-            if_save: 0,
-            if_choose_file: JSON.parse(sessionStorage.getItem('if_choose_file')),
-            now_file_name: JSON.parse(sessionStorage.getItem('now_textname')),
         }
     },
     created() {
@@ -178,30 +156,9 @@ export default {
         );
     },
     methods: {
-        exportword() {
-            if (this.if_choose_file === 0) {
-                this.$message.error('请先选择文档');
-            }
-            else {
-                let html = this.editor1.getContents().content;
-                let blob = new Blob([html], { type: "application/msword;charset=utf-8" });
-                //let blob = new Blob([html],{type:"application/pdf;charset=utf-8"});
-                saveAs(blob, this.now_file_name);
-            }
-        },
-        exportpdf() {
-            if (this.if_choose_file === 0) {
-                this.$message.error('请先选择文档');
-            }
-            else {
-                sessionStorage.setItem('pdf', JSON.stringify(this.editor1.getContents().content));
-                this.$router.push('/pdftest');
-            }
-        },
         returnbefore() {
             this.$router.push('/projectdashboard');
-        }
-        ,
+        },
         leave() {
             this.show = 0;
         },
@@ -285,7 +242,7 @@ export default {
                         this.newContent = this.needbook;
                     }
                     this.editor1.replaceContent(this.newContent);
-                    this.savetxt();
+                    this.savepro();
                 }).catch(() => {
                     this.$message({
                         type: 'info',
@@ -303,20 +260,10 @@ export default {
                 .catch(_ => { });
         },
         load() {
-
             this.editor1.replaceContent(this.newContent);
-        },
-        outtxt() {
-
         },
         closecreate() {
             this.ifnew = 0;
-        },
-        closetrash() {
-            this.ifshow = 0;
-        },
-        showtrash() {
-            this.ifshow = 1;
         },
         changenew() {
             this.ifnew = 1;
@@ -365,94 +312,10 @@ export default {
                 console.log(err);         /* 若出现异常则在终端输出相关信息 */
             })
         },
-        find(row, column, cell, event) {
-            //this.if_choose_file=1;
-            //alert(row.fileID);
-            this.$axios({
-                method: 'post',           /* 指明请求方式，可以是 get 或 post */
-                url: '/api/file/read_file',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
-                data: qs.stringify({
-                    fileID: row.fileID,
-                })
-            })
-                .then(res => {/* res 是 response 的缩写 */
-                    //获取用户登录的三个基本信息并存放于sessionStorage
-                    if (res.data.errno === 0) {
-                        this.$message.success("打开成功");
-                        sessionStorage.setItem('now_textid', JSON.stringify(res.data.fileID));
-                        sessionStorage.setItem('now_textname', JSON.stringify(res.data.file_name));
-                        window.location.reload();
-                    } else {
-                        this.$message.error(res.data.msg);
-                    }
-                })
-                .catch(err => {
-                    console.log(err);         /* 若出现异常则在终端输出相关信息 */
-                })
-        },
-        savetxt() {
-            this.prototypeIsSaved = 1;
-            sessionStorage.setItem('if_save', JSON.stringify(this.if_save));
-            this.$axios({
-                method: 'post',           /* 指明请求方式，可以是 get 或 post */
-                url: '/api/file/edit_file ',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
-                data: qs.stringify({
-                    fileID: this.now_id,
-                    content: this.editor1.getContents().content
-                })
-            })
-                .then(res => {/* res 是 response 的缩写 */
-                    //获取用户登录的三个基本信息并存放于sessionStorage
-                    if (res.data.errno === 0) {
-                        this.$message.success("保存文件成功");
-                    } else {
-                        this.$message.error(res.data.msg);
-                    }
-                })
-                .catch(err => {
-                    console.log(err);         /* 若出现异常则在终端输出相关信息 */
-                })
+        savepro() {
+            this.$message.success("保存文件成功");
         }
     },
-    mounted() {
-        if (!(this.now_id === null)) {
-            this.$axios({
-                method: 'post',           /* 指明请求方式，可以是 get 或 post */
-                url: '/api/file/read_file',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
-                data: qs.stringify({
-                    fileID: this.now_id,
-                })
-            })
-                .then(res => {/* res 是 response 的缩写 */
-                    //获取用户登录的三个基本信息并存放于sessionStorage
-                    if (res.data.errno === 0) {
-                        this.$message.success('导入文件成功');
-                        this.newContent = res.data.content;
-                        _this.editor1.replaceContent(this.newContent);
-                        //this.inside = res.data.content;
-                        sessionStorage.setItem('now_textid', JSON.stringify(res.data.fileID));
-                    } else {
-                        this.$message.error(res.data.msg);
-                    }
-                })
-                .catch(err => {
-                    console.log(err);         /* 若出现异常则在终端输出相关信息 */
-                });
-        }
-        const _this = this;
-        _this.editor1 = createEditor();
-        //const editor = createEditor();
-        _this.editor1.mount(this.$refs.editorContainer);
-        const newContent = '<p>这里新内容！</p>';
-        // _this.editor1.replaceContent(newContent);
-        _this.editor1.onChange.subscribe(() => {
-            console.log(_this.editor1.getContents().content);
-        });
-        _this.editor1.onReady.subscribe(() => {
-            //alert(this.newContent);
-            //_this.editor1.replaceContent(this.newContent);
-        });
-    }
 }
 </script>
 
