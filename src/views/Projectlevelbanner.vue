@@ -2,25 +2,32 @@
   <div>
     <div style="width: 1540px;height:6vh;background-color: whitesmoke;">
       <router-link to="/">
-        <div><img :src="this.logourl" style="width: 20vh;height:6vh;position: absolute;"></div>
+        <div><img :src="this.logourl" style="width: 30vh;height:6vh;position: absolute;"></div>
       </router-link>
-      <div style="left:25vh;position: absolute">
+      <div style="left:32vh;position: absolute">
         <el-button type="text" icon="el-icon-arrow-left"
           style="background-color: whitesmoke;border-color: whitesmoke;height:6vh;position: absolute;" @click="returnbefore">返回</el-button>
       </div>
-      <div style="left:90vh;position: absolute">
+      <!--<div style="left:90vh;position: absolute">
         <el-button type="text" icon="el-icon-s-claim"
           style="background-color: whitesmoke;border-color: whitesmoke;height:6vh;position: absolute;" @click="toProject">项目管理</el-button>
-      </div>
-      <div style="left:110vh;position: absolute">
+      </div>-->
+      <!--<div style="left:110vh;position: absolute">
         <el-button type="text" icon="el-icon-user-solid"
           style="background-color: whitesmoke;border-color: whitesmoke;height:6vh;position: absolute;" @click="toMem">成员管理</el-button>
-      </div>
-      <router-link :to="{ path: '/filetreetry' }" target="_blank" rel="opener">
+      </div>-->
+      <!--<router-link :to="{ path: '/filetreetry' }" target="_blank" rel="opener">
       <div style="left:130vh;position: absolute">
         <el-button type="text" icon="el-icon-user-solid"
                    style="background-color: whitesmoke;border-color: whitesmoke;height:6vh;position: absolute;" @click="">团队文档中心</el-button>
-      </div></router-link>
+      </div></router-link>-->
+      <div style="position: absolute;left:90vh;height:6vh;background-color: whitesmoke">
+        <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="" style="background-color: whitesmoke;height: 7vh;top:-1vh" text-color="black" active-text-color="red" >
+          <el-menu-item index="1" @click="toProject"><b>项目管理</b></el-menu-item>
+          <el-menu-item index="2" @click="toMem"><b>成员管理</b></el-menu-item>
+          <el-menu-item index="3"><router-link :to="{ path: '/filetreetry' }" target="_blank" rel="opener"><div><b>团队文档中心</b></div></router-link></el-menu-item>
+        </el-menu>
+      </div>
       <!-- <div style="left:123vh;position: absolute"><el-button type="text" icon="el-icon-picture" style="background-color: whitesmoke;border-color: whitesmoke;height:6vh;position: absolute;">UML绘制</el-button></div>-->
       <div style="left:175vh;position: absolute"><img :src="this.userhead"
           style="border-radius: 50%;width: 6vh;height: 6vh"></div>
@@ -104,6 +111,7 @@ export default {
   },
   data() {
     return {
+      activeIndex:JSON.parse(sessionStorage.getItem('activeIndex')),
       editor1: null,
       newContent: '',
       logourl: 'https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/1.png',
@@ -184,11 +192,15 @@ export default {
           })
     },
     toProject(){
-      console.log("跳转到项目层")
+      console.log("跳转到项目层");
+      this.activeIndex='1';
+      sessionStorage.setItem('activeIndex',JSON.stringify('1'));
       this.$router.push("/projectdashboard")
     },
     toMem(){
-      console.log("跳转到成员管理")
+      console.log("跳转到成员管理");
+      this.activeIndex='2';
+      sessionStorage.setItem('activeIndex',JSON.stringify('2'));
       this.$router.push("/memberMain")
     },
     tofilecenter(){
@@ -205,4 +217,10 @@ export default {
 </script>
 
 <style scoped>
+a{
+  text-decoration: none;
+}
+  .router-link-active {
+    text-decoration: none;
+  }
 </style>

@@ -4,7 +4,7 @@
       <!--<img class="bgbox" id="bgbox" alt="" src="../../src/img/背景.jpg">-->
       <div style="width: 100vw;height:6vh;background-color: whitesmoke;">
         <router-link to="/">
-          <div><img :src="this.logourl" style="width: 20vh;height:6vh;position: absolute;"></div>
+          <div><img :src="this.logourl" style="width: 30vh;height:6vh;position: absolute;"></div>
         </router-link>
         <div style="left:175vh;position: absolute"><img :src="this.userhead"
                                                         style="border-radius: 50%;width: 6vh;height: 6vh"></div>

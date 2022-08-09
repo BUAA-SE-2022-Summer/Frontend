@@ -5,16 +5,16 @@
             <div style="width: 100vw;height:6vh;background-color: whitesmoke;">
                 <router-link to="/">
                     <div><img src='https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/1.png'
-                            style="width: 20vh;height:6vh;margin-left: 1vw;position: absolute;">
+                            style="width: 30vh;height:6vh;position: absolute;">
                     </div>
                 </router-link>
                 <div style="position: absolute;left:90vh;height:6vh;background-color: whitesmoke">
                     <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select=""
                         style="background-color: whitesmoke;height: 7vh;top:-1vh" text-color="black"
-                        active-text-color="red">
-                        <el-menu-item index="1"><b>文档</b></el-menu-item>
+                        active-text-color="red" router>
+                        <el-menu-item index="/textbustest"><b>文档</b></el-menu-item>
                         <el-menu-item index="2"><b>原型设计</b></el-menu-item>
-                        <el-menu-item index="3"><b>uml绘制</b></el-menu-item>
+                        <el-menu-item index="/project/uml"><b>uml绘制</b></el-menu-item>
                     </el-menu>
                 </div>
                 <div v-if="this.userhead" style="left:175vh;position: absolute"><img :src="this.userhead"

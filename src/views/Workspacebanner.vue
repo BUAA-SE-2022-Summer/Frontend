@@ -2,7 +2,7 @@
   <div>
     <div style="width: 1540px;height:6vh;background-color: whitesmoke;">
       <router-link to="/">
-        <div><img :src="this.logourl" style="width: 20vh;height:6vh;position: absolute;"></div>
+        <div><img :src="this.logourl" style="width: 30vh;height:6vh;position: absolute;"></div>
       </router-link>
       <!-- <div style="left:25vh;position: absolute"><el-button type="text" icon="el-icon-arrow-left" style="background-color: whitesmoke;border-color: whitesmoke;height:6vh;position: absolute;">返回</el-button></div>
     <div style="left:90vh;position: absolute"><el-button type="text" icon="el-icon-document" style="background-color: whitesmoke;border-color: whitesmoke;height:6vh;position: absolute;">文档</el-button></div>
