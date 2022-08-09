@@ -37,7 +37,7 @@
         <el-tooltip class="item" effect="dark" :content="this.projectname" placement="bottom">
           <div style="left:52vh;position: absolute;top:1.5vh"><b>当前项目</b></div>
         </el-tooltip>
-        <el-tooltip class="item" effect="dark" :content="this.now_textname" placement="bottom">
+        <el-tooltip class="item" effect="dark" :content="this.now_file_name" placement="bottom">
           <div style="left:62vh;position: absolute;top:1.5vh"><b>当前文档</b></div>
         </el-tooltip>
       </div>
@@ -88,7 +88,7 @@
       </div>
       <div v-if="this.ifshow === 0"
         style="position: absolute;width: 300px;height:80vh;background-color: white;top:12vh">
-        <doxlist></doxlist>
+        <doxlist @onEmitIndex="onEmitIndex"></doxlist>
       </div>
 
       <div v-if="this.ifshow === 0"
@@ -228,6 +228,30 @@ export default {
     console.log("当前文档id" + this.now_id);
   },
   methods: {
+    onEmitIndex(arg){
+      this.if_choose_file=arg.index1;
+      this.now_id=arg.index2;
+      this.now_file_name=arg.index3;
+      this.$axios({
+        method: 'post',           /* 指明请求方式，可以是 get 或 post */
+        url: '/api/file/read_file',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
+        data: qs.stringify({
+          fileID: this.now_id,
+        })
+      })
+          .then(res => {/* res 是 response 的缩写 */
+            //获取用户登录的三个基本信息并存放于sessionStorage
+            if (res.data.errno === 0) {
+              this.newContent = res.data.content;
+              this.editor1.replaceContent(this.newContent);
+            } else {
+              this.$message.error(res.data.msg);
+            }
+          })
+          .catch(err => {
+            console.log(err);         /* 若出现异常则在终端输出相关信息 */
+          });
+    },
     exportword() {
       if (this.if_choose_file === 0) {
         this.$message.error('请先选择文档');

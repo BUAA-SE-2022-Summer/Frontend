@@ -1,21 +1,5 @@
 <template>
   <div class="home">
-    <!--<div>
-      <el-col :span="8">
-        <el-card shadow="hover">
-          <div>
-            <div>
-              当前团队:
-              <b v-if="this.teamid !== 0">{{ this.teamname }}</b>
-              <b v-else>当前还没选中团队哦</b>
-              当前项目:
-              <b v-if="this.projectID !== 0">{{ this.projectname }}</b>
-              <b v-else>当前还没进入项目哦</b>
-            </div>
-          </div>
-        </el-card>
-      </el-col>
-    </div>-->
     <div style="margin-top:0px;width:300px;margin-left: 0px;">
       <v-data-table height="445px" :headers="headers" :items="desserts" sort-by="projectUser" class="elevation-1">
         <template v-slot:top>
@@ -317,10 +301,13 @@ export default {
         this.$router.push('/textbustest');
       }
       console.log(this.$route.path);
-      if (this.$route.path === '/textbustest') {
-        window.location.reload();
-      }
-      //window.location.reload();
+      var index1=1;
+      var index2=this.editedItem.fileID;
+      var index3=this.editedItem.file_name;
+      this.$emit('onEmitIndex',{index1,index2,index3});
+      //if (this.$route.path === '/textbustest') {
+        //window.location.reload();
+     // }
     },
   },
 
