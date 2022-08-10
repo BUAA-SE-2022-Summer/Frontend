@@ -90,6 +90,14 @@ export default {
   //--------------------------------------------------------------------------------------
   // 销毁定时器
   beforeDestroy() {
+    // alert("触发")
+    console.log('prototype销毁' + JSON.parse(sessionStorage.getItem('pageID')))
+    this.$axios.post(
+      '/api/prototype/delete_page_user',
+      this.$qs.stringify({
+        pageID: JSON.parse(sessionStorage.getItem('pageID')),
+      })
+    )
     if (this.formatDate) {
       clearInterval(this.formatDate); // 在Vue实例销毁前，清除时间定时器
     }
