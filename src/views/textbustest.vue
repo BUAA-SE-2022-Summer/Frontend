@@ -33,15 +33,14 @@
         <div style="left:175vh;position: absolute"><img :src="this.userhead"
             style="border-radius: 50%;width: 6vh;height: 6vh"></div>
         <div style="left:185vh;position: absolute;top:1.5vh"><b>{{ this.username }}</b></div>
-        <el-tooltip class="item" effect="dark" :content="this.teamname" placement="bottom">
+        <!--<el-tooltip class="item" effect="dark" :content="this.teamname" placement="bottom">
           <div style="left:42vh;position: absolute;top:1.5vh"><b>当前团队</b></div>
-        </el-tooltip>
-        <el-tooltip class="item" effect="dark" :content="this.projectname" placement="bottom">
-          <div style="left:52vh;position: absolute;top:1.5vh"><b>当前项目</b></div>
-        </el-tooltip>
-        <el-tooltip class="item" effect="dark" :content="this.now_file_name" placement="bottom">
-          <div style="left:62vh;position: absolute;top:1.5vh"><b>当前文档</b></div>
-        </el-tooltip>
+        </el-tooltip>-->
+
+          <div style="left:46vh;position: absolute;top:1.5vh"><b>{{this.projectname}}</b></div>
+          <div v-if="this.now_file_name" style="left:59vh;position: absolute;top:1.5vh">-></div>
+          <div style="left:62vh;position: absolute;top:1.5vh"><b>{{this.now_file_name}}</b></div>
+
       </div>
       <div>
         <!--<el-table :data="this.textdata" height="600" border stripe

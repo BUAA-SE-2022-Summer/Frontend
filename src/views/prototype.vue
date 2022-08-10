@@ -26,7 +26,7 @@
                             :size="this.AvatarSize" style="vertical-align: middle;" :inline="true" />
                     </div>
                     <div style="left:185vh;position: absolute;top:1.5vh"><b>{{ this.username }}</b></div>
-                    <el-tooltip class="item" effect="dark" :content="this.teamname" placement="bottom">
+                    <!--<el-tooltip class="item" effect="dark" :content="this.teamname" placement="bottom">
                         <div style="left:42vh;position: absolute;top:1.5vh"><b>当前团队</b></div>
                     </el-tooltip>
                     <el-tooltip class="item" effect="dark" :content="this.projectname" placement="bottom">
@@ -34,7 +34,10 @@
                     </el-tooltip>
                     <el-tooltip class="item" effect="dark" placement="bottom">
                         <div style="left:62vh;position: absolute;top:1.5vh"><b>当前原型图</b></div>
-                    </el-tooltip>
+                    </el-tooltip>-->
+                  <div style="left:46vh;position: absolute;top:1.5vh"><b>{{this.projectname}}</b></div>
+                  <div v-if="this.now_file_name" style="left:59vh;position: absolute;top:1.5vh">-></div>
+                  <div style="left:62vh;position: absolute;top:1.5vh"><b>{{this.now_file_name}}</b></div>
                 </div>
                 <div v-if="this.ifnew === 0" style="margin-top:auto">
                     <el-tooltip class="item" effect="dark" content="新建原型图" placement="bottom">
