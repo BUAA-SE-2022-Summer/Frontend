@@ -3,7 +3,7 @@
     <div>
       <div style="width: 100vw;height:6vh;background-color: whitesmoke;">
         <router-link to="/">
-          <div><img :src="this.logourl" style="width: 30vh;height:6vh;position: absolute;"></div>
+          <div><img :src="this.logourl" style="width: 30vh;height:6vh;position: absolute;left:2vw"></div>
         </router-link>
         <!--<div style="left:90vh;position: absolute">
           <el-button type="text" icon="el-icon-document"

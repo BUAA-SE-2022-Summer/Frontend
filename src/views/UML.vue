@@ -3,10 +3,10 @@
     <div style="width: 100vw;height:6vh;background-color: whitesmoke;">
   <router-link to="/">
     <div>
-      <img :src="this.logourl" style="width: 30vh;height:6vh;position: absolute;">
+      <img :src="this.logourl" style="width: 30vh;height:6vh;position: absolute;left:2vw">
       </div>
   </router-link>
-  <div style="left:90vh;position: absolute">
+  <!--<div style="left:90vh;position: absolute">
     <el-button type="text" icon="el-icon-document"
       style="background-color: whitesmoke;border-color: whitesmoke;height:6vh;position: absolute;">文档</el-button>
   </div>
@@ -19,7 +19,7 @@
     <el-button type="text" icon="el-icon-picture"
       style="background-color: whitesmoke;border-color: whitesmoke;height:6vh;position: absolute;">UML绘制
     </el-button>
-  </div>
+  </div>-->
       <div style="position: absolute;left:90vh;height:6vh;background-color: whitesmoke">
         <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select=""
                  style="background-color: whitesmoke;height: 7vh;top:-1vh" text-color="black"
@@ -75,7 +75,7 @@
             </v-dialog>
           </v-toolbar>
         </template>
-  
+
         <template v-slot:default="props">
           <v-row>
             <v-col
@@ -104,7 +104,7 @@
             </v-col>
           </v-row>
         </template>
-  
+
         <template v-slot:footer>
           <v-row class="mt-2" align="center" justify="center">
             <span class="grey--text">Items per page</span>
@@ -132,9 +132,9 @@
                 </v-list-item>
               </v-list>
             </v-menu>
-  
+
             <v-spacer></v-spacer>
-  
+
             <span
               class="mr-4
               grey--text"
@@ -183,7 +183,7 @@ export default {
       itemsPerPage: 8,
       sortBy: 'name',
       keys: [
-        
+
       ],
       logourl: 'https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/1.png',
       activeIndex:'3',
@@ -198,7 +198,7 @@ export default {
   created(){
     this.get_user_xml()
   },
-  
+
   computed: {
     numberOfPages () {
       return Math.ceil(this.items.length / this.itemsPerPage)
@@ -214,7 +214,7 @@ export default {
         method: 'post',
         url: '/api/file/get_user_xml ',
         data: qs.stringify({
-          
+
         })
     })
         .then(res => {
@@ -241,7 +241,7 @@ export default {
       this.itemsPerPage = number
     },
     createNew(){
-      
+
       // console.log("创建新的UML图")
       // this.$router.push({path:'/project/uml/design', query:{umlID:this.umlID, xmlSrc:this.xmlSrc}})
     },
@@ -293,7 +293,7 @@ export default {
         } else {
             this.$message.error(res.data.msg);
         }
-        
+
         })
         .catch(err => {
         console.log(err);         /* 若出现异常则在终端输出相关信息 */

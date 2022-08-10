@@ -7,7 +7,7 @@
                 <div style="width: 100vw;height:6vh;background-color: whitesmoke;">
                     <router-link to="/">
                         <div><img src='https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/1.png'
-                                style="width: 30vh;height:6vh;position: absolute;">
+                                style="width: 30vh;height:6vh;position: absolute;left:2vw">
                         </div>
                     </router-link>
                     <div style="position: absolute;left:90vh;height:6vh;background-color: whitesmoke">
