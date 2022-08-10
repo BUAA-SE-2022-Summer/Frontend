@@ -2,7 +2,7 @@
     <v-expansion-panels focusable>
         <v-expansion-panel>
             <v-expansion-panel-header>
-                ComponentList
+                组件库
             </v-expansion-panel-header>
             <v-expansion-panel-content>
                 <div class="component-list" @dragstart="handleDragStart">

@@ -2,7 +2,7 @@
     <v-expansion-panels focusable>
         <v-expansion-panel>
             <v-expansion-panel-header @click="updatePageList">
-                Pages
+                页面列表
             </v-expansion-panel-header>
             <v-expansion-panel-content>
                 <v-simple-table fixed-header height="300px">
