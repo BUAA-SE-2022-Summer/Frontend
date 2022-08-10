@@ -80,7 +80,7 @@
       </div>-->
       <div v-if="this.ifshow === 1" style="position: absolute;width: 300px;height:5vh;background-color: white;top:50px">
         <div style="top:5px;position: absolute;left: 10px;cursor: pointer" @click="closetrash"><b>
-            < 团队文档回收站</b>
+            < 回收站</b>
         </div>
         <!--<doxlists1></doxlists1>-->
       </div>
@@ -89,12 +89,16 @@
         <!--<doxlist></doxlist>-->
       </div>
 
- 
+
       <div v-if="this.ifshow === 0"
-           style="position: absolute;width: 300px;height:5vh;background-color: white;top:95vh">
+        style="position: absolute;width: 300px;height:5vh;background-color: white;border:1px;border-color:black;border-style:solid;top:95vh">
 
 
-        <div style="top:5px;position: absolute;left: 10px;cursor: pointer" @click="showtrash"><b>> 团队文档回收站</b></div>
+        <div style="top:5px;position: absolute;left: 10px;cursor: pointer;border:5px;border-color:black"
+          @click="showtrash">
+          <b>&nbsp;&nbsp;>&nbsp;&nbsp;
+            打开回收站</b>
+        </div>
       </div>
       <!--<div ref="editorContainer" style="width: 165vh;position: absolute;left:40vh;height:100vh;minHeight: 100vh"></div>-->
       <!--<div style="position: absolute;left:700px;top:80vh"><v-btn text color="primary" @click="outtxt">导出当前文档</v-btn></div>-->
@@ -140,18 +144,10 @@
       <div><img v-if="this.show === 6" src="../img/需求规格说明书.jpg"
                 style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>-->
 
-      <div v-if="this.ifshow===0" style="height:83vh;width:300px;display: block;overflow-y: scroll;position: absolute;top:12vh;background-color: white">
-        <v-treeview
-            v-if="this.ifshow===0"
-            v-model="tree"
-            :open="open"
-            :items="items"
-            color="blue"
-            activatable
-            item-key="name"
-            open-on-click
-            :active.sync="active"
-        >
+      <div v-if="this.ifshow === 0"
+        style="height:83vh;width:300px;display: block;overflow-y: scroll;position: absolute;top:12vh;background-color: white">
+        <v-treeview v-if="this.ifshow === 0" v-model="tree" :open="open" :items="items" color="blue" activatable
+          item-key="name" open-on-click :active.sync="active">
 
           <template v-slot:prepend="{ item, open }">
             <v-icon v-if="item.is_dir === true" @click="opendir1(item)" color="#FFAB00">
@@ -182,18 +178,10 @@
         </v-treeview>
       </div>
 
-      <div v-if="this.ifshow===1" style="height:88vh;width:300px;display: block;overflow-y: scroll;position: absolute;top:12vh;background-color: white">
-        <v-treeview
-            v-if="this.ifshow===1"
-            v-model="tree"
-            :open="open"
-            :items="items1"
-            color="blue"
-            activatable
-            item-key="name"
-            open-on-click
-            :active.sync="active"
-        >
+      <div v-if="this.ifshow === 1"
+        style="height:88vh;width:300px;display: block;overflow-y: scroll;position: absolute;top:12vh;background-color: white">
+        <v-treeview v-if="this.ifshow === 1" v-model="tree" :open="open" :items="items1" color="blue" activatable
+          item-key="name" open-on-click :active.sync="active">
 
           <template v-slot:prepend="{ item, open }">
             <v-icon v-if="item.is_dir === true" color="#FFAB00">
@@ -206,19 +194,21 @@
               color="light-blue accent-4">
               mdi-autorenew
             </v-icon>
-            <v-icon v-if="!(item.is_dir === true && item.is_pro === true)" @click="deleteforever(item)" color="#FF1744">
+            <v-icon v-if="!(item.is_dir === true && item.is_pro === true)" @click="deleteforever(item)" color="#FF1744"
+              large>
               mdi-delete
             </v-icon>
             <div v-if="item.is_pro === true" style="display: inline-block"><b>(项目文档)</b></div>
           </template>
         </v-treeview>
       </div>
-      <div  style="position: absolute;top:90vh;height: 5vh;left:76vw">
-        <el-button  plain  @click="exportword" style="width: 9.6vw;"><b>导出word</b></el-button>
-     </div>
-       <div style="position: absolute;top:90vh;left:85.6vw;height:5vh"><el-button  plain  @click="exportpdf" style="width: 9.6vw;"><b>预览pdf</b></el-button></div>
-      <div ref="editorContainer" style="width: 165vh;position: absolute;left:40vh;height:100vh;minHeight: 100vh"></div>
-
+      <div ref="editorContainer"></div>
+      <div style="position: absolute;top:90vh;height: 5vh;left:76vw;z-index: 1000">
+        <el-button plain @click="exportword" style="width: 9.6vw;"><b>导出word</b></el-button>
+      </div>
+      <div style="position: absolute;top:90vh;left:85.6vw;height:5vh;z-index: 1000">
+        <el-button plain @click="exportpdf" style="width: 9.6vw;"><b>预览pdf</b></el-button>
+      </div>
       <div><img v-if="this.show === 1" src="../img/项目计划.jpg"
           style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
       <div><img v-if="this.show === 2" src="../img/会议纪要.jpg"
@@ -1076,10 +1066,13 @@ export default {
 .textbus-container {
   line-height: 1.428;
   border-radius: 5px;
-  height: auto;
+  background-color: #fff;
+  border-color: #495060;
+  height: 80vh;
+  width: auto;
   color: #495060;
-  position: relative;
   display: flex;
   flex-direction: column;
+  margin-left: 20vw;
 }
 </style>
