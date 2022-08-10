@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card width="400px">
+    <v-card width="400px" height="680px">
       <v-card-title style="">个人信息</v-card-title>
       <img :src="this.userhead" style="width: 210px;height:210px;position: absolute;left:20px;border-radius: 50%">
       <div style="margin-top:250px">
@@ -24,6 +24,9 @@
           <v-spacer></v-spacer>
           {{ this.phone }}
         </v-text-field>
+        <v-btn @click="cancel" style="color:black;text-align: center;width: 100%;font-size: 20px;padding-left:200px;padding-right: 200px">
+          <span>取消</span>
+        </v-btn>
       </div>
     </v-card>
   </div>
@@ -35,6 +38,7 @@ export default {
   name: "user_center",
   data() {
     return {
+
       imageUrl: '',
       uploadimgurl: '/user/update_user_img ',
       username: '',
@@ -69,7 +73,12 @@ export default {
     },
     jumpcenter() {
       this.$router.push('/true_user_center');
-    }
+    },
+    cancel() {
+      this.show2 = false;
+      //设置另一组件中data中的值
+      this.$emit('change1', false);
+    },
   }
 }
 </script>
