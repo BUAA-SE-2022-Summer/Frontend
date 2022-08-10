@@ -15,7 +15,7 @@
                             style="background-color: whitesmoke;height: 7vh;top:-1vh" text-color="black"
                             active-text-color="red" router>
                             <el-menu-item index="/textbustest"><b>文档</b></el-menu-item>
-                            <el-menu-item index="2"><b>原型设计</b></el-menu-item>
+                            <el-menu-item index="/prototype"><b>原型设计</b></el-menu-item>
                             <el-menu-item index="/project/uml"><b>uml绘制</b></el-menu-item>
                         </el-menu>
                     </div>
@@ -232,7 +232,7 @@ export default {
             lastMoveIndex: 0,    //  拖拽计数
             curMoveIndex: 0, //  历史计数
             //----------------------
-            activeIndex: '2',    // 当前激活的tab页
+            activeIndex: '/prototype',    // 当前激活的tab页
             AvatarSize: 40,// 用户头像大小
             size: '300',//抽屉的宽度
             drawer: false,

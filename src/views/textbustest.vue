@@ -25,7 +25,7 @@
         </div>-->
         <div style="position: absolute;left:90vh;height:6vh;background-color: whitesmoke">
         <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="" style="background-color: whitesmoke;height: 7vh;top:-1vh" text-color="black" active-text-color="red" router>
-          <el-menu-item index="1"><b>文档</b></el-menu-item>
+          <el-menu-item index="/textbustest"><b>文档</b></el-menu-item>
           <el-menu-item index="/prototype"><b>原型设计</b></el-menu-item>
           <el-menu-item index="/project/uml"><b>uml绘制</b></el-menu-item>
         </el-menu>
@@ -185,7 +185,7 @@ export default {
       serverTimeoutObj: null, //心跳倒计时
       timeoutnum: null, //断开 重连倒计时
       //--------------------------------------------
-      activeIndex:'1',
+      activeIndex:'/textbustest',
       size: '300px',//抽屉的宽度
       drawer: false,
       direction: 'ltr',
