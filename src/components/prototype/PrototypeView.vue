@@ -11,13 +11,31 @@
           <RealTimeComponentList />
         </section> -->
         <!-- 中间画布 -->
-        <section class="center">
-          <div class="content" @drop="handleDrop" @dragover="handleDragOver" @mousedown="handleMouseDown"
-            @mouseup="deselectCurComponent">
-            <Editor />
-          </div>
-        </section>
+        <!-- <section class="center"> -->
+        <div class="content" @drop="handleDrop" @dragover="handleDragOver" @mousedown="handleMouseDown"
+          @mouseup="deselectCurComponent">
+          <Editor />
+        </div>
+        <!-- </section> -->
+        <!-- <v-bottom-navigation v-model="value">
+          <v-btn value="recent">
+            <span>Recent</span>
 
+            <v-icon>mdi-history</v-icon>
+          </v-btn>
+
+          <v-btn value="favorites">
+            <span>Favorites</span>
+
+            <v-icon>mdi-heart</v-icon>
+          </v-btn>
+
+          <v-btn value="nearby">
+            <span>Nearby</span>
+
+            <v-icon>mdi-map-marker</v-icon>
+          </v-btn>
+        </v-bottom-navigation> -->
         <!-- 右侧属性列表 -->
         <!-- <section class="right">
           <el-tabs v-if=" " v-model="activeName">
@@ -94,16 +112,16 @@ export default {
   beforeDestroy() {
     // alert("触发")
     console.log('prototype销毁' + JSON.parse(sessionStorage.getItem('pageID')))
-    this.$axios.post(
-      '/api/prototype/delete_page_user',
-      this.$qs.stringify({
-        pageID: JSON.parse(sessionStorage.getItem('pageID')),
-      })
-    )
+    // this.$axios.post(
+    //   '/api/prototype/delete_page_user',
+    //   this.$qs.stringify({
+    //     pageID: JSON.parse(sessionStorage.getItem('pageID')),
+    //   })
+    // )
     if (this.formatDate) {
       clearInterval(this.formatDate); // 在Vue实例销毁前，清除时间定时器
     }
-    clearInterval(this.websocketsend());
+    clearInterval(this.timer);
   },
   destroyed() {
     this.websock.close(); //离开路由之后断开websocket连接
@@ -321,20 +339,18 @@ export default {
     //   }
     // }
 
-    .center {
-      margin-left: 300px;
 
+    .content {
+      margin-left: 300px;
       background: #f5f5f5;
       height: auto;
       overflow: auto;
-
-      .content {
-        margin-bottom: 100px;
-        width: auto;
-        height: auto;
-        overflow: auto;
-      }
+      width: 80vw;
+      height: 85vh;
+      overflow: auto;
+      float: right;
     }
+
   }
 
   .placeholder {

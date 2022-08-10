@@ -1,11 +1,8 @@
 <template>
     <div>
         <div class="toolbar">
-            <el-button @click="newPage">新建页面</el-button>
-            <el-button @click="undo">撤消</el-button>
-            <el-button @click="redo">重做</el-button>
             <el-button for="input" class="insert">插入图片</el-button>
-            <input id="input" type="file" hidden @change="handleFileChange" style="width:70px, height:40px" />
+            <input id="input" type="file" hidden @change="handleFileChange" />
             <el-button style="margin-left: 10px;" @click="preview(false)">预览</el-button>
             <el-button @click="save">保存</el-button>
             <el-button @click="clearCanvas">清空画布</el-button>
@@ -191,6 +188,7 @@ export default {
         },
 
         handleFileChange(e) {
+            console.log("插入图片");
             const file = e.target.files[0]
             if (!file.type.includes('image')) {
                 toast('只能插入图片')
@@ -264,8 +262,9 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .toolbar {
+    margin-left: 360px;
     padding: 15px 10px;
     white-space: nowrap;
     overflow-x: auto;

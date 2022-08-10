@@ -1,187 +1,29 @@
 <template>
-    <!--    全屏容器    -->
-    <div ref="pageDiv" @mousemove="demo_move" @mouseup="demo_up" :class="{ 'zlevelTop': mouseDownState }"
-        style="position: absolute;top: 0;height: 100%;width: 100%">
+    <div>
         <div>
-            <div>
-                <div style="width: 100vw;height:6vh;background-color: whitesmoke;">
-                    <router-link to="/">
-                        <div style="width: 30vh;height:6vh;position: absolute;color:black;font-size :30px;left:2vw">
-                            MoBook
-                        </div>
-                    </router-link>
-                    <div style="position: absolute;left:90vh;height:6vh;background-color: whitesmoke">
-                        <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select=""
-                            style="background-color: whitesmoke;height: 7vh;top:-1vh" text-color="black"
-                            active-text-color="red" router>
-                            <el-menu-item index="/textbustest"><b>文档</b></el-menu-item>
-                            <el-menu-item index="/prototype"><b>原型设计</b></el-menu-item>
-                            <el-menu-item index="/project/uml"><b>uml绘制</b></el-menu-item>
-                        </el-menu>
+            <div style="width: 100vw;height:6vh;background-color: whitesmoke;">
+                <router-link to="/">
+                    <div style="width: 30vh;height:6vh;position: absolute;color:black;font-size :30px;left:2vw">
+                        MoBook
                     </div>
-                    <div v-if="this.userhead" style="left:175vh;position: absolute"><img :src="this.userhead"
-                            style="border-radius: 50%;width: 6vh;height: 6vh"></div>
-                    <div v-else style="left:175vh;position: absolute; margin-top:3px">
-                        <Avatar :username="this.username" :background-color="this.username" color="#fff"
-                            :size="this.AvatarSize" style="vertical-align: middle;" :inline="true" />
-                    </div>
-                    <div style="left:185vh;position: absolute;top:1.5vh"><b>{{ this.username }}</b></div>
-                    <!--<el-tooltip class="item" effect="dark" :content="this.teamname" placement="bottom">
-                        <div style="left:42vh;position: absolute;top:1.5vh"><b>当前团队</b></div>
-                    </el-tooltip>
-                    <el-tooltip class="item" effect="dark" :content="this.projectname" placement="bottom">
-                        <div style="left:52vh;position: absolute;top:1.5vh"><b>当前项目</b></div>
-                    </el-tooltip>
-                    <el-tooltip class="item" effect="dark" placement="bottom">
-                        <div style="left:62vh;position: absolute;top:1.5vh"><b>当前原型图</b></div>
-                    </el-tooltip>-->
-                    <div style="left:46vh;position: absolute;top:1.5vh"><b>{{ this.projectname }}</b></div>
-                    <div v-if="this.now_file_name" style="left:59vh;position: absolute;top:1.5vh">-></div>
-                    <div style="left:62vh;position: absolute;top:1.5vh"><b>{{ this.now_file_name }}</b></div>
-                </div>
-                <div v-if="this.ifnew === 0" style="margin-top:auto">
-                    <el-tooltip class="item" effect="dark" content="新建原型图" placement="bottom">
-                        <div style="position: absolute;width:40px;height:40px;left:20px;top:55px"><i
-                                class="el-icon-document-add" style="" @click="changenew"></i></div>
-                    </el-tooltip>
-                    <el-tooltip class="item" effect="dark" content="分享原型图" placement="bottom">
-                        <div style="position: absolute;width:40px;height:40px;left:120px;top:55px"><i
-                                class="el-icon-document-checked" style="" @click="dialog = true"></i></div>
-                    </el-tooltip>
-                    <el-tooltip class="item" effect="dark" content="选择模板" placement="bottom">
-                        <div style="position: absolute;width:40px;height:40px;left:230px;top:55px"><i
-                                class="el-icon-edit-outline" style="" @click="drawer = true"></i></div>
-                    </el-tooltip>
-                </div>
-                <div v-if="this.ifnew === 1" style="width: 21vh;position: absolute;">
-                    <el-input v-model="inputname" placeholder="请输入原型图名称"></el-input>
-                    <el-button type="primary" style="position: absolute;width: 9vh;" @click="createnewpro">确认
-                    </el-button>
-                    <el-button type="error" style="position: absolute;width: 9vh;left:220px" @click="closecreate">取消
-                    </el-button>
-                </div>
-                <div style="position: absolute;width: 300px;height:80vh;background-color: white;top:12vh">
-                    <prolist />
-                </div>
-                <div style="display: flex;">
-                    <PrototypeView ref="canvas" />
-                </div>
-                <el-drawer title="请选择一个模板" :visible.sync="drawer" :direction="direction" :before-close="handleClose"
-                    :size="size">
-                    <!--<span>我来啦!</span>-->
-                    <div @mouseover="over1" @mouseleave="leave">
-                        <el-button type="primary" icon="el-icon-s-management" style="width: 300px;background-color: red"
-                            @click="open1">项目计划</el-button>
-                    </div>
-                    <div @mouseover="over2" @mouseleave="leave">
-                        <el-button type="primary" icon="el-icon-s-management"
-                            style="width: 300px;background-color: orange" @click="open2">会议纪要</el-button>
-                    </div>
-                    <div @mouseover="over3" @mouseleave="leave">
-                        <el-button type="primary" icon="el-icon-s-management"
-                            style="width: 300px;background-color: yellowgreen" @click="open3">项目管理</el-button>
-                    </div>
-                    <div @mouseover="over4" @mouseleave="leave">
-                        <el-button type="primary" icon="el-icon-s-management"
-                            style="width: 300px;background-color: #b3d4fc" @click="open4">工作周报</el-button>
-                    </div>
-                    <div @mouseover="over5" @mouseleave="leave">
-                        <el-button type="primary" icon="el-icon-s-management"
-                            style="width: 300px;background-color: palevioletred" @click="open5">需求调研报告</el-button>
-                    </div>
-                    <div @mouseover="over6" @mouseleave="leave">
-                        <el-button type="primary" icon="el-icon-s-management"
-                            style="width: 300px; background-color: aqua" @click="open6">需求规格说明书</el-button>
-                    </div>
-                </el-drawer>
-                <div><img v-if="this.show === 1" src="../img/项目计划.jpg"
-                        style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
-                <div><img v-if="this.show === 2" src="../img/会议纪要.jpg"
-                        style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
-                <div><img v-if="this.show === 3" src="../img/项目管理.jpg"
-                        style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
-                <div><img v-if="this.show === 4" src="../img/工作周报.jpg"
-                        style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
-                <div><img v-if="this.show === 5" src="../img/需求调研报告.jpg"
-                        style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
-                <div><img v-if="this.show === 6" src="../img/需求规格说明书.jpg"
-                        style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
+                </router-link>
+                <div style="left:46vh;position: absolute;top:1.5vh"><b>{{ this.projectname }}</b></div>
+                <div v-if="this.now_file_name" style="left:59vh;position: absolute;top:1.5vh">-></div>
+            </div>
+            <div style="position: absolute;width: 330px;height:80vh;background-color: white;top:10vh">
+                <shareprolist />
+            </div>
+            <div style="display: flex;">
+                <shareprototype ref="canvas" />
             </div>
         </div>
-        <!-- 点击蒙版  -->
-        <div v-if="attrOpen" @click.stop="closeAtrrMenu"
-            style="position: fixed;top: 0;left: 0;width: 100%;height: 100%;z-index:998 "></div>
-        <!--  多功能菜单 -->
-        <div :class="{ 'six-more-modal-btn': attrOpen, 'moreModal': !attrOpen, 'more-tran-animate': !mouseDownState }"
-            ref="attrActionMgr" :style="position" @mousedown="attr_menu_down">
-            <!--  触发器 -->
-            <div v-if="!attrOpen" @click="demo_click" class="imgMore">
-                组件设置
-            </div>
-            <!--  菜单  -->
-            <div v-else>
-                <!-- <CanvasAttr /> -->
-                <el-tabs v-if="curComponent" v-model="activeName">
-                    <el-tab-pane label="属性" name="attr">
-                        <component :is="curComponent.component + 'Attr'" />
-                    </el-tab-pane>
-                    <el-tab-pane label="动画" name="animation" style="padding-top: 20px;">
-                        <AnimationList />
-                    </el-tab-pane>
-                    <el-tab-pane label="事件" name="events" style="padding-top: 20px;">
-                        <EventList />
-                    </el-tab-pane>
-                </el-tabs>
-                <div v-else>
-                    还没选择组件噢
-                </div>
-            </div>
-        </div>
-        <v-dialog v-model="dialog" width="500">
-            <v-card>
-                <v-card-title class="text-h5 grey lighten-2">
-                    分享原型图
-                </v-card-title>
-                <v-divider></v-divider>
-                <v-card-text>
-                    原型图在分享后将会生成一个链接，该链接可供任何人访问查看原型图的预览
-                </v-card-text>
-                <div v-if="is_sharing">
-                    <v-card-text>
-                        本原型图已处于分享状态，分享链接为<h4>{{ url }}</h4>
-                    </v-card-text>
-                    <div class="text-center">
-                        <v-btn rounded color="primary" dark @click="closeshare">
-                            取消分享
-                        </v-btn>
-                    </div>
-                </div>
-                <div v-else>
-                    <v-card-text>
-                        本原型图尚未处于分享状态，是否开启分享
-                    </v-card-text>
-                    <div class="text-center">
-                        <v-btn rounded color="primary" dark @click="openShare">
-                            打开分享
-                        </v-btn>
-                    </div>
-                </div>
-
-                <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn color="primary" text @click="dialog = false">
-                        I accept
-                    </v-btn>
-                </v-card-actions>
-            </v-card>
-        </v-dialog>
     </div>
 </template>
 <script>
-import prolist from "../components/prototype/PrototypeList";
+import shareprolist from "../components/prototype/shareprolist.vue";
 import qs from "qs";
 import Prototype from "../components/prototype/PrototypeView.vue";
-import PrototypeView from "../components/prototype/PrototypeView.vue";
+import shareprototype from "../components/prototype/shareprototype.vue";
 import Avatar from 'vue-avatar';
 //-------------------------------------------------
 //-----------------------原型图相关组件------------
@@ -199,7 +41,7 @@ import { listenGlobalKeyDown } from '@/utils/shortcutKey'
 import RealTimeComponentList from '@/components/RealTimeComponentList'
 import CanvasAttr from '@/components/CanvasAttr'
 export default {
-    components: { Avatar, prolist, Prototype, PrototypeView, AnimationList, EventList, componentList, RealTimeComponentList, CanvasAttr },
+    components: { Avatar, shareprolist, Prototype, shareprototype, AnimationList, EventList, componentList, RealTimeComponentList, CanvasAttr },
     name: "prototype",
     props: {
         // 通过position来设置初始定位
@@ -222,10 +64,6 @@ export default {
     ]),
     data() {
         return {
-            code: '',
-            is_sharing: JSON.parse(sessionStorage.getItem('is_sharing')),
-            dialog: false,
-            now_file_name: JSON.parse(sessionStorage.getItem('now_file_name')),
             //----------------------
             //------悬浮按钮组------
             //----------------------
@@ -275,42 +113,9 @@ export default {
                 this.username = res.data.data.username;
             }
         );
-        this.$axios.post(
-            '/api/prototype/share_prototype',
-            this.$qs.stringify({
-                projectID: JSON.parse(sessionStorage.getItem('ProjectID'))
-            })
-        ).then(
-            res => {
-                this.code = res.data.code;
-                this.url = "http://www.horik.cn/share?" + this.code
-                console.log("分享的url");
-            }
-        )
+        // 从路由中取出?以后的code加密串
     },
     methods: {
-        closeshare() {
-            this.$axios.post(
-                '/api/prototype/close_sharing',
-                this.$qs.stringify({
-                    projectID: JSON.parse(sessionStorage.getItem('ProjectID'))
-                }).then(res => {
-                    if (res.data.errno == 0) {
-                        this.$message.success(res.data.msg)
-                    }
-                }))
-        },
-        openShare() {
-            this.$axios.post(
-                '/api/prototype/close_sharing',
-                this.$qs.stringify({
-                    projectID: JSON.parse(sessionStorage.getItem('ProjectID'))
-                }).then(res => {
-                    if (res.data.errno == 0) {
-                        this.$message.success(res.data.msg)
-                    }
-                }))
-        },
         returnbefore() {
             this.$router.push('/projectdashboard');
         },
