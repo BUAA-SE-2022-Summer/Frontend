@@ -1,6 +1,6 @@
 <template>
   <div style="">
-    <!-- <div style="width: 100vw;height:6vh;background-color: whitesmoke;">
+    <div style="width: 100vw;height:6vh;background-color: whitesmoke;">
   <router-link to="/">
     <div>
       <img :src="this.logourl" style="width: 30vh;height:6vh;position: absolute;">
@@ -39,7 +39,7 @@
   <el-tooltip class="item" effect="dark" :content="this.now_textname" placement="bottom">
     <div style="left:62vh;position: absolute;top:1.5vh"><b>当前文档</b></div>
   </el-tooltip>
-</div> -->
+</div>
  <!-- 以下为展示过去uml的地方 -->
   <div style="width:80vw;margin: auto;margin-top: 50px;">
     <v-container fluid>
@@ -57,7 +57,22 @@
           >
             <div>我的UML图</div>
             <v-divider></v-divider>
-            <v-btn @click="createNew()">新的UML图</v-btn>
+            <v-btn @click="dialog=!dialog" style="background-color: transparent;" x-large>新的UML图</v-btn>
+            <v-dialog v-model="dialog" max-width="500px">
+            <v-card>
+              <v-card-title>UML图名称</v-card-title>
+              <v-text-field label="名称" v-model="xmlName"></v-text-field>
+              <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="blue darken-1" text @click="dialog=false">
+                Cancel
+              </v-btn>
+              <v-btn color="blue darken-1" text @click="save">
+                Save
+              </v-btn>
+            </v-card-actions>
+            </v-card>
+            </v-dialog>
           </v-toolbar>
         </template>
   
@@ -156,6 +171,8 @@ import qs from 'qs'
 export default {
   data(){
     return{
+      xmlName:"",
+      dialog:false,
       umlID:0,
       xmlSrc:"try",
       itemsPerPageArray: 8,
@@ -224,8 +241,9 @@ export default {
       this.itemsPerPage = number
     },
     createNew(){
-      console.log("创建新的UML图")
-      this.$router.push({path:'/project/uml/design', query:{umlID:this.umlID, xmlSrc:this.xmlSrc}})
+      
+      // console.log("创建新的UML图")
+      // this.$router.push({path:'/project/uml/design', query:{umlID:this.umlID, xmlSrc:this.xmlSrc}})
     },
     deleteXML(ID){
       this.$axios({
@@ -252,6 +270,34 @@ export default {
       this.umlID=item.xmlID
       this.xmlSrc=item.content
       this.$router.push({path:'/project/uml/design', query:{umlID:this.umlID, xmlSrc:this.xmlSrc}})
+    },
+    save(){
+      console.log("uml", this.xmlName)
+      this.dialog=false
+      this.$axios({
+        method: 'post',
+        url: '/api/file/save_xml ',
+        data: qs.stringify({
+            'xml_name':this.xmlName,
+            'content':"kong"
+
+        })
+    })
+        .then(res => {
+        console.log(res.data)
+        if (res.data.errno === 0) {
+            this.$message.success("新建xml成功");
+            this.umlID=res.data.xmlID
+            this.$router.push({path:'/project/uml/design', query:{umlID:this.umlID, xmlSrc:this.xmlSrc}})
+              // this.$router.push('/project/uml')
+        } else {
+            this.$message.error(res.data.msg);
+        }
+        
+        })
+        .catch(err => {
+        console.log(err);         /* 若出现异常则在终端输出相关信息 */
+        })
     }
   },
 }
