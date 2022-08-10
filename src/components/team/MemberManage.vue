@@ -6,7 +6,7 @@
     
     <div style="width:1100px;height: 600px;margin: auto;margin-top: 150px;">
         <v-toolbar flat>
-            <v-icon color="pink" x-large>mdi-heart</v-icon>
+            <v-icon color="#c0d8df" x-large>mdi-account</v-icon>
             <v-toolbar-title style="font-size: 30px;font-weight: 500;">成员管理</v-toolbar-title>
             <v-spacer></v-spacer>
 

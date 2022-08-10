@@ -36,9 +36,6 @@
   <el-tooltip class="item" effect="dark" :content="this.projectname" placement="bottom">
     <div style="left:52vh;position: absolute;top:1.5vh"><b>当前项目</b></div>
   </el-tooltip>
-  <el-tooltip class="item" effect="dark" :content="this.now_textname" placement="bottom">
-    <div style="left:62vh;position: absolute;top:1.5vh"><b>当前文档</b></div>
-  </el-tooltip>
 </div>
  <!-- 以下为展示过去uml的地方 -->
   <div style="width:80vw;margin: auto;margin-top: 50px;">
@@ -171,6 +168,7 @@ import qs from 'qs'
 export default {
   data(){
     return{
+      
       xmlName:"",
       dialog:false,
       umlID:0,
@@ -196,7 +194,9 @@ export default {
     }
   },
   created(){
+
     this.get_user_xml()
+
   },
   
   computed: {
@@ -257,6 +257,11 @@ export default {
         console.log(res.data)
         if (res.data.errno === 0) {
             this.$message.success("删除uml成功");
+            for(var i=0;i<this.items.length;i++){
+              if(this.items[i].xmlID==ID){
+                this.items.splice(i, 1)
+              }
+            }
         } else {
             // alert(res.data.msg);
             this.$message.error(res.data.msg);
@@ -298,7 +303,8 @@ export default {
         .catch(err => {
         console.log(err);         /* 若出现异常则在终端输出相关信息 */
         })
-    }
+    },
+    
   },
 }
 </script>
