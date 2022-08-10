@@ -26,7 +26,12 @@
             </v-row>
             <v-card-text style="font-size:20px;color: black;font-weight: 500;">
               {{ this.inviteName }}邀请您加入{{ this.teamName }}团队,确认请点击以下链接：</v-card-text>
-            <v-text-field outlined label="请输入您的密码" v-model="password"> </v-text-field>
+            <v-text-field outlined
+                          :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                          :type="show1 ? 'text' : 'password'"
+                          @click:append="show1 = !show1"
+                          label="请输入您的密码"
+                          v-model="password"> </v-text-field>
             <v-btn width="100%" @click="sendConfirm"
               style="background: transparent; border-left: transparent;border-right: transparent;">确认加入</v-btn>
           </div>
@@ -72,6 +77,8 @@ export default {
       opacity: 0.46,
       zIndex: 5,
       password:"",
+
+      show1: false,
     }
   },
   created() {

@@ -16,7 +16,7 @@
           <div>
             <user_centerVue></user_centerVue>
             <!-- <true_user_centerVue></true_user_centerVue> -->
-            <div @click="overlay2=false" style="font-size=40px">
+            <div @click="overlay2=false" style="font-size:40px">
 
               <v-icon style="float:left;color:red;font-weight: 500;" x-large>mdi-arrow-left</v-icon>
 

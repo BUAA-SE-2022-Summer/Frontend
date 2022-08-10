@@ -1016,7 +1016,7 @@ export default {
     // _this.editor1.replaceContent(newContent);
     _this.editor1.onChange.subscribe(() => {
       console.log(_this.editor1.getContents().content);
-      this.savetxt();
+        this.savetxt();
         this.websocketsend();
     });
     _this.editor1.onReady.subscribe(() => {

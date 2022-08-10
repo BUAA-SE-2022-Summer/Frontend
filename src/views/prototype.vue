@@ -1,126 +1,234 @@
 <template>
-    <div>
+    <!--    全屏容器    -->
+    <div ref="pageDiv" @mousemove="demo_move" @mouseup="demo_up" :class="{ 'zlevelTop': mouseDownState }"
+        style="position: absolute;top: 0;height: 100%;width: 100%">
         <div>
-            <!-- <img class="bgbox" id="bgbox" alt="" src="../../src/img/背景.jpg"> -->
-            <div style="width: 100vw;height:6vh;background-color: whitesmoke;">
-                <router-link to="/">
-                    <div><img src='https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/1.png'
-                            style="width: 30vh;height:6vh;position: absolute;">
+            <div>
+                <div style="width: 100vw;height:6vh;background-color: whitesmoke;">
+                    <router-link to="/">
+                        <div><img src='https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/1.png'
+                                style="width: 30vh;height:6vh;position: absolute;">
+                        </div>
+                    </router-link>
+                    <div style="position: absolute;left:90vh;height:6vh;background-color: whitesmoke">
+                        <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select=""
+                            style="background-color: whitesmoke;height: 7vh;top:-1vh" text-color="black"
+                            active-text-color="red" router>
+                            <el-menu-item index="/textbustest"><b>文档</b></el-menu-item>
+                            <el-menu-item index="2"><b>原型设计</b></el-menu-item>
+                            <el-menu-item index="/project/uml"><b>uml绘制</b></el-menu-item>
+                        </el-menu>
                     </div>
-                </router-link>
-                <div style="position: absolute;left:90vh;height:6vh;background-color: whitesmoke">
-                    <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select=""
-                        style="background-color: whitesmoke;height: 7vh;top:-1vh" text-color="black"
-                        active-text-color="red" router>
-                        <el-menu-item index="/textbustest"><b>文档</b></el-menu-item>
-                        <el-menu-item index="2"><b>原型设计</b></el-menu-item>
-                        <el-menu-item index="/project/uml"><b>uml绘制</b></el-menu-item>
-                    </el-menu>
+                    <div v-if="this.userhead" style="left:175vh;position: absolute"><img :src="this.userhead"
+                            style="border-radius: 50%;width: 6vh;height: 6vh"></div>
+                    <div v-else style="left:175vh;position: absolute; margin-top:3px">
+                        <Avatar :username="this.username" :background-color="this.username" color="#fff"
+                            :size="this.AvatarSize" style="vertical-align: middle;" :inline="true" />
+                    </div>
+                    <div style="left:185vh;position: absolute;top:1.5vh"><b>{{ this.username }}</b></div>
+                    <el-tooltip class="item" effect="dark" :content="this.teamname" placement="bottom">
+                        <div style="left:42vh;position: absolute;top:1.5vh"><b>当前团队</b></div>
+                    </el-tooltip>
+                    <el-tooltip class="item" effect="dark" :content="this.projectname" placement="bottom">
+                        <div style="left:52vh;position: absolute;top:1.5vh"><b>当前项目</b></div>
+                    </el-tooltip>
+                    <el-tooltip class="item" effect="dark" placement="bottom">
+                        <div style="left:62vh;position: absolute;top:1.5vh"><b>当前原型图</b></div>
+                    </el-tooltip>
                 </div>
-                <div v-if="this.userhead" style="left:175vh;position: absolute"><img :src="this.userhead"
-                        style="border-radius: 50%;width: 6vh;height: 6vh"></div>
-                <div v-else style="left:175vh;position: absolute; margin-top:3px">
-                    <Avatar :username="this.username" :background-color="this.username" color="#fff"
-                        :size="this.AvatarSize" style="vertical-align: middle;" :inline="true" />
+                <div v-if="this.ifnew === 0" style="margin-top:auto">
+                    <el-tooltip class="item" effect="dark" content="新建原型图" placement="bottom">
+                        <div style="position: absolute;width:40px;height:40px;left:20px;top:55px"><i
+                                class="el-icon-document-add" style="" @click="changenew"></i></div>
+                    </el-tooltip>
+                    <el-tooltip class="item" effect="dark" content="打开右侧面板" placement="bottom">
+                        <div style="position: absolute;width:40px;height:40px;left:90px;top:55px"><i
+                                class="el-icon-delete-solid" style=""></i></div>
+                    </el-tooltip>
+                    <el-tooltip class="item" effect="dark" content="保存原型图" placement="bottom">
+                        <div style="position: absolute;width:40px;height:40px;left:160px;top:55px"><i
+                                class="el-icon-document-checked" style=""></i></div>
+                    </el-tooltip>
+                    <el-tooltip class="item" effect="dark" content="选择模板" placement="bottom">
+                        <div style="position: absolute;width:40px;height:40px;left:230px;top:55px"><i
+                                class="el-icon-edit-outline" style="" @click="drawer = true"></i></div>
+                    </el-tooltip>
                 </div>
-                <div style="left:185vh;position: absolute;top:1.5vh"><b>{{ this.username }}</b></div>
-                <el-tooltip class="item" effect="dark" :content="this.teamname" placement="bottom">
-                    <div style="left:42vh;position: absolute;top:1.5vh"><b>当前团队</b></div>
-                </el-tooltip>
-                <el-tooltip class="item" effect="dark" :content="this.projectname" placement="bottom">
-                    <div style="left:52vh;position: absolute;top:1.5vh"><b>当前项目</b></div>
-                </el-tooltip>
-                <el-tooltip class="item" effect="dark" :content="this.now_textname" placement="bottom">
-                    <div style="left:62vh;position: absolute;top:1.5vh"><b>当前原型图</b></div>
-                </el-tooltip>
+                <div v-if="this.ifnew === 1" style="width: 21vh;position: absolute;">
+                    <el-input v-model="inputname" placeholder="请输入原型图名称"></el-input>
+                    <el-button type="primary" style="position: absolute;width: 9vh;" @click="createnewpro">确认
+                    </el-button>
+                    <el-button type="error" style="position: absolute;width: 9vh;left:220px" @click="closecreate">取消
+                    </el-button>
+                </div>
+                <div style="position: absolute;width: 300px;height:80vh;background-color: white;top:12vh">
+                    <prolist />
+                </div>
+                <div style="display: flex;">
+                    <PrototypeView ref="canvas" />
+                </div>
+                <el-drawer title="请选择一个模板" :visible.sync="drawer" :direction="direction" :before-close="handleClose"
+                    :size="size">
+                    <!--<span>我来啦!</span>-->
+                    <div @mouseover="over1" @mouseleave="leave">
+                        <el-button type="primary" icon="el-icon-s-management" style="width: 300px;background-color: red"
+                            @click="open1">项目计划</el-button>
+                    </div>
+                    <div @mouseover="over2" @mouseleave="leave">
+                        <el-button type="primary" icon="el-icon-s-management"
+                            style="width: 300px;background-color: orange" @click="open2">会议纪要</el-button>
+                    </div>
+                    <div @mouseover="over3" @mouseleave="leave">
+                        <el-button type="primary" icon="el-icon-s-management"
+                            style="width: 300px;background-color: yellowgreen" @click="open3">项目管理</el-button>
+                    </div>
+                    <div @mouseover="over4" @mouseleave="leave">
+                        <el-button type="primary" icon="el-icon-s-management"
+                            style="width: 300px;background-color: #b3d4fc" @click="open4">工作周报</el-button>
+                    </div>
+                    <div @mouseover="over5" @mouseleave="leave">
+                        <el-button type="primary" icon="el-icon-s-management"
+                            style="width: 300px;background-color: palevioletred" @click="open5">需求调研报告</el-button>
+                    </div>
+                    <div @mouseover="over6" @mouseleave="leave">
+                        <el-button type="primary" icon="el-icon-s-management"
+                            style="width: 300px; background-color: aqua" @click="open6">需求规格说明书</el-button>
+                    </div>
+                </el-drawer>
+                <div><img v-if="this.show === 1" src="../img/项目计划.jpg"
+                        style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
+                <div><img v-if="this.show === 2" src="../img/会议纪要.jpg"
+                        style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
+                <div><img v-if="this.show === 3" src="../img/项目管理.jpg"
+                        style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
+                <div><img v-if="this.show === 4" src="../img/工作周报.jpg"
+                        style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
+                <div><img v-if="this.show === 5" src="../img/需求调研报告.jpg"
+                        style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
+                <div><img v-if="this.show === 6" src="../img/需求规格说明书.jpg"
+                        style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
             </div>
-            <div v-if="this.ifnew === 0">
-                <el-tooltip class="item" effect="dark" content="新建原型图" placement="bottom">
-                    <div style="position: absolute;width:40px;height:40px;left:20px;top:55px"><i
-                            class="el-icon-document-add" style="" @click="changenew"></i></div>
-                </el-tooltip>
-                <el-tooltip class="item" effect="dark" content="删除当前原型图" placement="bottom">
-                    <div style="position: absolute;width:40px;height:40px;left:90px;top:55px"><i
-                            class="el-icon-delete-solid" style="" @click="deletepro"></i></div>
-                </el-tooltip>
-                <el-tooltip class="item" effect="dark" content="保存原型图" placement="bottom">
-                    <div style="position: absolute;width:40px;height:40px;left:160px;top:55px"><i
-                            class="el-icon-document-checked" style="" @click="savepro"></i></div>
-                </el-tooltip>
-                <el-tooltip class="item" effect="dark" content="选择模板" placement="bottom">
-                    <div style="position: absolute;width:40px;height:40px;left:230px;top:55px"><i
-                            class="el-icon-edit-outline" style="" @click="drawer = true"></i></div>
-                </el-tooltip>
-            </div>
-            <div v-if="this.ifnew === 1" style="width: 21vh;position: absolute;">
-                <el-input v-model="inputname" placeholder="请输入原型图名称"></el-input>
-                <el-button type="primary" style="position: absolute;width: 9vh;" @click="createnewpro">确认</el-button>
-                <el-button type="error" style="position: absolute;width: 9vh;left:220px" @click="closecreate">取消
-                </el-button>
-            </div>
-            <div style="position: absolute;width: 300px;height:80vh;background-color: white;top:12vh">
-                <prolist />
-            </div>
-            <div style="display: flex;">
-                <PrototypeView />
-            </div>
-            <el-drawer title="请选择一个模板" :visible.sync="drawer" :direction="direction" :before-close="handleClose"
-                :size="size">
-                <!--<span>我来啦!</span>-->
-                <div @mouseover="over1" @mouseleave="leave">
-                    <el-button type="primary" icon="el-icon-s-management" style="width: 300px;background-color: red"
-                        @click="open1">项目计划</el-button>
-                </div>
-                <div @mouseover="over2" @mouseleave="leave">
-                    <el-button type="primary" icon="el-icon-s-management" style="width: 300px;background-color: orange"
-                        @click="open2">会议纪要</el-button>
-                </div>
-                <div @mouseover="over3" @mouseleave="leave">
-                    <el-button type="primary" icon="el-icon-s-management"
-                        style="width: 300px;background-color: yellowgreen" @click="open3">项目管理</el-button>
-                </div>
-                <div @mouseover="over4" @mouseleave="leave">
-                    <el-button type="primary" icon="el-icon-s-management" style="width: 300px;background-color: #b3d4fc"
-                        @click="open4">工作周报</el-button>
-                </div>
-                <div @mouseover="over5" @mouseleave="leave">
-                    <el-button type="primary" icon="el-icon-s-management"
-                        style="width: 300px;background-color: palevioletred" @click="open5">需求调研报告</el-button>
-                </div>
-                <div @mouseover="over6" @mouseleave="leave">
-                    <el-button type="primary" icon="el-icon-s-management" style="width: 300px; background-color: aqua"
-                        @click="open6">需求规格说明书</el-button>
-                </div>
-            </el-drawer>
-            <div><img v-if="this.show === 1" src="../img/项目计划.jpg"
-                    style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
-            <div><img v-if="this.show === 2" src="../img/会议纪要.jpg"
-                    style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
-            <div><img v-if="this.show === 3" src="../img/项目管理.jpg"
-                    style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
-            <div><img v-if="this.show === 4" src="../img/工作周报.jpg"
-                    style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
-            <div><img v-if="this.show === 5" src="../img/需求调研报告.jpg"
-                    style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
-            <div><img v-if="this.show === 6" src="../img/需求规格说明书.jpg"
-                    style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
         </div>
+        <!-- 点击蒙版  -->
+        <div v-if="attrOpen" @click.stop="closeAtrrMenu"
+            style="position: fixed;top: 0;left: 0;width: 100%;height: 100%;z-index:998 "></div>
+        <!--  多功能菜单 -->
+        <div :class="{ 'six-more-modal-btn': attrOpen, 'moreModal': !attrOpen, 'more-tran-animate': !mouseDownState }"
+            ref="attrActionMgr" :style="position" @mousedown="attr_menu_down">
+            <!--  触发器 -->
+            <div v-if="!attrOpen" @click="demo_click" class="imgMore">
+                画布
+            </div>
+            <!--  菜单  -->
+            <div v-else>
+                <!-- <CanvasAttr /> -->
+                <el-tabs v-if="curComponent" v-model="activeName">
+                    <el-tab-pane label="属性" name="attr">
+                        <component :is="curComponent.component + 'Attr'" />
+                    </el-tab-pane>
+                    <el-tab-pane label="动画" name="animation" style="padding-top: 20px;">
+                        <AnimationList />
+                    </el-tab-pane>
+                    <el-tab-pane label="事件" name="events" style="padding-top: 20px;">
+                        <EventList />
+                    </el-tab-pane>
+                </el-tabs>
+                <div v-else>
+                    没有选择组件
+                </div>
+            </div>
+        </div>
+        <!-- <v-speed-dial :bottom="dial_bottom" :right="dial_right" :direction="dial_direction"
+            :transition="dial_transition">
+            <template v-slot:activator>
+                <v-btn v-model="fab" color="blue darken-2" dark fab>
+                    <v-icon v-if="fab">
+                        mdi-close
+                    </v-icon>
+                    <v-icon v-else>
+                        mdi-account-circle
+                    </v-icon>
+                </v-btn>
+            </template>
+            <v-btn fab dark small color="green">
+                <v-icon>mdi-pencil</v-icon>
+            </v-btn>
+            <v-btn fab dark small color="indigo">
+                <v-icon>mdi-plus</v-icon>
+            </v-btn>
+            <v-btn fab dark small color="red">
+                <v-icon>mdi-delete</v-icon>
+            </v-btn>
+        </v-speed-dial> -->
     </div>
 </template>
 <script>
-import { createEditor } from '@textbus/editor';
-import '@textbus/editor/bundles/textbus.min.css';
 import prolist from "../components/prototype/PrototypeList";
 import qs from "qs";
 import Prototype from "../components/prototype/PrototypeView.vue";
 import PrototypeView from "../components/prototype/PrototypeView.vue";
-import Avatar from 'vue-avatar'
+import Avatar from 'vue-avatar';
+//-------------------------------------------------
+//-----------------------原型图相关组件------------
+//-------------------------------------------------
+import ComponentList from '@/components/ComponentList' // 左侧列表组件
+import PageList from '@/components/PageList' // 左侧页面列表组件
+import AnimationList from '@/components/AnimationList' // 右侧动画列表
+import EventList from '@/components/EventList' // 右侧事件列表
+import componentList from '@/custom-component/component-list' // 左侧列表数据
+import Toolbar from '@/components/Toolbar'
+import { deepCopy } from '@/utils/utils'
+import { mapState } from 'vuex'
+import generateID from '@/utils/generateID'
+import { listenGlobalKeyDown } from '@/utils/shortcutKey'
+import RealTimeComponentList from '@/components/RealTimeComponentList'
+import CanvasAttr from '@/components/CanvasAttr'
 export default {
-    components: { Avatar, prolist, Prototype, PrototypeView },
-    name: "textbustest",
-
+    components: { Avatar, prolist, Prototype, PrototypeView, AnimationList, EventList, componentList, RealTimeComponentList, CanvasAttr },
+    name: "prototype",
+    props: {
+        // 通过position来设置初始定位
+        position: {
+            type: Object,
+            default: function () {
+                return {
+                    top: "32.25rem",
+                    left: "0"
+                }
+            }
+        }
+    },
+    computed: mapState([
+        'componentData',
+        'curComponent',
+        'isClickComponent',
+        'canvasStyleData',
+        'editor',
+    ]),
     data() {
         return {
+            //----------------------
+            //------悬浮按钮组------
+            //----------------------
+            dial_direction: 'left',
+            dial_right: true,
+            dial_bottom: true,
+            dial_transition: 'scale-transition',
+            //----------------------
+            //-------选中的组件-----
+            //----------------------
+            activeName: 'attr',
+            reSelectAnimateIndex: undefined,
+            //----------------------
+            //------浮动按钮--------
+            //----------------------
+            attrOpen: false,     //  attr菜单展开状态
+            mouseDownState: false,   //  鼠标点击状态
+            iX: 0, iY: 0,
+            dX: 0, dY: 500,   //  初始定位
+            lastMoveIndex: 0,    //  拖拽计数
+            curMoveIndex: 0, //  历史计数
+            //----------------------
             activeIndex: '2',    // 当前激活的tab页
             AvatarSize: 40,// 用户头像大小
             size: '300',//抽屉的宽度
@@ -138,12 +246,6 @@ export default {
             ifnew: 0,
             inputname: '',
             choice: 0,
-            projectplan: '<h1 style="text-align:center"><strong>&nbsp;项目计划</strong></h1><h2>&nbsp;&nbsp;&nbsp;&nbsp;一、摘要</h2><h2>&nbsp;&nbsp;&nbsp;&nbsp;二、综述</h2><h2>&nbsp;&nbsp;&nbsp;&nbsp;三、甲方需求</h2><h2>&nbsp;&nbsp;&nbsp;&nbsp;四、技术与产品</h2><h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（1）：目前持有技术</h3><h3 style="background-color:rgb(255, 255, 255)"><strong style="color:rgb(73, 80, 96);font-family:Roboto, sans-serif;font-size:1.75rem;line-height:1.2">&nbsp;</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（2）：技术需求描述</h3><h3 style="background-color:rgb(255, 255, 255)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（3）：需要改进的技术</h3><h2 style="background-color:rgb(255, 255, 255)">&nbsp;&nbsp;&nbsp;&nbsp;五、市场分析</h2><h2 style="background-color:rgb(255, 255, 255)">&nbsp;&nbsp;&nbsp;&nbsp;六、初步项目进度计划及人员安排</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p><h3 style="background-color:rgb(255, 255, 255)"><strong style="color:rgb(73, 80, 96);font-family:Roboto, sans-serif;font-size:1.75rem;line-height:1.2">&nbsp;</strong></h3><p><br></p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p><p><br></p>',
-            meetingpoint: '<h1 style="text-align:center"><strong>&nbsp;XX科技公司</strong></h1><h3 style="text-align:center"><strong>XXX次会议纪要</strong></h3><p style="text-align:left"><strong>——————————————————————————————————————————————————————————————————————————————————————————————————————</strong></p><p style="text-align:left"><strong>会议时间：20xx年x月x日</strong></p><p><strong>会议地点：第x会议室</strong></p><p><strong>会议主持：xxx</strong></p><p><strong>记录人员：xxx</strong></p><p><strong>出席人员：xxx xxx xxx xxx</strong></p><p><strong>缺席人员: &nbsp;&nbsp;xxx xxx</strong></p><p><strong>会议内容：</strong></p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>一、讨论内容</strong></p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>二、决议事项</strong></p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.</p>',
-            projecthold: '<h1><strong>xx项目管理</strong></h1><p><strong><br></strong></p><table class="tb-table tb-table-textbus"><tbody><tr><td colSpan="1" rowSpan="1">Task Comtains<br>工作计划<br></td><td colSpan="1" rowSpan="1">Owner<br>责任人<br></td><td colSpan="1" rowSpan="1">Bar<br>进度<br></td><td colSpan="1" rowSpan="1">Start State<br>计划开始日期<br></td><td colSpan="1" rowSpan="1">Work Days<br>工作日<br></td><td colSpan="1" rowSpan="1">End State<br>计划完成日期<br></td><td colSpan="1" rowSpan="1">Actural Start<br>实际开始日期<br></td><td colSpan="1" rowSpan="1">Actural End<br>实际结束日期<br></td><td colSpan="1" rowSpan="1">Status<br>是否按计划进行<br></td></tr><tr><td colSpan="1" rowSpan="1">完成原型图部分后段对接</td><td colSpan="1" rowSpan="1">黄瑞</td><td colSpan="1" rowSpan="1">80%</td><td colSpan="1" rowSpan="1">2022/8/7</td><td colSpan="1" rowSpan="1">2</td><td colSpan="1" rowSpan="1">2022/8/9</td><td colSpan="1" rowSpan="1">2022/8/5</td><td colSpan="1" rowSpan="1">2022/8/6</td><td colSpan="1" rowSpan="1">是</td></tr><tr><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td></tr><tr><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td></tr><tr><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td><td colSpan="1" rowSpan="1"><br></td></tr></tbody></table><h2>&nbsp;</h2><h2><strong>请于此处下方插入甘特图：</strong></h2><h3>（甘特图位置）</h3>',
-            workweekly: '<h1><strong>xx工作周报</strong></h1><p><strong><br></strong></p><p><strong><br></strong></p><table class="tb-table"><tbody><tr><td colSpan="5" rowSpan="1" style="text-align:center"><strong style="font-family:SimHei, STHeiti;font-size:24px">xx工作周报<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x年x月x日<br></strong></td></tr><tr><td colSpan="5" rowSpan="1">项目名称</td></tr><tr><td colSpan="3" rowSpan="1">上周工作总结</td><td colSpan="2" rowSpan="1">下周工作注意事项</td></tr><tr><td colSpan="3" rowSpan="1">1.</td><td colSpan="2" rowSpan="1">1.</td></tr><tr><td colSpan="3" rowSpan="1">2.</td><td colSpan="2" rowSpan="1">2.</td></tr><tr><td colSpan="3" rowSpan="1">本周工作记录</td><td colSpan="2" rowSpan="1">本周工作存在问题及解决方法</td></tr><tr><td colSpan="1" rowSpan="1">具体时间</td><td colSpan="2" rowSpan="1">具体工作记录</td><td colSpan="1" rowSpan="1">具体问题</td><td colSpan="1" rowSpan="1">具体解决方法</td></tr><tr><td colSpan="1" rowSpan="1">x年x月x日</td><td colSpan="2" rowSpan="1">xxx</td><td colSpan="1" rowSpan="1">xxx</td><td colSpan="1" rowSpan="1">xxx</td></tr><tr><td colSpan="5" rowSpan="1">下周工作计划</td></tr><tr><td colSpan="2" rowSpan="1">时间</td><td colSpan="3" rowSpan="1">计划</td></tr><tr><td colSpan="2" rowSpan="1">xxx</td><td colSpan="3" rowSpan="1">xxx</td></tr><tr><td colSpan="2" rowSpan="1">xxx</td><td colSpan="3" rowSpan="1">xxx</td></tr><tr><td colSpan="2" rowSpan="1">xxx</td><td colSpan="3" rowSpan="1">xxx</td></tr><tr><td colSpan="2" rowSpan="1">xxx</td><td colSpan="3" rowSpan="1">xxx</td></tr></tbody></table><p><br></p><p style="text-align:center;font-family:宋体;font-size:10.5pt">&nbsp;</p><h2>&nbsp;</h2><p><br></p>',
-            needlook: '<h1><strong>xx项目需求调研报告</strong></h1><p><strong><br></strong></p><table class="tb-table"><tbody><tr><td colSpan="2" rowSpan="1" style="text-align:center"><strong>软件开发项目需求调研报告模板</strong></td></tr><tr><td colSpan="2" rowSpan="1">项目名称：</td></tr><tr><td colSpan="2" rowSpan="1">调查方式：</td></tr><tr><td colSpan="1" rowSpan="1">调查人：</td><td colSpan="1" rowSpan="1">调查时间：</td></tr><tr><td colSpan="2" rowSpan="1">调查地点：</td></tr><tr><td colSpan="2" rowSpan="1">参与人员：</td></tr><tr><td colSpan="2" rowSpan="1">调研内容：</td></tr><tr><td colSpan="2" rowSpan="1">取得的原始材料：</td></tr><tr><td colSpan="2" rowSpan="1">收到的结果与反馈：</td></tr><tr><td colSpan="1" rowSpan="1">项目代表签字：</td><td colSpan="1" rowSpan="1">用户代表签字：</td></tr></tbody></table><h2>&nbsp;</h2><p><br></p>',
-            needbook: '<h1><strong>xx软件需求规格说明书</strong></h1><p><strong><br></strong></p><p><strong><br></strong></p><table class="tb-table"><tbody><tr><td colSpan="5" rowSpan="1" style="text-align:center"><strong style="font-size:20px">xx软件需求规格说明书</strong></td></tr><tr><td colSpan="5" rowSpan="1">硬件整体需求：</td></tr><tr><td colSpan="5" rowSpan="1">工作环境需求：</td></tr><tr><td colSpan="1" rowSpan="1">需求编号：</td><td colSpan="1" rowSpan="1">功能名称</td><td colSpan="1" rowSpan="1">功能需求标识</td><td colSpan="1" rowSpan="1">优先级</td><td colSpan="1" rowSpan="1">具体描述</td></tr><tr><td colSpan="1" rowSpan="1">1</td><td colSpan="1" rowSpan="1">系统入口</td><td colSpan="1" rowSpan="1">L1</td><td colSpan="1" rowSpan="1">最高</td><td colSpan="1" rowSpan="1">用户在该软件中进行一切操作的入口</td></tr></tbody></table><h2>&nbsp;</h2><p><br></p>',
             show: 0,
         }
     },
@@ -293,7 +395,7 @@ export default {
                 });
             this.ifnew = 0;
         },
-        deletepro() {       // todo
+        deletepro() {
             this.$axios({
                 method: 'post',
                 url: '/api/prototype/delete_prototype',
@@ -314,33 +416,233 @@ export default {
         },
         savepro() {
             this.$message.success("保存文件成功");
-        }
-    },
+        },
+        //---------------------------------------------------------
+        //-------------------画布属性悬浮球效果--------------------
+        //---------------------------------------------------------
+        //  鼠标按下
+        attr_menu_down(event) {
+            //  如果打开了菜单，则不做响应
+            if (this.attrOpen) {
+                this.mouseDownState = false;
+                return
+            }
+            console.log("attr_menu_down", event);
+            /* 此处判断  pc 或 移动端 得到 event 事件 */
+            var touch;
+            if (event.touches) {
+                touch = event.touches[0];
+            } else {
+                touch = event;
+            }
+            // 鼠标点击 面向页面 的 x坐标 y坐标
+            let { clientX, clientY } = touch;
+            // 鼠标x坐标 - 拖拽按钮x坐标  得到鼠标 距离 拖拽按钮 的间距
+            this.iX = clientX - this.$refs.attrActionMgr.offsetLeft;
+            // 鼠标y坐标 - 拖拽按钮y坐标  得到鼠标 距离 拖拽按钮 的间距
+            this.iY = clientY - this.$refs.attrActionMgr.offsetTop;
+            // 设置当前 状态为 鼠标按下
+            this.mouseDownState = true;
+        },
+        //  鼠标拖拽
+        demo_move(event) {
+            //鼠标按下 切移动中
+            if (this.mouseDownState) {
+                console.log("demo_move", event);
+                /* 此处判断  pc 或 移动端 得到 event 事件 */
+                var touch;
+                if (event.touches) {
+                    touch = event.touches[0];
+                } else {
+                    touch = event;
+                }
+                // 鼠标移动时 面向页面 的 x坐标 y坐标
+                let { clientX, clientY } = touch;
+                //当前页面全局容器 dom 元素  获取容器 宽高
+                let {
+                    clientHeight: pageDivY,
+                    clientWidth: pageDivX
+                } = this.$refs.pageDiv;
+                /* 鼠标坐标 - 鼠标与拖拽按钮的 间距坐标  得到 拖拽按钮的 左上角 x轴y轴坐标 */
+                let [x, y] = [clientX - this.iX, clientY - this.iY];
+
+                //拖拽按钮 dom 元素  获取 宽高 style 对象
+                let {
+                    clientHeight: attrActionMgrY,
+                    clientWidth: attrActionMgrX,
+                    style: attrActionMgrStyle
+                } = this.$refs.attrActionMgr;
+                /* 此处判断 拖拽按钮 如果超出 屏幕宽高 或者 小于
+                   设置 屏幕最大 x=全局容器x y=全局容器y 否则 设置 为 x=0 y=0
+                */
+                if (x > pageDivX - attrActionMgrX) x = pageDivX - attrActionMgrX;
+                else if (x < 0) x = 0;
+                if (y > pageDivY - attrActionMgrY) y = pageDivY - attrActionMgrY;
+                else if (y < 0) y = 0;
+                this.dX = x; this.dY = y;
+                // 计算后坐标  设置 按钮位置
+                attrActionMgrStyle.left = `${x}px`;
+                attrActionMgrStyle.top = `${y}px`;
+                attrActionMgrStyle.bottom = "auto";
+                attrActionMgrStyle.right = "auto";
+                //  move Index
+                this.lastMoveIndex++;
+                //  当按下键滑动时， 阻止屏幕滑动事件
+                event.preventDefault();
+            }
+        },
+        //    鼠标抬起
+        demo_up(event) {
+            console.log("demo_up", event);
+            //  当前页面全局容器 dom 元素  获取容器 宽高
+            let {
+                clientHeight: windowHeight,
+                clientWidth: windowWidth
+            } = document.documentElement;
+            console.log('全局容器:', windowWidth, windowHeight);
+            //  拖拽按钮 dom 元素  获取 宽高 style 对象
+            let {
+                clientHeight: attrActionMgrY,
+                clientWidth: attrActionMgrX,
+                style: attrActionMgrStyle
+            } = this.$refs.attrActionMgr;
+
+            console.log('拖拽按钮', attrActionMgrY, attrActionMgrX, attrActionMgrStyle);
+
+            // 计算后坐标  设置 按钮位置
+            if (this.dY > 0 && this.dY < (windowHeight - 50)) { //  不在顶部 且 不在底部
+                if (this.dX <= (windowWidth / 2)) {  //  left 小于等于屏幕一半
+                    attrActionMgrStyle.left = 0;
+                    attrActionMgrStyle.right = 'auto';
+                } else { //  left 大于屏幕一半
+                    attrActionMgrStyle.left = 'auto';
+                    attrActionMgrStyle.right = 0;
+                }
+                if (this.dY >= (windowHeight / 2)) {   //  宽度大于1/2时，是将top改为auto，调整bottom
+                    attrActionMgrStyle.top = 'auto';
+                    attrActionMgrStyle.bottom = (windowHeight - this.dY - 50) + 'px';
+                }
+            } else {
+                if (this.dY === 0) {  //  在顶部
+                    attrActionMgrStyle.top = 0;
+                    attrActionMgrStyle.bottom = 'auto';
+                } else if (this.dY === (windowHeight - 50)) {
+                    attrActionMgrStyle.bottom = 0;
+                    attrActionMgrStyle.top = 'auto';
+                }
+                if (this.dX >= (windowWidth / 2)) {  //  右侧是将left改为auto，调整right
+                    attrActionMgrStyle.left = 'auto';
+                    attrActionMgrStyle.right = (windowWidth - this.dX - 50) + 'px';
+                }
+            }
+            this.mouseDownState = false;
+        },
+        //    单击事件
+        demo_click() {
+            console.log("demo_click|moveIndex:", this.lastMoveIndex, this.curMoveIndex);
+            //  mouseup 后会激活click事件
+            //  如果上一次down事件到下一次click事件中经历10次以下move，则视为纯点击事件
+            if (this.lastMoveIndex - this.curMoveIndex <= 10) {
+                //  点击事件
+                this.attrOpen = !this.attrOpen;
+                if (this.attrOpen) {
+                    //  打开菜单
+                }
+            }
+            this.curMoveIndex = this.lastMoveIndex
+        },
+        //    点击空白关闭菜单
+        closeAtrrMenu() {
+            this.attrOpen = false;
+        },
+        //--------------------------------------------------------------------------------------
+        //--------------------原型图绘制相关-----------------------------------------------------
+        //--------------------------------------------------------------------------------------
+        handleDrop(e) {
+            e.preventDefault()
+            e.stopPropagation()
+            const index = e.dataTransfer.getData('index')
+            const rectInfo = this.editor.getBoundingClientRect()
+            if (index) {
+                const component = deepCopy(componentList[index])
+                component.style.top = e.clientY - rectInfo.y
+                component.style.left = e.clientX - rectInfo.x
+                component.id = generateID()
+                this.$store.commit('addComponent', { component })
+                this.$store.commit('recordSnapshot')
+            }
+        },
+
+        handleDragOver(e) {
+            e.preventDefault()
+            e.dataTransfer.dropEffect = 'copy'
+        },
+
+        handleMouseDown(e) {
+            e.stopPropagation()
+            this.$store.commit('setClickComponentStatus', false)
+            this.$store.commit('setInEditorStatus', true)
+        },
+
+        deselectCurComponent(e) {
+            if (!this.isClickComponent) {
+                this.$store.commit('setCurComponent', { component: null, index: null })
+            }
+
+            // 0 左击 1 滚轮 2 右击
+            if (e.button != 2) {
+                this.$store.commit('hideContextMenu')
+            }
+        },
+    }
 }
+
 </script>
 
 <style scoped>
-.bgbox {
-    display: block;
-    opacity: 1;
-    z-index: -3;
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: opacity 1s, transform .25s, filter .25s;
-    backface-visibility: hidden;
+.zlevelTop {
+    z-index: 9999;
 }
 
-.textbus-container {
-    line-height: 1.428;
-    border-radius: 5px;
-    height: 583px;
-    color: #495060;
-    position: relative;
+.more-tran-animate {
+    transition: 0.5s;
+}
+
+.moreModal {
+    /* 如果碰到滑动问题，1.3 请检查 z-index。z-index需比web大一级*/
+    z-index: 9999;
+    position: fixed;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #337AB7;
+    line-height: 40px;
+    text-align: center;
+    color: #fff;
+    opacity: 0.6;
+}
+
+.moreModal:hover {
+    opacity: 1;
+}
+
+.six-more-modal-btn {
+    position: fixed;
+    z-index: 1000;
+    width: auto;
+    height: auto;
+    background: #fff;
+    color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.imgMore {
+    width: 100%;
+    height: 100%;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
 }
 </style>
