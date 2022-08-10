@@ -26,7 +26,7 @@
       </div></router-link>-->
       <div style="position: absolute;left:90vh;height:6vh;background-color: white">
         <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="" style="background-color: white;height: 7vh;top:-1vh" text-color="black" active-text-color="#8da8c4" >
-          <el-menu-item index="1" @click="toProject">项目管理</el-menu-item>
+          <el-menu-item index="1" @click="toProject"><b>项目管理</b></el-menu-item>
           <el-menu-item index="2" @click="toMem"><b>成员管理</b></el-menu-item>
           <el-menu-item index="3"><router-link :to="{ path: '/filetreetry' }" target="_blank" rel="opener"><div><b>团队文档中心</b></div></router-link></el-menu-item>
         </el-menu>
