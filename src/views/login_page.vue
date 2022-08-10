@@ -9,7 +9,13 @@
 
       <div style="width:300px;margin-left:50px;margin-top: 10px;">
         <v-text-field v-model="form.username" label="昵称" outlined clearable></v-text-field>
-        <v-text-field v-model="form.password" label="密码" outlined clearable></v-text-field>
+        <v-text-field v-model="form.password"
+                      :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                      :type="show1 ? 'text' : 'password'"
+                      @click:append="show1 = !show1"
+                      label="密码"
+                      outlined
+                      clearable></v-text-field>
         <!-- <v-app id="inspire"> -->
         <v-bottom-navigation :value="value">
           <v-btn @click="login">
@@ -38,6 +44,9 @@ export default {
         username: '',
         password: '',
       },
+
+      show1: false,
+
       value: 1,
     }
   },

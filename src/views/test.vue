@@ -1,45 +1,392 @@
 <template>
-<div>
-  <br>
-  Click on the images below to start editing.
-  <br>
-  <br>
-  PNG Image with default UI:<br>
-  <img style="cursor:pointer;" title="Click to edit image" onclick="this.$aDrawio.editElement(this);"
-    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHkAAAA9CAYAAACJM8YzAAADT3RFWHRteGZpbGUAJTNDbXhmaWxlJTIwaG9zdCUzRCUyMmVtYmVkLmRpYWdyYW1zLm5ldCUyMiUyMG1vZGlmaWVkJTNEJTIyMjAyMS0wMS0xMVQxMCUzQTQxJTNBMzQuMjQ4WiUyMiUyMGFnZW50JTNEJTIyNS4wJTIwKE1hY2ludG9zaCUzQiUyMEludGVsJTIwTWFjJTIwT1MlMjBYJTIwMTFfMV8wKSUyMEFwcGxlV2ViS2l0JTJGNTM3LjM2JTIwKEtIVE1MJTJDJTIwbGlrZSUyMEdlY2tvKSUyMENocm9tZSUyRjg3LjAuNDI4MC44OCUyMFNhZmFyaSUyRjUzNy4zNiUyMiUyMGV0YWclM0QlMjJtNXI1QVhFdDE3eWx2WWlEWXo5UyUyMiUyMHZlcnNpb24lM0QlMjIxNC4xLjklMjIlMjB0eXBlJTNEJTIyZW1iZWQlMjIlM0UlM0NkaWFncmFtJTIwaWQlM0QlMjJlbVlSU0REUmtEUDJZZDNFWnkzciUyMiUyMG5hbWUlM0QlMjJQYWdlLTElMjIlM0VqWkxOVG9Rd0VJQ2ZwbGV6MEloNkZkZjE0Z2tUejVXT3ROblNrbElXOE9sdDdWUm9OaVplWU9hYjZmd1RXdmZMeWJKQnZCb09pcFFIdmhENlJNcXlxS283JTJGd3RramVTV1BrVFFXY2tqT215Z2tWJTJCQUx4T2RKSWNSV1VUT0dPWGtrTVBXYUEydHl4aXoxc3k1MjZkUmVkYUJkWkI1Qk5DMFRGM1RkOG1kaVBTJTJCckRiJTJCQXJJVEtYTlJZWDhmckQxMzFrd2E4Mm1qSVZwNmxzSmdEYU5nM013N1JJJTJCRTF0WVlGNlYlMkJxVUdGc2VZVGUlMkY3RGlpV1BiazFOcEZvdGFQZXZDS21KQzFNVHhuZ1RjZ3d1NGNQQ0ZtQjBOMWVaWmlFZE5BTnJnejc3a3lEMFViaGVlYTN3NG5VaFdPd0ZySU5saDdDd0U1Z2VuRjI5QzFyVDBOWmNuYmZsRkltSjNXSXFaQXp2b2ZzTnZNM0JDemlLcEc0NyUyQkxIdGJwd2V2d0UlM0QlM0MlMkZkaWFncmFtJTNFJTNDJTJGbXhmaWxlJTNFoE8CRAAABV1JREFUeF7tm1lIlVsYht+NXoSipGkIGpoDBYqiKIIQSCiRSigOCV2odZuSw51KoYaR8xCkGDmiaCDiVM5JSQiKoSiFaVk5UoKK4nz4Fmd73KmdvZX28ez1rZst7rXW/7/vs961vl/8FQB2wU2nHVAQ5J2dHZ0WKbM4PT29XQF5d5fDrIsLgbgyZF0ku08TQ9ZxwCSPITNkCRyQQCInmSFL4IAEEjnJDFkCBySQyElmyBI4IIFETjJDlsABCSRykhmyBA5IIJGTzJAlcEACiZxkhiyBAxJI5CQzZAkckEAiJ5khS+CABBJPTZLpRra3t6Gvry+B7dqVqDXI379/h5WV1ZHq2tvbERUVha9fvx7o8+DBA3z+/BmlpaVquaNpf7UmBfDlyxf09/cjNDRU3SEq/U46/lgX1eZ/a1JK5+bmxH2+f/8efn5+4tPMzEz8bnR09EjIk5OTWF9fx+XLl9XSqWl/tSYF0NjYiHv37uHTp0/qDlHpd9Lxx7qoNiHvv8GBgQG4u7tjfn4e5ubm4quOjg7cunULd+7cQUVFBc6fP4+ioiLR79mzZ5idnUViYiLq6+uRn58PmiMwMBCFhYUwNjZW0a9pfxqcnp6OyspKbG1twd/fHxkZGfTWwd68tHB8fHwwMTGB4OBgvHjxQqQ6ISEBHz58wLVr15CTk4Nz585hcXERtJvU1NSIRfzo0SM4OTkdGH9caJqO09p2rQ5kX19fBAUF4fbt28Iwejeru7sb9+/fB5mcnZ0tFkVtbS1MTEwQHx+PiIgIxMXFqejWtP/w8LAAUFxcLOal7fjp06fiXpRtdXUVeXl5yM3NRWtrKywtLWFhYYHo6GiEhITg8ePHWFpaQm9vLzIzM8WiffjwIV6+fImkpCT8/PlTzKkc7+bmpimrY/c/dZBXVlZgaGgojLx586YwTgktLS0N1tbWKCgoQGRkpDBubW0Nly5dOhSyuv3HxsZE+jw9PfHt2zcBmdJM193f9m+3BCsrKwtTU1NQKBQizXSczMzMIDU1Fe/evUNZWRkcHR3x9u1bENTOzs4TbffHpXyqINN2rTy337x5gytXrohXPJSQy8vLhbG0RVIjEJR4BweHQyGr25+KPToK6JgwMjISc9Eu8TvIlGA6Kn5ttCucPXsW4eHhAq6trS1iY2Nx9+7dE5/pOgF5f3V9GGQCSom7cOEC+vr6BAT6uaqq6lDI6vYnCJQ8OkNppwgLCxMJ/B3k5ORkvHr1Cj09PeLam5ubGBkZgYeHBz5+/IiLFy/ix48faGhoQExMjCgsx8fHOcn/BpkqW29vbwwNDYmEEAQqwJqamg6FrG7/gIAAAYWOgcHBQXENGpuSkqIyb3Nzs6gX6HGwq6tLFFuvX78WYKlQe/LkifiOzmhnZ2fQQlheXhbFGM07PT29N54mpp3gxo0bQsufbKdqu/4dZHrGpOdkSlldXZ2ovmlbfP78Oby8vA5A1qR/W1ubAEONCjt6vCMAtJhcXFz25iZIrq6u4rp0BtOWTsUgNbqf6upqXL16VRSL9Knc+umeS0pKBGTleJrbwMAALS0tuH79+p9k/P98q5EAbmxsHDiLj3JKnf70HE4QbGxsRCG1sLAAU1NTlccomp8esajYUwKkflRH2Nvb48yZM3u3QAUj/QHHzs5OFJLK9uv4P0r378n/kyRrQxhf4x8HGLIEq4EhM2QJHJBAIieZIUvggAQSOckMWQIHJJDISWbIEjgggUROMkOWwAEJJHKSGbIEDkggkZPMkCVwQAKJnGSGLIEDEkjkJDNkCRyQQCInmSFL4IAEEjnJDFkCBySQqJJkCfRKK1GhUOz+BbaftLWDFNYjAAAAAElFTkSuQmCC"/>
-  <br/>
-  <br>
-  SVG Image with Sketch UI in dark mode:<br>
-  <img style="cursor: pointer;" title="Click to edit image" onclick="this.$aDrawio.editElement(this, null, 'sketch', null, ['dark=1', 'pv=0']);"
-    src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjEiIHdpZHRoPSIxMjFweCIgaGVpZ2h0PSI2MXB4IiB2aWV3Qm94PSItMC41IC0wLjUgMTIxIDYxIiBjb250ZW50PSImbHQ7bXhmaWxlIGhvc3Q9JnF1b3Q7ZW1iZWQuZGlhZ3JhbXMubmV0JnF1b3Q7IG1vZGlmaWVkPSZxdW90OzIwMjEtMTAtMDdUMDM6MjU6NTEuNDU5WiZxdW90OyBhZ2VudD0mcXVvdDs1LjAgKE1hY2ludG9zaDsgSW50ZWwgTWFjIE9TIFggMTBfMTVfNykgQXBwbGVXZWJLaXQvNTM3LjM2IChLSFRNTCwgbGlrZSBHZWNrbykgQ2hyb21lLzk0LjAuNDYwNi43MSBTYWZhcmkvNTM3LjM2JnF1b3Q7IGV0YWc9JnF1b3Q7eUM3cDVNMGpfaDJ2MFh3NDB3b2UmcXVvdDsgdmVyc2lvbj0mcXVvdDsxNS40LjMmcXVvdDsgdHlwZT0mcXVvdDtlbWJlZCZxdW90OyZndDsmbHQ7ZGlhZ3JhbSBpZD0mcXVvdDtlbVlSU0REUmtEUDJZZDNFWnkzciZxdW90OyBuYW1lPSZxdW90O1BhZ2UtMSZxdW90OyZndDtqWkpCVDRVd0RJQi96YTdtd1NMaVZYdytMNTR3OFR4WlpZdGpJNk04d0Y4dmM1dXdFQk12Vy91MWE3dTJoRmJkZkxHc0Z5K0dneUw1aWMrRVBwSTh6Mjd2c3ZWeVpQR2tLRXNQV2l1NVI2Y04xUElMd3N0SVI4bGhDTXdqTkVhaDdGUFlHSzJod1lReGE4MlV1bjBZbFdidFdRc0hVRGRNUWZMTzBUZkpVWGhhNXNYR24wRzJJbWJPaW50dmVXZk5aMnZOcUVNK2JUUjRTOGRpbUpCeUVJeWJhWWZvbWRES0dvTmU2dVlLbEd0cjJyR25QNnloNUFHWCtJbFlxd1dOLzRvUVAzRmxhZ3d4WG9VY25JczdtSnNDREhoenlEUUppVkQzckhINnRLNEVvUThDTzdWcTJTb2VDd25GWHNFaXpEc1VDcnVBNlFEdHNyb0VhMnpha3FyVE5wd3NNckViVEJFWUMvdlEvZ2JlK3JBS29SVlIzV2J3WTl2dE9EMS9Bdz09Jmx0Oy9kaWFncmFtJmd0OyZsdDsvbXhmaWxlJmd0OyI+PGRlZnMvPjxnPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMjAiIGhlaWdodD0iNjAiIGZpbGw9IiNmZmZmZmYiIHN0cm9rZT0iIzAwMDAwMCIgcG9pbnRlci1ldmVudHM9ImFsbCIvPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0wLjUgLTAuNSkiPjxzd2l0Y2g+PGZvcmVpZ25PYmplY3QgcG9pbnRlci1ldmVudHM9Im5vbmUiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHJlcXVpcmVkRmVhdHVyZXM9Imh0dHA6Ly93d3cudzMub3JnL1RSL1NWRzExL2ZlYXR1cmUjRXh0ZW5zaWJpbGl0eSIgc3R5bGU9Im92ZXJmbG93OiB2aXNpYmxlOyB0ZXh0LWFsaWduOiBsZWZ0OyI+PGRpdiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94aHRtbCIgc3R5bGU9ImRpc3BsYXk6IGZsZXg7IGFsaWduLWl0ZW1zOiB1bnNhZmUgY2VudGVyOyBqdXN0aWZ5LWNvbnRlbnQ6IHVuc2FmZSBjZW50ZXI7IHdpZHRoOiAxMThweDsgaGVpZ2h0OiAxcHg7IHBhZGRpbmctdG9wOiAzMHB4OyBtYXJnaW4tbGVmdDogMXB4OyI+PGRpdiBzdHlsZT0iYm94LXNpemluZzogYm9yZGVyLWJveDsgZm9udC1zaXplOiAwcHg7IHRleHQtYWxpZ246IGNlbnRlcjsiPjxkaXYgc3R5bGU9ImRpc3BsYXk6IGlubGluZS1ibG9jazsgZm9udC1zaXplOiAxMnB4OyBmb250LWZhbWlseTogSGVsdmV0aWNhOyBjb2xvcjogcmdiKDAsIDAsIDApOyBsaW5lLWhlaWdodDogMS4yOyBwb2ludGVyLWV2ZW50czogYWxsOyB3aGl0ZS1zcGFjZTogbm9ybWFsOyBvdmVyZmxvdy13cmFwOiBub3JtYWw7Ij5UaGlzIGlzIGEgdGVzdC48L2Rpdj48L2Rpdj48L2Rpdj48L2ZvcmVpZ25PYmplY3Q+PHRleHQgeD0iNjAiIHk9IjM0IiBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0iSGVsdmV0aWNhIiBmb250LXNpemU9IjEycHgiIHRleHQtYW5jaG9yPSJtaWRkbGUiPlRoaXMgaXMgYSB0ZXN0LjwvdGV4dD48L3N3aXRjaD48L2c+PC9nPjxzd2l0Y2g+PGcgcmVxdWlyZWRGZWF0dXJlcz0iaHR0cDovL3d3dy53My5vcmcvVFIvU1ZHMTEvZmVhdHVyZSNFeHRlbnNpYmlsaXR5Ii8+PGEgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCwtNSkiIHhsaW5rOmhyZWY9Imh0dHBzOi8vd3d3LmRpYWdyYW1zLm5ldC9kb2MvZmFxL3N2Zy1leHBvcnQtdGV4dC1wcm9ibGVtcyIgdGFyZ2V0PSJfYmxhbmsiPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTBweCIgeD0iNTAlIiB5PSIxMDAlIj5WaWV3ZXIgZG9lcyBub3Qgc3VwcG9ydCBmdWxsIFNWRyAxLjE8L3RleHQ+PC9hPjwvc3dpdGNoPjwvc3ZnPg==">
-  <br/>
-  <br>
-  <div style="height:1600px">Vertical spacer for testing scrollbars.</div>
-  
-  SVG Object (wrapper needed to implement click handler):<br>
-  <div style="cursor: pointer; display:inline-block;" title="Click to edit image" onclick="this.$aDrawio.DiagramEditor.editElement(this.firstChild);"><object style="pointer-events:none;"
-    data="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjEiIHdpZHRoPSIxMjFweCIgaGVpZ2h0PSI2MXB4IiB2aWV3Qm94PSItMC41IC0wLjUgMTIxIDYxIiBjb250ZW50PSImbHQ7bXhmaWxlIGhvc3Q9JnF1b3Q7d3d3LmRyYXcuaW8mcXVvdDsgbW9kaWZpZWQ9JnF1b3Q7MjAyMC0wMS0yN1QxNTozMjo0MC4xNzhaJnF1b3Q7IGFnZW50PSZxdW90O01vemlsbGEvNS4wIChNYWNpbnRvc2g7IEludGVsIE1hYyBPUyBYIDEwXzE0XzYpIEFwcGxlV2ViS2l0LzUzNy4zNiAoS0hUTUwsIGxpa2UgR2Vja28pIENocm9tZS83OS4wLjM5NDUuMTMwIFNhZmFyaS81MzcuMzYmcXVvdDsgZXRhZz0mcXVvdDtFWFBicVd5dUhldVQyY185OGQ2VSZxdW90OyB2ZXJzaW9uPSZxdW90OzEyLjUuOCZxdW90OyZndDsmbHQ7ZGlhZ3JhbSBpZD0mcXVvdDtlbVlSU0REUmtEUDJZZDNFWnkzciZxdW90OyBuYW1lPSZxdW90O1BhZ2UtMSZxdW90OyZndDtqWkxCYm9RZ0VJYWZobXV6U21MY2ErMTI5OUtUVFhxbU1oVlNCSU80YXArK1VvWXFNVTE2MFpsdmhwbWZHUWl0dXZscVdTOWVEQWRGOGhPZkNYMGllWjRWSlYxL25peUJuUE15Z05aS0h0QnBBN1g4QWp3WjZTZzVETWdDY3NZb0ovc1VOa1pyYUZ6Q21MVm1TdE0rakVxNzlxeUZKTU9EdW1IcVNOOGtkeUxRTWk4MmZnUFppdGc1Szg0aDhzNmF6OWFhVVdNL2JUU0VTTWRpR2RRd0NNYk50RVAwUW1obGpYSEI2dVlLbEI5ck9ySG5QNklvZVhCTHZFVFVha0c3ZjFXSWw3Z3pOV0tOVnlFSG4rSS96RzhCQnZkdzZEUUo2YUR1V2VQOWFYMFNoRDRLMTZuVnkxYnpLQVRGM3NFNm1IY0loVjNCZE9Ec3NxWmdOQTV0U2QxcFcwNFdtZGd0cGtERzhEMjB2NFczT2F3R2ppSzYydzUrWXJzM1RpL2YmbHQ7L2RpYWdyYW0mZ3Q7Jmx0Oy9teGZpbGUmZ3Q7Ij48ZGVmcz48L2RlZnM+PGc+PHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEyMCIgaGVpZ2h0PSI2MCIgZmlsbD0iI2ZmZmZmZiIgc3Ryb2tlPSIjMDAwMDAwIiBwb2ludGVyLWV2ZW50cz0iYWxsIi8+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTAuNSAtMC41KSI+PHN3aXRjaD48Zm9yZWlnbk9iamVjdCBzdHlsZT0ib3ZlcmZsb3c6IHZpc2libGU7IHRleHQtYWxpZ246IGxlZnQ7IiBwb2ludGVyLWV2ZW50cz0ibm9uZSIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgcmVxdWlyZWRGZWF0dXJlcz0iaHR0cDovL3d3dy53My5vcmcvVFIvU1ZHMTEvZmVhdHVyZSNFeHRlbnNpYmlsaXR5Ij48ZGl2IHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hodG1sIiBzdHlsZT0iZGlzcGxheTogZmxleDsgYWxpZ24taXRlbXM6IHVuc2FmZSBjZW50ZXI7IGp1c3RpZnktY29udGVudDogdW5zYWZlIGNlbnRlcjsgd2lkdGg6IDExOHB4OyBoZWlnaHQ6IDFweDsgcGFkZGluZy10b3A6IDMwcHg7IG1hcmdpbi1sZWZ0OiAycHg7Ij48ZGl2IHN0eWxlPSJib3gtc2l6aW5nOiBib3JkZXItYm94OyBmb250LXNpemU6IDA7IHRleHQtYWxpZ246IGNlbnRlcjsgIj48ZGl2IHN0eWxlPSJkaXNwbGF5OiBpbmxpbmUtYmxvY2s7IGZvbnQtc2l6ZTogMTJweDsgZm9udC1mYW1pbHk6IEhlbHZldGljYTsgY29sb3I6ICMwMDAwMDA7IGxpbmUtaGVpZ2h0OiAxLjI7IHBvaW50ZXItZXZlbnRzOiBhbGw7IHdoaXRlLXNwYWNlOiBub3JtYWw7IHdvcmQtd3JhcDogbm9ybWFsOyAiPlRoaXMgaXMgYSB0ZXN0LjwvZGl2PjwvZGl2PjwvZGl2PjwvZm9yZWlnbk9iamVjdD48dGV4dCB4PSI2MCIgeT0iMzQiIGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EiIGZvbnQtc2l6ZT0iMTJweCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+VGhpcyBpcyBhIHRlc3QuPC90ZXh0Pjwvc3dpdGNoPjwvZz48L2c+PC9zdmc+">
-    </object>
+  <div id="app">
+    <v-app id="inspire">
+      <Workspacebanner></Workspacebanner>
+      <v-container>
+        <v-data-iterator :items="recentTeams" hide-default-footer>
+          <template v-slot:header>
+            <v-dialog v-model="dialogExit" max-width="500px">
+              <v-card>
+                <v-card-title class="text-h5 text-center">你确定要退出该团队吗？</v-card-title>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn color="blue darken-1" depressed outlined flat @click="exitTeamOK">
+                    确定
+                  </v-btn>
+                  <v-btn color="blue darken-1" depressed outlined flat @click="close">
+                    取消
+                  </v-btn>
+                  <v-spacer></v-spacer>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+            <v-toolbar dark color="blue darken-3" class="mb-1" style="width: 1280px;height: 58px">
+              <span>最近查看</span>
+            </v-toolbar>
+          </template>
+          <template v-slot:default="props">
+            <v-row>
+              <v-col v-for="item in props.items" :key="item.name" cols="12" sm="6" md="3" lg="3">
+                <v-hover v-slot="{ hover }">
+                  <v-card :elevation="hover ? 15 : 2" style="border-radius: 10px;width: 280px">
+                    <v-card-title class="text-h6" style="padding-top: 2px;padding-bottom: 2px">
+                      <v-row class="fill-height flex-column" justify="space-between">
+                        <p class="mt-4 subheading text-center">
+                          {{ item.name }}
+                        </p>
+                      </v-row>
+                    </v-card-title>
+
+                    <v-divider style="margin: 1px"></v-divider>
+
+                    <v-list dense>
+                      <v-list-item>
+                        <v-icon style="padding-left: 30px;color:lightseagreen">mdi-alphabetical-variant</v-icon>
+                        <span style="background-color: white;padding-left: 15px">团队名:</span>
+                        <span class="align-end" style="padding-left: 10px">{{ item.team_name }}</span>
+                      </v-list-item>
+                      <v-list-item>
+                        <v-icon style="padding-left: 30px;color:#0086b3">mdi-account-circle-outline</v-icon>
+                        <span style="background-color: white;padding-left: 15px">创建人:</span>
+                        <span class="align-end" style="padding-left: 10px">{{ item.team_manager }}</span>
+                      </v-list-item>
+                      <v-list-item>
+                        <v-icon style="padding-left: 30px;color:darkseagreen">mdi-account-multiple-outline</v-icon>
+                        <span style="background-color: white;padding-left: 15px">团队人数:</span>
+                        <span class="align-end" style="padding-left: 10px">{{ item.member_num }}</span>
+                      </v-list-item>
+                    </v-list>
+                    <v-card-actions class="text-h6 white--text" style="height: 55px;display: flex;">
+                      <v-btn :class="{ 'show-btns': hover }" depressed outlined color="primary"
+                             style="border-radius: 4px;height: 35px;" @click="goTeam(item)">
+                        进入团队
+                      </v-btn>
+                      <v-btn :class="{ 'show-btns': hover }" depressed outlined color="red" style="border-radius: 4px;height: 35px;margin-left: auto;
+ order:2" @click="exitTeam(item)">
+                        退出团队
+                      </v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-hover>
+              </v-col>
+            </v-row>
+          </template>
+        </v-data-iterator>
+      </v-container>
+      <v-container>
+        <v-data-iterator :items="teams" :items-per-page.sync="itemsPerPage" :page.sync="page" :search="search"
+                         :sort-by="sortBy"  :sort-desc="sortDesc" hide-default-footer>
+          <template v-slot:header>
+            <v-dialog v-model="dialogAdd" max-width="500px">
+              <v-card>
+                <v-card-title class="text-h5">新建团队</v-card-title>
+                <v-col>
+                  <v-text-field label="团队名称" v-model="addName"></v-text-field>
+                </v-col>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn color="blue darken-1" text @click="close">取消</v-btn>
+                  <v-btn color="blue darken-1" text @click="createTeam">创建</v-btn>
+                  <v-spacer></v-spacer>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+            <v-dialog v-model="dialogExit" max-width="500px">
+              <v-card>
+                <v-card-title class="text-h5 text-center">你确定要退出该团队吗？</v-card-title>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn color="blue darken-1" depressed outlined flat @click="exitTeamOK">
+                    确定
+                  </v-btn>
+                  <v-btn color="blue darken-1" depressed outlined flat @click="close">
+                    取消
+                  </v-btn>
+                  <v-spacer></v-spacer>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+            <v-toolbar dark color="blue darken-3" class="mb-1" style="width: 1280px;height: 58px">
+              <span style="float:left;">全部团队</span>
+              <v-text-field v-model="search" clearable flat solo-inverted hide-details prepend-inner-icon="mdi-magnify"
+                            label="搜索" style="position: absolute;left:550px;width:200px;"></v-text-field>
+              <template v-if="$vuetify.breakpoint.mdAndUp">
+                <v-select v-model="sortBy" flat solo-inverted hide-details :items="keys"
+                          prepend-inner-icon="mdi-magnify" label="Sort by" style="position: absolute;left:800px;width:200px;">
+                </v-select>
+                <v-btn depressed color="blue" style="position: absolute;left:120px;" @click="logcreate">
+                  <v-icon>mdi-plus</v-icon>
+                  <span>新建团队</span>
+                </v-btn>
+                <v-divider style="margin: 1px"></v-divider>
+                <v-btn-toggle v-model="sortDesc" mandatory style="float:right;">
+                  <v-btn depressed color="blue" :value="false">
+                    <v-icon>mdi-arrow-up</v-icon>
+                  </v-btn>
+                  <v-btn depressed color="blue" :value="true">
+                    <v-icon>mdi-arrow-down</v-icon>
+                  </v-btn>
+                </v-btn-toggle>
+              </template>
+            </v-toolbar>
+          </template>
+          <template v-slot:default="props">
+            <v-row>
+              <v-col v-for="item in props.items" :key="item.team_name" cols="12" sm="6" md="3" lg="3">
+                <v-hover v-slot="{ hover }">
+                  <v-card :elevation="hover ? 15 : 2" style="border-radius: 10px;width: 280px">
+                    <v-card-title class="text-h6" style="padding-top: 2px;padding-bottom: 2px">
+                      <v-row class="fill-height flex-column" justify="space-between">
+                        <p class="mt-4 subheading text-center">
+                          {{ item.name }}
+                        </p>
+                      </v-row>
+                    </v-card-title>
+
+                    <v-divider style="margin: 1px"></v-divider>
+
+                    <v-list dense>
+                      <!--                      <v-list-item v-for="(key, index) in filteredKeys">-->
+                      <!--                        <v-list-item-content :class="{ 'blue&#45;&#45;text': sortBy === key }" style="padding-left: 35px">-->
+                      <!--                          {{ key }}:-->
+                      <!--                        </v-list-item-content>-->
+                      <!--                        <v-list-item-content class="align-end" :class="{ 'blue&#45;&#45;text': sortBy === key }">-->
+                      <!--                          {{ item[key] }}-->
+                      <!--                        </v-list-item-content>-->
+                      <!--                      </v-list-item>-->
+                      <v-list-item>
+                        <v-icon style="padding-left: 30px;color:lightseagreen">mdi-alphabetical-variant</v-icon>
+                        <span style="background-color: white;padding-left: 15px">团队名:</span>
+                        <span class="align-end" style="padding-left: 10px">{{ item.team_name }}</span>
+                      </v-list-item>
+                      <v-list-item>
+                        <v-icon style="padding-left: 30px;color:#0086b3">mdi-account-circle-outline</v-icon>
+                        <span style="background-color: white;padding-left: 15px">创建人:</span>
+                        <span class="align-end" style="padding-left: 10px">{{ item.team_manager }}</span>
+                      </v-list-item>
+                      <v-list-item>
+                        <v-icon style="padding-left: 30px;color:darkseagreen">mdi-account-multiple-outline</v-icon>
+                        <span style="background-color: white;padding-left: 15px">团队人数:</span>
+                        <span class="align-end" style="padding-left: 10px">{{ item.member_num }}</span>
+                      </v-list-item>
+                    </v-list>
+                    <v-card-actions class="text-h6 white--text" style="height: 55px;display: flex;">
+                      <v-btn :class="{ 'show-btns': hover }" depressed outlined color="primary"
+                             style="border-radius: 4px;height: 35px;" @click="goTeam(item)">
+                        进入团队
+                      </v-btn>
+                      <v-btn :class="{ 'show-btns': hover }" depressed outlined color="red" style="border-radius: 4px;height: 35px;margin-left: auto;
+ order:2" @click="exitTeam(item)">
+                        退出团队
+                      </v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-hover>
+              </v-col>
+            </v-row>
+          </template>
+
+          <template v-slot:footer>
+            <v-row class="mt-2" align="center" justify="center">
+              <div style="display:flex">
+                <div class="grey--text" style="float:left">4 Items per page</div>
+                <div class="mr-4 grey--text" style="margin-left:auto;float:right">
+                  Page {{ page }} of {{ numberOfPages }}
+                </div>
+              </div>
+              <v-btn fab small dark color="blue darken-3" class="mr-1" @click="formerPage">
+                <v-icon>mdi-chevron-left</v-icon>
+              </v-btn>
+              <v-btn fab small dark color="blue darken-3" class="ml-1" @click="nextPage">
+                <v-icon>mdi-chevron-right</v-icon>
+              </v-btn>
+            </v-row>
+          </template>
+        </v-data-iterator>
+      </v-container>
+    </v-app>
   </div>
-  <br/>
-</div>
 </template>
 <script>
-// import DiagramEditor from "../assets/aDrawio"
-import ceshi from "../utils/aDrawio"
+import Workspacebanner from "@/views/Workspacebanner";
+import qs from "qs";
 export default {
+  data() {
+    return {
+      search: '',
+      filter: {},
+      sortDesc: false,
+      page: 1,
+      itemsPerPage: 4,
+      sortBy: 'team_name',
 
-  created(){
-    // this.$aDrawio.ceshi()
+      dialogAdd: false,
+      addName: '',
+
+      // dialogLook: false,
+      // teamName: '',
+      // teamCreator: '',
+      // teamNumber: '',
+
+      dialogExit: false,
+      exitTeamID: '',
+      exitTeamCreator: '',
+
+
+      keys: [
+        'team_name',
+        'team_manger',
+        'member_num',
+      ],
+      teams: [],
+      recentTeams: [],
+    }
   },
-  methods:{
-
-    // toSVg:function(){
-    //   // DiagramEditor.editElement();
-    // }
-    // myCe:function(){
-    //   ceshi()
-    // }
+  components: {
+    Workspacebanner,
+  },
+  computed: {
+    numberOfPages() {
+      return Math.ceil(this.teams.length / this.itemsPerPage)
+    },
+    filteredKeys() {
+      return this.keys.filter(key => key !== 'Name')
+    },
+  },
+  watch: {
+    dialogAdd(val) {
+      val || this.close()
+    },
+    dialogLook(val) {
+      val || this.close()
+    },
+    dialogExit(val) {
+      val || this.close()
+    },
+  },
+  methods: {
+    nextPage() {
+      if (this.page + 1 <= this.numberOfPages) this.page += 1
+    },
+    formerPage() {
+      if (this.page - 1 >= 1) this.page -= 1
+    },
+    updateItemsPerPage(number) {
+      this.itemsPerPage = number
+    },
+    close() {
+      this.dialogAdd = false;
+      this.dialogLook = false;
+      this.dialogExit = false;
+    },
+    logcreate () {
+      this.dialogAdd = true;
+    },
+    createTeam() {
+      this.$axios({
+        method: 'post',
+        url: '/api/team/create_team',
+        data: this.$qs.stringify({
+              team_name: this.addName,
+            }
+        )
+      })
+          .then(res => {
+            // this.teams.push({
+            //   teamID: res.data.teamID,
+            //   team_name: this.addName,
+            //   create_time: res.data.create_time,
+            //   creator: res.data.creator,
+            // })
+            this.$axios.post(
+                '/api/team/show_my_team_list'
+            ).then(res => {
+              this.teams = res.data.team_list;
+            })
+                .catch(err => {
+                  console.log(err);
+                });
+            if (res.data.errno === 0) {
+              this.$message.success("创建团队成功");
+            } else {
+              this.$message.error("创建团队失败");
+            }
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      this.close();
+      this.addName = '';
+    },
+    goTeam(item) {
+      sessionStorage.setItem('TeamID', JSON.stringify(item.teamID));
+      console.log("选择的团队id为: " + item.teamID);
+      sessionStorage.setItem('TeamName', JSON.stringify(item.team_name));
+      console.log("选择的团队名为: " + item.team_name);
+      this.$router.push('/projectdashboard');
+    },
+    // queryTeam(item) {
+    //   this.dialogLook = true;
+    //   this.teamName = item.team_name;
+    //   this.teamCreator = item.team_manager;
+    //   this.teamNumber = item.member_num;
+    // },
+    // dialogLookOK() {
+    //   this.dialogLook = false;
+    //   this.teamName = '';
+    //   this.teamCreator = '';
+    //   this.teamNumber = '';
+    // },
+    exitTeam(item) {
+      this.dialogExit = true;
+      this.exitTeamID = item.teamID;
+      this.exitTeamCreator = item.team_manager;
+    },
+    exitTeamOK(){
+      console.log("退出团队id为: " + this.exitTeamID);
+      console.log("退出团队创建者为: " + this.exitTeamCreator);
+      this.$axios({
+        method: 'post',
+        url: '/api/team/kick_member',
+        data: qs.stringify({
+          "teamID": this.exitTeamID,
+          "username": this.exitTeamCreator,
+        })
+      }).then(res => {
+        var result = res.data;
+        console.log(result);
+        // e=result.errno
+        if (result.errno === 0) {
+          this.$message.success(result.msg)
+          this.$router.go(0)
+        }else{
+          this.$message.error(result.msg)
+        }
+      }).catch(err => {
+        console.log(err);
+      });
+      this.close();
+      this.exitTeamID = '';
+      this.exitTeamCreator = '';
+      // window.location.reload();
+    }
+  },
+  created() {
+    this.$axios.post(
+        '/api/team/show_my_team_list'
+    ).then(res => {
+      this.teams = res.data.team_list;
+    });
+    // 获取team_list的最近团队4个
+    this.$axios.post(
+        '/api/team/recently_used_teams'
+    ).then(res => {
+      this.recentTeams = res.data.team_list;
+      console.log("最近查看团队"+this.recentTeams);
+      // this.recentTeams = res.data.team_list.slice(0, 4);
+    }).catch(err => {
+      console.log(err);
+    });
   }
 }
 </script>
