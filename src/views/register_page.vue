@@ -1,6 +1,6 @@
 <template>
-  <div style="background-color: rgba(255,255,255,0.85);">
-    <v-card :loading="loading" class="mx-auto my-12" width="450" style="background-color: rgba(255, 255, 255, 0.85);">
+  <div class="dashboard"  style="height:100%;background-color: rgba(255,255,255,0.85);">
+    <v-card :loading="loading" class="mx-auto my-12" width="450" style="background-color: rgba(255, 255, 255, 0.85);top:50px">
       <div style="width:100%;height:200px;margin-top: 20px;">
         <img src="https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/formtop.png"
           style="width:400px;margin-left: 15px;">
@@ -17,10 +17,22 @@
         </v-row>
         <v-row>
           <v-col>
-            <v-text-field v-model="form.password_1" label="密码" clearable></v-text-field>
+            <v-text-field
+                v-model="form.password_1"
+                :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                :type="show1 ? 'text' : 'password'"
+                @click:append="show1 = !show1"
+                label="密码"
+                clearable></v-text-field>
           </v-col>
           <v-col>
-            <v-text-field v-model="form.password_2" label="确认密码" clearable></v-text-field>
+            <v-text-field
+                v-model="form.password_2"
+                :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+                :type="show2 ? 'text' : 'password'"
+                @click:append="show1 = !show1"
+                label="确认密码"
+                clearable></v-text-field>
           </v-col>
         </v-row>
         <v-row>
@@ -51,6 +63,8 @@ export default {
   name: "Register_1",
   data() {
     return {
+      show1: false,
+      show2: false,
       form: {
         username: "",
         password_1: "",
@@ -78,6 +92,7 @@ export default {
         .then(res => {
           if (res.data.errno === 0) {
             this.$message.success("注册成功");
+            sessionStorage.setItem('IfRegister', JSON.stringify(1));
             this.$router.push('/');
             //setTimeout(() => {
             //window.open('/login', '_self');
@@ -99,6 +114,10 @@ export default {
 </script>
 
 <style scoped>
+.dashboard {
+  background-image: url("../../src/img/背景.jpg");
+  background-size: cover;
+}
 #div_1 {
   width: 100%;
   height: 755px;

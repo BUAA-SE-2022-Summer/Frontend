@@ -1,8 +1,49 @@
 <template>
 
   <div class="main">
-    <div class="part1" style="color:white">
+    <div class="part1" style="color:white" v-if="(ifregister !== 1) && (iflogin !== 1)">
+      <v-bottom-navigation style="height:90px" class="topBar">
+        <v-btn value="recent">
+          <span style="color: black;font-size: large;"></span>
+          <v-icon large color="red">mdi-star</v-icon>
+        </v-btn>
 
+
+        <v-divider></v-divider>
+
+<!--        <v-btn value="recent">-->
+<!--          <span style="color: black;font-size: large;padding-right:30px" @click="overlay3 = !overlay3">登录</span>-->
+<!--        </v-btn>-->
+<!--        <v-overlay :value="overlay3" color="white" :dark=isdark :opacity="0.3">-->
+<!--          <login_pageVue></login_pageVue>-->
+<!--          <div @click="overlay3 = false">-->
+<!--            <v-icon style="float:left;color:red;" x-large>mdi-arrow-left</v-icon>-->
+<!--          </div>-->
+<!--        </v-overlay>-->
+        <v-btn value="recent">
+          <span style="color: black;font-size: large;padding-right:28px;padding-left:30px " @click="toLogin">登录</span>
+        </v-btn>
+
+
+<!--        <v-btn value="recent">-->
+<!--          <span style="color: black;font-size: large;padding-right: 150px" @click="overlay4 = !overlay4">注册</span>-->
+<!--        </v-btn>-->
+<!--        <v-overlay :value="overlay4" :dark=isdark :opacity="0.3">-->
+<!--          <register_pageVue></register_pageVue>-->
+<!--          <div @click="overlay4 = false">-->
+<!--            <v-icon style="float:left;color:red;" x-large>mdi-arrow-left</v-icon>-->
+<!--          </div>-->
+<!--        </v-overlay>-->
+        <v-btn value="recent">
+          <span style="color: black;font-size: large;padding-left:30px;padding-right: 25px" @click="toRegister">注册</span>
+        </v-btn>
+
+        <!-- <el-button v-if="this.iflogin !== 1" type="info" round
+          style="background-color: black;position: absolute;left:1300px;top:30px;color: white;" @click="login">登录/注册
+        </el-button> -->
+      </v-bottom-navigation>
+    </div>
+    <div class="part1" style="color:white" v-else-if="(ifregister === 1) && (iflogin !== 1)">
       <v-bottom-navigation style="height:90px" class="topBar">
         <v-btn value="recent">
           <span style="color: black;font-size: large;"></span>
@@ -15,13 +56,10 @@
         <v-overlay :value="overlay2" :dark=isdark :opacity="0.3">
           <div>
             <user_centerVue></user_centerVue>
-            <!-- <true_user_centerVue></true_user_centerVue> -->
             <div @click="overlay2=false" style="font-size:40px">
-
               <v-icon style="float:left;color:red;font-weight: 500;" x-large>mdi-arrow-left</v-icon>
-
             </div>
-
+            <!-- <true_user_centerVue></true_user_centerVue> -->
           </div>
         </v-overlay>
         <!-- 查看个人信息 -->
@@ -35,29 +73,20 @@
           </div>
         </v-overlay>
 
-        <v-btn value="recent">
-          <span style="color: black;font-size: large;" @click="overlay3 = !overlay3">登录</span>
-        </v-btn>
-        <v-overlay :value="overlay3" color="white" :dark=isdark :opacity="0.3">
-          <login_pageVue></login_pageVue>
-          <div @click="overlay3 = false">
-            <v-icon style="float:left;color:red;" x-large>mdi-arrow-left</v-icon>
-          </div>
-        </v-overlay>
-
 
         <v-btn value="recent">
-          <span style="color: black;font-size: large;" @click="overlay4 = !overlay4">注册</span>
+          <span style="color: black;font-size: large;" @click="toLogin">登录</span>
         </v-btn>
-        <v-overlay :value="overlay4" :dark=isdark :opacity="0.3">
-          <register_pageVue></register_pageVue>
-          <div @click="overlay4 = false">
-            <v-icon style="float:left;color:red;" x-large>mdi-arrow-left</v-icon>
-          </div>
-        </v-overlay>
-        <v-btn value="recent">
-          <span style="color: black;font-size: large;" @click="logout">退出登录</span>
-        </v-btn>
+
+<!--        <v-btn value="recent">-->
+<!--          <span style="color: black;font-size: large;" @click="overlay4 = !overlay4">注册</span>-->
+<!--        </v-btn>-->
+<!--        <v-overlay :value="overlay4" :dark=isdark :opacity="0.3">-->
+<!--          <register_pageVue></register_pageVue>-->
+<!--          <div @click="overlay4 = false">-->
+<!--            <v-icon style="float:left;color:red;" x-large>mdi-arrow-left</v-icon>-->
+<!--          </div>-->
+<!--        </v-overlay>-->
         <v-btn value="recent">
           <span style="color: black;font-size: large;" @click="forget">忘记密码</span>
         </v-btn>
@@ -70,6 +99,68 @@
         <div class="mobook_head">
           <img v-if="this.iflogin === 1" :src="this.userhead"
             style="position: absolute;top:20px;left:70px;width: 50px;height: 50px;border-color: white;border-width: 1px;margin-right: 50px;margin-top: 0px;border-radius: 50%;">
+        </div>
+
+        <!-- <el-button v-if="this.iflogin !== 1" type="info" round
+          style="background-color: black;position: absolute;left:1300px;top:30px;color: white;" @click="login">登录/注册
+        </el-button> -->
+      </v-bottom-navigation>
+    </div>
+    <div class="part1" style="color:white" v-else>
+      <v-bottom-navigation style="height:90px" class="topBar">
+        <v-btn value="recent">
+          <span style="color: black;font-size: large;"></span>
+          <v-icon large color="red">mdi-star</v-icon>
+        </v-btn>
+        <v-divider></v-divider>
+        <v-btn value="recent">
+          <span style="color: black;font-size: large;" @click="overlay2= !overlay2">修改个人信息</span>
+        </v-btn>
+        <v-overlay :value="overlay2" :dark=isdark :opacity="0.3">
+          <div>
+            <user_centerVue></user_centerVue>
+            <div @click="overlay2=false" style="font-size:40px">
+              <v-icon style="float:left;color:red;font-weight: 500;" x-large>mdi-arrow-left</v-icon>
+            </div>
+            <!-- <true_user_centerVue></true_user_centerVue> -->
+          </div>
+        </v-overlay>
+        <!-- 查看个人信息 -->
+        <v-btn value="recent">
+          <span style="color: black;font-size: large;" @click="overlay = !overlay">个人中心</span>
+        </v-btn>
+        <v-overlay :value="overlay" :dark=isdark :opacity="0.3">
+          <true_user_centerVue></true_user_centerVue>
+          <div @click="overlay = false">
+            <v-icon style="float:left;color:red;" x-large>mdi-arrow-left</v-icon>
+          </div>
+        </v-overlay>
+
+
+        <!--        <v-btn value="recent">-->
+        <!--          <span style="color: black;font-size: large;" @click="overlay4 = !overlay4">注册</span>-->
+        <!--        </v-btn>-->
+        <!--        <v-overlay :value="overlay4" :dark=isdark :opacity="0.3">-->
+        <!--          <register_pageVue></register_pageVue>-->
+        <!--          <div @click="overlay4 = false">-->
+        <!--            <v-icon style="float:left;color:red;" x-large>mdi-arrow-left</v-icon>-->
+        <!--          </div>-->
+        <!--        </v-overlay>-->
+        <v-btn value="recent">
+          <span style="color: black;font-size: large;" @click="logout">退出登录</span>
+        </v-btn>
+        <v-btn value="recent">
+          <span style="color: black;font-size: large;" @click="forget">忘记密码</span>
+        </v-btn>
+        <v-overlay :value="overlay5" :dark=isdark :opacity="0.3">
+          <ResetCode></ResetCode>
+          <div @click="overlay5 = false">
+            <v-icon style="float:left;color:red;" x-large>mdi-arrow-left</v-icon>
+          </div>
+        </v-overlay>
+        <div class="mobook_head">
+          <img v-if="this.iflogin === 1" :src="this.userhead"
+               style="position: absolute;top:20px;left:70px;width: 50px;height: 50px;border-color: white;border-width: 1px;margin-right: 50px;margin-top: 0px;border-radius: 50%;">
         </div>
 
         <!-- <el-button v-if="this.iflogin !== 1" type="info" round
@@ -106,8 +197,10 @@ export default {
   data() {
     return {
       iflogin: JSON.parse(sessionStorage.getItem('IfLogin')),
+      ifregister: JSON.parse(sessionStorage.getItem('IfRegister')),
       username: '',
       userhead: '',
+      has: true,
       click_introduction: 0,
       overlay: false,
       overlay2: false,
@@ -130,7 +223,7 @@ export default {
           this.userhead = res.data.data.img;
         }
       );
-    if (this.login == 0) {
+    if (this.login === 0) {
       this.overlay3 = true
     }
   },
@@ -155,8 +248,11 @@ export default {
         });
       }
     },
-    login() {
+    toLogin() {
       this.$router.push('/login')
+    },
+    toRegister() {
+      this.$router.push('/register')
     },
     toMain() {
       // console.log()
