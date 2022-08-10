@@ -1,165 +1,64 @@
 <template>
   <div style="">
-    <div style="width: 100vw;height:6vh;background-color: whitesmoke;">
-  <router-link to="/">
-    <div>
-      <img :src="this.logourl" style="width: 30vh;height:6vh;position: absolute;left:2vw">
-      </div>
-  </router-link>
-  <!--<div style="left:90vh;position: absolute">
-    <el-button type="text" icon="el-icon-document"
-      style="background-color: whitesmoke;border-color: whitesmoke;height:6vh;position: absolute;">文档</el-button>
-  </div>
-  <div style="left:105vh;position: absolute">
-    <el-button type="text" icon="el-icon-s-platform"
-      style="background-color: whitesmoke;border-color: whitesmoke;height:6vh;position: absolute;">原型设计
-    </el-button>
-  </div>
-  <div style="left:123vh;position: absolute">
-    <el-button type="text" icon="el-icon-picture"
-      style="background-color: whitesmoke;border-color: whitesmoke;height:6vh;position: absolute;">UML绘制
-    </el-button>
-  </div>-->
-      <div style="position: absolute;left:90vh;height:6vh;background-color: whitesmoke">
-        <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select=""
-                 style="background-color: whitesmoke;height: 7vh;top:-1vh" text-color="black"
-                 active-text-color="red" router>
-          <el-menu-item index="/textbustest"><b>文档</b></el-menu-item>
-          <el-menu-item index="/prototype"><b>原型设计</b></el-menu-item>
-          <el-menu-item index="3"><b>uml绘制</b></el-menu-item>
-        </el-menu>
-      </div>
-  <div style="left:185vh;position: absolute;top:1.5vh"><b>{{ this.username }}</b></div>
-  <el-tooltip class="item" effect="dark" :content="this.teamname" placement="bottom">
-    <div style="left:42vh;position: absolute;top:1.5vh"><b>当前团队</b></div>
-  </el-tooltip>
-  <el-tooltip class="item" effect="dark" :content="this.projectname" placement="bottom">
-    <div style="left:52vh;position: absolute;top:1.5vh"><b>当前项目</b></div>
-  </el-tooltip>
-</div>
+
  <!-- 以下为展示过去uml的地方 -->
-  <div style="width:80vw;margin: auto;margin-top: 50px;">
-    <v-container fluid>
-      <v-data-iterator
-        :items="items"
-        :items-per-page.sync="itemsPerPage"
-        :page="page"
-        hide-default-footer
-      >
-        <template v-slot:header>
-          <v-toolbar
-            dark
-            color="blue darken-3"
-            class="mb-1"
-          >
-            <div>我的UML图</div>
-            <v-divider></v-divider>
-            <v-btn @click="dialog=!dialog" style="background-color: transparent;" x-large>新的UML图</v-btn>
-            <v-dialog v-model="dialog" max-width="500px">
-            <v-card>
-              <v-card-title>UML图名称</v-card-title>
-              <v-text-field label="名称" v-model="xmlName"></v-text-field>
-              <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="dialog=false">
-                Cancel
-              </v-btn>
-              <v-btn color="blue darken-1" text @click="save">
-                Save
-              </v-btn>
-            </v-card-actions>
-            </v-card>
-            </v-dialog>
+  <div style="width:60vw;margin: auto;margin-top: 50px;">
+        <v-card>
+        <v-toolbar
+                dark
+                color="#99c2d8"
+                class="mb-1"
+                style="border-radius:7px"
+              >
+                <div>UML图</div>
+                <v-divider></v-divider>
+                <v-btn @click="dialog=!dialog" style="background-color: transparent;" x-large>新建UML</v-btn>
+                <v-dialog v-model="dialog" max-width="500px">
+                <v-card>
+                  <v-card-title>UML图名称</v-card-title>
+                  <v-text-field label="名称" v-model="xmlName"></v-text-field>
+                  <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn color="blue darken-1" text @click="dialog=false">
+                    取消
+                  </v-btn>
+                  <v-btn color="blue darken-1" text @click="save">
+                    保存
+                  </v-btn>
+                </v-card-actions>
+                </v-card>
+                </v-dialog>
+            <v-btn x-large style="background-color:transparent" @click="goBack()">退出</v-btn>
           </v-toolbar>
-        </template>
 
-        <template v-slot:default="props">
-          <v-row>
-            <v-col
-              v-for="item in props.items"
-              :key="item.name"
-              cols="12"
-              sm="8"
-              md="6"
-              lg="4"
-            >
-              <v-card>
-                <v-card-title class="subheading font-weight-bold">
-                   <span
-                    class="d-inline-block text-truncate"
-                    style="max-width: 100px;"
-                  >
-                  {{ item.xml_name }}
-                  </span>
-                  <v-divider></v-divider>
-                 <v-btn style="background: transparent;" @click="deleteXML(item.xmlID)">删除</v-btn>
-                <v-btn style="background: transparent;" @click="modifyXML(item)">编辑</v-btn>
-                </v-card-title>
-                <div>最后编辑时间：</div>
-                <div>{{item.last_modify_time}}</div>
-              </v-card>
-            </v-col>
-          </v-row>
-        </template>
+          <v-list shaped>
+            <v-subheader>历史数据</v-subheader>
+            <v-list-item-group v-model="item" color="primary">
+              <v-list-item
+                v-for="(item, i) in items"
+                :key="i"
+              >
+                <v-list-item-icon>
+                  <span>{{item.xml_name}}   {{item.last_modify_time}}</span>
+                </v-list-item-icon>
+                <v-divider></v-divider>
+                <v-list-item-content>
+                  <div>
+                        
+                        <div style="background:transparent;float:left" small @click=" modifyXML(item)">编辑</div>
+                        
+                        <div style="background:transparent;float:left;margin-left:100px" small @click="deleteXML(item.xmlID)">删除</div>
+                      
+                     
+                  </div>
+                </v-list-item-content>
+               
+              </v-list-item>
+            </v-list-item-group>
+          </v-list>
 
-        <template v-slot:footer>
-          <v-row class="mt-2" align="center" justify="center">
-            <span class="grey--text">Items per page</span>
-            <v-menu offset-y>
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn
-                  dark
-                  text
-                  color="primary"
-                  class="ml-2"
-                  v-bind="attrs"
-                  v-on="on"
-                >
-                  {{ itemsPerPage }}
-                  <v-icon>mdi-chevron-down</v-icon>
-                </v-btn>
-              </template>
-              <v-list>
-                <v-list-item
-                  v-for="(number, index) in itemsPerPageArray"
-                  :key="index"
-                  @click="updateItemsPerPage(number)"
-                >
-                  <v-list-item-title>{{ number }}</v-list-item-title>
-                </v-list-item>
-              </v-list>
-            </v-menu>
+          </v-card>
 
-            <v-spacer></v-spacer>
-
-            <span
-              class="mr-4
-              grey--text"
-            >
-              Page {{ page }} of {{ numberOfPages }}
-            </span>
-            <v-btn
-              fab
-              dark
-              color="blue darken-3"
-              class="mr-1"
-              @click="formerPage"
-            >
-              <v-icon>mdi-chevron-left</v-icon>
-            </v-btn>
-            <v-btn
-              fab
-              dark
-              color="blue darken-3"
-              class="ml-1"
-              @click="nextPage"
-            >
-              <v-icon>mdi-chevron-right</v-icon>
-            </v-btn>
-          </v-row>
-        </template>
-      </v-data-iterator>
-    </v-container>
   </div>
 </div>
 </template>
@@ -172,7 +71,7 @@ export default {
       xmlName:"",
       dialog:false,
       umlID:0,
-      xmlSrc:"try",
+      xmlSrc:"",
       itemsPerPageArray: 8,
       search: '',
       filter: {},
@@ -304,6 +203,9 @@ export default {
         console.log(err);         /* 若出现异常则在终端输出相关信息 */
         })
     },
+    goBack(){
+      this.$router.push("/textbustest")
+    }
     
   },
 }
