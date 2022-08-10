@@ -196,8 +196,7 @@
       <div v-if="this.ifshow === 0" style="position: absolute;top:90vh;left:9.8vw;height:5vh">
         <el-button @click="exportpdf" style="width: 9.8vw;background-color: #E65100"><b>预览pdf</b></el-button>
       </div>
-      <div ref="editorContainer" class="textbus-container"
-        style="width: 165vh;position: absolute;left:38vh;height:100vh;minHeight: 100vh"></div>
+      <div ref="editorContainer" style="width: 165vh;position: absolute;left:38vh;height:100vh;minHeight: 100vh"></div>
       <div><img v-if="this.show === 1" src="../img/项目计划.jpg"
           style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
       <div><img v-if="this.show === 2" src="../img/会议纪要.jpg"
@@ -1036,7 +1035,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .bgbox {
   display: block;
   opacity: 1;
