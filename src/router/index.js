@@ -71,6 +71,11 @@ const routes = [
     path: '/project/uml',
     name: 'projectUML',
     component: () => import("../views/UML.vue")
+  },
+  {
+    path: '/project/uml/design',
+    name: 'projectUMLdesign',
+    component: () => import("../views/UMLDesign.vue")
   }
 ]
 

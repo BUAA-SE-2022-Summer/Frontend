@@ -31,7 +31,7 @@
   </el-tooltip>
 </div> -->
 
-  <!-- <iframe :src="src" frameborder="1" style="width:100%;height: 94vh;" ref="iframe"></iframe> -->
+  <iframe :src="src" frameborder="1" style="width:100%;height: 94vh;" ref="iframe"></iframe>
   </div>
 </template>
 <script>
