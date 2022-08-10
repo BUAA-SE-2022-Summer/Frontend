@@ -5,9 +5,9 @@
         <v-toolbar-title>全部成员</v-toolbar-title>
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-spacer></v-spacer>
-        <v-btn color="black" class="ma-2 white--text" @click="addMember">
+        <v-btn  class="ma-2 white--text" @click="addMember" style="background-color:#80a5cc">
           添加新成员
-          <v-icon color="pink">
+          <v-icon color="white">
             mdi-plus
           </v-icon>
         </v-btn>
@@ -20,10 +20,10 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="blue darken-1" text @click="close">
-                Cancel
+                取消
               </v-btn>
               <v-btn color="blue darken-1" text @click="save">
-                Save
+                确认
               </v-btn>
             </v-card-actions>
           </v-card>

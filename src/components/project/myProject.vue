@@ -4,7 +4,7 @@
       <v-data-iterator :items="items" :items-per-page.sync="itemsPerPage" :page="page" :search="search"
         :sort-by="sortBy" :sort-desc="sortDesc" hide-default-footer>
         <template v-slot:header>
-          <v-toolbar dark color="blue darken-4" class="mb-1">
+          <v-toolbar dark color="#8da8c4" class="mb-1">
             <span>我创建的项目：</span>
             <v-text-field v-model="search" clearable flat solo-inverted hide-details label="Search"></v-text-field>
             <template v-if="$vuetify.breakpoint.mdAndUp">
@@ -12,10 +12,10 @@
               <v-select v-model="sortBy" flat solo-inverted hide-details :items="keys" label="Sort by"></v-select>
               <v-spacer></v-spacer>
               <v-btn-toggle v-model="sortDesc" mandatory>
-                <v-btn large depressed color="blue darken-1" :value="false">
+                <v-btn large depressed color="#8da8c4" :value="false">
                   <v-icon>mdi-arrow-up</v-icon>
                 </v-btn>
-                <v-btn large depressed color="blue darken-1" :value="true">
+                <v-btn large depressed color="#8da8c4" :value="true">
                   <v-icon>mdi-arrow-down</v-icon>
                 </v-btn>
               </v-btn-toggle>
@@ -29,28 +29,29 @@
               <v-card style="">
                 <v-card-title class="subheading font-weight-bold">
 
-                  <span class="d-inline-block text-truncate" style="max-width: 150px;">
-                    <v-icon style="color: #26A69A;">mdi-file-cog</v-icon>
-                    {{ item.projectName }}
+                  <span class="d-inline-block text-truncate" style="max-width: 150px;font-size:18px;font-weight:500">
+                    <!-- <v-icon style="color: #26A69A;">mdi-file-cog</v-icon> -->
+                   项目名： {{ item.projectName }}
                   </span>
                   <v-divider></v-divider>
-                  <v-btn @click="Star(item)" style="background-color: white;">
+                  <!--<v-btn @click="Star(item)" style="background-color: white;">-->
                     <v-icon style="color: #FBC02D;" v-show="item.is_star">mdi-star</v-icon>
                     <v-icon color="black" v-show="!item.is_star">mdi-star</v-icon>
-                    收藏
-                  </v-btn>
+                    <!--收藏-->
+                  <!--</v-btn>-->
+                  <img :src="item.projectImg" style="width: 22vw;height:11vw">
                 </v-card-title>
                 <!-- <div>
                     <span>{{item.projectDesc}}</span>
                   </div> -->
-                <v-list dense>
+               <!-- <v-list dense>
                   <v-list-item>
                     <v-btn style="width:100%;background-color: white;">最近使用时间:{{ item.last_modify_time }}</v-btn>
                   </v-list-item>
                   <v-list-item>
                     <v-btn style="width:100%;background-color: white;">创建时间:{{ item.projectTime }}</v-btn>
                   </v-list-item>
-                </v-list>
+                </v-list>-->
                 <v-bottom-navigation>
                   <!-- <v-btn @click="reaname=!rename"> -->
                   <v-btn @click="Rename(item.projectName)">
@@ -66,10 +67,10 @@
                       <v-text-field outlined v-model="newname" placeholder="新的名称"></v-text-field>
                       <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn color="blue darken-1" text @click="close">
+                        <v-btn color="#8da8c4" text @click="close">
                           Cancel
                         </v-btn>
-                        <v-btn color="blue darken-1" text @click="rename_project(item.projectID)">
+                        <v-btn color="#8da8c4" text @click="rename_project(item.projectID)">
                           Save
                         </v-btn>
                       </v-card-actions>
@@ -93,10 +94,10 @@
                       <v-text-field outlined v-model="copyName" placeholder="新的名称"></v-text-field>
                       <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn color="blue darken-1" text @click="close">
+                        <v-btn color="#8da8c4" text @click="close">
                           Cancel
                         </v-btn>
-                        <v-btn color="blue darken-1" text @click="copy_project(item.projectID)">
+                        <v-btn color="#8da8c4" text @click="copy_project(item.projectID)">
                           Save
                         </v-btn>
                       </v-card-actions>
@@ -122,12 +123,12 @@
 
             <span class="mr-4
               grey--text">
-              Page {{ page }} of {{ numberOfPages }}
+              页 {{ page }}
             </span>
-            <v-btn fab dark color="blue darken-3" class="mr-1" @click="formerPage">
+            <v-btn fab dark color="#8da8c4" class="mr-1" @click="formerPage">
               <v-icon>mdi-chevron-left</v-icon>
             </v-btn>
-            <v-btn fab dark color="blue darken-3" class="ml-1" @click="nextPage">
+            <v-btn fab dark color="#8da8c4" class="ml-1" @click="nextPage">
               <v-icon>mdi-chevron-right</v-icon>
             </v-btn>
           </v-row>

@@ -38,6 +38,14 @@
           <span style="color: black;font-size: large;padding-left:30px;padding-right: 25px" @click="toRegister">注册</span>
         </v-btn>
 
+        <v-btn value="recent">
+          <span style="color: black;font-size: large;" @click="forget">忘记密码</span>
+
+        </v-btn>
+        <v-overlay :value="overlay5" :dark=isdark :opacity="0.3">
+          <ResetCode :data="overlay5" @change2="change2"></ResetCode>
+        </v-overlay>
+
         <!-- <el-button v-if="this.iflogin !== 1" type="info" round
           style="background-color: black;position: absolute;left:1300px;top:30px;color: white;" @click="login">登录/注册
         </el-button> -->
@@ -55,10 +63,7 @@
         </v-btn>
         <v-overlay :value="overlay2" :dark=isdark :opacity="0.3">
           <div>
-            <user_centerVue></user_centerVue>
-            <div @click="overlay2=false" style="font-size:40px">
-              <v-icon style="float:left;color:red;font-weight: 500;" x-large>mdi-arrow-left</v-icon>
-            </div>
+            <user_centerVue :data="overlay2" @change="change"></user_centerVue>
             <!-- <true_user_centerVue></true_user_centerVue> -->
           </div>
         </v-overlay>
@@ -67,10 +72,7 @@
           <span style="color: black;font-size: large;" @click="overlay = !overlay">个人中心</span>
         </v-btn>
         <v-overlay :value="overlay" :dark=isdark :opacity="0.3">
-          <true_user_centerVue></true_user_centerVue>
-          <div @click="overlay = false">
-            <v-icon style="float:left;color:red;" x-large>mdi-arrow-left</v-icon>
-          </div>
+          <true_user_centerVue :data="overlay" @change1="change1"></true_user_centerVue>
         </v-overlay>
 
 
@@ -91,10 +93,7 @@
           <span style="color: black;font-size: large;" @click="forget">忘记密码</span>
         </v-btn>
          <v-overlay :value="overlay5" :dark=isdark :opacity="0.3">
-          <ResetCode></ResetCode>
-          <div @click="overlay5 = false">
-            <v-icon style="float:left;color:red;" x-large>mdi-arrow-left</v-icon>
-          </div>
+           <ResetCode :data="overlay5" @change2="change2"></ResetCode>
         </v-overlay>
         <div class="mobook_head">
           <img v-if="this.iflogin === 1" :src="this.userhead"
@@ -118,11 +117,7 @@
         </v-btn>
         <v-overlay :value="overlay2" :dark=isdark :opacity="0.3">
           <div>
-            <user_centerVue></user_centerVue>
-            <div @click="overlay2=false" style="font-size:40px">
-              <v-icon style="float:left;color:red;font-weight: 500;" x-large>mdi-arrow-left</v-icon>
-            </div>
-            <!-- <true_user_centerVue></true_user_centerVue> -->
+            <user_centerVue :data="overlay2" @change="change"></user_centerVue>
           </div>
         </v-overlay>
         <!-- 查看个人信息 -->
@@ -130,10 +125,7 @@
           <span style="color: black;font-size: large;" @click="overlay = !overlay">个人中心</span>
         </v-btn>
         <v-overlay :value="overlay" :dark=isdark :opacity="0.3">
-          <true_user_centerVue></true_user_centerVue>
-          <div @click="overlay = false">
-            <v-icon style="float:left;color:red;" x-large>mdi-arrow-left</v-icon>
-          </div>
+          <true_user_centerVue :data="overlay" @change1="change1"></true_user_centerVue>
         </v-overlay>
 
 
@@ -153,10 +145,7 @@
           <span style="color: black;font-size: large;" @click="forget">忘记密码</span>
         </v-btn>
         <v-overlay :value="overlay5" :dark=isdark :opacity="0.3">
-          <ResetCode></ResetCode>
-          <div @click="overlay5 = false">
-            <v-icon style="float:left;color:red;" x-large>mdi-arrow-left</v-icon>
-          </div>
+          <ResetCode :data="overlay5" @change2="change2"></ResetCode>
         </v-overlay>
         <div class="mobook_head">
           <img v-if="this.iflogin === 1" :src="this.userhead"
@@ -290,6 +279,15 @@ export default {
     },
     send_code(){
      
+    },
+    change(){
+      this.overlay2 = false;
+    },
+    change1(){
+      this.overlay = false;
+    },
+    change2(){
+      this.overlay5 = false;
     }
   }
 }
@@ -309,7 +307,7 @@ export default {
   position: relative;
   width: 100%;
   height: 100vh;
-  background: url("../assets/mainBack.png");
+  background: url("https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/mainBack.png");
   background-size: cover;
 }
 

@@ -30,7 +30,7 @@
                 v-model="form.password_2"
                 :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
                 :type="show2 ? 'text' : 'password'"
-                @click:append="show1 = !show1"
+                @click:append="show2 = !show2"
                 label="确认密码"
                 clearable></v-text-field>
           </v-col>
