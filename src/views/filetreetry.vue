@@ -135,7 +135,7 @@
                 style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
       <div><img v-if="this.show === 6" src="../img/需求规格说明书.jpg"
                 style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>-->
-      <div v-if="this.ifshow===0" style="height:78vh;width:300px;display: block;overflow-y: scroll;position: absolute;top:12vh;background-color: white">
+      <div v-if="this.ifshow===0" style="height:83vh;width:300px;display: block;overflow-y: scroll;position: absolute;top:12vh;background-color: white">
         <v-treeview
             v-if="this.ifshow===0"
             v-model="tree"
