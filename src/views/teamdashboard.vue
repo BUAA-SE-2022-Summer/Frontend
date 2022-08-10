@@ -71,6 +71,11 @@
               </v-col>
             </v-row>
           </template>
+<!--          <template v-else-if="this.recentTeams.length === 0">-->
+<!--            <img src="../assets/noteam.png" alt="" style="padding-left: 44%;">-->
+<!--            <div style="padding-left: 48%;">无团队</div>-->
+<!--            <div style="padding-left: 43%;font-size: 8px">你最近没有进入任何团队，懈怠了吧！</div>-->
+<!--          </template>-->
         </v-data-iterator>
       </v-container>
       <v-container>
@@ -155,59 +160,56 @@
             </v-toolbar>
           </template>
           <template v-slot:default="props">
-            <v-row>
-              <v-col v-for="item in props.items" :key="item.team_name" cols="12" sm="6" md="3" lg="3">
-                <v-hover v-slot="{ hover }">
-                  <v-card :elevation="hover ? 15 : 2" style="border-radius: 10px;width: 280px">
-                    <v-card-title class="text-h6" style="padding-top: 2px;padding-bottom: 2px">
-                      <v-row class="fill-height flex-column" justify="space-between">
-                        <p class="mt-4 subheading text-center">
-                          {{ item.name }}
-                        </p>
-                      </v-row>
-                    </v-card-title>
+              <v-row>
+                <v-col v-for="item in props.items" :key="item.team_name" cols="12" sm="6" md="3" lg="3">
+                  <v-hover v-slot="{ hover }">
+                    <v-card :elevation="hover ? 15 : 2" style="border-radius: 10px;width: 280px">
+                      <v-card-title class="text-h6" style="padding-top: 2px;padding-bottom: 2px">
+                        <v-row class="fill-height flex-column" justify="space-between">
+                          <p class="mt-4 subheading text-center">
+                            {{ item.name }}
+                          </p>
+                        </v-row>
+                      </v-card-title>
 
-                    <v-divider style="margin: 1px"></v-divider>
+                      <v-divider style="margin: 1px"></v-divider>
 
-                    <v-list dense>
-                      <!--                      <v-list-item v-for="(key, index) in filteredKeys">-->
-                      <!--                        <v-list-item-content :class="{ 'blue&#45;&#45;text': sortBy === key }" style="padding-left: 35px">-->
-                      <!--                          {{ key }}:-->
-                      <!--                        </v-list-item-content>-->
-                      <!--                        <v-list-item-content class="align-end" :class="{ 'blue&#45;&#45;text': sortBy === key }">-->
-                      <!--                          {{ item[key] }}-->
-                      <!--                        </v-list-item-content>-->
-                      <!--                      </v-list-item>-->
-                      <v-list-item>
-                        <v-icon style="padding-left: 30px;color:lightseagreen">mdi-alphabetical-variant</v-icon>
-                        <span style="background-color: white;padding-left: 15px">团队名:</span>
-                        <span class="align-end" style="padding-left: 10px">{{ item.team_name }}</span>
-                      </v-list-item>
-                      <v-list-item>
-                        <v-icon style="padding-left: 30px;color:#0086b3">mdi-account-circle-outline</v-icon>
-                        <span style="background-color: white;padding-left: 15px">创建人:</span>
-                        <span class="align-end" style="padding-left: 10px">{{ item.team_manager }}</span>
-                      </v-list-item>
-                      <v-list-item>
-                        <v-icon style="padding-left: 30px;color:darkseagreen">mdi-account-multiple-outline</v-icon>
-                        <span style="background-color: white;padding-left: 15px">团队人数:</span>
-                        <span class="align-end" style="padding-left: 10px">{{ item.member_num }}</span>
-                      </v-list-item>
-                    </v-list>
-                    <v-card-actions class="text-h6 white--text" style="height: 55px;display: flex;">
-                      <v-btn :class="{ 'show-btns': hover }" depressed outlined color="primary"
-                             style="border-radius: 4px;height: 35px;" @click="goTeam(item)">
-                        进入团队
-                      </v-btn>
-                      <v-btn :class="{ 'show-btns': hover }" depressed outlined color="red" style="border-radius: 4px;height: 35px;margin-left: auto;
+                      <v-list dense>
+                        <v-list-item>
+                          <v-icon style="padding-left: 30px;color:lightseagreen">mdi-alphabetical-variant</v-icon>
+                          <span style="background-color: white;padding-left: 15px">团队名:</span>
+                          <span class="align-end" style="padding-left: 10px">{{ item.team_name }}</span>
+                        </v-list-item>
+                        <v-list-item>
+                          <v-icon style="padding-left: 30px;color:#0086b3">mdi-account-circle-outline</v-icon>
+                          <span style="background-color: white;padding-left: 15px">创建人:</span>
+                          <span class="align-end" style="padding-left: 10px">{{ item.team_manager }}</span>
+                        </v-list-item>
+                        <v-list-item>
+                          <v-icon style="padding-left: 30px;color:darkseagreen">mdi-account-multiple-outline</v-icon>
+                          <span style="background-color: white;padding-left: 15px">团队人数:</span>
+                          <span class="align-end" style="padding-left: 10px">{{ item.member_num }}</span>
+                        </v-list-item>
+                      </v-list>
+                      <v-card-actions class="text-h6 white--text" style="height: 55px;display: flex;">
+                        <v-btn :class="{ 'show-btns': hover }" depressed outlined color="primary"
+                               style="border-radius: 4px;height: 35px;" @click="goTeam(item)">
+                          进入团队
+                        </v-btn>
+                        <v-btn :class="{ 'show-btns': hover }" depressed outlined color="red" style="border-radius: 4px;height: 35px;margin-left: auto;
  order:2" @click="exitTeam(item)">
-                        退出团队
-                      </v-btn>
-                    </v-card-actions>
-                  </v-card>
-                </v-hover>
-              </v-col>
-            </v-row>
+                          退出团队
+                        </v-btn>
+                      </v-card-actions>
+                    </v-card>
+                  </v-hover>
+                </v-col>
+              </v-row>
+<!--            <div v-else>-->
+<!--              <img src="../assets/noteam.png" alt="" style="padding-left: 44%;">-->
+<!--              <div style="padding-left: 48%;">无团队</div>-->
+<!--              <div style="padding-left: 43%;font-size: 8px">你还没有团队，快去创建一个吧！</div>-->
+<!--            </div>-->
           </template>
 
           <template v-slot:footer>
@@ -238,6 +240,7 @@ import qs from "qs";
 export default {
   data() {
     return {
+
       search: '',
       filter: {},
       sortDesc: false,
@@ -336,6 +339,16 @@ export default {
             } else {
               this.$message.error("创建团队失败");
             }
+
+            this.$axios.post(
+                '/api/team/recently_used_teams'
+            ).then(res => {
+              this.recentTeams = res.data.team_list;
+              console.log("最近查看团队"+this.recentTeams);
+              // this.recentTeams = res.data.team_list.slice(0, 4);
+            }).catch(err => {
+              console.log(err);
+            });
           })
           .catch(err => {
             console.log(err);

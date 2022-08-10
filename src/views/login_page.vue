@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="dashboard" style="height: 100%">
 
-    <v-card class="mx-auto my-12" width="400px" style="float:left;">
+    <v-card class="mx-auto my-12" width="400px" style="top:12%">
       <div style="width:100%;height:200px;margin-top: 20px;">
         <img src="https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/login.png"
           style="width:350px;margin-left: 15px;">
@@ -99,6 +99,10 @@ export default {
 </script>
 
 <style scoped>
+.dashboard{
+  background-image: url("../../src/img/背景.jpg");  /* 背景图片 */
+  background-size: cover;
+}
 #div_0 {
   width: 100%;
   height: 100%;
