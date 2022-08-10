@@ -1,7 +1,7 @@
 <template>
     <div class="home">
         <div style="width:300px;margin-left: 0px;">
-            <v-data-table height="245px" :headers="headers" :items="desserts" sort-by="projectUser" class="elevation-1">
+            <v-data-table height="200px" :headers="headers" :items="desserts" sort-by="projectUser" class="elevation-1">
                 <template v-slot:top>
                     <v-toolbar flat color=" ">
                         <v-toolbar-title>全部原型图</v-toolbar-title>
@@ -47,7 +47,6 @@
                         </v-dialog>
                     </v-toolbar>
                 </template>
-
                 <template v-slot:item.actions="{ item }">
                     <v-icon small class="mr-2" @click="toItem(item)" color="primary">
                         mdi-pencil
@@ -55,20 +54,21 @@
                     <v-icon small @click="deleteItem(item)" color="#DF2A23">
                         mdi-delete
                     </v-icon>
+                </template>
 
-                </template>
-                <template v-slot:no-data>
-                    <!--<v-btn color="primary" @click="initialize">打开文件列表</v-btn>-->
-                </template>
             </v-data-table>
+            <ComponentList />
         </div>
     </div>
 </template>
 
 <script>
 import qs from "qs";
+import ComponentList from '@/components/ComponentList' // 左侧列表组件
+
 export default {
     projectName: 'Home',
+    components: { ComponentList },
     data() {
         return {
             teamname: '',

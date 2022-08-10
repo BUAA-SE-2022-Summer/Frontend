@@ -58,7 +58,7 @@
                     </v-list>
                     <v-card-actions class="text-h6 white--text" style="height: 55px;display: flex;">
                       <v-btn :class="{ 'show-btns': hover }" depressed outlined color="primary"
-                             style="border-radius: 4px;height: 35px;" @click="goTeam(item)">
+                        style="border-radius: 4px;height: 35px;" @click="goTeam(item)">
                         进入团队
                       </v-btn>
                       <v-btn :class="{ 'show-btns': hover }" depressed outlined color="red" style="border-radius: 4px;height: 35px;margin-left: auto;
@@ -75,7 +75,7 @@
       </v-container>
       <v-container>
         <v-data-iterator :items="teams" :items-per-page.sync="itemsPerPage" :page.sync="page" :search="search"
-                         :sort-by="sortBy"  :sort-desc="sortDesc" hide-default-footer>
+          :sort-by="sortBy" :sort-desc="sortDesc" hide-default-footer>
           <template v-slot:header>
             <v-dialog v-model="dialogAdd" max-width="500px">
               <v-card>
@@ -109,21 +109,12 @@
             <v-dialog v-model="dialogChooseManager" max-width="500px">
               <v-card>
                 <v-card-title class="text-h5 text-center">你需要选择一位成员作为团队管理员</v-card-title>
-                <v-select
-                    :items="exitUserList"
-                    item-text="username"
-                    item-value="userID"
-                    v-model="userID"
-                    label=""
-                    placeholder="请选择"
-                    hide-details="auto"
-                    dense
-                    class="mr-4"
-                    style="width: 506px"
-                    @change="changeManager(userID)"
-                >
-                  <template #item="{item}">
-                    <Avatar :username="item.username" :background="item.username" color="#fff" style="vert-align: middle; " ::inline="true" />
+                <v-select :items="exitUserList" item-text="username" item-value="userID" v-model="userID" label=""
+                  placeholder="请选择" hide-details="auto" dense class="mr-4" style="width: 506px"
+                  @change="changeManager(userID)">
+                  <template #item="{ item }">
+                    <Avatar :username="item.username" :background="item.username" color="#fff"
+                      style="vert-align: middle; " ::inline="true" />
                     <span style="padding-left: 24px;padding-bottom: 20px;padding-top: 20px">{{ item.username }}</span>
                     <span style="padding-left: 32px;padding-bottom: 20px;padding-top: 20px">邮箱:{{ item.email }}</span>
                   </template>
@@ -133,10 +124,10 @@
             <v-toolbar dark color="blue darken-3" class="mb-1" style="width: 1280px;height: 58px">
               <span style="float:left;">全部团队</span>
               <v-text-field v-model="search" clearable flat solo-inverted hide-details prepend-inner-icon="mdi-magnify"
-                            label="搜索" style="position: absolute;left:550px;width:200px;"></v-text-field>
+                label="搜索" style="position: absolute;left:550px;width:200px;"></v-text-field>
               <template v-if="$vuetify.breakpoint.mdAndUp">
                 <v-select v-model="sortBy" flat solo-inverted hide-details :items="keys"
-                          prepend-inner-icon="mdi-magnify" label="Sort by" style="position: absolute;left:800px;width:200px;">
+                  prepend-inner-icon="mdi-magnify" label="Sort by" style="position: absolute;left:800px;width:200px;">
                 </v-select>
                 <v-btn depressed color="blue" style="position: absolute;left:120px;" @click="logcreate">
                   <v-icon>mdi-plus</v-icon>
@@ -196,7 +187,7 @@
                     </v-list>
                     <v-card-actions class="text-h6 white--text" style="height: 55px;display: flex;">
                       <v-btn :class="{ 'show-btns': hover }" depressed outlined color="primary"
-                             style="border-radius: 4px;height: 35px;" @click="goTeam(item)">
+                        style="border-radius: 4px;height: 35px;" @click="goTeam(item)">
                         进入团队
                       </v-btn>
                       <v-btn :class="{ 'show-btns': hover }" depressed outlined color="red" style="border-radius: 4px;height: 35px;margin-left: auto;
@@ -304,7 +295,7 @@ export default {
       this.dialogExit = false;
       this.dialogChooseManager = false;
     },
-    logcreate () {
+    logcreate() {
       this.dialogAdd = true;
     },
     createTeam() {
@@ -312,34 +303,25 @@ export default {
         method: 'post',
         url: '/api/team/create_team',
         data: this.$qs.stringify({
-              team_name: this.addName,
-            }
+          team_name: this.addName,
+        }
         )
-      })
-          .then(res => {
-            // this.teams.push({
-            //   teamID: res.data.teamID,
-            //   team_name: this.addName,
-            //   create_time: res.data.create_time,
-            //   creator: res.data.creator,
-            // })
-            this.$axios.post(
-                '/api/team/show_my_team_list'
-            ).then(res => {
-              this.teams = res.data.team_list;
-            })
-                .catch(err => {
-                  console.log(err);
-                });
-            if (res.data.errno === 0) {
-              this.$message.success("创建团队成功");
-            } else {
-              this.$message.error("创建团队失败");
-            }
-          })
-          .catch(err => {
-            console.log(err);
-          });
+      }).then(res => {
+        this.$axios.post(
+          '/api/team/show_my_team_list'
+        ).then(res => {
+          this.teams = res.data.team_list;
+        }).catch(err => {
+          console.log(err);
+        });
+        if (res.data.errno === 0) {
+          this.$message.success(res.data.msg);
+        } else {
+          this.$message.error(res.data.msg);
+        }
+      }).catch(err => {
+        console.log(err);
+      });
       this.close();
       this.addName = '';
     },
@@ -372,74 +354,36 @@ export default {
     exitTeamOK() {
       console.log("退出团队id为: " + this.exitTeamID);
       console.log("退出团队创建者为: " + this.exitTeamCreator);
-      if(this.exitTeamNumber >2 && this.userIdentity){
+      if (this.exitTeamNumber > 2 && this.userIdentity) {
         this.$axios({
           method: 'post',
           url: '/api/team/get_team_info',
           data: this.$qs.stringify({
-                teamID: this.exitTeamID,
-              }
+            teamID: this.exitTeamID,
+          }
           )
         })
-            .then(res => {
-              if (res.data.errno === 0) {
-                this.exitUserList = res.data.user_list;
-                this.dialogExit = false;
-                this.dialogChooseManager = true;
-              } else {
-                this.$message.error("获取团队信息失败");
-              }
-            })
-            .catch(err => {
-              console.log(err);
-            });
-      }else{
+          .then(res => {
+            if (res.data.errno === 0) {
+              this.exitUserList = res.data.user_list;
+              this.dialogExit = false;
+              this.dialogChooseManager = true;
+            } else {
+              this.$message.error("获取团队信息失败");
+            }
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      } else {
         this.$axios({
           method: 'post',
           url: '/api/team/leave_team',
           data: this.$qs.stringify({
-                teamID: this.exitTeamID,
-              }
+            teamID: this.exitTeamID,
+          }
           )
         })
-            .then(res => {
-              if (res.data.errno === 0) {
-                this.$message.success(res.data.msg);
-              } else {
-                this.$message.error("退出团队失败");
-              }
-            })
-            .catch(err => {
-              console.log(err);
-            });
-        this.close();
-        this.$axios.post(
-            '/api/team/show_my_team_list'
-        ).then(res => {
-          this.teams = res.data.team_list;
-        });
-        this.$axios.post(
-            '/api/team/recently_used_teams'
-        ).then(res => {
-          this.recentTeams = res.data.team_list;
-          console.log("最近查看团队"+this.recentTeams);
-          // this.recentTeams = res.data.team_list.slice(0, 4);
-        }).catch(err => {
-          console.log(err);
-        });
-      }
-    },
-    changeManager(userID){
-      console.log("选择的团队管理员为: " + userID);
-      this.$axios({
-        method: 'post',
-        url: '/api/team/leave_team',
-        data: this.$qs.stringify({
-              teamID: this.exitTeamID,
-              successorID: userID,
-            }
-        )
-      })
           .then(res => {
             if (res.data.errno === 0) {
               this.$message.success(res.data.msg);
@@ -450,17 +394,55 @@ export default {
           .catch(err => {
             console.log(err);
           });
+        this.close();
+        this.$axios.post(
+          '/api/team/show_my_team_list'
+        ).then(res => {
+          this.teams = res.data.team_list;
+        });
+        this.$axios.post(
+          '/api/team/recently_used_teams'
+        ).then(res => {
+          this.recentTeams = res.data.team_list;
+          console.log("最近查看团队" + this.recentTeams);
+          // this.recentTeams = res.data.team_list.slice(0, 4);
+        }).catch(err => {
+          console.log(err);
+        });
+      }
+    },
+    changeManager(userID) {
+      console.log("选择的团队管理员为: " + userID);
+      this.$axios({
+        method: 'post',
+        url: '/api/team/leave_team',
+        data: this.$qs.stringify({
+          teamID: this.exitTeamID,
+          successorID: userID,
+        }
+        )
+      })
+        .then(res => {
+          if (res.data.errno === 0) {
+            this.$message.success(res.data.msg);
+          } else {
+            this.$message.error("退出团队失败");
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
       this.dialogChooseManager = false;
       this.$axios.post(
-          '/api/team/show_my_team_list'
+        '/api/team/show_my_team_list'
       ).then(res => {
         this.teams = res.data.team_list;
       });
       this.$axios.post(
-          '/api/team/recently_used_teams'
+        '/api/team/recently_used_teams'
       ).then(res => {
         this.recentTeams = res.data.team_list;
-        console.log("最近查看团队"+this.recentTeams);
+        console.log("最近查看团队" + this.recentTeams);
         // this.recentTeams = res.data.team_list.slice(0, 4);
       }).catch(err => {
         console.log(err);
@@ -470,16 +452,16 @@ export default {
 
   created() {
     this.$axios.post(
-        '/api/team/show_my_team_list'
+      '/api/team/show_my_team_list'
     ).then(res => {
       this.teams = res.data.team_list;
     });
     // 获取team_list的最近团队4个
     this.$axios.post(
-        '/api/team/recently_used_teams'
+      '/api/team/recently_used_teams'
     ).then(res => {
       this.recentTeams = res.data.team_list;
-      console.log("最近查看团队"+this.recentTeams);
+      console.log("最近查看团队" + this.recentTeams);
       // this.recentTeams = res.data.team_list.slice(0, 4);
     }).catch(err => {
       console.log(err);
