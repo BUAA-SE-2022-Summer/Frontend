@@ -309,7 +309,7 @@ export default {
   position: relative;
   width: 100%;
   height: 100vh;
-  background: url("../assets/mainBack.png");
+  background: url("https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/mainBack.png");
   background-size: cover;
 }
 
