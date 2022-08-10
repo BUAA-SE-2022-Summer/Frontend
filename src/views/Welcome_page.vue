@@ -40,6 +40,7 @@
 
         <v-btn value="recent">
           <span style="color: black;font-size: large;" @click="forget">忘记密码</span>
+
         </v-btn>
         <v-overlay :value="overlay5" :dark=isdark :opacity="0.3">
           <ResetCode :data="overlay5" @change2="change2"></ResetCode>
