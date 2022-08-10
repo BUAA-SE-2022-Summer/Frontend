@@ -9,11 +9,9 @@
         <div style="left:175vh;position: absolute"><img :src="this.userhead"
             style="border-radius: 50%;width: 6vh;height: 6vh"></div>
         <div style="left:185vh;position: absolute;top:1.5vh"><b>{{ this.username }}</b></div>
-        <el-tooltip class="item" effect="dark" :content="this.teamname" placement="bottom">
           <div style="left:42vh;position: absolute;top:1.5vh"><b>当前团队:</b></div>
-        </el-tooltip>
         <div style="left:53vh;position: absolute;top:1.5vh"><b>{{ this.teamname }}</b></div>
-        <div style="left:100vh;position: absolute;top:1.5vh;"><b>团队文档中心</b></div>
+        <div style="left:100vh;position: absolute;top:1.5vh;" ><b style="font-size: 20px">团队文档中心</b></div>
         <!--<el-tooltip class="item" effect="dark" :content="this.projectname" placement="bottom">
           <div style="left:52vh;position: absolute;top:1.5vh"><b>当前项目</b></div>
         </el-tooltip>-->
@@ -77,6 +75,11 @@
       <div v-if="this.ifnew === 4" style="width: 21vh;position: absolute;">
         <el-input v-model="inputfilename" placeholder="请输入团队文件名称"></el-input>
         <el-button type="primary" style="position: absolute;width: 9vh;" @click="createsondoc1">确认</el-button>
+        <el-button type="error" style="position: absolute;width: 9vh;left:230px" @click="closecreate">取消</el-button>
+      </div>
+      <div v-if="this.ifnew === 5" style="width: 21vh;position: absolute;">
+        <el-input v-model="inputfilename1" placeholder="请输入项目文件名称"></el-input>
+        <el-button type="primary" style="position: absolute;width: 9vh;" @click="createnewprojectfile">确认</el-button>
         <el-button type="error" style="position: absolute;width: 9vh;left:230px" @click="closecreate">取消</el-button>
       </div>
       <!--<div v-if="this.ifshow === 1" style="position: absolute;width: 300px;height:91vh;background-color: white">
@@ -146,13 +149,15 @@
         style="height:83vh;width:300px;display: block;overflow-y: scroll;position: absolute;top:12vh;background-color: white;border:1px;border-color:black;border-style:solid;">
         <v-treeview v-if="this.ifshow === 0" v-model="tree" :open="open" :items="items" color="blue" activatable
           item-key="name" open-on-click :active.sync="active">
-          <template v-slot:append="{ item, open }">
+          <template v-slot:prepend="{ item, open }">
             <v-icon v-if="item.is_dir === true" @click="opendir1(item)" color="#FFAB00">
               {{ open ? 'mdi-folder-open' : 'mdi-folder' }}
             </v-icon>
             <v-icon v-else color="blue-grey darken-1">
               mdi-file-document
             </v-icon>
+          </template>
+          <template v-slot:append="{ item, open }">
             <v-icon v-if="item.is_dir === false" @click="edit(item)" color="#F50057">
               mdi-pencil
             </v-icon>
@@ -170,6 +175,9 @@
             <v-icon v-if="item.is_dir === true && item.is_pro === false" @click="delete1(item)">
               mdi-delete
             </v-icon>
+            <v-icon v-if="item.is_dir === true && item.is_pro === true" @click="createfile(item)">
+              mdi-file-plus
+            </v-icon>
             <div v-if="item.is_pro === true && item.is_dir === true" style="display: inline-block"><b>(项目文档)</b></div>
           </template>
         </v-treeview>
@@ -179,13 +187,15 @@
         <v-treeview v-if="this.ifshow === 1" v-model="tree" :open="open" :items="items1" color="blue" activatable
           item-key="name" open-on-click :active.sync="active">
 
-          <template v-slot:append="{ item, open }">
+          <template v-slot:prepend="{ item, open }">
             <v-icon v-if="item.is_dir === true" color="#FFAB00">
               {{ open ? 'mdi-folder-open' : 'mdi-folder' }}
             </v-icon>
             <v-icon v-else color="blue-grey darken-1">
               mdi-file-document
             </v-icon>
+          </template>
+          <template v-slot:append="{ item, open }">
             <v-icon v-if="!(item.is_dir === true && item.is_pro === true)" @click="review(item)"
               color="light-blue accent-4">
               mdi-autorenew
@@ -271,6 +281,7 @@ export default {
       inputdirname: '',
       inputdirname1: '',
       inputfilename: '',
+      inputfilename1:'',
       size: '300px',//抽屉的宽度
       drawer: false,
       direction: 'ltr',
@@ -309,6 +320,7 @@ export default {
       oldcontent: '',
       lasttime: 0,
       newtime: 0,
+      root_fileid:0,
     }
   },
   created() {
@@ -373,6 +385,60 @@ export default {
     console.log("当前文档id" + this.now_id);
   },
   methods: {
+    createnewprojectfile(){
+      console.log('teamID为'+this.teamid);
+      console.log('项目ID为'+this.projectid);
+      console.log('名称'+this.inputfilename1);
+      console.log('根为'+this.root_fileid);
+      this.$axios({
+        method: 'post',           /* 指明请求方式，可以是 get 或 post */
+        url: '/api/file/create_file',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
+        data: qs.stringify({
+          teamID: this.teamid,
+          projectID: this.projectid,
+          file_name: this.inputfilename1,
+          file_type: 'doc',
+          fatherID: this.root_fileid
+        })
+      })
+          .then(res => {/* res 是 response 的缩写 */
+            if (res.data.errno === 0) {
+              this.$message.success("文档创建成功");
+              this.reload();
+              //this.$router.go(0);
+            } else {
+              this.$message.error(res.data.msg);
+            }
+          })
+          .catch(err => {
+            console.log(err);         /* 若出现异常则在终端输出相关信息 */
+          });
+      this.ifnew=0;
+    },
+    createfile(item){
+      this.ifnew = 5;
+      this.projectid=item.id;
+      this.$axios({
+        method: 'post',           /* 指明请求方式，可以是 get 或 post */
+        url: '/api/file/get_root_id',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
+        data: qs.stringify({
+           projectID:item.id,
+        })
+      })
+          .then(res => {/* res 是 response 的缩写 */
+            if (res.data.errno === 0) {
+              //this.$message.success("获取团队文档列表成功");
+              this.root_fileid = res.data.root_fileID;
+              //this.$message.success(this.root_fileid);
+              //this.$router.go(0);
+            } else {
+              this.$message.error(res.data.msg);
+            }
+          })
+          .catch(err => {
+            console.log(err);         /* 若出现异常则在终端输出相关信息 */
+          });
+    },
     deleteforever(item) {
       this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
         confirmButtonText: '确定',
@@ -384,8 +450,7 @@ export default {
           url: '/api/file/completely_delete_file',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
           data: qs.stringify({
             fileID: item.id,
-          })
-        })
+          })})
           .then(res => {/* res 是 response 的缩写 */
             if (res.data.errno === 0) {
               this.$message.success("删除成功");

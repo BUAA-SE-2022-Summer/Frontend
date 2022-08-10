@@ -1,21 +1,7 @@
 <template>
-  <div class="home">
-    <div>
-      <el-col :span="8">
-        <!-- <el-card shadow="hover">
-          <div>
-            当前团队:
-            <b v-if="this.teamid!==0">{{this.teamname}}</b>
-            <b v-else>当前还没选中团队哦</b>
-            当前项目:
-            <b v-if="this.projectID!==0">{{this.projectname}}</b>
-            <b v-else>当前还没进入项目哦</b>
-          </div>
-        </el-card>-->
-      </el-col>
-    </div>
-    <div style="margin-top:40px;width:300px;margin-left: 0px;">
-      <v-data-table height="480px" :headers="headers" :items="desserts" sort-by="projectUser" class="elevation-1">
+  <div class="home" style="border:1px;">
+    <div style="margin-top:5.5vh;width:300px;margin-left: 0px;border-color:black;border-style:solid;">
+      <v-data-table height="68vh" :headers="headers" :items="desserts" sort-by="projectUser" class="elevation-1">
         <template v-slot:top>
           <v-toolbar flat color="white">
             <v-toolbar-title>删除的文件</v-toolbar-title>
