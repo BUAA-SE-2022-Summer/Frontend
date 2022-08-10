@@ -38,7 +38,7 @@
                 v-for="(item, i) in items"
                 :key="i"
               >
-                <v-list-item-icon>
+                <v-list-item-icon style="width:300px">
                   <span>{{item.xml_name}}   {{item.last_modify_time}}</span>
                 </v-list-item-icon>
                 <v-divider></v-divider>
