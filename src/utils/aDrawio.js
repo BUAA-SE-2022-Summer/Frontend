@@ -9,7 +9,7 @@
  */
 // 以函数调用时，this是window，以方法调用时，this是调用方法的那个，
 // 构造函数创建对象
- export function DiagramEditor(config, ui, done, initialized, urlParams)
+function DiagramEditor(config, ui, done, initialized, urlParams)
  {
     // 对象的属性
      this.config = (config != null) ? config : this.config;
@@ -45,7 +45,7 @@
  /**
   * Static method to edit the diagram in the given img or object.
   */
-DiagramEditor.editElement = function(elt, config, ui, done, urlParams)
+aeditElement = function(elt, config, ui, done, urlParams)
  {
    if (!elt.diagramEditorStarting)
    {
@@ -57,7 +57,9 @@ DiagramEditor.editElement = function(elt, config, ui, done, urlParams)
      }, urlParams).editElement(elt);
     }
  };
- 
+//  export{
+//     aeditElement
+//  };
  /**
   * Global configuration.
   */
