@@ -5,11 +5,11 @@
         <div>
             <div>
                 <div style="width: 100vw;height:6vh;background-color: whitesmoke;">
-                    <router-link to="/">
-                        <div><img src='https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/1.png'
-                                style="width: 30vh;height:6vh;position: absolute;left:2vw">
-                        </div>
-                    </router-link>
+                  <router-link to="/">
+                    <div style="width: 30vh;height:6vh;position: absolute;color:black;font-size :30px;left:2vw">
+                      MoBook
+                    </div>
+                  </router-link>
                     <div style="position: absolute;left:90vh;height:6vh;background-color: whitesmoke">
                         <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select=""
                             style="background-color: whitesmoke;height: 7vh;top:-1vh" text-color="black"

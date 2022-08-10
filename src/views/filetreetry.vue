@@ -4,7 +4,9 @@
       <!--<img class="bgbox" id="bgbox" alt="" src="../../src/img/背景.jpg">-->
       <div style="width: 100vw;height:6vh;background-color: whitesmoke;">
         <router-link to="/">
-          <div><img :src="this.logourl" style="width: 30vh;height:6vh;position: absolute;left:2vw"></div>
+          <div style="width: 30vh;height:6vh;position: absolute;color:black;font-size :30px;left:2vw">
+            MoBook
+          </div>
         </router-link>
         <div style="left:175vh;position: absolute"><img :src="this.userhead"
             style="border-radius: 50%;width: 6vh;height: 6vh"></div>
@@ -321,6 +323,8 @@ export default {
       lasttime: 0,
       newtime: 0,
       root_fileid:0,
+      newtime1:0,
+      lasttime1:0,
     }
   },
   created() {
@@ -972,7 +976,7 @@ export default {
       console.log(JSON.parse(e.data).fileID);
       console.log(JSON.parse(e.data).content);
       this.newtime = new Date().getTime();
-      if (this.newtime - this.lasttime >= 300) {
+      if (this.newtime - this.lasttime >= 500) {
         if (JSON.parse(e.data).fileID === this.now_id) {
           if (JSON.parse(e.data).content !== this.editor1.getContents().content) {
             this.editor1.replaceContent(JSON.parse(e.data).content);
@@ -994,7 +998,11 @@ export default {
       let Data = JSON.stringify(data);
       console.log("正在向服务器发送数据：");
       console.log(Data);
-      this.websock.send(Data);
+      this.newtime1 = new Date().getTime();
+      if (this.newtime1 - this.lasttime1 >= 500) {
+        this.websock.send(Data);
+      }
+      this.lasttime = new Date().getTime();
       //this.$message.success('websocket发送成功');
     },
     // 连接关闭时触发

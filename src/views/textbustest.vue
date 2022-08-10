@@ -3,7 +3,9 @@
     <div>
       <div style="width: 100vw;height:6vh;background-color: whitesmoke;">
         <router-link to="/">
-          <div><img :src="this.logourl" style="width: 30vh;height:6vh;position: absolute;left:2vw"></div>
+          <div style="width: 30vh;height:6vh;position: absolute;color:black;font-size :30px;left:2vw">
+            MoBook
+          </div>
         </router-link>
         <!--<div style="left:90vh;position: absolute">
           <el-button type="text" icon="el-icon-document"
