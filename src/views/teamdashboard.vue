@@ -372,7 +372,7 @@ export default {
     exitTeamOK() {
       console.log("退出团队id为: " + this.exitTeamID);
       console.log("退出团队创建者为: " + this.exitTeamCreator);
-      if(this.exitTeamNumber > 2 && this.userIdentity){
+      if(this.exitTeamNumber >2 && this.userIdentity){
         this.$axios({
           method: 'post',
           url: '/api/team/get_team_info',
