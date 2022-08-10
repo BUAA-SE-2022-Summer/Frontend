@@ -7,7 +7,7 @@
           <div><img :src="this.logourl" style="width: 30vh;height:6vh;position: absolute;left:2vw"></div>
         </router-link>
         <div style="left:175vh;position: absolute"><img :src="this.userhead"
-                                                        style="border-radius: 50%;width: 6vh;height: 6vh"></div>
+            style="border-radius: 50%;width: 6vh;height: 6vh"></div>
         <div style="left:185vh;position: absolute;top:1.5vh"><b>{{ this.username }}</b></div>
         <el-tooltip class="item" effect="dark" :content="this.teamname" placement="bottom">
           <div style="left:42vh;position: absolute;top:1.5vh"><b>当前团队:</b></div>
@@ -45,13 +45,15 @@
         </el-tooltip>-->
         <el-tooltip class="item" effect="dark" content="保存文档" placement="bottom">
           <div style="position: absolute;width:40px;height:40px;left:10px;top:55px"><i class="el-icon-document-checked"
-                                                                                        style="" @click="savetxt"></i></div>
+              style="" @click="savetxt"></i></div>
         </el-tooltip>
         <el-tooltip class="item" effect="dark" content="选择模板" placement="bottom">
-          <div style="position: absolute;width:40px;height:40px;left:130px;top:55px"><i class="el-icon-edit-outline" style="" @click="drawer = true"></i></div>
+          <div style="position: absolute;width:40px;height:40px;left:130px;top:55px"><i class="el-icon-edit-outline"
+              style="" @click="drawer = true"></i></div>
         </el-tooltip>
         <el-tooltip class="item" effect="dark" content="新建团队根文件夹" placement="bottom">
-          <div style="position: absolute;width:40px;height:40px;left:250px;top:55px"><i class="el-icon-folder-add" style="" @click="createteamdir"></i></div>
+          <div style="position: absolute;width:40px;height:40px;left:250px;top:55px"><i class="el-icon-folder-add"
+              style="" @click="createteamdir"></i></div>
         </el-tooltip>
       </div>
       <div v-if="this.ifnew === 1" style="width: 21vh;position: absolute;">
@@ -78,17 +80,16 @@
       </div>-->
       <div v-if="this.ifshow === 1" style="position: absolute;width: 300px;height:5vh;background-color: wheat;top:50px">
         <div style="top:5px;position: absolute;left: 10px;cursor: pointer" @click="closetrash"><b>
-          < 团队文档回收站</b>
+            < 团队文档回收站</b>
         </div>
         <!--<doxlists1></doxlists1>-->
       </div>
       <div v-if="this.ifshow === 0"
-           style="position: absolute;width: 300px;height:80vh;background-color: white;top:12vh;display: block;overflow-y: scroll;">
+        style="position: absolute;width: 300px;height:80vh;background-color: white;top:12vh;display: block;overflow-y: scroll;">
         <!--<doxlist></doxlist>-->
       </div>
 
-      <div v-if="this.ifshow === 0"
-           style="position: absolute;width: 300px;height:5vh;background-color: wheat;top:95vh">
+      <div v-if="this.ifshow === 0" style="position: absolute;width: 300px;height:5vh;background-color: wheat;top:95vh">
 
         <div style="top:5px;position: absolute;left: 10px;cursor: pointer" @click="showtrash"><b>> 团队文档回收站</b></div>
       </div>
@@ -100,27 +101,27 @@
         <!--<span>我来啦!</span>-->
         <div @mouseover="over1" @mouseleave="leave">
           <el-button type="primary" icon="el-icon-s-management" style="width: 300px;background-color: red"
-                     @click="open1">项目计划</el-button>
+            @click="open1">项目计划</el-button>
         </div>
         <div @mouseover="over2" @mouseleave="leave">
           <el-button type="primary" icon="el-icon-s-management" style="width: 300px;background-color: orange"
-                     @click="open2">会议纪要</el-button>
+            @click="open2">会议纪要</el-button>
         </div>
         <div @mouseover="over3" @mouseleave="leave">
           <el-button type="primary" icon="el-icon-s-management" style="width: 300px;background-color: yellowgreen"
-                     @click="open3">项目管理</el-button>
+            @click="open3">项目管理</el-button>
         </div>
         <div @mouseover="over4" @mouseleave="leave">
           <el-button type="primary" icon="el-icon-s-management" style="width: 300px;background-color: #b3d4fc"
-                     @click="open4">工作周报</el-button>
+            @click="open4">工作周报</el-button>
         </div>
         <div @mouseover="over5" @mouseleave="leave">
           <el-button type="primary" icon="el-icon-s-management" style="width: 300px;background-color: palevioletred"
-                     @click="open5">需求调研报告</el-button>
+            @click="open5">需求调研报告</el-button>
         </div>
         <div @mouseover="over6" @mouseleave="leave">
           <el-button type="primary" icon="el-icon-s-management" style="width: 300px; background-color: aqua"
-                     @click="open6">需求规格说明书</el-button>
+            @click="open6">需求规格说明书</el-button>
         </div>
       </el-drawer>
       <!--<div><img v-if="this.show === 1" src="../img/项目计划.jpg"
@@ -135,90 +136,78 @@
                 style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
       <div><img v-if="this.show === 6" src="../img/需求规格说明书.jpg"
                 style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>-->
-      <div v-if="this.ifshow===0" style="height:78vh;width:300px;display: block;overflow-y: scroll;position: absolute;top:12vh;background-color: whitesmoke">
-        <v-treeview
-            v-if="this.ifshow===0"
-            v-model="tree"
-            :open="open"
-            :items="items"
-            color="blue"
-            activatable
-            item-key="name"
-            open-on-click
-            :active.sync="active"
-        >
+      <div v-if="this.ifshow === 0"
+        style="height:78vh;width:300px;display: block;overflow-y: scroll;position: absolute;top:12vh;background-color: whitesmoke">
+        <v-treeview v-if="this.ifshow === 0" v-model="tree" :open="open" :items="items" color="blue" activatable
+          item-key="name" open-on-click :active.sync="active">
           <template v-slot:prepend="{ item, open }">
-            <v-icon v-if="item.is_dir===true" @click="opendir1(item)" color="#FFAB00">
+            <v-icon v-if="item.is_dir === true" @click="opendir1(item)" color="#FFAB00">
               {{ open ? 'mdi-folder-open' : 'mdi-folder' }}
             </v-icon>
             <v-icon v-else color="blue-grey darken-1">
               mdi-file-document
             </v-icon>
-            <v-icon v-if="item.is_dir===false" @click="edit(item)" color="#F50057">
+            <v-icon v-if="item.is_dir === false" @click="edit(item)" color="#F50057">
               mdi-pencil
             </v-icon>
-            <v-icon v-if="item.is_dir===false" @click="delete1(item)">
+            <v-icon v-if="item.is_dir === false" @click="delete1(item)">
               mdi-delete
             </v-icon>
-            <v-icon v-if="item.is_dir===true && item.is_pro===false" @click="createsondir(item)" color="light-blue accent-4">
+            <v-icon v-if="item.is_dir === true && item.is_pro === false" @click="createsondir(item)"
+              color="light-blue accent-4">
               mdi-folder-plus
             </v-icon>
-            <v-icon v-if="item.is_dir===true && item.is_pro===false" @click="createsondoc(item)" color="light-blue accent-4">
+            <v-icon v-if="item.is_dir === true && item.is_pro === false" @click="createsondoc(item)"
+              color="light-blue accent-4">
               mdi-file-plus
             </v-icon>
-            <v-icon v-if="item.is_dir===true && item.is_pro===false" @click="delete1(item)">
+            <v-icon v-if="item.is_dir === true && item.is_pro === false" @click="delete1(item)">
               mdi-delete
             </v-icon>
-            <div v-if="item.is_pro===true" style="display: inline-block"><b>(项目文档)</b></div>
+            <div v-if="item.is_pro === true" style="display: inline-block"><b>(项目文档)</b></div>
           </template>
         </v-treeview>
       </div>
-      <div v-if="this.ifshow===1" style="height:88vh;width:300px;display: block;overflow-y: scroll;position: absolute;top:12vh;background-color: whitesmoke">
-        <v-treeview
-            v-if="this.ifshow===1"
-            v-model="tree"
-            :open="open"
-            :items="items1"
-            color="blue"
-            activatable
-            item-key="name"
-            open-on-click
-            :active.sync="active"
-        >
+      <div v-if="this.ifshow === 1"
+        style="height:88vh;width:300px;display: block;overflow-y: scroll;position: absolute;top:12vh;background-color: whitesmoke">
+        <v-treeview v-if="this.ifshow === 1" v-model="tree" :open="open" :items="items1" color="blue" activatable
+          item-key="name" open-on-click :active.sync="active">
           <template v-slot:prepend="{ item, open }">
-            <v-icon v-if="item.is_dir===true" color="#FFAB00">
+            <v-icon v-if="item.is_dir === true" color="#FFAB00">
               {{ open ? 'mdi-folder-open' : 'mdi-folder' }}
             </v-icon>
             <v-icon v-else color="blue-grey darken-1">
               mdi-file-document
             </v-icon>
-            <v-icon v-if="!(item.is_dir===true&&item.is_pro===true)" @click="review(item)" color="light-blue accent-4">
+            <v-icon v-if="!(item.is_dir === true && item.is_pro === true)" @click="review(item)" color="light-blue accent-4">
               mdi-autorenew
             </v-icon>
-            <v-icon v-if="!(item.is_dir===true&&item.is_pro===true)" @click="deleteforever(item)" color="#FF1744">
+            <v-icon v-if="!(item.is_dir === true && item.is_pro === true)" @click="deleteforever(item)" color="#FF1744">
               mdi-delete
             </v-icon>
-            <div v-if="item.is_pro===true" style="display: inline-block"><b>(项目文档)</b></div>
+            <div v-if="item.is_pro === true" style="display: inline-block"><b>(项目文档)</b></div>
           </template>
         </v-treeview>
       </div>
-      <div v-if="this.ifshow===0"  style="position: absolute;top:90vh;height: 5vh">
-        <el-button @click="exportword" style="width: 9.6vw;background-color: #4ccaf0"><b>导出word</b></el-button>
-     </div>
-      <div  v-if="this.ifshow===0" style="position: absolute;top:90vh;left:9.6vw;height:5vh"><el-button @click="exportpdf" style="width: 9.6vw;background-color: #E65100"><b>预览pdf</b></el-button></div>
+      <div v-if="this.ifshow === 0" style="position: absolute;top:90vh;height: 5vh">
+        <el-button @click="exportword" style="width: 9.8vw;background-color: #4ccaf0"><b>导出word</b></el-button>
+      </div>
+      <div v-if="this.ifshow === 0" style="position: absolute;top:90vh;left:9.8vw;height:5vh">
+        <el-button @click="exportpdf" style="width: 9.8vw;background-color: #E65100"><b>预览pdf</b></el-button>
+      </div>
       <div ref="editorContainer" style="width: 165vh;position: absolute;left:40vh;height:100vh;minHeight: 100vh"></div>
       <div><img v-if="this.show === 1" src="../img/项目计划.jpg"
-                style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
+          style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
       <div><img v-if="this.show === 2" src="../img/会议纪要.jpg"
-                style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
+          style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
       <div><img v-if="this.show === 3" src="../img/项目管理.jpg"
-                style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
+          style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
       <div><img v-if="this.show === 4" src="../img/工作周报.jpg"
-                style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
+          style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
       <div><img v-if="this.show === 5" src="../img/需求调研报告.jpg"
-                style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
+          style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
       <div><img v-if="this.show === 6" src="../img/需求规格说明书.jpg"
-                style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
+          style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
       <!--<div style="position: absolute;left:300px;height:30vh;width: 80vw;top:70vh;background-color: #81D4FA">
         <div><b>当前位于此文档用户</b></div>
         <div v-for="(person,index) in userlist" style="display: inline-block">
@@ -226,9 +215,9 @@
             <img src="../img/墨书头.png" style="height:3vw;width: 3vw;border-radius: 50%;border-color: #E65100;border-width: thick">
          </div>
       </div>-->
-      </div>
     </div>
-    <!--<div><el-button @click="load">cnm</el-button></div>-->
+  </div>
+  <!--<div><el-button @click="load">cnm</el-button></div>-->
 </template>
 <script>
 import { createEditor } from '@textbus/editor';
@@ -240,7 +229,7 @@ import { exportWord } from 'mhtml-to-word'
 import { saveAs } from 'file-saver'
 import Avatar from 'vue-avatar';
 export default {
-  components: { doxlists1, doxlist, Avatar  },
+  components: { doxlists1, doxlist, Avatar },
   name: "textbustest",
 
   data() {
@@ -252,26 +241,26 @@ export default {
       serverTimeoutObj: null, //心跳倒计时
       timeoutnum: null, //断开 重连倒计时
       //--------------------------------------------
-      userlist:[
+      userlist: [
         {
-          userhead:'',
-          username:'张强',
+          userhead: '',
+          username: '张强',
         },
         {
-          userhead:'',
-          username:'李华',
+          userhead: '',
+          username: '李华',
         }
       ],
       open: ['public'],
-      active:[],
-      selection:[],
+      active: [],
+      selection: [],
       tree: [],
       items: [
       ],
-      items1:[],
-      inputdirname:'',
-      inputdirname1:'',
-      inputfilename:'',
+      items1: [],
+      inputdirname: '',
+      inputdirname1: '',
+      inputfilename: '',
       size: '300px',//抽屉的宽度
       drawer: false,
       direction: 'ltr',
@@ -303,31 +292,31 @@ export default {
       needlook: '<h1><strong>xx项目需求调研报告</strong></h1><p><strong><br></strong></p><table class="tb-table"><tbody><tr><td colSpan="2" rowSpan="1" style="text-align:center"><strong>软件开发项目需求调研报告模板</strong></td></tr><tr><td colSpan="2" rowSpan="1">项目名称：</td></tr><tr><td colSpan="2" rowSpan="1">调查方式：</td></tr><tr><td colSpan="1" rowSpan="1">调查人：</td><td colSpan="1" rowSpan="1">调查时间：</td></tr><tr><td colSpan="2" rowSpan="1">调查地点：</td></tr><tr><td colSpan="2" rowSpan="1">参与人员：</td></tr><tr><td colSpan="2" rowSpan="1">调研内容：</td></tr><tr><td colSpan="2" rowSpan="1">取得的原始材料：</td></tr><tr><td colSpan="2" rowSpan="1">收到的结果与反馈：</td></tr><tr><td colSpan="1" rowSpan="1">项目代表签字：</td><td colSpan="1" rowSpan="1">用户代表签字：</td></tr></tbody></table><h2>&nbsp;</h2><p><br></p>',
       needbook: '<h1><strong>xx软件需求规格说明书</strong></h1><p><strong><br></strong></p><p><strong><br></strong></p><table class="tb-table"><tbody><tr><td colSpan="5" rowSpan="1" style="text-align:center"><strong style="font-size:20px">xx软件需求规格说明书</strong></td></tr><tr><td colSpan="5" rowSpan="1">硬件整体需求：</td></tr><tr><td colSpan="5" rowSpan="1">工作环境需求：</td></tr><tr><td colSpan="1" rowSpan="1">需求编号：</td><td colSpan="1" rowSpan="1">功能名称</td><td colSpan="1" rowSpan="1">功能需求标识</td><td colSpan="1" rowSpan="1">优先级</td><td colSpan="1" rowSpan="1">具体描述</td></tr><tr><td colSpan="1" rowSpan="1">1</td><td colSpan="1" rowSpan="1">系统入口</td><td colSpan="1" rowSpan="1">L1</td><td colSpan="1" rowSpan="1">最高</td><td colSpan="1" rowSpan="1">用户在该软件中进行一切操作的入口</td></tr></tbody></table><h2>&nbsp;</h2><p><br></p>',
       show: 0,
-      if_save:0,
-      opendir:0,
-      now_file_name:'',
-      if_choose_file:0,
-      oldcontent:'',
-      lasttime:0,
-      newtime:0,
+      if_save: 0,
+      opendir: 0,
+      now_file_name: '',
+      if_choose_file: 0,
+      oldcontent: '',
+      lasttime: 0,
+      newtime: 0,
     }
   },
   created() {
-    sessionStorage.setItem('if_save',JSON.stringify(this.if_save));
+    sessionStorage.setItem('if_save', JSON.stringify(this.if_save));
     //alert('进入详情页');
     this.now_id = JSON.parse(sessionStorage.getItem('now_textid'));
     //alert("textbus当前文档id为"+this.now_id);
     this.now_textname = JSON.parse(sessionStorage.getItem('now_textname'));
-    if(this.now_textname===null){
-      this.now_textname='当前没有选择文档';
+    if (this.now_textname === null) {
+      this.now_textname = '当前没有选择文档';
     }
 
     this.$axios.get('/api/user/get_user_info ').then(
-        res => {
-          this.userhead = res.data.data.img;
-          this.username = res.data.data.username;
-          console.log(this.userhead)
-        }
+      res => {
+        this.userhead = res.data.data.img;
+        this.username = res.data.data.username;
+        console.log(this.userhead)
+      }
     );
     this.$axios({
       method: 'post',           /* 指明请求方式，可以是 get 或 post */
@@ -336,18 +325,18 @@ export default {
         teamID: this.teamid,
       })
     })
-        .then(res => {/* res 是 response 的缩写 */
-          if (res.data.errno === 0) {
-            this.$message.success("获取团队文档列表成功");
-            this.items=res.data.items;
-            //this.$router.go(0);
-          } else {
-            this.$message.error(res.data.msg);
-          }
-        })
-        .catch(err => {
-          console.log(err);         /* 若出现异常则在终端输出相关信息 */
-        });
+      .then(res => {/* res 是 response 的缩写 */
+        if (res.data.errno === 0) {
+          this.$message.success("获取团队文档列表成功");
+          this.items = res.data.items;
+          //this.$router.go(0);
+        } else {
+          this.$message.error(res.data.msg);
+        }
+      })
+      .catch(err => {
+        console.log(err);         /* 若出现异常则在终端输出相关信息 */
+      });
     this.$axios({
       method: 'post',           /* 指明请求方式，可以是 get 或 post */
       url: '/api/file/delete_filelist_in_centre',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
@@ -355,18 +344,18 @@ export default {
         teamID: this.teamid,
       })
     })
-        .then(res => {/* res 是 response 的缩写 */
-          if (res.data.errno === 0) {
-            this.$message.success("获取团队回收站文档列表成功");
-            this.items1=res.data.items;
-            //this.$router.go(0);
-          } else {
-            this.$message.error(res.data.msg);
-          }
-        })
-        .catch(err => {
-          console.log(err);         /* 若出现异常则在终端输出相关信息 */
-        });
+      .then(res => {/* res 是 response 的缩写 */
+        if (res.data.errno === 0) {
+          this.$message.success("获取团队回收站文档列表成功");
+          this.items1 = res.data.items;
+          //this.$router.go(0);
+        } else {
+          this.$message.error(res.data.msg);
+        }
+      })
+      .catch(err => {
+        console.log(err);         /* 若出现异常则在终端输出相关信息 */
+      });
     //载入websocket
     this.initWebSocket();
     console.log("debug当前项目id" + JSON.parse(sessionStorage.getItem('ProjectID')));
@@ -374,7 +363,7 @@ export default {
     console.log("当前文档id" + this.now_id);
   },
   methods: {
-    deleteforever(item){
+    deleteforever(item) {
       this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
@@ -387,17 +376,17 @@ export default {
             fileID: item.id,
           })
         })
-            .then(res => {/* res 是 response 的缩写 */
-              if (res.data.errno === 0) {
-                this.$message.success("删除成功");
-                this.reload1();
-              } else {
-                this.$message.error(res.data.msg);
-              }
-            })
-            .catch(err => {
-              console.log(err);         /* 若出现异常则在终端输出相关信息 */
-            });
+          .then(res => {/* res 是 response 的缩写 */
+            if (res.data.errno === 0) {
+              this.$message.success("删除成功");
+              this.reload1();
+            } else {
+              this.$message.error(res.data.msg);
+            }
+          })
+          .catch(err => {
+            console.log(err);         /* 若出现异常则在终端输出相关信息 */
+          });
       }).catch(() => {
         this.$message({
           type: 'info',
@@ -405,7 +394,7 @@ export default {
         });
       });
     },
-    reload(){
+    reload() {
       this.$axios({
         method: 'post',           /* 指明请求方式，可以是 get 或 post */
         url: '/api/file/get_file_centre_list',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
@@ -413,20 +402,20 @@ export default {
           teamID: this.teamid,
         })
       })
-          .then(res => {/* res 是 response 的缩写 */
-            if (res.data.errno === 0) {
-              //this.$message.success("获取团队文档列表成功");
-              this.items=res.data.items;
-              //this.$router.go(0);
-            } else {
-              this.$message.error(res.data.msg);
-            }
-          })
-          .catch(err => {
-            console.log(err);         /* 若出现异常则在终端输出相关信息 */
-          });
+        .then(res => {/* res 是 response 的缩写 */
+          if (res.data.errno === 0) {
+            //this.$message.success("获取团队文档列表成功");
+            this.items = res.data.items;
+            //this.$router.go(0);
+          } else {
+            this.$message.error(res.data.msg);
+          }
+        })
+        .catch(err => {
+          console.log(err);         /* 若出现异常则在终端输出相关信息 */
+        });
     },
-    reload1(){
+    reload1() {
       this.$axios({
         method: 'post',           /* 指明请求方式，可以是 get 或 post */
         url: '/api/file/delete_filelist_in_centre',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
@@ -434,55 +423,55 @@ export default {
           teamID: this.teamid,
         })
       })
-          .then(res => {/* res 是 response 的缩写 */
-            if (res.data.errno === 0) {
-              //this.$message.success("获取团队回收站文档列表成功");
-              this.items1=res.data.items;
-              //this.$router.go(0);
-            } else {
-              this.$message.error(res.data.msg);
-            }
-          })
-          .catch(err => {
-            console.log(err);         /* 若出现异常则在终端输出相关信息 */
-          });
+        .then(res => {/* res 是 response 的缩写 */
+          if (res.data.errno === 0) {
+            //this.$message.success("获取团队回收站文档列表成功");
+            this.items1 = res.data.items;
+            //this.$router.go(0);
+          } else {
+            this.$message.error(res.data.msg);
+          }
+        })
+        .catch(err => {
+          console.log(err);         /* 若出现异常则在终端输出相关信息 */
+        });
     },
-    review(item){
+    review(item) {
       this.$message.success("恢复触发成功");
       this.$axios({
         method: 'post',           /* 指明请求方式，可以是 get 或 post */
         url: '/api/file/restore_file',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
         data: qs.stringify({
-          fileID:item.id
+          fileID: item.id
         })
       })
-          .then(res => {/* res 是 response 的缩写 */
-            //获取用户登录的三个基本信息并存放于sessionStorage
-            if (res.data.errno === 0) {
-              this.$message.success('恢复文件(夹)成功');
-              this.reload1();
-              //window.location.reload();
-            } else {
-              this.$message.error(res.data.msg);
-            }
-          })
-          .catch(err => {
-            console.log(err);         /* 若出现异常则在终端输出相关信息 */
-          });
+        .then(res => {/* res 是 response 的缩写 */
+          //获取用户登录的三个基本信息并存放于sessionStorage
+          if (res.data.errno === 0) {
+            this.$message.success('恢复文件(夹)成功');
+            this.reload1();
+            //window.location.reload();
+          } else {
+            this.$message.error(res.data.msg);
+          }
+        })
+        .catch(err => {
+          console.log(err);         /* 若出现异常则在终端输出相关信息 */
+        });
     },
-    exportword(){
-      if(this.if_choose_file===0){
+    exportword() {
+      if (this.if_choose_file === 0) {
         this.$message.error('请先选择文档');
       }
       else {
         let html = this.editor1.getContents().content;
-        let blob = new Blob([html], {type: "application/msword;charset=utf-8"});
+        let blob = new Blob([html], { type: "application/msword;charset=utf-8" });
         //let blob = new Blob([html],{type:"application/pdf;charset=utf-8"});
         saveAs(blob, this.now_file_name);
       }
     },
-    exportpdf(){
-      if(this.if_choose_file===0){
+    exportpdf() {
+      if (this.if_choose_file === 0) {
         this.$message.error('请先选择文档');
       }
       else {
@@ -490,112 +479,112 @@ export default {
         this.$router.push('/pdftest');
       }
     },
-    createsondir(item){
-      this.ifnew=3;
-      this.opendir=item.id;
+    createsondir(item) {
+      this.ifnew = 3;
+      this.opendir = item.id;
     },
-    createsondir1(){
-      console.log("当前团队id为"+this.teamid);
-      console.log("当前父文件夹的id为"+this.opendir);
+    createsondir1() {
+      console.log("当前团队id为" + this.teamid);
+      console.log("当前父文件夹的id为" + this.opendir);
       this.$axios({
         method: 'post',           /* 指明请求方式，可以是 get 或 post */
         url: '/api/file/create_team_file',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
         data: qs.stringify({
-          teamID:this.teamid,
-          file_name:this.inputdirname1,
-          file_type:'dir',
-          fatherID:this.opendir,
+          teamID: this.teamid,
+          file_name: this.inputdirname1,
+          file_type: 'dir',
+          fatherID: this.opendir,
         })
       })
-          .then(res => {/* res 是 response 的缩写 */
-            //获取用户登录的三个基本信息并存放于sessionStorage
-            if (res.data.errno === 0) {
-              this.$message.success('创建团队子文件夹成功');
-              this.ifnew=0;
-              this.reload();
-              //window.location.reload();
-            } else {
-              this.$message.error(res.data.msg);
-            }
-          })
-          .catch(err => {
-            console.log(err);         /* 若出现异常则在终端输出相关信息 */
-          });
+        .then(res => {/* res 是 response 的缩写 */
+          //获取用户登录的三个基本信息并存放于sessionStorage
+          if (res.data.errno === 0) {
+            this.$message.success('创建团队子文件夹成功');
+            this.ifnew = 0;
+            this.reload();
+            //window.location.reload();
+          } else {
+            this.$message.error(res.data.msg);
+          }
+        })
+        .catch(err => {
+          console.log(err);         /* 若出现异常则在终端输出相关信息 */
+        });
     },
-    createsondoc(item){
-      this.ifnew=4;
-      this.opendir=item.id;
+    createsondoc(item) {
+      this.ifnew = 4;
+      this.opendir = item.id;
     },
-    createsondoc1(item){
-      console.log("当前团队id为"+this.teamid);
-      console.log("当前父文件夹的id为"+this.opendir);
+    createsondoc1(item) {
+      console.log("当前团队id为" + this.teamid);
+      console.log("当前父文件夹的id为" + this.opendir);
       this.$axios({
         method: 'post',           /* 指明请求方式，可以是 get 或 post */
         url: '/api/file/create_team_file',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
         data: qs.stringify({
-          teamID:this.teamid,
-          file_name:this.inputfilename,
-          file_type:'doc',
+          teamID: this.teamid,
+          file_name: this.inputfilename,
+          file_type: 'doc',
           fatherID: this.opendir
         })
       })
-          .then(res => {/* res 是 response 的缩写 */
-            //获取用户登录的三个基本信息并存放于sessionStorage
-            if (res.data.errno === 0) {
-              this.$message.success('创建团队文件成功');
-              this.ifnew=0;
-              this.reload();
-              //window.location.reload();
-            } else {
-              this.$message.error(res.data.msg);
-            }
-          })
-          .catch(err => {
-            console.log(err);         /* 若出现异常则在终端输出相关信息 */
-          });
+        .then(res => {/* res 是 response 的缩写 */
+          //获取用户登录的三个基本信息并存放于sessionStorage
+          if (res.data.errno === 0) {
+            this.$message.success('创建团队文件成功');
+            this.ifnew = 0;
+            this.reload();
+            //window.location.reload();
+          } else {
+            this.$message.error(res.data.msg);
+          }
+        })
+        .catch(err => {
+          console.log(err);         /* 若出现异常则在终端输出相关信息 */
+        });
     },
-    createteamdir(){
-        this.ifnew=2;
+    createteamdir() {
+      this.ifnew = 2;
     },
-    createteamdir1(){
+    createteamdir1() {
       console.log(this.teamid);
       this.$axios({
         method: 'post',           /* 指明请求方式，可以是 get 或 post */
         url: '/api/file/create_team_file',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
         data: qs.stringify({
-          teamID:this.teamid,
-          file_name:this.inputdirname,
-          file_type:'dir',
-          fatherID:0
+          teamID: this.teamid,
+          file_name: this.inputdirname,
+          file_type: 'dir',
+          fatherID: 0
         })
       })
-          .then(res => {/* res 是 response 的缩写 */
-            //获取用户登录的三个基本信息并存放于sessionStorage
-            if (res.data.errno === 0) {
-              this.$message.success('创建团队文件夹成功');
-              this.ifnew=0;
-              this.reload();
-              //window.location.reload();
-            } else {
-              this.$message.error(res.data.msg);
-            }
-          })
-          .catch(err => {
-            console.log(err);         /* 若出现异常则在终端输出相关信息 */
-          });
+        .then(res => {/* res 是 response 的缩写 */
+          //获取用户登录的三个基本信息并存放于sessionStorage
+          if (res.data.errno === 0) {
+            this.$message.success('创建团队文件夹成功');
+            this.ifnew = 0;
+            this.reload();
+            //window.location.reload();
+          } else {
+            this.$message.error(res.data.msg);
+          }
+        })
+        .catch(err => {
+          console.log(err);         /* 若出现异常则在终端输出相关信息 */
+        });
     },
-    opendir1(item){
+    opendir1(item) {
       //this.$message.success(item.id);
-      this.opendir=item.id;//当前打开的文件夹id
+      this.opendir = item.id;//当前打开的文件夹id
     },
-    edit(item){
+    edit(item) {
       //this.$message.success(item.id);
       //sessionStorage.setItem('now_textid', JSON.stringify(item.id));
-      this.if_choose_file=1;
-      this.now_id=item.id;
-      this.now_file_name=item.name;
+      this.if_choose_file = 1;
+      this.now_id = item.id;
+      this.now_file_name = item.name;
       console.log(this.now_id);
-      if(!(this.now_id===null)) {
+      if (!(this.now_id === null)) {
         this.$axios({
           method: 'post',           /* 指明请求方式，可以是 get 或 post */
           url: '/api/file/read_file',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
@@ -603,29 +592,29 @@ export default {
             fileID: this.now_id,
           })
         })
-            .then(res => {/* res 是 response 的缩写 */
-              //获取用户登录的三个基本信息并存放于sessionStorage
-              if (res.data.errno === 0) {
-                this.$message.success('导入文件成功');
-                this.newContent = res.data.content;
-                this.oldcontent = this.newContent;
-                if(this.newContent===null){
-                  this.newContent='<p><strong><em>请在此开始编辑文档……</em></strong></p>';
-                }
-                this.editor1.replaceContent(this.newContent);
-                //console.log(this.newContent);
-                //this.inside = res.data.content;
-                //sessionStorage.setItem('now_textid', JSON.stringify(res.data.fileID));
-              } else {
-                this.$message.error(res.data.msg);
+          .then(res => {/* res 是 response 的缩写 */
+            //获取用户登录的三个基本信息并存放于sessionStorage
+            if (res.data.errno === 0) {
+              this.$message.success('导入文件成功');
+              this.newContent = res.data.content;
+              this.oldcontent = this.newContent;
+              if (this.newContent === null) {
+                this.newContent = '<p><strong><em>请在此开始编辑文档……</em></strong></p>';
               }
-            })
-            .catch(err => {
-              console.log(err);         /* 若出现异常则在终端输出相关信息 */
-            });
+              this.editor1.replaceContent(this.newContent);
+              //console.log(this.newContent);
+              //this.inside = res.data.content;
+              //sessionStorage.setItem('now_textid', JSON.stringify(res.data.fileID));
+            } else {
+              this.$message.error(res.data.msg);
+            }
+          })
+          .catch(err => {
+            console.log(err);         /* 若出现异常则在终端输出相关信息 */
+          });
       }
     },
-    returnbefore(){
+    returnbefore() {
       this.$router.push('/projectdashboard');
     }
     ,
@@ -723,11 +712,11 @@ export default {
     },
     handleClose(done) {
       this.$confirm('确认关闭？')
-          .then(_ => {
-            done(
-            );
-          })
-          .catch(_ => { });
+        .then(_ => {
+          done(
+          );
+        })
+        .catch(_ => { });
     },
     load() {
       this.editor1.replaceContent(this.newContent);
@@ -761,19 +750,19 @@ export default {
           fatherID: this.fatherid
         })
       })
-          .then(res => {/* res 是 response 的缩写 */
-            if (res.data.errno === 0) {
-              this.$message.success("文档创建成功");
-              this.reload();
-              //window.location.reload();
-              //this.$router.go(0);
-            } else {
-              this.$message.error(res.data.msg);
-            }
-          })
-          .catch(err => {
-            console.log(err);         /* 若出现异常则在终端输出相关信息 */
-          });
+        .then(res => {/* res 是 response 的缩写 */
+          if (res.data.errno === 0) {
+            this.$message.success("文档创建成功");
+            this.reload();
+            //window.location.reload();
+            //this.$router.go(0);
+          } else {
+            this.$message.error(res.data.msg);
+          }
+        })
+        .catch(err => {
+          console.log(err);         /* 若出现异常则在终端输出相关信息 */
+        });
       this.ifnew = 0;
     },
     deletetxt() {
@@ -784,22 +773,22 @@ export default {
           fileID: this.now_id,
         })
       })
-          .then(res => {
-            console.log(res.data)
-            if (res.data.errno === 0) {
-              this.$message.success("删除成功");
-              this.reload();
-              //window.location.reload();
-            } else {
-              alert(res.data.msg);
-              this.$message.error(res.data.msg);
-            }
-          })
-          .catch(err => {
-            console.log(err);         /* 若出现异常则在终端输出相关信息 */
-          })
+        .then(res => {
+          console.log(res.data)
+          if (res.data.errno === 0) {
+            this.$message.success("删除成功");
+            this.reload();
+            //window.location.reload();
+          } else {
+            alert(res.data.msg);
+            this.$message.error(res.data.msg);
+          }
+        })
+        .catch(err => {
+          console.log(err);         /* 若出现异常则在终端输出相关信息 */
+        })
     },
-    delete1(item){
+    delete1(item) {
       this.$axios({
         method: 'post',
         url: '/api/file/delete_file',
@@ -807,20 +796,20 @@ export default {
           fileID: item.id,
         })
       })
-          .then(res => {
-            console.log(res.data)
-            if (res.data.errno === 0) {
-              this.$message.success("删除成功");
-              this.reload();
-              //window.location.reload();
-            } else {
-              alert(res.data.msg);
-              this.$message.error(res.data.msg);
-            }
-          })
-          .catch(err => {
-            console.log(err);         /* 若出现异常则在终端输出相关信息 */
-          })
+        .then(res => {
+          console.log(res.data)
+          if (res.data.errno === 0) {
+            this.$message.success("删除成功");
+            this.reload();
+            //window.location.reload();
+          } else {
+            alert(res.data.msg);
+            this.$message.error(res.data.msg);
+          }
+        })
+        .catch(err => {
+          console.log(err);         /* 若出现异常则在终端输出相关信息 */
+        })
     },
     find(row, column, cell, event) {
       //alert(row.fileID);
@@ -831,24 +820,24 @@ export default {
           fileID: row.fileID,
         })
       })
-          .then(res => {/* res 是 response 的缩写 */
-            //获取用户登录的三个基本信息并存放于sessionStorage
-            if (res.data.errno === 0) {
-              this.$message.success("打开成功");
-              sessionStorage.setItem('now_textid', JSON.stringify(res.data.fileID));
-              sessionStorage.setItem('now_textname', JSON.stringify(res.data.file_name));
-              window.location.reload();
-            } else {
-              this.$message.error(res.data.msg);
-            }
-          })
-          .catch(err => {
-            console.log(err);         /* 若出现异常则在终端输出相关信息 */
-          })
+        .then(res => {/* res 是 response 的缩写 */
+          //获取用户登录的三个基本信息并存放于sessionStorage
+          if (res.data.errno === 0) {
+            this.$message.success("打开成功");
+            sessionStorage.setItem('now_textid', JSON.stringify(res.data.fileID));
+            sessionStorage.setItem('now_textname', JSON.stringify(res.data.file_name));
+            window.location.reload();
+          } else {
+            this.$message.error(res.data.msg);
+          }
+        })
+        .catch(err => {
+          console.log(err);         /* 若出现异常则在终端输出相关信息 */
+        })
     },
     savetxt() {
-      this.if_save=1;
-      sessionStorage.setItem('if_save',JSON.stringify(this.if_save));
+      this.if_save = 1;
+      sessionStorage.setItem('if_save', JSON.stringify(this.if_save));
       this.$axios({
         method: 'post',           /* 指明请求方式，可以是 get 或 post */
         url: '/api/file/edit_file ',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
@@ -857,17 +846,17 @@ export default {
           content: this.editor1.getContents().content
         })
       })
-          .then(res => {/* res 是 response 的缩写 */
-            //获取用户登录的三个基本信息并存放于sessionStorage
-            if (res.data.errno === 0) {
-              //this.$message.success("保存文件成功");
-            } else {
-              this.$message.error(res.data.msg);
-            }
-          })
-          .catch(err => {
-            console.log(err);         /* 若出现异常则在终端输出相关信息 */
-          })
+        .then(res => {/* res 是 response 的缩写 */
+          //获取用户登录的三个基本信息并存放于sessionStorage
+          if (res.data.errno === 0) {
+            //this.$message.success("保存文件成功");
+          } else {
+            this.$message.error(res.data.msg);
+          }
+        })
+        .catch(err => {
+          console.log(err);         /* 若出现异常则在终端输出相关信息 */
+        })
     },
     currentTime() {
       setInterval(this.formatDate, 500);
@@ -875,7 +864,7 @@ export default {
     },
     sleep(ms) {
       var unixtime_ms = new Date().getTime();
-      while(new Date().getTime()<unixtime_ms+ms) {};
+      while (new Date().getTime() < unixtime_ms + ms) { };
     },
     initWebSocket() {
       //初始化weosocket
@@ -907,15 +896,15 @@ export default {
       console.log(e.data);
       console.log(JSON.parse(e.data).fileID);
       console.log(JSON.parse(e.data).content);
-      this.newtime=new Date().getTime();
-      if(this.newtime-this.lasttime>=300) {
+      this.newtime = new Date().getTime();
+      if (this.newtime - this.lasttime >= 300) {
         if (JSON.parse(e.data).fileID === this.now_id) {
           if (JSON.parse(e.data).content !== this.editor1.getContents().content) {
             this.editor1.replaceContent(JSON.parse(e.data).content);
           }
         }
       }
-      this.lasttime=new Date().getTime();
+      this.lasttime = new Date().getTime();
       //收到服务器信息，心跳重置
       this.reset();
       //this.$message.success('websocket接受成功');
@@ -923,9 +912,9 @@ export default {
     websocketsend() {
       //数据发送
       let data = {
-         projectID:-1,
-         fileID:this.now_id,
-         content:this.editor1.getContents().content,
+        projectID: -1,
+        fileID: this.now_id,
+        content: this.editor1.getContents().content,
       }
       let Data = JSON.stringify(data);
       console.log("正在向服务器发送数据：");
@@ -1001,7 +990,7 @@ export default {
   },
   mounted() {
     //this.currentTime();
-    if(!(this.now_id===0)) {
+    if (!(this.now_id === 0)) {
       this.$axios({
         method: 'post',           /* 指明请求方式，可以是 get 或 post */
         url: '/api/file/read_file',       /* 指明后端 api 路径，由于在 main.js 已指定根路径，因此在此处只需写相对路由 */
@@ -1009,21 +998,21 @@ export default {
           fileID: this.now_id,
         })
       })
-          .then(res => {/* res 是 response 的缩写 */
-            //获取用户登录的三个基本信息并存放于sessionStorage
-            if (res.data.errno === 0) {
-              this.$message.success('导入文件成功');
-              this.newContent = res.data.content;
-              _this.editor1.replaceContent(this.newContent);
-              //this.inside = res.data.content;
-              sessionStorage.setItem('now_textid', JSON.stringify(res.data.fileID));
-            } else {
-              this.$message.error(res.data.msg);
-            }
-          })
-          .catch(err => {
-            console.log(err);         /* 若出现异常则在终端输出相关信息 */
-          });
+        .then(res => {/* res 是 response 的缩写 */
+          //获取用户登录的三个基本信息并存放于sessionStorage
+          if (res.data.errno === 0) {
+            this.$message.success('导入文件成功');
+            this.newContent = res.data.content;
+            _this.editor1.replaceContent(this.newContent);
+            //this.inside = res.data.content;
+            sessionStorage.setItem('now_textid', JSON.stringify(res.data.fileID));
+          } else {
+            this.$message.error(res.data.msg);
+          }
+        })
+        .catch(err => {
+          console.log(err);         /* 若出现异常则在终端输出相关信息 */
+        });
     }
     const _this = this;
     _this.editor1 = createEditor();
@@ -1033,8 +1022,8 @@ export default {
     // _this.editor1.replaceContent(newContent);
     _this.editor1.onChange.subscribe(() => {
       console.log(_this.editor1.getContents().content);
-        this.savetxt();
-        this.websocketsend();
+      this.savetxt();
+      this.websocketsend();
     });
     _this.editor1.onReady.subscribe(() => {
       //alert(this.newContent);
