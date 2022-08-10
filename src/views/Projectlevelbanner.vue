@@ -2,9 +2,9 @@
   <div>
     <div style="width: 1540px;height:6vh;background-color: whitesmoke;">
       <router-link to="/">
-        <div><img :src="this.logourl" style="width: 30vh;height:6vh;position: absolute;"></div>
+        <div><img :src="this.logourl" style="width: 30vh;height:6vh;position: absolute;left:2vw"></div>
       </router-link>
-      <div style="left:32vh;position: absolute">
+      <div style="left:40vh;position: absolute">
         <el-button type="text" icon="el-icon-arrow-left"
           style="background-color: whitesmoke;border-color: whitesmoke;height:6vh;position: absolute;" @click="returnbefore">返回</el-button>
       </div>
@@ -34,8 +34,8 @@
       <div style="left:185vh;position: absolute;top:1.5vh"><b>{{ this.username }}</b></div>
 
 
-      <div style="position: absolute;left:42vh;top: 1.5vh"><span>当前团队:</span></div>
-      <div style="width:110px;position: absolute;left:52vh;top:0.9vh">
+      <div style="position: absolute;left:52vh;top: 1.5vh"><span>当前团队:</span></div>
+      <div style="width:110px;position: absolute;left:62vh;top:0.9vh">
         <v-select
             :items="teams"
             item-text="team_name"

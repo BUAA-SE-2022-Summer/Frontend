@@ -4,7 +4,7 @@
       <!--<img class="bgbox" id="bgbox" alt="" src="../../src/img/背景.jpg">-->
       <div style="width: 100vw;height:6vh;background-color: whitesmoke;">
         <router-link to="/">
-          <div><img :src="this.logourl" style="width: 30vh;height:6vh;position: absolute;"></div>
+          <div><img :src="this.logourl" style="width: 30vh;height:6vh;position: absolute;left:2vw"></div>
         </router-link>
         <div style="left:175vh;position: absolute"><img :src="this.userhead"
                                                         style="border-radius: 50%;width: 6vh;height: 6vh"></div>
@@ -219,9 +219,16 @@
                 style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
       <div><img v-if="this.show === 6" src="../img/需求规格说明书.jpg"
                 style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
+      <!--<div style="position: absolute;left:300px;height:30vh;width: 80vw;top:70vh;background-color: #81D4FA">
+        <div><b>当前位于此文档用户</b></div>
+        <div v-for="(person,index) in userlist" style="display: inline-block">
+          <div style="width: 4vw">
+            <img src="../img/墨书头.png" style="height:3vw;width: 3vw;border-radius: 50%;border-color: #E65100;border-width: thick">
+         </div>
+      </div>-->
+      </div>
     </div>
     <!--<div><el-button @click="load">cnm</el-button></div>-->
-  </div>
 </template>
 <script>
 import { createEditor } from '@textbus/editor';
@@ -231,9 +238,9 @@ import doxlist from "../components/demo/doxlists";
 import qs from "qs";
 import { exportWord } from 'mhtml-to-word'
 import { saveAs } from 'file-saver'
-
+import Avatar from 'vue-avatar';
 export default {
-  components: { doxlists1, doxlist },
+  components: { doxlists1, doxlist, Avatar  },
   name: "textbustest",
 
   data() {
@@ -245,6 +252,16 @@ export default {
       serverTimeoutObj: null, //心跳倒计时
       timeoutnum: null, //断开 重连倒计时
       //--------------------------------------------
+      userlist:[
+        {
+          userhead:'',
+          username:'张强',
+        },
+        {
+          userhead:'',
+          username:'李华',
+        }
+      ],
       open: ['public'],
       active:[],
       selection:[],
