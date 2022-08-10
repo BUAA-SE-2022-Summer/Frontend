@@ -627,6 +627,7 @@ export default {
 }
 
 .six-more-modal-btn {
+    overflow: auto;
     padding: 10px;
     position: fixed;
     z-index: 1000;

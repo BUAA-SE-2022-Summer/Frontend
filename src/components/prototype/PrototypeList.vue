@@ -58,6 +58,7 @@
 
             </v-data-table>
             <ComponentList />
+            <RealTimeComponentList />
         </div>
     </div>
 </template>
@@ -65,10 +66,10 @@
 <script>
 import qs from "qs";
 import ComponentList from '@/components/ComponentList' // 左侧列表组件
-
+import RealTimeComponentList from '@/components/RealTimeComponentList'
 export default {
     projectName: 'Home',
-    components: { ComponentList },
+    components: { ComponentList, RealTimeComponentList },
     data() {
         return {
             teamname: '',
