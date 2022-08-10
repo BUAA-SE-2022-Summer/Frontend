@@ -1,144 +1,167 @@
 <template>
-    <!--    全屏容器    -->
-    <div ref="pageDiv" @mousemove="demo_move" @mouseup="demo_up" :class="{ 'zlevelTop': mouseDownState }"
-        style="position: absolute;top: 0;height: 100%;width: 100%">
-        <div>
+    <div>
+        <v-speed-dial v-model="fab" :top="top" :bottom="bottom" :right="right" :left="left" :direction="dial_direction"
+            :transition="dial_transition">
+            <template v-slot:activator>
+                <v-btn v-model="fab" color="blue darken-2" dark fab>
+                    <v-icon v-if="fab">
+                        mdi-close
+                    </v-icon>
+                    <v-icon v-else>
+                        mdi-account-circle
+                    </v-icon>
+                </v-btn>
+            </template>
+            <v-btn fab dark small color="green">
+                <v-icon>mdi-pencil</v-icon>
+            </v-btn>
+            <v-btn fab dark small color="indigo">
+                <v-icon>mdi-plus</v-icon>
+            </v-btn>
+            <v-btn fab dark small color="red">
+                <v-icon>mdi-delete</v-icon>
+            </v-btn>
+        </v-speed-dial>
+        <!--    全屏容器    -->
+        <div ref="pageDiv" @mousemove="demo_move" @mouseup="demo_up" :class="{ 'zlevelTop': mouseDownState }"
+            style="position: absolute;top: 0;height: 100%;width: 100%">
             <div>
-                <div style="width: 100vw;height:6vh;background-color: whitesmoke;">
-                    <router-link to="/">
-                        <div><img src='https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/1.png'
-                                style="width: 30vh;height:6vh;position: absolute;left:2vw">
+                <div>
+                    <div style="width: 100vw;height:6vh;background-color: whitesmoke;">
+                        <router-link to="/">
+                            <div><img src='https://xuemolan.oss-cn-hangzhou.aliyuncs.com/UI_page/UI/1.png'
+                                    style="width: 30vh;height:6vh;position: absolute;left:2vw">
+                            </div>
+                        </router-link>
+                        <div style="position: absolute;left:90vh;height:6vh;background-color: whitesmoke">
+                            <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select=""
+                                style="background-color: whitesmoke;height: 7vh;top:-1vh" text-color="black"
+                                active-text-color="red" router>
+                                <el-menu-item index="/textbustest"><b>文档</b></el-menu-item>
+                                <el-menu-item index="2"><b>原型设计</b></el-menu-item>
+                                <el-menu-item index="/project/uml"><b>uml绘制</b></el-menu-item>
+                            </el-menu>
                         </div>
-                    </router-link>
-                    <div style="position: absolute;left:90vh;height:6vh;background-color: whitesmoke">
-                        <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select=""
-                            style="background-color: whitesmoke;height: 7vh;top:-1vh" text-color="black"
-                            active-text-color="red" router>
-                            <el-menu-item index="/textbustest"><b>文档</b></el-menu-item>
-                            <el-menu-item index="2"><b>原型设计</b></el-menu-item>
-                            <el-menu-item index="/project/uml"><b>uml绘制</b></el-menu-item>
-                        </el-menu>
+                        <div v-if="this.userhead" style="left:175vh;position: absolute"><img :src="this.userhead"
+                                style="border-radius: 50%;width: 6vh;height: 6vh"></div>
+                        <div v-else style="left:175vh;position: absolute; margin-top:3px">
+                            <Avatar :username="this.username" :background-color="this.username" color="#fff"
+                                :size="this.AvatarSize" style="vertical-align: middle;" :inline="true" />
+                        </div>
+                        <div style="left:185vh;position: absolute;top:1.5vh"><b>{{ this.username }}</b></div>
+                        <el-tooltip class="item" effect="dark" :content="this.teamname" placement="bottom">
+                            <div style="left:42vh;position: absolute;top:1.5vh"><b>当前团队</b></div>
+                        </el-tooltip>
+                        <el-tooltip class="item" effect="dark" :content="this.projectname" placement="bottom">
+                            <div style="left:52vh;position: absolute;top:1.5vh"><b>当前项目</b></div>
+                        </el-tooltip>
+                        <el-tooltip class="item" effect="dark" placement="bottom">
+                            <div style="left:62vh;position: absolute;top:1.5vh"><b>当前原型图</b></div>
+                        </el-tooltip>
                     </div>
-                    <div v-if="this.userhead" style="left:175vh;position: absolute"><img :src="this.userhead"
-                            style="border-radius: 50%;width: 6vh;height: 6vh"></div>
-                    <div v-else style="left:175vh;position: absolute; margin-top:3px">
-                        <Avatar :username="this.username" :background-color="this.username" color="#fff"
-                            :size="this.AvatarSize" style="vertical-align: middle;" :inline="true" />
+                    <div v-if="this.ifnew === 0" style="margin-top:auto">
+                        <el-tooltip class="item" effect="dark" content="新建原型图" placement="bottom">
+                            <div style="position: absolute;width:40px;height:40px;left:20px;top:55px"><i
+                                    class="el-icon-document-add" style="" @click="changenew"></i></div>
+                        </el-tooltip>
+                        <el-tooltip class="item" effect="dark" content="打开右侧面板" placement="bottom">
+                            <div style="position: absolute;width:40px;height:40px;left:90px;top:55px"><i
+                                    class="el-icon-delete-solid" style=""></i></div>
+                        </el-tooltip>
+                        <el-tooltip class="item" effect="dark" content="保存原型图" placement="bottom">
+                            <div style="position: absolute;width:40px;height:40px;left:160px;top:55px"><i
+                                    class="el-icon-document-checked" style=""></i></div>
+                        </el-tooltip>
+                        <el-tooltip class="item" effect="dark" content="选择模板" placement="bottom">
+                            <div style="position: absolute;width:40px;height:40px;left:230px;top:55px"><i
+                                    class="el-icon-edit-outline" style="" @click="drawer = true"></i></div>
+                        </el-tooltip>
                     </div>
-                    <div style="left:185vh;position: absolute;top:1.5vh"><b>{{ this.username }}</b></div>
-                    <el-tooltip class="item" effect="dark" :content="this.teamname" placement="bottom">
-                        <div style="left:42vh;position: absolute;top:1.5vh"><b>当前团队</b></div>
-                    </el-tooltip>
-                    <el-tooltip class="item" effect="dark" :content="this.projectname" placement="bottom">
-                        <div style="left:52vh;position: absolute;top:1.5vh"><b>当前项目</b></div>
-                    </el-tooltip>
-                    <el-tooltip class="item" effect="dark" placement="bottom">
-                        <div style="left:62vh;position: absolute;top:1.5vh"><b>当前原型图</b></div>
-                    </el-tooltip>
+                    <div v-if="this.ifnew === 1" style="width: 21vh;position: absolute;">
+                        <el-input v-model="inputname" placeholder="请输入原型图名称"></el-input>
+                        <el-button type="primary" style="position: absolute;width: 9vh;" @click="createnewpro">确认
+                        </el-button>
+                        <el-button type="error" style="position: absolute;width: 9vh;left:220px" @click="closecreate">取消
+                        </el-button>
+                    </div>
+                    <div style="position: absolute;width: 300px;height:80vh;background-color: white;top:12vh">
+                        <prolist />
+                    </div>
+                    <div style="display: flex;">
+                        <PrototypeView ref="canvas" />
+                    </div>
+                    <el-drawer title="请选择一个模板" :visible.sync="drawer" :direction="direction" :before-close="handleClose"
+                        :size="size">
+                        <!--<span>我来啦!</span>-->
+                        <div @mouseover="over1" @mouseleave="leave">
+                            <el-button type="primary" icon="el-icon-s-management"
+                                style="width: 300px;background-color: red" @click="open1">项目计划</el-button>
+                        </div>
+                        <div @mouseover="over2" @mouseleave="leave">
+                            <el-button type="primary" icon="el-icon-s-management"
+                                style="width: 300px;background-color: orange" @click="open2">会议纪要</el-button>
+                        </div>
+                        <div @mouseover="over3" @mouseleave="leave">
+                            <el-button type="primary" icon="el-icon-s-management"
+                                style="width: 300px;background-color: yellowgreen" @click="open3">项目管理</el-button>
+                        </div>
+                        <div @mouseover="over4" @mouseleave="leave">
+                            <el-button type="primary" icon="el-icon-s-management"
+                                style="width: 300px;background-color: #b3d4fc" @click="open4">工作周报</el-button>
+                        </div>
+                        <div @mouseover="over5" @mouseleave="leave">
+                            <el-button type="primary" icon="el-icon-s-management"
+                                style="width: 300px;background-color: palevioletred" @click="open5">需求调研报告</el-button>
+                        </div>
+                        <div @mouseover="over6" @mouseleave="leave">
+                            <el-button type="primary" icon="el-icon-s-management"
+                                style="width: 300px; background-color: aqua" @click="open6">需求规格说明书</el-button>
+                        </div>
+                    </el-drawer>
+                    <div><img v-if="this.show === 1" src="../img/项目计划.jpg"
+                            style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
+                    <div><img v-if="this.show === 2" src="../img/会议纪要.jpg"
+                            style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
+                    <div><img v-if="this.show === 3" src="../img/项目管理.jpg"
+                            style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
+                    <div><img v-if="this.show === 4" src="../img/工作周报.jpg"
+                            style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
+                    <div><img v-if="this.show === 5" src="../img/需求调研报告.jpg"
+                            style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
+                    <div><img v-if="this.show === 6" src="../img/需求规格说明书.jpg"
+                            style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
                 </div>
-                <div v-if="this.ifnew === 0" style="margin-top:auto">
-                    <el-tooltip class="item" effect="dark" content="新建原型图" placement="bottom">
-                        <div style="position: absolute;width:40px;height:40px;left:20px;top:55px"><i
-                                class="el-icon-document-add" style="" @click="changenew"></i></div>
-                    </el-tooltip>
-                    <el-tooltip class="item" effect="dark" content="打开右侧面板" placement="bottom">
-                        <div style="position: absolute;width:40px;height:40px;left:90px;top:55px"><i
-                                class="el-icon-delete-solid" style=""></i></div>
-                    </el-tooltip>
-                    <el-tooltip class="item" effect="dark" content="保存原型图" placement="bottom">
-                        <div style="position: absolute;width:40px;height:40px;left:160px;top:55px"><i
-                                class="el-icon-document-checked" style=""></i></div>
-                    </el-tooltip>
-                    <el-tooltip class="item" effect="dark" content="选择模板" placement="bottom">
-                        <div style="position: absolute;width:40px;height:40px;left:230px;top:55px"><i
-                                class="el-icon-edit-outline" style="" @click="drawer = true"></i></div>
-                    </el-tooltip>
-                </div>
-                <div v-if="this.ifnew === 1" style="width: 21vh;position: absolute;">
-                    <el-input v-model="inputname" placeholder="请输入原型图名称"></el-input>
-                    <el-button type="primary" style="position: absolute;width: 9vh;" @click="createnewpro">确认
-                    </el-button>
-                    <el-button type="error" style="position: absolute;width: 9vh;left:220px" @click="closecreate">取消
-                    </el-button>
-                </div>
-                <div style="position: absolute;width: 300px;height:80vh;background-color: white;top:12vh">
-                    <prolist />
-                </div>
-                <div style="display: flex;">
-                    <PrototypeView ref="canvas" />
-                </div>
-                <el-drawer title="请选择一个模板" :visible.sync="drawer" :direction="direction" :before-close="handleClose"
-                    :size="size">
-                    <!--<span>我来啦!</span>-->
-                    <div @mouseover="over1" @mouseleave="leave">
-                        <el-button type="primary" icon="el-icon-s-management" style="width: 300px;background-color: red"
-                            @click="open1">项目计划</el-button>
-                    </div>
-                    <div @mouseover="over2" @mouseleave="leave">
-                        <el-button type="primary" icon="el-icon-s-management"
-                            style="width: 300px;background-color: orange" @click="open2">会议纪要</el-button>
-                    </div>
-                    <div @mouseover="over3" @mouseleave="leave">
-                        <el-button type="primary" icon="el-icon-s-management"
-                            style="width: 300px;background-color: yellowgreen" @click="open3">项目管理</el-button>
-                    </div>
-                    <div @mouseover="over4" @mouseleave="leave">
-                        <el-button type="primary" icon="el-icon-s-management"
-                            style="width: 300px;background-color: #b3d4fc" @click="open4">工作周报</el-button>
-                    </div>
-                    <div @mouseover="over5" @mouseleave="leave">
-                        <el-button type="primary" icon="el-icon-s-management"
-                            style="width: 300px;background-color: palevioletred" @click="open5">需求调研报告</el-button>
-                    </div>
-                    <div @mouseover="over6" @mouseleave="leave">
-                        <el-button type="primary" icon="el-icon-s-management"
-                            style="width: 300px; background-color: aqua" @click="open6">需求规格说明书</el-button>
-                    </div>
-                </el-drawer>
-                <div><img v-if="this.show === 1" src="../img/项目计划.jpg"
-                        style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
-                <div><img v-if="this.show === 2" src="../img/会议纪要.jpg"
-                        style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
-                <div><img v-if="this.show === 3" src="../img/项目管理.jpg"
-                        style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
-                <div><img v-if="this.show === 4" src="../img/工作周报.jpg"
-                        style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
-                <div><img v-if="this.show === 5" src="../img/需求调研报告.jpg"
-                        style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
-                <div><img v-if="this.show === 6" src="../img/需求规格说明书.jpg"
-                        style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
             </div>
-        </div>
-        <!-- 点击蒙版  -->
-        <div v-if="attrOpen" @click.stop="closeAtrrMenu"
-            style="position: fixed;top: 0;left: 0;width: 100%;height: 100%;z-index:998 "></div>
-        <!--  多功能菜单 -->
-        <div :class="{ 'six-more-modal-btn': attrOpen, 'moreModal': !attrOpen, 'more-tran-animate': !mouseDownState }"
-            ref="attrActionMgr" :style="position" @mousedown="attr_menu_down">
-            <!--  触发器 -->
-            <div v-if="!attrOpen" @click="demo_click" class="imgMore">
-                组件设置
-            </div>
-            <!--  菜单  -->
-            <div v-else>
-                <!-- <CanvasAttr /> -->
-                <el-tabs v-if="curComponent" v-model="activeName">
-                    <el-tab-pane label="属性" name="attr">
-                        <component :is="curComponent.component + 'Attr'" />
-                    </el-tab-pane>
-                    <el-tab-pane label="动画" name="animation" style="padding-top: 20px;">
-                        <AnimationList />
-                    </el-tab-pane>
-                    <el-tab-pane label="事件" name="events" style="padding-top: 20px;">
-                        <EventList />
-                    </el-tab-pane>
-                </el-tabs>
+            <!-- 点击蒙版  -->
+            <div v-if="attrOpen" @click.stop="closeAtrrMenu"
+                style="position: fixed;top: 0;left: 0;width: 100%;height: 100%;z-index:998 "></div>
+            <!--  多功能菜单 -->
+            <div :class="{ 'six-more-modal-btn': attrOpen, 'moreModal': !attrOpen, 'more-tran-animate': !mouseDownState }"
+                ref="attrActionMgr" :style="position" @mousedown="attr_menu_down">
+                <!--  触发器 -->
+                <div v-if="!attrOpen" @click="demo_click" class="imgMore">
+                    组件设置
+                </div>
+                <!--  菜单  -->
                 <div v-else>
-                    还没选择组件噢
+                    <!-- <CanvasAttr /> -->
+                    <el-tabs v-if="curComponent" v-model="activeName">
+                        <el-tab-pane label="属性" name="attr">
+                            <component :is="curComponent.component + 'Attr'" />
+                        </el-tab-pane>
+                        <el-tab-pane label="动画" name="animation" style="padding-top: 20px;">
+                            <AnimationList />
+                        </el-tab-pane>
+                        <el-tab-pane label="事件" name="events" style="padding-top: 20px;">
+                            <EventList />
+                        </el-tab-pane>
+                    </el-tabs>
+                    <div v-else>
+                        还没选择组件噢
+                    </div>
                 </div>
             </div>
-        </div>
-        <!-- <v-speed-dial :bottom="dial_bottom" :right="dial_right" :direction="dial_direction"
+            <!-- <v-speed-dial :bottom="dial_bottom" :right="dial_right" :direction="dial_direction"
             :transition="dial_transition">
             <template v-slot:activator>
                 <v-btn v-model="fab" color="blue darken-2" dark fab>
@@ -160,6 +183,7 @@
                 <v-icon>mdi-delete</v-icon>
             </v-btn>
         </v-speed-dial> -->
+        </div>
     </div>
 </template>
 <script>
