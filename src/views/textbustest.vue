@@ -3,7 +3,7 @@
     <div>
       <div style="width: 100vw;height:6vh;background-color: whitesmoke;">
         <router-link to="/">
-          <div><img :src="this.logourl" style="width: 30vh;height:6vh;position: absolute;"></div>
+          <div><img :src="this.logourl" style="width: 30vh;height:6vh;position: absolute;left:2vw"></div>
         </router-link>
         <!--<div style="left:90vh;position: absolute">
           <el-button type="text" icon="el-icon-document"
@@ -111,28 +111,28 @@
       <el-drawer title="请选择一个模板" :visible.sync="drawer" :direction="direction" :before-close="handleClose" :size="size">
         <!--<span>我来啦!</span>-->
         <div @mouseover="over1" @mouseleave="leave">
-          <el-button type="primary" icon="el-icon-s-management" style="width: 300px;background-color: red"
-            @click="open1">项目计划</el-button>
+          <el-button type="primary" icon="el-icon-s-management" style="width: 300px; "
+                     @click="open1" plain>项目计划</el-button>
         </div>
         <div @mouseover="over2" @mouseleave="leave">
-          <el-button type="primary" icon="el-icon-s-management" style="width: 300px;background-color: orange"
-            @click="open2">会议纪要</el-button>
+          <el-button type="primary" icon="el-icon-s-management" style="width: 300px; "
+                     @click="open2"  plain>会议纪要</el-button>
         </div>
         <div @mouseover="over3" @mouseleave="leave">
-          <el-button type="primary" icon="el-icon-s-management" style="width: 300px;background-color: yellowgreen"
-            @click="open3">项目管理</el-button>
+          <el-button type="primary" icon="el-icon-s-management" style="width: 300px; "
+                     @click="open3" plain>项目管理</el-button>
         </div>
         <div @mouseover="over4" @mouseleave="leave">
-          <el-button type="primary" icon="el-icon-s-management" style="width: 300px;background-color: #b3d4fc"
-            @click="open4">工作周报</el-button>
+          <el-button type="primary" icon="el-icon-s-management" style="width: 300px; "
+                     @click="open4" plain>工作周报</el-button>
         </div>
         <div @mouseover="over5" @mouseleave="leave">
-          <el-button type="primary" icon="el-icon-s-management" style="width: 300px;background-color: palevioletred"
-            @click="open5">需求调研报告</el-button>
+          <el-button type="primary" icon="el-icon-s-management" style="width: 300px; "
+                     @click="open5" plain>需求调研报告</el-button>
         </div>
         <div @mouseover="over6" @mouseleave="leave">
-          <el-button type="primary" icon="el-icon-s-management" style="width: 300px; background-color: aqua"
-            @click="open6">需求规格说明书</el-button>
+          <el-button type="primary" icon="el-icon-s-management" style="width: 300px; "
+                     @click="open6" plain>需求规格说明书</el-button>
         </div>
       </el-drawer>
       <div><img v-if="this.show === 1" src="../img/项目计划.jpg"
