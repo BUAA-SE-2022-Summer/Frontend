@@ -76,7 +76,7 @@
       </div>
       <!--<div v-if="this.ifshow === 1" style="position: absolute;width: 300px;height:91vh;background-color: white">
       </div>-->
-      <div v-if="this.ifshow === 1" style="position: absolute;width: 300px;height:5vh;background-color: wheat;top:50px">
+      <div v-if="this.ifshow === 1" style="position: absolute;width: 300px;height:5vh;background-color: white;top:50px">
         <div style="top:5px;position: absolute;left: 10px;cursor: pointer" @click="closetrash"><b>
           < 团队文档回收站</b>
         </div>
@@ -88,7 +88,7 @@
       </div>
 
       <div v-if="this.ifshow === 0"
-           style="position: absolute;width: 300px;height:5vh;background-color: wheat;top:95vh">
+           style="position: absolute;width: 300px;height:5vh;background-color: white;top:95vh">
 
         <div style="top:5px;position: absolute;left: 10px;cursor: pointer" @click="showtrash"><b>> 团队文档回收站</b></div>
       </div>
@@ -135,7 +135,7 @@
                 style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
       <div><img v-if="this.show === 6" src="../img/需求规格说明书.jpg"
                 style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>-->
-      <div v-if="this.ifshow===0" style="height:78vh;width:300px;display: block;overflow-y: scroll;position: absolute;top:12vh;background-color: whitesmoke">
+      <div v-if="this.ifshow===0" style="height:78vh;width:300px;display: block;overflow-y: scroll;position: absolute;top:12vh;background-color: white">
         <v-treeview
             v-if="this.ifshow===0"
             v-model="tree"
@@ -173,7 +173,7 @@
           </template>
         </v-treeview>
       </div>
-      <div v-if="this.ifshow===1" style="height:88vh;width:300px;display: block;overflow-y: scroll;position: absolute;top:12vh;background-color: whitesmoke">
+      <div v-if="this.ifshow===1" style="height:88vh;width:300px;display: block;overflow-y: scroll;position: absolute;top:12vh;background-color: white">
         <v-treeview
             v-if="this.ifshow===1"
             v-model="tree"
@@ -202,10 +202,10 @@
           </template>
         </v-treeview>
       </div>
-      <div v-if="this.ifshow===0"  style="position: absolute;top:90vh;height: 5vh">
-        <el-button @click="exportword" style="width: 9.6vw;background-color: #4ccaf0"><b>导出word</b></el-button>
+      <div  style="position: absolute;top:90vh;height: 5vh;left:76vw">
+        <el-button  plain  @click="exportword" style="width: 9.6vw;"><b>导出word</b></el-button>
      </div>
-      <div  v-if="this.ifshow===0" style="position: absolute;top:90vh;left:9.6vw;height:5vh"><el-button @click="exportpdf" style="width: 9.6vw;background-color: #E65100"><b>预览pdf</b></el-button></div>
+      <div  style="position: absolute;top:90vh;left:85.6vw;height:5vh"><el-button  plain  @click="exportpdf" style="width: 9.6vw;"><b>预览pdf</b></el-button></div>
       <div ref="editorContainer" style="width: 165vh;position: absolute;left:40vh;height:100vh;minHeight: 100vh"></div>
       <div><img v-if="this.show === 1" src="../img/项目计划.jpg"
                 style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
