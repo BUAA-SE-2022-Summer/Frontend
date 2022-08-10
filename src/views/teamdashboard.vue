@@ -418,6 +418,15 @@ export default {
         ).then(res => {
           this.teams = res.data.team_list;
         });
+        this.$axios.post(
+            '/api/team/recently_used_teams'
+        ).then(res => {
+          this.recentTeams = res.data.team_list;
+          console.log("最近查看团队"+this.recentTeams);
+          // this.recentTeams = res.data.team_list.slice(0, 4);
+        }).catch(err => {
+          console.log(err);
+        });
       }
     },
     changeManager(userID){
@@ -446,6 +455,15 @@ export default {
           '/api/team/show_my_team_list'
       ).then(res => {
         this.teams = res.data.team_list;
+      });
+      this.$axios.post(
+          '/api/team/recently_used_teams'
+      ).then(res => {
+        this.recentTeams = res.data.team_list;
+        console.log("最近查看团队"+this.recentTeams);
+        // this.recentTeams = res.data.team_list.slice(0, 4);
+      }).catch(err => {
+        console.log(err);
       });
     }
   },
