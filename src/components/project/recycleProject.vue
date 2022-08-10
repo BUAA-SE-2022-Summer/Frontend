@@ -29,9 +29,9 @@
               <v-card style="">
                 <v-card-title class="subheading font-weight-bold">
 
-                  <span class="d-inline-block text-truncate" style="max-width: 150px;">
-                    <v-icon style="color: #26A69A;">mdi-file-cog</v-icon>
-                    {{ item.projectName }}
+                   <span class="d-inline-block text-truncate" style="max-width: 150px;font-size:18px;font-weight:500">
+                    <!-- <v-icon style="color: #26A69A;">mdi-file-cog</v-icon> -->
+                   项目名： {{ item.projectName }}
                   </span>
                   <v-divider></v-divider>
                   <!-- <v-btn @click="Star(item)" style="background-color: white;">
@@ -39,25 +39,26 @@
                     <v-icon color="black" v-show="!item.is_star">mdi-star</v-icon>
                     收藏
                   </v-btn> -->
+                  <img :src="item.projectImg" style="width: 22vw;height:11vw">
                 </v-card-title>
                 <!-- <div>
                     <span>{{item.projectDesc}}</span>
                   </div> -->
-                <v-list dense>
+                <!--<v-list dense>
                   <v-list-item>
                     <v-btn style="width:100%;background-color: white;">最近使用时间:{{ item.last_modify_time }}</v-btn>
                   </v-list-item>
                   <v-list-item>
                     <v-btn style="width:100%;background-color: white;">创建时间:{{ item.projectTime }}</v-btn>
                   </v-list-item>
-                </v-list>
+                </v-list>-->
                 <v-bottom-navigation>
                   <!-- <v-btn @click="reaname=!rename"> -->
                   <v-btn @click="cancel_delete_project(item.projectID)">
                     <span>撤销删除</span>
                     <v-icon style="color:#673AB7">mdi-history</v-icon>
                   </v-btn>
-                  
+
                   <v-dialog v-model="rename" max-width="500px" persistent>
                     <v-card>
                       <v-card-title>
@@ -79,7 +80,7 @@
                     <span>彻底删除</span>
                     <v-icon style="color:#D50000">mdi-delete</v-icon>
                   </v-btn>
-                  
+
                   <v-dialog v-model="copy" max-width="500px">
                     <v-card>
                       <v-card-title>
@@ -107,12 +108,12 @@
         <!-- 以下为控制翻页部分 -->
         <template v-slot:footer>
           <v-row class="mt-2" align="center" justify="center">
-           
+
             <v-spacer></v-spacer>
 
             <span class="mr-4
               grey--text">
-              页 {{ page }} 
+              页 {{ page }}
             </span>
             <v-btn fab dark color="#8da8c4" class="mr-1" @click="formerPage">
               <v-icon>mdi-chevron-left</v-icon>
@@ -145,14 +146,14 @@ export default {
         'is_star',
       ],
       items: [
-      
+
 
       ],
       rename:false,
       copy:false,
       newname:"新名称",
       copyName:"xin",
-    
+
     }
 
   },
@@ -250,7 +251,7 @@ export default {
           if (res.data.errno === 0) {
             console.log("回收站：",res.data)
             this.items = res.data.project_list
-          } 
+          }
         })
         .catch(err => {
           console.log(err);         /* 若出现异常则在终端输出相关信息 */
@@ -491,9 +492,9 @@ export default {
         })
     },
     getMore(ID) {
-        
+
     },
-  
+
   },
 
 }

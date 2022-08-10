@@ -28,29 +28,29 @@
             <v-col v-for="item in props.items" :key="item.projectName" cols="12" sm="12" md="6" lg="4">
               <v-card style="">
                 <v-card-title class="subheading font-weight-bold">
-
-                  <span class="d-inline-block text-truncate" style="max-width: 150px;">
-                    <v-icon style="color: #26A69A;">mdi-file-cog</v-icon>
-                    {{ item.projectName }}
+                  <span class="d-inline-block text-truncate" style="max-width: 150px;font-size:18px;font-weight:500">
+                    <!-- <v-icon style="color: #26A69A;">mdi-file-cog</v-icon> -->
+                   项目名： {{ item.projectName }}
                   </span>
                   <v-divider></v-divider>
-                  <v-btn @click="Star(item)" style="background-color: white;">
-                    <v-icon style="color: #FBC02D;" v-show="item.is_star">mdi-star</v-icon>
-                    <v-icon color="black" v-show="!item.is_star">mdi-star</v-icon>
-                    收藏
-                  </v-btn>
+                  <!--<v-btn @click="Star(item)" style="background-color: white;">-->
+                  <v-icon style="color: #FBC02D;" v-show="item.is_star">mdi-star</v-icon>
+                  <v-icon color="black" v-show="!item.is_star">mdi-star</v-icon>
+                  <!--收藏-->
+                  <!--</v-btn>-->
+                  <img :src="item.projectImg" style="width: 22vw;height:11vw">
                 </v-card-title>
                 <!-- <div>
                     <span>{{item.projectDesc}}</span>
                   </div> -->
-                <v-list dense>
+                <!--<v-list dense>
                   <v-list-item>
                     <v-btn style="width:100%;background-color: white;">最近使用时间:{{ item.last_modify_time }}</v-btn>
                   </v-list-item>
                   <v-list-item>
                     <v-btn style="width:100%;background-color: white;">创建时间:{{ item.projectTime }}</v-btn>
                   </v-list-item>
-                </v-list>
+                </v-list>-->
                 <v-bottom-navigation>
                   <!-- <v-btn @click="reaname=!rename"> -->
                   <v-btn @click="Rename(item.projectName)">
@@ -117,12 +117,12 @@
         <!-- 以下为控制翻页部分 -->
         <template v-slot:footer>
           <v-row class="mt-2" align="center" justify="center">
-            
+
             <v-spacer></v-spacer>
 
             <span class="mr-4
               grey--text">
-              页 {{ page }} 
+              页 {{ page }}
             </span>
             <v-btn fab dark color="#8da8c4" class="mr-1" @click="formerPage">
               <v-icon>mdi-chevron-left</v-icon>
