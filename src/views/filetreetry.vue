@@ -291,6 +291,8 @@ export default {
       now_file_name:'',
       if_choose_file:0,
       oldcontent:'',
+      lasttime:0,
+      newtime:0,
     }
   },
   created() {
@@ -854,6 +856,10 @@ export default {
       setInterval(this.formatDate, 500);
       setInterval(this.websocketsend(), 500); //定时器 每一秒执行一次save
     },
+    sleep(ms) {
+      var unixtime_ms = new Date().getTime();
+      while(new Date().getTime()<unixtime_ms+ms) {};
+    },
     initWebSocket() {
       //初始化weosocket
       const wsuri = "ws://123.57.69.30:8000/edit_file";
@@ -884,10 +890,15 @@ export default {
       console.log(e.data);
       console.log(JSON.parse(e.data).fileID);
       console.log(JSON.parse(e.data).content);
+      this.newtime=new Date().getTime();
+      if(this.newtime-this.lasttime>=300) {
         if (JSON.parse(e.data).fileID === this.now_id) {
-          if(JSON.parse(e.data).content!==this.editor1.getContents().content)
-          this.editor1.replaceContent(JSON.parse(e.data).content);
+          if (JSON.parse(e.data).content !== this.editor1.getContents().content) {
+            this.editor1.replaceContent(JSON.parse(e.data).content);
+          }
         }
+      }
+      this.lasttime=new Date().getTime();
       //收到服务器信息，心跳重置
       this.reset();
       //this.$message.success('websocket接受成功');
@@ -1006,7 +1017,7 @@ export default {
     _this.editor1.onChange.subscribe(() => {
       console.log(_this.editor1.getContents().content);
       this.savetxt();
-      this.websocketsend();
+        this.websocketsend();
     });
     _this.editor1.onReady.subscribe(() => {
       //alert(this.newContent);
