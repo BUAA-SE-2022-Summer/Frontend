@@ -54,22 +54,26 @@
       </div> -->
 
 
-      <div v-if="this.ifnew === 0">
+      <div v-if="this.ifnew === 0 && this.ifshow===0" style="border:1px;border-color:black;border-style:solid;width: 300px;height:6vh;float: left">
         <el-tooltip class="item" effect="dark" content="新建文档" placement="bottom">
-          <div style="position: absolute;width:40px;height:40px;left:20px;top:55px"><i class="el-icon-document-add"
-              style="" @click="changenew"></i></div>
+          <!--<div style="position: absolute;width:40px;height:40px;left:20px;top:55px"><i class="el-icon-document-add"
+              style="" @click="changenew"></i></div>-->
+          <v-icon style="position: absolute;left:0.5vw;top:6.5vh" large @click="changenew">mdi-folder-plus</v-icon>
         </el-tooltip>
         <el-tooltip class="item" effect="dark" content="删除当前文档" placement="bottom">
-          <div style="position: absolute;width:40px;height:40px;left:90px;top:55px"><i class="el-icon-delete-solid"
-              style="" @click="deletetxt"></i></div>
+          <!--<div style="position: absolute;width:40px;height:40px;left:90px;top:55px"><i class="el-icon-delete-solid"
+              style="" @click="deletetxt"></i></div>-->
+          <v-icon style="position: absolute;left:5vw;top:6.5vh" large @click="deletetxt">mdi-delete</v-icon>
         </el-tooltip>
         <el-tooltip class="item" effect="dark" content="保存文档" placement="bottom">
-          <div style="position: absolute;width:40px;height:40px;left:160px;top:55px"><i class="el-icon-document-checked"
-              style="" @click="savetxt"></i></div>
+          <!--<div style="position: absolute;width:40px;height:40px;left:160px;top:55px"><i class="el-icon-document-checked"
+              style="" @click="savetxt"></i></div>-->
+          <v-icon style="position: absolute;left:9.5vw;top:6.5vh" large @click="savetxt" >mdi-file-check</v-icon>
         </el-tooltip>
         <el-tooltip class="item" effect="dark" content="选择模板" placement="bottom">
-          <div style="position: absolute;width:40px;height:40px;left:230px;top:55px"><i class="el-icon-edit-outline"
-              style="" @click="drawer = true"></i></div>
+          <!--<div style="position: absolute;width:40px;height:40px;left:230px;top:55px"><i class="el-icon-edit-outline"
+              style="" @click="drawer = true"></i></div>-->
+          <v-icon style="position: absolute;left:14vw;top:6.5vh" large @click="drawer = true">mdi-application-edit</v-icon>
         </el-tooltip>
 
       </div>
@@ -80,9 +84,9 @@
       </div>
       <div v-if="this.ifshow === 1" style="position: absolute;width: 300px;height:91vh;background-color: white">
       </div>
-      <div v-if="this.ifshow === 1" style="position: absolute;width: 300px;height:5vh;background-color: wheat;top:50px">
+      <div v-if="this.ifshow === 1" style="position: absolute;width: 300px;height:6vh;background-color: white;top:6vh;border:1px;border-color:black;border-style:solid;">
         <div style="top:5px;position: absolute;left: 10px;cursor: pointer" @click="closetrash"><b>
-            < 回收站</b>
+          < 回收站</b>
         </div>
         <doxlists1></doxlists1>
       </div>
@@ -92,19 +96,22 @@
       </div>
 
       <div v-if="this.ifshow === 0"
-        style="position: absolute;width: 300px;height:5vh;background-color: wheat;top:95vh">
-
-        <div style="top:5px;position: absolute;left: 10px;cursor: pointer" @click="showtrash"><b>> 回收站</b></div>
+           style="position: absolute;width: 300px;height:5vh;background-color: white;border:1px;border-color:black;border-style:solid;top:95vh">
+        <div style="top:5px;position: absolute;left: 10px;cursor: pointer;"
+             @click="showtrash">
+          <b>&nbsp;&nbsp;>&nbsp;&nbsp;
+            打开回收站</b>
+        </div>
       </div>
 
-      <div v-if="this.ifshow===0" style="position: absolute;top:89vh">
-        <el-button @click="exportword" style="width: 9.6vw;background-color: #4ccaf0;height:6vh"><b>导出word</b></el-button>
+      <div style="position: absolute;top:90vh;height: 5vh;left:76vw;z-index: 1000">
+        <el-button plain @click="exportword" style="width: 9.6vw;"><b>导出word</b></el-button>
       </div>
-      <div v-if="this.ifshow===0" style="position: absolute;top:89vh;left:9.6vw;"><el-button @click="exportpdf" style="width: 9.6vw;background-color: #E65100;height: 6vh"><b>预览pdf</b></el-button></div>
+      <div style="position: absolute;top:90vh;left:85.6vw;height:5vh;z-index: 1000">
+        <el-button plain @click="exportpdf" style="width: 9.6vw;"><b>预览pdf</b></el-button>
+      </div>
 
-      <div style="position: absolute;left: 40vh;height:100vh">
-        <div ref="editorContainer" style="width: 165vh;left:40vh;height:100vh;minHeight: 100vh"></div>
-      </div>
+      <div ref="editorContainer"></div>
       <!--<div style="position: absolute;left:700px;top:80vh"><v-btn text color="primary" @click="outtxt">导出当前文档</v-btn></div>-->
       <!--<div style="position: absolute;left:900px;top:80vh"><v-btn text color="error" @click="deletetxt">删除当前文档</v-btn></div>
       <div style="position: absolute;left:1100px;top:80vh"><v-btn text color="primary" @click="createnewtxt">新建文档</v-btn></div>-->
@@ -675,7 +682,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style >
 .bgbox {
   display: block;
   opacity: 1;
@@ -693,10 +700,13 @@ export default {
 .textbus-container {
   line-height: 1.428;
   border-radius: 5px;
-  height: 583px;
+  background-color: #fff;
+  border-color: #495060;
+  height: 80vh;
+  width: auto;
   color: #495060;
-  position: relative;
   display: flex;
   flex-direction: column;
+  margin-left: 20vw;
 }
 </style>
