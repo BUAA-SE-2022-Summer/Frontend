@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card width="400px">
+    <v-card width="400px" v-if="show2">
       <v-card-title style="">修改个人信息</v-card-title>
       <div style="margin-top:10px">
         <el-tooltip class="item" effect="dark" content="点此上传头像" placement="right">
@@ -20,10 +20,20 @@
         <v-text-field v-model="email"  :counter="20" label="邮箱" required></v-text-field>
         <v-text-field v-model="phone"  :counter="20" label="手机号码" required></v-text-field>
         <v-text-field v-model="profile"  :counter="20" label="个人简介" required></v-text-field>
-        <v-text-field v-model="password"  :counter="20" label="密码" required></v-text-field>
-        <div @click="update" style="color:black;text-align: center;width: 100%;font-size: 20px;">
+        <v-text-field
+            v-model="password"
+            :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+            :type="show1 ? 'text' : 'password'"
+            :counter="20"
+            @click:append="show1 = !show1"
+            label="密码"
+            required></v-text-field>
+        <v-btn @click="update" style="color:black;text-align: center;width: 100%;font-size: 20px;padding-left: 10px">
           <span>更新资料</span>
-        </div>
+        </v-btn>
+        <v-btn @click="cancel" style="color:black;text-align: center;width: 100%;font-size: 20px;float: right">
+          <span>取消</span>
+        </v-btn>
       </div>
 
 
@@ -54,6 +64,13 @@ export default {
   name: "user_center",
   data() {
     return {
+      show1: false,
+
+      show2: true,
+      props: {
+        overlay2: Boolean,
+      },
+
       imageUrl: '',
       uploadimgurl: '/user/update_user_img ',
       username: '',
@@ -158,6 +175,11 @@ export default {
           }
         )
       }
+    },
+    cancel() {
+      this.show2 = false;
+      //设置另一组件中data中的值
+      this.$emit('change', false);
     },
     jumpchange() {
       this.$router.push('/user_center');

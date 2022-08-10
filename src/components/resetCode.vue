@@ -8,6 +8,7 @@
     <v-text-field outlined label="验证码" v-model="code"></v-text-field>
     <v-text-field outlined label="密码确认" v-model="password2"></v-text-field>
     <v-btn @click="reset_password" style="background-color: white;margin-bottom: 8px;width: 400px;font-size: 20px;">重置</v-btn>
+    <v-btn @click="cancel" style="background-color: white;margin-bottom: 8px;width: 400px;font-size: 20px;float: right">取消</v-btn>
     
 </v-card>
 </template>
@@ -21,6 +22,8 @@ export default {
             email:"",
             code:"",
             password2:"",
+
+          show2:false,
         }
     },
     methods:{
@@ -70,7 +73,12 @@ export default {
         .catch(err => {
           console.log(err);         /* 若出现异常则在终端输出相关信息 */
         })
-    }
+    },
+      cancel() {
+        this.show2 = false;
+        //设置另一组件中data中的值
+        this.$emit('change2', false);
+      },
     },
 }
 </script>
