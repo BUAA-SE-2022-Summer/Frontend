@@ -1,7 +1,7 @@
 <template>
     <div class="home">
-        <div style="margin-top:0px;width:300px;margin-left: 0px;">
-            <v-data-table height="445px" :headers="headers" :items="desserts" sort-by="projectUser" class="elevation-1">
+        <div style="width:300px;margin-left: 0px;">
+            <v-data-table height="245px" :headers="headers" :items="desserts" sort-by="projectUser" class="elevation-1">
                 <template v-slot:top>
                     <v-toolbar flat color=" ">
                         <v-toolbar-title>全部原型图</v-toolbar-title>
@@ -49,12 +49,13 @@
                 </template>
 
                 <template v-slot:item.actions="{ item }">
-                    <v-icon small class="mr-2" @click="toItem(item)" color="purple">
+                    <v-icon small class="mr-2" @click="toItem(item)" color="primary">
                         mdi-pencil
                     </v-icon>
-                    <v-icon small @click="deleteItem(item)">
+                    <v-icon small @click="deleteItem(item)" color="#DF2A23">
                         mdi-delete
                     </v-icon>
+
                 </template>
                 <template v-slot:no-data>
                     <!--<v-btn color="primary" @click="initialize">打开文件列表</v-btn>-->
@@ -164,7 +165,21 @@ export default {
                 console.log(err);         /* 若出现异常则在终端输出相关信息 */
             });
         },
-
+        sharePro(item) {
+            this.$axios.post(
+                '/api/prototype/share_prototype',
+                this.$qs.stringify({
+                    prototypeID: item.fileID,
+                })).then(res => {
+                    if (res.data.errno === 0) {
+                        console.log("share prototype success, the encode string is: " + res.data.code);
+                    } else {
+                        this.$message.error(res.data.msg);
+                    }
+                }).catch(err => {
+                    console.log(err);         /* 若出现异常则在终端输出相关信息 */
+                });
+        },
         deleteItem(item) {
             this.editedItem = Object.assign({}, item)
             this.dialog2 = true
@@ -255,18 +270,18 @@ export default {
                     prototypeID: JSON.parse(sessionStorage.getItem('prototypeID')),
                 })
             ).then(response => {
-                console.log("打开原型图的后端反馈 ", response.data);
-                this.$store.commit('updatePageList', response.data.namelist);
-                console.log("存储pageList到Vuex");
-                console.log(this.$store.state.pageList);
-                let firstItem = this.$store.state.pageList[0];
-                sessionStorage.setItem('pageID', JSON.stringify(firstItem.pageID));
-                console.log("debug: 打开原型图时的first_componentdata: ");
-                console.log(response.data.first_component);
-                console.log("debug: 打开原型图时的first_canvasStyle: ");
-                console.log(response.data.first_canvasStyle);
-                this.$store.commit('setComponentData', JSON.parse(response.data.first_component));
-                this.$store.commit('setCanvasStyle', JSON.parse(response.data.first_canvasStyle));
+                if (response.data.errno === 0) {
+                    console.log("打开原型图成功,返回数据为");
+                    console.log(response.data);
+                    this.$message.success(response.data.msg);
+                    this.$store.commit('updatePageList', response.data.namelist);
+                    let firstItem = this.$store.state.pageList[0];
+                    sessionStorage.setItem('pageID', JSON.stringify(firstItem.pageID));
+                    this.$store.commit('setComponentData', JSON.parse(response.data.first_component));
+                    this.$store.commit('setCanvasStyle', JSON.parse(response.data.first_canvasStyle));
+                } else {
+                    this.$message.error(response.data.msg);
+                }
             }).catch(err => {
                 console.error(err);
             })

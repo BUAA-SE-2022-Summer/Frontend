@@ -19,7 +19,7 @@
         </section>
         <!-- 右侧属性列表 -->
         <!-- <section class="right">
-          <el-tabs v-if="curComponent" v-model="activeName">
+          <el-tabs v-if=" " v-model="activeName">
             <el-tab-pane label="属性" name="attr">
               <component :is="curComponent.component + 'Attr'" />
             </el-tab-pane>
@@ -50,12 +50,12 @@ import { mapState } from 'vuex'
 import generateID from '@/utils/generateID'
 import { listenGlobalKeyDown } from '@/utils/shortcutKey'
 import RealTimeComponentList from '@/components/RealTimeComponentList'
-import CanvasAttr from '@/components/CanvasAttr'
 
 export default {
-  components: { Editor, ComponentList, AnimationList, EventList, Toolbar, RealTimeComponentList, CanvasAttr, PageList },
+  components: { Editor, ComponentList, AnimationList, EventList, Toolbar, RealTimeComponentList, PageList },
   data() {
     return {
+      //---------------------------------
       activeName: 'attr',
       reSelectAnimateIndex: undefined,
       pageList: this.$store.state.pageList,
@@ -85,6 +85,9 @@ export default {
   mounted() {
     this.currentTime();
   },
+  //--------------------------------------------------------------------------------------
+  //--------------------Websocket相关-----------------------------------------------------
+  //--------------------------------------------------------------------------------------
   // 销毁定时器
   beforeDestroy() {
     if (this.formatDate) {
@@ -96,9 +99,12 @@ export default {
     this.websock.close(); //离开路由之后断开websocket连接
   },
   methods: {
+    //--------------------------------------------------------------------------------------
+    //--------------------Websocket相关-----------------------------------------------------
+    //--------------------------------------------------------------------------------------
     currentTime() {
       setInterval(this.formatDate, 500);
-      setInterval(this.websocketsend(), 500); //定时器 每一秒执行一次save
+      setInterval(this.websocketsend(), 500); //定时器 每500ms执行一次save
     },
     /**
      * 初始化webSocket
@@ -136,8 +142,8 @@ export default {
       console.log(e.data);
       console.log(JSON.parse(e.data).pageComponentData);
       console.log(JSON.parse(e.data).pageCanvasStyle);
-      this.$store.commit('setComponentData', JSON.parse(e.data).pageComponentData);
-      this.$store.commit('setCanvasStyle', JSON.parse(e.data).pageCanvasStyle);
+      this.$store.commit('setComponentData', JSON.parse(e.data).pageComponentData);   // 设置组件数据
+      this.$store.commit('setCanvasStyle', JSON.parse(e.data).pageCanvasStyle); // 设置画布样式
       //收到服务器信息，心跳重置
       this.reset();
     },
@@ -211,19 +217,23 @@ export default {
     },
 
     /**
-     * 从后端获取数据初始化页面[现已废弃]
+     * [现已废弃]
+     * 从localStorage获取数据初始化页面
      */
     restore() {
-      // // 用保存的数据恢复画布
-      // if (localStorage.getItem('canvasData')) {
-      //   this.$store.commit('setComponentData', JSON.parse(localStorage.getItem('canvasData')))
-      // }
+      // 用保存的数据恢复画布
+      if (localStorage.getItem('canvasData')) {
+        this.$store.commit('setComponentData', JSON.parse(localStorage.getItem('canvasData')))
+      }
 
-      // if (localStorage.getItem('canvasStyle')) {
-      //   this.$store.commit('setCanvasStyle', JSON.parse(localStorage.getItem('canvasStyle')))
-      // }
+      if (localStorage.getItem('canvasStyle')) {
+        this.$store.commit('setCanvasStyle', JSON.parse(localStorage.getItem('canvasStyle')))
+      }
     },
 
+    //--------------------------------------------------------------------------------------
+    //--------------------原型图绘制相关-----------------------------------------------------
+    //--------------------------------------------------------------------------------------
     handleDrop(e) {
       e.preventDefault()
       e.stopPropagation()
@@ -303,6 +313,7 @@ export default {
 
     .center {
       margin-left: 300px;
+
       background: #f5f5f5;
       height: auto;
       overflow: auto;

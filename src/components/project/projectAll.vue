@@ -105,7 +105,10 @@
 
 
                   <v-btn @click="openProject(item)">
-                    <span>详情</span>
+                    <router-link :to="{ path: '/textbustest' }" target="_blank" rel="opener"
+                      style="text-decoration:none;">
+                      <span>详情</span>
+                    </router-link>
                     <router-link :to="{ path: '/textbustest' }" target="_blank" rel="opener"
                       style="text-decoration:none;">
                       <v-icon style="color:#E65100">mdi-link</v-icon>
@@ -164,7 +167,7 @@ export default {
       copy: false,
       newname: "新名称",
       copyName: "xin",
-      tmp1:[],
+      tmp1: [],
     }
 
   },
