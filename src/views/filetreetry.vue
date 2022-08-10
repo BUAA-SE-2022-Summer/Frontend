@@ -123,7 +123,7 @@
                      @click="open6">需求规格说明书</el-button>
         </div>
       </el-drawer>
-      <div><img v-if="this.show === 1" src="../img/项目计划.jpg"
+      <!--<div><img v-if="this.show === 1" src="../img/项目计划.jpg"
                 style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
       <div><img v-if="this.show === 2" src="../img/会议纪要.jpg"
                 style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
@@ -134,7 +134,7 @@
       <div><img v-if="this.show === 5" src="../img/需求调研报告.jpg"
                 style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
       <div><img v-if="this.show === 6" src="../img/需求规格说明书.jpg"
-                style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
+                style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>-->
       <div v-if="this.ifshow===0" style="height:78vh;width:300px;display: block;overflow-y: scroll;position: absolute;top:12vh;background-color: whitesmoke">
         <v-treeview
             v-if="this.ifshow===0"
@@ -207,6 +207,18 @@
      </div>
       <div  v-if="this.ifshow===0" style="position: absolute;top:90vh;left:9.6vw;height:5vh"><el-button @click="exportpdf" style="width: 9.6vw;background-color: #E65100"><b>预览pdf</b></el-button></div>
       <div ref="editorContainer" style="width: 165vh;position: absolute;left:40vh;height:100vh;minHeight: 100vh"></div>
+      <div><img v-if="this.show === 1" src="../img/项目计划.jpg"
+                style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
+      <div><img v-if="this.show === 2" src="../img/会议纪要.jpg"
+                style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
+      <div><img v-if="this.show === 3" src="../img/项目管理.jpg"
+                style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
+      <div><img v-if="this.show === 4" src="../img/工作周报.jpg"
+                style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
+      <div><img v-if="this.show === 5" src="../img/需求调研报告.jpg"
+                style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
+      <div><img v-if="this.show === 6" src="../img/需求规格说明书.jpg"
+                style="width: 165vh;height:500px;position: absolute;left:300px;top:12vh"></div>
     </div>
     <!--<div><el-button @click="load">cnm</el-button></div>-->
   </div>
