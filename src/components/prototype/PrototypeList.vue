@@ -4,13 +4,13 @@
             <v-data-table height="200px" :headers="headers" :items="desserts" sort-by="projectUser" class="elevation-1">
                 <template v-slot:top>
                     <v-toolbar flat color=" ">
-                        <v-toolbar-title>全部原型图</v-toolbar-title>
+                        <v-toolbar-title>全部页面</v-toolbar-title>
                         <v-divider class="mx-4" inset vertical></v-divider>
                         <v-spacer></v-spacer>
                         <v-dialog v-model="dialog" max-width="500px">
                             <v-card>
                                 <v-card-title>
-                                    <span class="headline">修改原型图名称</span>
+                                    <span class="headline">修改页面名称</span>
                                 </v-card-title>
                                 <v-card-text>
                                     <v-container>
@@ -35,13 +35,13 @@
 
                             <v-card>
                                 <v-card-title>
-                                    <span class="headline">删除原型图</span>
+                                    <span class="headline">删除页面</span>
                                 </v-card-title>
 
                                 <v-card-actions>
                                     <v-spacer></v-spacer>
                                     <v-btn color="blue darken-1" text @click="close">取消</v-btn>
-                                    <v-btn color="blue darken-1" text @click="OK">删除原型图</v-btn>
+                                    <v-btn color="blue darken-1" text @click="OK">删除页面</v-btn>
                                 </v-card-actions>
                             </v-card>
                         </v-dialog>
@@ -81,7 +81,7 @@ export default {
             dialog2: false,
             headers: [
                 {
-                    text: '文档名称',
+                    text: '页面名称',
                     align: 'start',
                     sortable: false,
                     value: 'file_name',

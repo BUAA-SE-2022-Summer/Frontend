@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="Prototype">
-      <!-- <Toolbar ref="toolbar" /> -->
+
 
       <main>
         <!-- 左侧组件列表 -->
@@ -17,6 +17,7 @@
             <Editor />
           </div>
         </section>
+
         <!-- 右侧属性列表 -->
         <!-- <section class="right">
           <el-tabs v-if=" " v-model="activeName">
@@ -33,6 +34,7 @@
           <CanvasAttr v-else></CanvasAttr>
         </section> -->
       </main>
+      <Toolbar ref="toolbar" />
     </div>
   </div>
 </template>
@@ -101,7 +103,7 @@ export default {
     if (this.formatDate) {
       clearInterval(this.formatDate); // 在Vue实例销毁前，清除时间定时器
     }
-    clearInterval(this.timer);
+    clearInterval(this.websocketsend());
   },
   destroyed() {
     this.websock.close(); //离开路由之后断开websocket连接
@@ -327,6 +329,7 @@ export default {
       overflow: auto;
 
       .content {
+        margin-bottom: 100px;
         width: auto;
         height: auto;
         overflow: auto;

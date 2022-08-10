@@ -1,27 +1,5 @@
 <template>
     <div>
-        <v-speed-dial v-model="fab" :top="top" :bottom="bottom" :right="right" :left="left" :direction="dial_direction"
-            :transition="dial_transition">
-            <template v-slot:activator>
-                <v-btn v-model="fab" color="blue darken-2" dark fab>
-                    <v-icon v-if="fab">
-                        mdi-close
-                    </v-icon>
-                    <v-icon v-else>
-                        mdi-account-circle
-                    </v-icon>
-                </v-btn>
-            </template>
-            <v-btn fab dark small color="green">
-                <v-icon>mdi-pencil</v-icon>
-            </v-btn>
-            <v-btn fab dark small color="indigo">
-                <v-icon>mdi-plus</v-icon>
-            </v-btn>
-            <v-btn fab dark small color="red">
-                <v-icon>mdi-delete</v-icon>
-            </v-btn>
-        </v-speed-dial>
         <!--    全屏容器    -->
         <div ref="pageDiv" @mousemove="demo_move" @mouseup="demo_up" :class="{ 'zlevelTop': mouseDownState }"
             style="position: absolute;top: 0;height: 100%;width: 100%">
@@ -161,28 +139,6 @@
                     </div>
                 </div>
             </div>
-            <!-- <v-speed-dial :bottom="dial_bottom" :right="dial_right" :direction="dial_direction"
-            :transition="dial_transition">
-            <template v-slot:activator>
-                <v-btn v-model="fab" color="blue darken-2" dark fab>
-                    <v-icon v-if="fab">
-                        mdi-close
-                    </v-icon>
-                    <v-icon v-else>
-                        mdi-account-circle
-                    </v-icon>
-                </v-btn>
-            </template>
-            <v-btn fab dark small color="green">
-                <v-icon>mdi-pencil</v-icon>
-            </v-btn>
-            <v-btn fab dark small color="indigo">
-                <v-icon>mdi-plus</v-icon>
-            </v-btn>
-            <v-btn fab dark small color="red">
-                <v-icon>mdi-delete</v-icon>
-            </v-btn>
-        </v-speed-dial> -->
         </div>
     </div>
 </template>
@@ -207,8 +163,9 @@ import generateID from '@/utils/generateID'
 import { listenGlobalKeyDown } from '@/utils/shortcutKey'
 import RealTimeComponentList from '@/components/RealTimeComponentList'
 import CanvasAttr from '@/components/CanvasAttr'
+
 export default {
-    components: { Avatar, prolist, Prototype, PrototypeView, AnimationList, EventList, componentList, RealTimeComponentList, CanvasAttr },
+    components: { Avatar, prolist, Prototype, PrototypeView, AnimationList, EventList, componentList, RealTimeComponentList, CanvasAttr, Toolbar },
     name: "prototype",
     props: {
         // 通过position来设置初始定位
@@ -231,13 +188,6 @@ export default {
     ]),
     data() {
         return {
-            //----------------------
-            //------悬浮按钮组------
-            //----------------------
-            dial_direction: 'left',
-            dial_right: true,
-            dial_bottom: true,
-            dial_transition: 'scale-transition',
             //----------------------
             //-------选中的组件-----
             //----------------------
@@ -623,7 +573,7 @@ export default {
 
 </script>
 
-<style scoped>
+<style>
 .zlevelTop {
     z-index: 9999;
 }
