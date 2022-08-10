@@ -19,7 +19,7 @@
                   <v-icon>mdi-arrow-down</v-icon>
                 </v-btn>
               </v-btn-toggle>
-            </template> 
+            </template>
           </v-toolbar>
         </template>
         <!-- 以下为card部分 -->
@@ -34,11 +34,11 @@
                    项目名： {{ item.projectName }}
                   </span>
                   <v-divider></v-divider>
-                  <img >
                     <v-icon style="color: #FBC02D;" v-show="item.is_star" @click="Star(item)">mdi-star</v-icon>
                     <v-icon color="grey" v-show="!item.is_star" @click="Star(item)">mdi-star</v-icon>
+                  <img :src="item.projectImg" style="width: 22vw;height:11vw">
                 </v-card-title>
-                
+
 
                 <v-expand-transition>
                 <v-bottom-navigation>
@@ -120,7 +120,7 @@
 
             <span class="mr-4
               grey--text">
-              页 {{ page }} 
+              页 {{ page }}
             </span>
             <v-btn fab dark color="#8da8c4" class="mr-1" @click="formerPage">
               <v-icon>mdi-chevron-left</v-icon>
@@ -227,7 +227,7 @@ export default {
             this.$message.success("获取项目列表成功");
             // console.log(res.data)
             this.items = res.data.project_list
-            
+
           } else {
             alert(res.data.msg);
             this.$message.error(res.data.msg);
