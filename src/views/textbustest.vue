@@ -170,6 +170,13 @@ export default {
 
   data() {
     return {
+      //-------------------------------------------websocket相关内容
+      lockReconnect: false, //是否真正建立连接
+      timeout: 58 * 1000, //58秒一次心跳
+      timeoutObj: null, //心跳心跳倒计时
+      serverTimeoutObj: null, //心跳倒计时
+      timeoutnum: null, //断开 重连倒计时
+      //--------------------------------------------
       activeIndex:'1',
       size: '300px',//抽屉的宽度
       drawer: false,
@@ -205,6 +212,8 @@ export default {
       if_save: 0,
       if_choose_file: JSON.parse(sessionStorage.getItem('if_choose_file')),
       now_file_name: JSON.parse(sessionStorage.getItem('now_textname')),
+      lasttime:0,
+      newtime:0,
     }
   },
   created() {
@@ -223,6 +232,7 @@ export default {
         console.log(this.userhead)
       }
     );
+    this.initWebSocket();
     console.log("debug当前项目id" + JSON.parse(sessionStorage.getItem('ProjectID')));
     console.log("当前项目id" + this.projectid);
     console.log("当前文档id" + this.now_id);
@@ -484,7 +494,7 @@ export default {
         .then(res => {/* res 是 response 的缩写 */
           //获取用户登录的三个基本信息并存放于sessionStorage
           if (res.data.errno === 0) {
-            this.$message.success("保存文件成功");
+            //this.$message.success("保存文件成功");
           } else {
             this.$message.error(res.data.msg);
           }
@@ -492,7 +502,134 @@ export default {
         .catch(err => {
           console.log(err);         /* 若出现异常则在终端输出相关信息 */
         })
-    }
+    },
+    currentTime() {
+      setInterval(this.formatDate, 500);
+      setInterval(this.websocketsend(), 500); //定时器 每一秒执行一次save
+    },
+    sleep(ms) {
+      var unixtime_ms = new Date().getTime();
+      while(new Date().getTime()<unixtime_ms+ms) {};
+    },
+    initWebSocket() {
+      //初始化weosocket
+      const wsuri = "ws://123.57.69.30:8000/edit_file";
+      this.websock = new WebSocket(wsuri);
+      // 客户端接收服务端数据时触发
+      this.websock.onmessage = this.websocketonmessage;
+      // 连接建立时触发
+      this.websock.onopen = this.websocketonopen;
+      // 通信发生错误时触发
+      this.websock.onerror = this.websocketonerror;
+      // 连接关闭时触发
+      this.websock.onclose = this.websocketclose;
+    },
+    websocketonopen() {
+      //开启心跳
+      console.log("websocket连接成功");
+      this.start();
+    },
+    // 通信发生错误时触发
+    websocketonerror() {
+      console.log("出现错误");
+      this.reconnect();
+    },
+    websocketonmessage(e) {
+      console.log("接收到服务端数据：");
+      console.log(e.data);
+      console.log(JSON.parse(e.data).fileID);
+      console.log(JSON.parse(e.data).content);
+      this.newtime=new Date().getTime();
+      if(this.newtime-this.lasttime>=300) {
+        if (JSON.parse(e.data).fileID === this.now_id) {
+          if (JSON.parse(e.data).content !== this.editor1.getContents().content) {
+            this.editor1.replaceContent(JSON.parse(e.data).content);
+          }
+        }
+      }
+      this.lasttime=new Date().getTime();
+      //收到服务器信息，心跳重置
+      this.reset();
+      //this.$message.success('websocket接受成功');
+    },
+    websocketsend() {
+      //数据发送
+      let data = {
+        projectID:this.projectid,
+        fileID:this.now_id,
+        content:this.editor1.getContents().content,
+      }
+      let Data = JSON.stringify(data);
+      console.log("正在向服务器发送数据：");
+      console.log(Data);
+      this.websock.send(Data);
+      //this.$message.success('websocket发送成功');
+    },
+    // 连接关闭时触发
+    websocketclose(e) {
+      //关闭
+      console.log("断开连接", e);
+      //重连
+      this.reconnect();
+    },
+    reconnect() {
+      //重新连接
+      console.log("正在重新连接...");
+      var that = this;
+      if (that.lockReconnect) {
+        return;
+      }
+      that.lockReconnect = true;
+      //没连接上会一直重连，设置延迟避免请求过多
+      that.timeoutnum && clearTimeout(that.timeoutnum);
+      that.timeoutnum = setTimeout(function () {
+        //新连接
+        that.initWebSocket();
+        that.lockReconnect = false;
+      }, 5000);
+    },
+    reset() {
+      //重置心跳
+      var that = this;
+      //清除时间
+      clearTimeout(that.timeoutObj);
+      clearTimeout(that.serverTimeoutObj);
+      //重启心跳
+      that.start();
+    },
+    start() {
+      //开启心跳
+      console.log("开启心跳");
+      var self = this;
+      self.timeoutObj && clearTimeout(self.timeoutObj);
+      self.serverTimeoutObj && clearTimeout(self.serverTimeoutObj);
+      self.timeoutObj = setTimeout(function () {
+        //这里发送一个心跳，后端收到后，返回一个心跳消息，
+        if (self.websock.readyState == 1) {
+          //如果连接正常
+          console.log("正常连接");
+          // self.websock.send("heartCheck"); //这里可以自己跟后端约定
+        } else {
+          //否则重连
+          self.reconnect();
+        }
+        self.serverTimeoutObj = setTimeout(function () {
+          //超时关闭
+          self.websock.close();
+        }, self.timeout);
+      }, self.timeout);
+    },
+    //websocket销毁定时器
+    beforeDestroy() {
+      if (this.formatDate) {
+        clearInterval(this.formatDate); // 在Vue实例销毁前，清除时间定时器
+      }
+      clearInterval(this.timer);
+    },
+    //离开路由之后断开websocket连接
+    destroyed() {
+      this.websock.close(); //离开路由之后断开websocket连接
+    },
   },
   mounted() {
     if (!(this.now_id === null)) {
@@ -527,6 +664,8 @@ export default {
     // _this.editor1.replaceContent(newContent);
     _this.editor1.onChange.subscribe(() => {
       console.log(_this.editor1.getContents().content);
+      this.savetxt();
+      this.websocketsend();
     });
     _this.editor1.onReady.subscribe(() => {
       //alert(this.newContent);
