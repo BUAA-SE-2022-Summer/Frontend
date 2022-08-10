@@ -2,12 +2,12 @@
   <div>
     <div style="width: 1540px;height:6vh;background-color: white;">
       <router-link to="/">
-        <div style="width: 30vh;height:6vh;position: absolute;color:black;font-size :40px;">
+        <div style="width: 30vh;height:6vh;position: absolute;color:black;font-size :30px;left:2vw">
           MoBook
           <!-- <img :src="this.logourl" style="width: 30vh;height:6vh;position: absolute;"> -->
           </div>
       </router-link>
-      <div style="left:32vh;position: absolute">
+      <div style="left:32vh;position: absolute;">
         <el-button type="text" icon="el-icon-arrow-left"
           style="background-color: white;border-color: white;height:6vh;position: absolute;" @click="returnbefore">返回</el-button>
       </div>
