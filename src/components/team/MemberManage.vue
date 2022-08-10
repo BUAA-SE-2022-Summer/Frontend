@@ -1,22 +1,22 @@
 <template>
     <div>
-    <div>
-        <projectlevelbanner></projectlevelbanner>
-    </div>
-    
-    <div style="width:1100px;height: 600px;margin: auto;margin-top: 150px;">
-        <v-toolbar flat>
-            <v-icon color="pink" x-large>mdi-heart</v-icon>
-            <v-toolbar-title style="font-size: 30px;font-weight: 500;">成员管理</v-toolbar-title>
-            <v-spacer></v-spacer>
+        <div>
+            <projectlevelbanner></projectlevelbanner>
+        </div>
 
-        </v-toolbar>
+        <div style="width:1100px;height: 600px;margin: auto;margin-top: 150px;">
+            <v-toolbar flat>
+                <v-icon color="pink" x-large>mdi-heart</v-icon>
+                <v-toolbar-title style="font-size: 30px;font-weight: 500;">成员管理</v-toolbar-title>
+                <v-spacer></v-spacer>
+
+            </v-toolbar>
 
 
-        <MemberTables v-show="this.memTable == 1"></MemberTables>
+            <MemberTables v-show="this.memTable == 1"></MemberTables>
 
-    </div>
-   
+        </div>
+
     </div>
 </template>
 <script>
@@ -31,7 +31,7 @@ export default {
             user_list: [],
         };
     },
-    components: { MemberTables,projectlevelbanner, Projectlevelbanner },
+    components: { MemberTables, projectlevelbanner, Projectlevelbanner },
     computed: {
         getTeamid() {
             return this.$store.state.teamid
@@ -72,6 +72,11 @@ export default {
                     "team_name": team_name,
                 })
             }).then(res => {
+                if (res.data.errno == 0) {
+                    this.$message.success(res.data.msg)
+                } else {
+                    this.$message.error(res.data.msg)
+                }
                 console.log(res.data)
             })
         }

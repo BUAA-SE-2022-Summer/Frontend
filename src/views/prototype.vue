@@ -117,7 +117,7 @@
             ref="attrActionMgr" :style="position" @mousedown="attr_menu_down">
             <!--  触发器 -->
             <div v-if="!attrOpen" @click="demo_click" class="imgMore">
-                画布
+                组件设置
             </div>
             <!--  菜单  -->
             <div v-else>
@@ -134,7 +134,7 @@
                     </el-tab-pane>
                 </el-tabs>
                 <div v-else>
-                    没有选择组件
+                    还没选择组件噢
                 </div>
             </div>
         </div>
@@ -612,8 +612,8 @@ export default {
     /* 如果碰到滑动问题，1.3 请检查 z-index。z-index需比web大一级*/
     z-index: 9999;
     position: fixed;
-    width: 50px;
-    height: 50px;
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
     background-color: #337AB7;
     line-height: 40px;
@@ -627,12 +627,14 @@ export default {
 }
 
 .six-more-modal-btn {
+    overflow: auto;
+    padding: 10px;
     position: fixed;
     z-index: 1000;
     width: auto;
     height: auto;
     background: #fff;
-    color: #fff;
+    color: #EB5E5E;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
