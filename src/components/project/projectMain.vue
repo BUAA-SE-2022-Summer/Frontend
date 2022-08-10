@@ -2,10 +2,10 @@
     <div>
         <projectlevelbanner />
         <div style="margin-left: 100px;width:1400px;margin-top: 50px;">
-            <div style="float:left;margin-right: 50px;margin-top: 30px;">
+            <div style="float:left;margin-right: 50px;margin-top: 30px;width:200px">
                 <v-card
       max-width="300"
-      class="mx-auto"
+     
 
     >
 
@@ -13,7 +13,7 @@
       <v-app-bar
         dark
         color=""
-        style="background:#01579B;"
+        style="background:#8da8c4;"
       >
         <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
@@ -24,31 +24,44 @@
       </v-app-bar>
 
       <v-container>
-         <v-btn style="width: 100%;font-size: 20px;height: 70px;background-color: #E0F2F1;"
+         <v-btn style="width: 100%;font-size: 15px;height: 70px;background-color: white;"
          @click="create=!create"
          >
-         <v-icon>mdi-newspaper-plus</v-icon>
+         <v-icon style="color:#8da8c4">mdi-newspaper-plus</v-icon>
           新建项目
          </v-btn >
-         <v-overlay :value="create" :dark=isdark :opacity="0.3">
+         <v-dialog v-model="create" max-width="500px">
+            <v-card>
+            <v-card-title class="text-h5">创建项目</v-card-title>
+            <v-text-field  label="名称" filled v-model="name" style="height:40px;" placeholder="项目名称"></v-text-field>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="blue darken-1" text @click="create=false">返回</v-btn>
+              <v-btn color="blue darken-1" text @click="create_project()">确认</v-btn>
+              <v-spacer></v-spacer>
+            </v-card-actions>
+          </v-card>
+            <!-- <div @click="create=false" style="width: 400px;text-align: center;font-size: 15px;color: white;">返回</div> -->
+         </v-dialog>
+         <!-- <v-overlay :value="create" :dark=isdark :opacity="0.3">
             <createProjectVue />
-            <div @click="create=false" style="width: 400px;text-align: center;font-size: 20px;color: white;">返回</div>
-         </v-overlay>
+            <div @click="create=false" style="width: 400px;text-align: center;font-size: 15px;color: white;">返回</div>
+         </v-overlay> -->
 
-         <v-btn style="width: 100%;font-size: 20px;height: 70px;background-color: #E1F5FE;" @click="showPage=0">
-         <v-icon>mdi-all-inclusive</v-icon>
+         <v-btn style="width: 100%;font-size: 15px;height: 70px;background-color: white;" @click="showPage=0">
+         <v-icon style="color:#8da8c4">mdi-all-inclusive</v-icon>
           全部项目
          </v-btn>
-         <v-btn style="width: 100%;font-size: 20px;height: 70px;background-color: #B3E5FC;" @click="showPage=1">
-         <v-icon>mdi-account-details</v-icon>
+         <v-btn style="width: 100%;font-size: 15px;height: 70px;background-color: white;" @click="showPage=1">
+         <v-icon style="color:#8da8c4">mdi-account-details</v-icon>
           我的创建
          </v-btn>
-         <v-btn style="width: 100%;font-size: 20px;height: 70px;background-color: #80CBC4;" @click="showPage=2">
-         <v-icon>mdi-star-box</v-icon>
+         <v-btn style="width: 100%;font-size: 15px;height: 70px;background-color: white;" @click="showPage=2">
+         <v-icon style="color:#8da8c4">mdi-star-box</v-icon>
           我的收藏
          </v-btn>
-         <v-btn style="width: 100%;font-size: 20px;height: 70px;background-color: #81D4FA;" @click="showPage=3">
-         <v-icon>mdi-delete</v-icon>
+         <v-btn style="width: 100%;font-size: 15px;height: 70px;background-color: white;" @click="showPage=3">
+         <v-icon style="color:#8da8c4">mdi-delete</v-icon>
           回收站
          </v-btn>
       </v-container>
@@ -70,6 +83,7 @@
 </template>>
 
 <script>
+import qs from 'qs'
 import projectlevelbanner from "../../views/Projectlevelbanner";
 import projectAll from "./projectAll";
 import projectMenu from "./projectMenu";
@@ -97,6 +111,7 @@ export default {
             isdark:false,
             showPage:0,
           tmp:[],
+          name:"",
         }
     },
     create(){
@@ -110,6 +125,34 @@ export default {
         deBug(){
             console.log(this.showPage)
         },
+        create_project(){
+            this.create=false
+      var teamID=sessionStorage.getItem('TeamID');
+      var desc="空";
+      console.log("项目名称：",this.name)
+      this.$axios({
+        method: 'post',
+        url: '/api/project/create_project',
+        data: qs.stringify({
+          project_name:this.name,
+          project_desc:desc,
+          teamID: teamID,
+          // teamID: 1
+        })
+      })
+        .then(res => {
+          console.log(res.data)
+          if (res.data.errno === 0) {
+            this.$message.success("创建项目成功");
+          } else {
+            this.$message.error(res.data.msg);
+          }
+          this.$router.go(0)
+        })
+        .catch(err => {
+          console.log(err);         /* 若出现异常则在终端输出相关信息 */
+        })
+    },
     }
 }
 
