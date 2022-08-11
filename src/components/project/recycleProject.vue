@@ -29,9 +29,9 @@
               <v-card style="">
                 <v-card-title class="subheading font-weight-bold">
 
-                   <span class="d-inline-block text-truncate" style="max-width: 150px;font-size:18px;font-weight:500">
+                  <span class="d-inline-block text-truncate" style="max-width: 150px;font-size:18px;font-weight:500">
                     <!-- <v-icon style="color: #26A69A;">mdi-file-cog</v-icon> -->
-                   项目名： {{ item.projectName }}
+                    {{ item.projectName }}
                   </span>
                   <v-divider></v-divider>
                   <!-- <v-btn @click="Star(item)" style="background-color: white;">
@@ -149,10 +149,10 @@ export default {
 
 
       ],
-      rename:false,
-      copy:false,
-      newname:"新名称",
-      copyName:"xin",
+      rename: false,
+      copy: false,
+      newname: "新名称",
+      copyName: "xin",
 
     }
 
@@ -169,20 +169,20 @@ export default {
     // sessionStorage.setItem('TeamID', 6);
     // this.projectLists = this.get_all_project_list()
     this.get_delete_project_list()
-    this.rename=false
-    this.copy=false
+    this.rename = false
+    this.copy = false
     // this.copy_project(35)
   },
   methods: {
-     //回收站彻底删除项目,通过测试
-  delete_project_recycle_bin(ID){
-      var teamID=sessionStorage.getItem('TeamID');
+    //回收站彻底删除项目,通过测试
+    delete_project_recycle_bin(ID) {
+      var teamID = sessionStorage.getItem('TeamID');
       // console.log(teamID)
       this.$axios({
         method: 'post',
         url: '/api/project/delete_project_recycle_bin',
         data: qs.stringify({
-          projectID:ID,
+          projectID: ID,
           teamID: teamID
           // teamID: 1
         })
@@ -191,8 +191,8 @@ export default {
           console.log(res.data)
           if (res.data.errno === 0) {
             this.$message.success("删除项目成功");
-            for(var i=0;i<this.items.length;i++){
-              if(this.items[i].projectID==ID){
+            for (var i = 0; i < this.items.length; i++) {
+              if (this.items[i].projectID == ID) {
                 this.items.splice(i, 1)
               }
             }
@@ -204,10 +204,10 @@ export default {
           console.log(err);         /* 若出现异常则在终端输出相关信息 */
         })
     },
-     //回收站撤销删除，失败
-    cancel_delete_project (ID){
-        var teamID=JSON.parse(sessionStorage.getItem('TeamID'));
-      if(ID>0){
+    //回收站撤销删除，失败
+    cancel_delete_project(ID) {
+      var teamID = JSON.parse(sessionStorage.getItem('TeamID'));
+      if (ID > 0) {
         console.log("dui")
       }
       // console.log(teamID)
@@ -215,8 +215,8 @@ export default {
         method: 'post',
         url: 'api/project/cancel_delete_project',
         data: qs.stringify({
-          projectID:ID,
-          teamID:teamID
+          projectID: ID,
+          teamID: teamID
           // teamID: 1
         })
       })
@@ -224,8 +224,8 @@ export default {
           console.log(res.data)
           if (res.data.errno === 0) {
             this.$message.success("撤销删除项目成功");
-            for(var i=0;i<this.items.length;i++){
-              if(this.items[i].projectID==ID){
+            for (var i = 0; i < this.items.length; i++) {
+              if (this.items[i].projectID == ID) {
                 this.items.splice(i, 1)
               }
             }
@@ -237,8 +237,8 @@ export default {
           console.log(err);         /* 若出现异常则在终端输出相关信息 */
         })
     },
-    get_delete_project_list(){
-      var teamID=sessionStorage.getItem('TeamID');
+    get_delete_project_list() {
+      var teamID = sessionStorage.getItem('TeamID');
       this.$axios({
         method: 'post',
         url: '/api/project/get_delete_project_list',
@@ -249,7 +249,7 @@ export default {
       })
         .then(res => {
           if (res.data.errno === 0) {
-            console.log("回收站：",res.data)
+            console.log("回收站：", res.data)
             this.items = res.data.project_list
           }
         })
@@ -257,35 +257,35 @@ export default {
           console.log(err);         /* 若出现异常则在终端输出相关信息 */
         })
     },
-    Star(item){
+    Star(item) {
       console.log("收藏，解除收藏")
       console.log(item)
-      if(item.is_star){
+      if (item.is_star) {
         console.log("解除收藏")
         this.unstar_project(item.projectID)
-      }else{
+      } else {
         console.log("收藏")
         this.star_project(item.projectID)
       }
     },
-    Rename(name){
-      this.newname=name
-      this.rename=true
+    Rename(name) {
+      this.newname = name
+      this.rename = true
     },
-    Copy(name){
-      this.copyName=name
-      this.copy=true
+    Copy(name) {
+      this.copyName = name
+      this.copy = true
     },
-    close(){
-      this.rename=false
-      this.copy=false
+    close() {
+      this.rename = false
+      this.copy = false
     },
     openProject(project) {
       sessionStorage.setItem('ProjectID', JSON.stringify(project.projectID));
       console.log("当前选中项目的id是: " + project.projectID);
       sessionStorage.setItem('project_root_fileID', JSON.stringify(project.project_root_fileID));
-      sessionStorage.setItem('projectName',JSON.stringify(project.projectName));
-      console.log('当前选中项目的项目名称是'+project.projectName);
+      sessionStorage.setItem('projectName', JSON.stringify(project.projectName));
+      console.log('当前选中项目的项目名称是' + project.projectName);
       console.log("当前选中项目的root_fileID是: " + project.project_root_fileID);
       this.$router.push("/textbustest")
     },
@@ -323,7 +323,7 @@ export default {
         url: '/api/project/copy_project',
         data: qs.stringify({
           projectID: ID,
-          projectName:this.copyName,
+          projectName: this.copyName,
           // teamID: teamID
         })
       })
@@ -336,13 +336,13 @@ export default {
           } else {
             alert(res.data.msg);
             this.$message.error(res.data.msg);
-            this.copy=false
+            this.copy = false
           }
         })
         .catch(err => {
           console.log(err);         /* 若出现异常则在终端输出相关信息 */
         })
-        this.copy=false
+      this.copy = false
     },
     nextPage() {
       if (this.page + 1 <= this.numberOfPages) this.page += 1
@@ -376,7 +376,7 @@ export default {
           } else {
             // alert(res.data.msg);
             this.$message.error(res.data.msg);
-            this.rename=false
+            this.rename = false
           }
         })
         .catch(err => {
@@ -465,8 +465,8 @@ export default {
           console.log(err);         /* 若出现异常则在终端输出相关信息 */
         })
     },
-    empty_recycle_bin(){
-        var teamID = sessionStorage.getItem('TeamID')
+    empty_recycle_bin() {
+      var teamID = sessionStorage.getItem('TeamID')
       this.$axios({
         method: 'post',
         url: '/api/project/empty_recycle_bin',
@@ -480,7 +480,7 @@ export default {
           console.log(res.data)
           if (res.data.errno === 0) {
             this.$message.success("删除成功");
-            this.items=[]
+            this.items = []
             // this.initialize()
           } else {
             // alert(res.data.msg);

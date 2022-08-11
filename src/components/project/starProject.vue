@@ -30,7 +30,7 @@
                 <v-card-title class="subheading font-weight-bold">
                   <span class="d-inline-block text-truncate" style="max-width: 150px;font-size:18px;font-weight:500">
                     <!-- <v-icon style="color: #26A69A;">mdi-file-cog</v-icon> -->
-                   项目名： {{ item.projectName }}
+                    {{ item.projectName }}
                   </span>
                   <v-divider></v-divider>
                   <!--<v-btn @click="Star(item)" style="background-color: white;">-->
@@ -104,10 +104,10 @@
                   </v-dialog>
                   <!-- <router-link :to="{ path: '/textbustest' }" style="text-decoration:none;"> -->
 
-                    <v-btn @click="openProject(item)">
-                      <span>详情</span>
-                      <v-icon style="color:#E65100">mdi-link</v-icon>
-                    </v-btn>
+                  <v-btn @click="openProject(item)">
+                    <span>详情</span>
+                    <v-icon style="color:#E65100">mdi-link</v-icon>
+                  </v-btn>
                   <!-- </router-link> -->
                 </v-bottom-navigation>
               </v-card>
@@ -157,10 +157,10 @@ export default {
       items: [
 
       ],
-      rename:false,
-      copy:false,
-      newname:"新名称",
-      copyName:"xin",
+      rename: false,
+      copy: false,
+      newname: "新名称",
+      copyName: "xin",
 
     }
 
@@ -177,25 +177,25 @@ export default {
     // sessionStorage.setItem('TeamID', 6);
     // this.projectLists = this.get_all_project_list()
     this.get_star_project_list()
-    this.rename=false
-    this.copy=false
+    this.rename = false
+    this.copy = false
     // this.copy_project(35)
   },
   methods: {
-    get_star_project_list(){
-      var teamID=sessionStorage.getItem('TeamID');
+    get_star_project_list() {
+      var teamID = sessionStorage.getItem('TeamID');
       this.$axios({
         method: 'post',
         url: '/api/project/get_star_project_list',
         data: qs.stringify({
           teamID: teamID
-        //   teamID: 1
+          //   teamID: 1
         })
       })
         .then(res => {
           if (res.data.errno === 0) {
-            console.log("我收藏的：",res.data)
-            this.items=res.data.project_list
+            console.log("我收藏的：", res.data)
+            this.items = res.data.project_list
           }
         })
         .catch(err => {
@@ -203,37 +203,37 @@ export default {
         })
     },
 
-    Star(item){
+    Star(item) {
       console.log("收藏，解除收藏")
       console.log(item)
-      if(item.is_star){
+      if (item.is_star) {
         console.log("解除收藏")
         this.unstar_project(item.projectID);
 
-      }else{
+      } else {
         console.log("收藏");
         this.star_project(item.projectID);
 
       }
     },
-    Rename(name){
-      this.newname=name
-      this.rename=true
+    Rename(name) {
+      this.newname = name
+      this.rename = true
     },
-    Copy(name){
-      this.copyName=name
-      this.copy=true
+    Copy(name) {
+      this.copyName = name
+      this.copy = true
     },
-    close(){
-      this.rename=false
-      this.copy=false
+    close() {
+      this.rename = false
+      this.copy = false
     },
     openProject(project) {
       sessionStorage.setItem('ProjectID', JSON.stringify(project.projectID));
       console.log("当前选中项目的id是: " + project.projectID);
       sessionStorage.setItem('project_root_fileID', JSON.stringify(project.project_root_fileID));
-      sessionStorage.setItem('projectName',JSON.stringify(project.projectName));
-      console.log('当前选中项目的项目名称是'+project.projectName);
+      sessionStorage.setItem('projectName', JSON.stringify(project.projectName));
+      console.log('当前选中项目的项目名称是' + project.projectName);
       console.log("当前选中项目的root_fileID是: " + project.project_root_fileID);
       this.$router.push("/textbustest")
     },
@@ -272,7 +272,7 @@ export default {
         url: '/api/project/copy_project',
         data: qs.stringify({
           projectID: ID,
-          projectName:this.copyName,
+          projectName: this.copyName,
           // teamID: teamID
         })
       })
@@ -285,13 +285,13 @@ export default {
           } else {
             alert(res.data.msg);
             this.$message.error(res.data.msg);
-            this.copy=false
+            this.copy = false
           }
         })
         .catch(err => {
           console.log(err);         /* 若出现异常则在终端输出相关信息 */
         })
-        this.copy=false
+      this.copy = false
     },
     nextPage() {
       if (this.page + 1 <= this.numberOfPages) this.page += 1
@@ -321,9 +321,9 @@ export default {
           console.log(res.data)
           if (res.data.errno === 0) {
             this.$message.success("重命名项目成功");
-            for(var i=0;i<this.items.length;i++){
-              if(this.items[i].projectID==ID){
-                this.items[i].projectName=this.newname
+            for (var i = 0; i < this.items.length; i++) {
+              if (this.items[i].projectID == ID) {
+                this.items[i].projectName = this.newname
               }
             }
             this.close()
@@ -331,7 +331,7 @@ export default {
           } else {
             // alert(res.data.msg);
             this.$message.error(res.data.msg);
-            this.rename=false
+            this.rename = false
           }
         })
         .catch(err => {
