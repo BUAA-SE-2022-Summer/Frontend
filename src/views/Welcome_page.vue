@@ -1,5 +1,4 @@
 <template>
-
   <div class="main">
     <div class="part1" style="color:white" v-if="(ifregister !== 1) && (iflogin !== 1)">
       <v-bottom-navigation style="height:90px" class="topBar">
@@ -171,6 +170,7 @@
 
     </div>
   </div>
+
 </template>
 
 <script>
@@ -278,7 +278,7 @@ export default {
       this.overlay5=true
     },
     send_code(){
-     
+
     },
     change(){
       this.overlay2 = false;
