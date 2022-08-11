@@ -86,6 +86,11 @@ const routes = [
     path: '/project/uml/design',
     name: 'projectUMLdesign',
     component: () => import("../views/UMLDesign.vue")
+  },
+  {
+    path: '/share',
+    name: 'share',
+    component: () => import("../views/share.vue")
   }
 ]
 
@@ -100,7 +105,7 @@ export default router
 
 // 白名单， 不需要验证的路由
 
-const whiteList = ['/', '/register', '/login', '/email', 'test']
+const whiteList = ['/', '/register', '/login', '/email', 'test', '/share']
 
 
 // 全局验证的路由守卫

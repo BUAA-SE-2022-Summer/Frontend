@@ -1,11 +1,8 @@
 <template>
     <div>
         <div class="toolbar">
-            <el-button @click="newPage">新建页面</el-button>
-            <el-button @click="undo">撤消</el-button>
-            <el-button @click="redo">重做</el-button>
             <el-button for="input" class="insert">插入图片</el-button>
-            <input id="input" type="file" hidden @change="handleFileChange" style="width:70px, height:40px" />
+            <input id="input" type="file" hidden @change="handleFileChange" />
             <el-button style="margin-left: 10px;" @click="preview(false)">预览</el-button>
             <el-button @click="save">保存</el-button>
             <el-button @click="clearCanvas">清空画布</el-button>
@@ -191,6 +188,7 @@ export default {
         },
 
         handleFileChange(e) {
+            console.log("插入图片");
             const file = e.target.files[0]
             if (!file.type.includes('image')) {
                 toast('只能插入图片')
@@ -247,61 +245,6 @@ export default {
 
         save() {
             this.$parent.websocketsend()
-            /**
-            * axios 版本
-            */
-            // let teamID = JSON.parse(sessionStorage.getItem('TeamID'));
-            // let prototypeID = JSON.parse(sessionStorage.getItem('prototypeID'));
-            // let pageID = JSON.parse(sessionStorage.getItem('pageID'));
-            // let pageComponentData = this.componentData;
-            // let pageCanvasStyleData = this.canvasStyleData;
-            // console.log("打印保存页面请求的参数");
-            // console.log("teamID: " + teamID);
-            // console.log("prototypeID: " + prototypeID);
-            // console.log("pageID: " + pageID);
-            // console.log("pageComponentData: ");
-            // console.log(pageComponentData);
-            // console.log("pageCanvasStyleData: ");
-            // console.log(pageCanvasStyleData);
-            // console.log("JSON格式的pageComponentData: ");
-            // console.log(JSON.stringify(pageComponentData));
-            // console.log("JSON格式的pageCanvasStyleData: ");
-            // console.log(JSON.stringify(pageCanvasStyleData));
-            // this.$axios.post(
-            //     '/api/prototype/update_page',
-            //     this.$qs.stringify({
-            //         teamID: teamID,
-            //         prototypeID: prototypeID,
-            //         pageID: pageID,
-            //         pageComponentData: JSON.stringify(pageComponentData),
-            //         pageCanvasStyle: JSON.stringify(pageCanvasStyleData)
-            //     })
-            // ).then(response => {
-            //     console.log("debug: 打印更改页面后的后端返回数据");
-            //     console.log(response.data);
-            //     if (response.data.errno === 0) {
-            //         this.$message.success(response.data.msg)
-            //     } else {
-            //         this.$message.error(response.data.msg)
-            //     }
-            // }).catch(err => {
-            //     console.error(err);
-            // })
-            /**
-             * localstorage 版本
-             */
-            //localStorage.setItem('canvasData', JSON.stringify(this.componentData))
-            //localStorage.setItem('canvasStyle', JSON.stringify(this.canvasStyleData))
-            // console.log("在保存时打印当前的组件数据");
-            // console.log(JSON.stringify(this.componentData));
-            // console.log(this.$qs.stringify({
-            //     componentData: this.componentData
-            // }));
-            // console.log("在保存时打印当前的画布样式数据");
-            // console.log(this.canvasStyleData);
-            // console.log(this.$qs.stringify({
-            //     canvasStyle: this.canvasStyleData
-            // }));
             this.$message.success('保存成功')
         },
 
@@ -319,8 +262,9 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .toolbar {
+    margin-left: 360px;
     padding: 15px 10px;
     white-space: nowrap;
     overflow-x: auto;

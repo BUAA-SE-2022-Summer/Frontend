@@ -31,8 +31,6 @@
                     </v-icon>
                 </template>
             </v-data-table>
-            <ComponentList />
-            <RealTimeComponentList />
         </div>
     </div>
 </template>
@@ -58,7 +56,7 @@ export default {
                     text: '页面名称',
                     align: 'start',
                     sortable: false,
-                    value: 'file_name',
+                    value: 'prototypeName',
                 },
                 //{ text: '文档编号', value: 'fileID' },
                 //{ text: '最后修改时间 ', value: 'last_modify_time' },
@@ -98,17 +96,21 @@ export default {
         this.teamid = JSON.parse(sessionStorage.getItem('TeamID'));
         this.projectID = JSON.parse(sessionStorage.getItem('ProjectID'));
         this.teamname = JSON.parse(sessionStorage.getItem('TeamName'));
-        this.$axios({
-            method: 'post',
-            url: '/api/file/project_root_pro_list',
-            data: qs.stringify({
-                projectID: this.projectID,
+        const url = window.location.href;
+        console.log(url)
+        //去除url的中问号和问号前面的字符
+        const code = url.split('?')[1];
+        //解密code
+        this.$axios.post(
+            '/api/prototype/enter_sharing_link',
+            this.$qs.stringify({
+                code: code
             })
-        }).then(res => {
+        ).then(res => {
             console.log(res.data)
             if (res.data.errno === 0) {
                 // this.$message.success("获取文件列表成功");
-                this.desserts = res.data.filelist
+                this.desserts = res.data.list
                 console.log(this.desserts)
             } else {
                 alert(res.data.msg);
@@ -116,7 +118,7 @@ export default {
             }
         }).catch(err => {
             console.log(err);         /* 若出现异常则在终端输出相关信息 */
-        });
+        })
     },
     methods: {
         initialize() {
@@ -145,15 +147,16 @@ export default {
                 '/api/prototype/share_prototype',
                 this.$qs.stringify({
                     prototypeID: item.fileID,
-                })).then(res => {
-                    if (res.data.errno === 0) {
-                        console.log("share prototype success, the encode string is: " + res.data.code);
-                    } else {
-                        this.$message.error(res.data.msg);
-                    }
-                }).catch(err => {
-                    console.log(err);         /* 若出现异常则在终端输出相关信息 */
-                });
+                })
+            ).then(res => {
+                if (res.data.errno === 0) {
+                    console.log("share prototype success, the encode string is: " + res.data.code);
+                } else {
+                    this.$message.error(res.data.msg);
+                }
+            }).catch(err => {
+                console.log(err);         /* 若出现异常则在终端输出相关信息 */
+            });
         },
         deleteItem(item) {
             this.editedItem = Object.assign({}, item)
@@ -163,16 +166,15 @@ export default {
         OK() {
             // this.desserts.splice(index, 1)
             console.log("删除", this.editedItem)
-            this.delete_pro(this.editedItem.fileID)
+            this.delete_doc(this.editedItem.fileID)
             this.close()
         },
-        delete_pro(ID) {
+        delete_doc(ID) {
             this.$axios({
                 method: 'post',
-                url: '/api/prototype/delete_prototype',
+                url: '/api/file/delete_file',
                 data: qs.stringify({
-                    teamID: JSON.parse(sessionStorage.getItem('TeamID')),
-                    prototypeID: ID,
+                    fileID: ID,
                 })
             })
                 .then(res => {
@@ -235,15 +237,12 @@ export default {
         },
         toItem(item) {
             this.editedItem = Object.assign({}, item)
-            sessionStorage.setItem('now_file_name', JSON.stringify(this.editedItem.file_name));
+            // sessionStorage.setItem('now_file_name', JSON.stringify(this.editedItem.prototypeName));
             console.log('即将打开原型图,其id为: ' + this.editedItem.fileID);
-            sessionStorage.setItem('prototypeID', JSON.stringify(this.editedItem.fileID));
+            sessionStorage.setItem('prototypeID', JSON.stringify(this.editedItem.prototypeID));
             this.$axios.post(
-                '/api/prototype/open_prototype',
+                '/api/prototype/open_prototype_when_sharing',
                 this.$qs.stringify({
-                    teamID: JSON.parse(sessionStorage.getItem('TeamID')),
-                    projectID: JSON.parse(sessionStorage.getItem('ProjectID')),
-                    fatherID: JSON.parse(sessionStorage.getItem('project_root_fileID')),
                     prototypeID: JSON.parse(sessionStorage.getItem('prototypeID')),
                 })
             ).then(response => {
@@ -254,8 +253,6 @@ export default {
                     this.$store.commit('updatePageList', response.data.namelist);
                     let firstItem = this.$store.state.pageList[0];
                     sessionStorage.setItem('pageID', JSON.stringify(firstItem.pageID));
-                    console.log(response.data.first_component);
-                    console.log(response.data.first_canvasStyle);
                     this.$store.commit('setComponentData', JSON.parse(response.data.first_component));
                     this.$store.commit('setCanvasStyle', JSON.parse(response.data.first_canvasStyle));
                 } else {

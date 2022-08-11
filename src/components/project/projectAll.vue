@@ -5,8 +5,9 @@
         :sort-by="sortBy" :sort-desc="sortDesc" hide-default-footer>
         <template v-slot:header>
           <v-toolbar dark color="#8da8c4" class="mb-1" style="border-radius:7px">
-            <span >全部项目：</span>
-            <v-text-field v-model="search" clearable flat solo-inverted hide-details label="搜索" style="color:black"></v-text-field>
+            <span>全部项目：</span>
+            <v-text-field v-model="search" clearable flat solo-inverted hide-details label="搜索" style="color:black">
+            </v-text-field>
             <template v-if="$vuetify.breakpoint.mdAndUp">
               <v-spacer></v-spacer>
               <v-select v-model="sortBy" flat solo-inverted hide-details :items="keys" label="排序"></v-select>
@@ -31,81 +32,81 @@
 
                   <span class="d-inline-block text-truncate" style="max-width: 150px;font-size:18px;font-weight:500">
                     <!-- <v-icon style="color: #26A69A;">mdi-file-cog</v-icon> -->
-                   项目名： {{ item.projectName }}
+                    项目名： {{ item.projectName }}
                   </span>
                   <v-divider></v-divider>
-                    <v-icon style="color: #FBC02D;" v-show="item.is_star" @click="Star(item)">mdi-star</v-icon>
-                    <v-icon color="grey" v-show="!item.is_star" @click="Star(item)">mdi-star</v-icon>
+                  <v-icon style="color: #FBC02D;" v-show="item.is_star" @click="Star(item)">mdi-star</v-icon>
+                  <v-icon color="grey" v-show="!item.is_star" @click="Star(item)">mdi-star</v-icon>
                   <img :src="item.projectImg" style="width: 22vw;height:11vw">
                 </v-card-title>
 
 
                 <v-expand-transition>
-                <v-bottom-navigation>
-                  <!-- <v-btn @click="reaname=!rename"> -->
-                  <v-btn @click="Rename(item.projectName)">
-                    <span>重命名</span>
-                    <v-icon style="color:#673AB7">mdi-history</v-icon>
-                  </v-btn>
+                  <v-bottom-navigation>
+                    <!-- <v-btn @click="reaname=!rename"> -->
+                    <v-btn @click="Rename(item.projectName)">
+                      <span>重命名</span>
+                      <v-icon style="color:#673AB7">mdi-history</v-icon>
+                    </v-btn>
 
-                  <v-dialog v-model="rename" max-width="500px" persistent>
-                    <v-card>
-                      <v-card-title>
-                        重命名
-                      </v-card-title>
-                      <v-text-field outlined v-model="newname" placeholder="新的名称"></v-text-field>
-                      <v-card-actions>
-                        <v-spacer></v-spacer>
-                        <v-btn color="blue darken-1" text @click="close">
-                          Cancel
-                        </v-btn>
-                        <v-btn color="blue darken-1" text @click="rename_project(item.projectID)">
-                          Save
-                        </v-btn>
-                      </v-card-actions>
-                    </v-card>
-                  </v-dialog>
-                  <v-btn @click="delete_project(item.projectID)" style="">
-                    <span>删除</span>
-                    <v-icon style="color:#D50000">mdi-delete</v-icon>
-                  </v-btn>
-                  <v-btn @click="Copy(item.projectName)">
-                    <span>复制</span>
-                    <v-icon style="color:#1B5E20">mdi-plus</v-icon>
-                  </v-btn>
-
-
-                  <v-dialog v-model="copy" max-width="500px">
-                    <v-card>
-                      <v-card-title>
-                        复制项目的新名称：
-                      </v-card-title>
-                      <v-text-field outlined v-model="copyName" placeholder="新的名称"></v-text-field>
-                      <v-card-actions>
-                        <v-spacer></v-spacer>
-                        <v-btn color="blue darken-1" text @click="close">
-                          Cancel
-                        </v-btn>
-                        <v-btn color="blue darken-1" text @click="copy_project(item.projectID)">
-                          Save
-                        </v-btn>
-                      </v-card-actions>
-                    </v-card>
-                  </v-dialog>
+                    <v-dialog v-model="rename" max-width="500px" persistent>
+                      <v-card>
+                        <v-card-title>
+                          重命名
+                        </v-card-title>
+                        <v-text-field outlined v-model="newname" placeholder="新的名称"></v-text-field>
+                        <v-card-actions>
+                          <v-spacer></v-spacer>
+                          <v-btn color="blue darken-1" text @click="close">
+                            Cancel
+                          </v-btn>
+                          <v-btn color="blue darken-1" text @click="rename_project(item.projectID)">
+                            Save
+                          </v-btn>
+                        </v-card-actions>
+                      </v-card>
+                    </v-dialog>
+                    <v-btn @click="delete_project(item.projectID)" style="">
+                      <span>删除</span>
+                      <v-icon style="color:#D50000">mdi-delete</v-icon>
+                    </v-btn>
+                    <v-btn @click="Copy(item.projectName)">
+                      <span>复制</span>
+                      <v-icon style="color:#1B5E20">mdi-plus</v-icon>
+                    </v-btn>
 
 
-                  <v-btn @click="openProject(item)">
-                    <router-link :to="{ path: '/textbustest' }" target="_blank" rel="opener"
-                      style="text-decoration:none;">
-                      <span>详情</span>
-                    </router-link>
-                    <router-link :to="{ path: '/textbustest' }" target="_blank" rel="opener"
-                      style="text-decoration:none;">
-                      <v-icon style="color:#E65100">mdi-link</v-icon>
-                    </router-link>
-                  </v-btn>
+                    <v-dialog v-model="copy" max-width="500px">
+                      <v-card>
+                        <v-card-title>
+                          复制项目的新名称：
+                        </v-card-title>
+                        <v-text-field outlined v-model="copyName" placeholder="新的名称"></v-text-field>
+                        <v-card-actions>
+                          <v-spacer></v-spacer>
+                          <v-btn color="blue darken-1" text @click="close">
+                            Cancel
+                          </v-btn>
+                          <v-btn color="blue darken-1" text @click="copy_project(item.projectID)">
+                            Save
+                          </v-btn>
+                        </v-card-actions>
+                      </v-card>
+                    </v-dialog>
 
-                </v-bottom-navigation>
+
+                    <v-btn @click="openProject(item)">
+                      <router-link :to="{ path: '/textbustest' }" target="_blank" rel="opener"
+                        style="text-decoration:none;">
+                        <span>详情</span>
+                      </router-link>
+                      <router-link :to="{ path: '/textbustest' }" target="_blank" rel="opener"
+                        style="text-decoration:none;">
+                        <v-icon style="color:#E65100">mdi-link</v-icon>
+                      </router-link>
+                    </v-btn>
+
+                  </v-bottom-navigation>
 
                 </v-expand-transition>
               </v-card>
@@ -208,6 +209,8 @@ export default {
       console.log("当前选中项目的id是: " + project.projectID);
       sessionStorage.setItem('project_root_fileID', JSON.stringify(project.project_root_fileID));
       sessionStorage.setItem('projectName', JSON.stringify(project.projectName));
+      sessionStorage.setItem('is_sharing', JSON.stringify(project.is_sharing))
+      console.log('issharing' + project.is_sharing);
       console.log('当前选中项目的项目名称是' + project.projectName);
       console.log("当前选中项目的root_fileID是: " + project.project_root_fileID);
     },

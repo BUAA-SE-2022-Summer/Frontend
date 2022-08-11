@@ -173,7 +173,6 @@ export default {
         method: 'post',
         url: '/api/project/get_project_list',
         data: qs.stringify({
-
           teamID: this.teamid
         })
       })
@@ -290,11 +289,13 @@ export default {
       this.editedItem = Object.assign({}, item)
       console.log(this.editedItem.projectID);
       console.log(this.editedItem.project_root_fileID);
+      console.log(this.editedItem);
       console.log("存储当前更改的projectID: " + this.editedItem.projectID);//这里是打印更改后的projectID的代码
       console.log("存储当前项目名称: " + this.editedItem.projectName);
       sessionStorage.setItem('ProjectID', JSON.stringify(this.editedItem.projectID));// 这里是存储projectID的代码
       sessionStorage.setItem('project_root_fileID', JSON.stringify(this.editedItem.project_root_fileID));
       sessionStorage.setItem('ProjectName', JSON.stringify(this.editedItem.projectName));
+      sessionStorage.setItem('is_sharing', JSON.stringify(this.editedItem.is_sharing))
       //alert(row.project_root_fileID);
       this.$router.push('/dashboard/demo/console');
     },
