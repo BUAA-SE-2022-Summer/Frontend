@@ -256,8 +256,20 @@ export default {
                     sessionStorage.setItem('pageID', JSON.stringify(firstItem.pageID));
                     console.log(response.data.first_component);
                     console.log(response.data.first_canvasStyle);
-                    this.$store.commit('setComponentData', JSON.parse(response.data.first_component));
-                    this.$store.commit('setCanvasStyle', JSON.parse(response.data.first_canvasStyle));
+                    let first_component = response.data.first_component;
+                    let first_canvasStyle = response.data.first_canvasStyle;
+                    // 把first_component和first_canvasStyle中的所有单引号换为双引号
+                    // for (let i = 0; i < first_component.length; i++) {
+                    //     first_component[i] = first_component[i].replace(/'/g, '"');
+                    // }
+                    // for (let i = 0; i < first_canvasStyle.length; i++) {
+                    //     first_canvasStyle[i] = first_canvasStyle[i].replace(/'/g, '"');
+                    // }
+
+                    // console.log(JSON.parse(first_component));
+                    // console.log(JSON.parse(first_canvasStyle));
+                    this.$store.commit('setComponentData', JSON.parse(first_component));
+                    this.$store.commit('setCanvasStyle', JSON.parse(first_canvasStyle));
                 } else {
                     this.$message.error(response.data.msg);
                 }

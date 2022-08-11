@@ -1,8 +1,6 @@
 <template>
     <div>
         <div class="toolbar">
-            <el-button for="input" class="insert">插入图片</el-button>
-            <input id="input" type="file" hidden @change="handleFileChange" />
             <el-button style="margin-left: 10px;" @click="preview(false)">预览</el-button>
             <el-button @click="save">保存</el-button>
             <el-button @click="clearCanvas">清空画布</el-button>
@@ -188,6 +186,7 @@ export default {
         },
 
         handleFileChange(e) {
+            alert('cha')
             console.log("插入图片");
             const file = e.target.files[0]
             if (!file.type.includes('image')) {
