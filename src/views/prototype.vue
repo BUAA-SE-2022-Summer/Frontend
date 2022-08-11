@@ -166,13 +166,6 @@
                         </v-btn>
                     </div>
                 </div>
-
-                <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn color="primary" text @click="dialog = false">
-                        I accept
-                    </v-btn>
-                </v-card-actions>
             </v-card>
         </v-dialog>
     </div>
@@ -294,11 +287,13 @@ export default {
                 '/api/prototype/close_sharing',
                 this.$qs.stringify({
                     projectID: JSON.parse(sessionStorage.getItem('ProjectID'))
-                }).then(res => {
+                }))
+                .then(res => {
                     if (res.data.errno == 0) {
+                        this.is_sharing = false;
                         this.$message.success(res.data.msg)
                     }
-                }))
+                })
         },
         openShare() {
             this.$axios.post(

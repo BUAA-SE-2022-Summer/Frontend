@@ -254,6 +254,8 @@ export default {
                     this.$store.commit('updatePageList', response.data.namelist);
                     let firstItem = this.$store.state.pageList[0];
                     sessionStorage.setItem('pageID', JSON.stringify(firstItem.pageID));
+                    console.log(response.data.first_component);
+                    console.log(response.data.first_canvasStyle);
                     this.$store.commit('setComponentData', JSON.parse(response.data.first_component));
                     this.$store.commit('setCanvasStyle', JSON.parse(response.data.first_canvasStyle));
                 } else {
