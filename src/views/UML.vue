@@ -1,5 +1,5 @@
 <template>
-  <div style="">
+  <div style="" class="umlMain">
 
  <!-- 以下为展示过去uml的地方 -->
   <div style="width:60vw;margin: auto;margin-top: 50px;">
@@ -210,3 +210,10 @@ export default {
   },
 }
 </script>
+<style scoped>
+.umlMain{
+  background-image: url("../../src/img/背景.jpg");  /* 背景图片 */
+  background-size: cover;
+  height: 100vh;
+}
+</style>
