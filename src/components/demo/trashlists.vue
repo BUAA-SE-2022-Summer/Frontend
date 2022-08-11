@@ -189,7 +189,7 @@ export default {
     },
 
     deleteforever(item) {
-       //item.fileID
+      //item.fileID
       this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
@@ -202,17 +202,17 @@ export default {
             fileID: item.fileID,
           })
         })
-            .then(res => {/* res 是 response 的缩写 */
-              if (res.data.errno === 0) {
-                this.$message.success("删除成功");
-                this.initialize();
-              } else {
-                this.$message.error(res.data.msg);
-              }
-            })
-            .catch(err => {
-              console.log(err);         /* 若出现异常则在终端输出相关信息 */
-            });
+          .then(res => {/* res 是 response 的缩写 */
+            if (res.data.errno === 0) {
+              this.$message.success("删除成功");
+              this.initialize();
+            } else {
+              this.$message.error(res.data.msg);
+            }
+          })
+          .catch(err => {
+            console.log(err);         /* 若出现异常则在终端输出相关信息 */
+          });
       }).catch(() => {
         this.$message({
           type: 'info',

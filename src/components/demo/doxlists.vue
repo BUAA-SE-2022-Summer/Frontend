@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div style="margin-top:0px;width:300px;margin-left: 0px;border:1px;border-color:black;border-style:solid;">
-      <v-data-table height="65vh" :headers="headers" :items="desserts" sort-by="projectUser" class="elevation-1">
+      <v-data-table height="62.8vh" :headers="headers" :items="desserts" sort-by="projectUser" class="elevation-1">
         <template v-slot:top>
           <v-toolbar flat color="white">
             <v-toolbar-title>全部文件</v-toolbar-title>
@@ -278,11 +278,11 @@ export default {
       this.close()
     },
     toItem(item) {
-      if(JSON.parse(sessionStorage.getItem('if_save'))===0){
-          //alert('当前文档未保存');
+      if (JSON.parse(sessionStorage.getItem('if_save')) === 0) {
+        //alert('当前文档未保存');
         //this.$message.error('当前文档未保存');
       }
-      sessionStorage.setItem('if_choose_file',JSON.stringify(1));
+      sessionStorage.setItem('if_choose_file', JSON.stringify(1));
       console.log("跳转文档详情页")
       //alert("跳转文档详情页");
       const index = this.desserts.indexOf(item)
@@ -301,13 +301,13 @@ export default {
         this.$router.push('/textbustest');
       }
       console.log(this.$route.path);
-      var index1=1;
-      var index2=this.editedItem.fileID;
-      var index3=this.editedItem.file_name;
-      this.$emit('onEmitIndex',{index1,index2,index3});
+      var index1 = 1;
+      var index2 = this.editedItem.fileID;
+      var index3 = this.editedItem.file_name;
+      this.$emit('onEmitIndex', { index1, index2, index3 });
       //if (this.$route.path === '/textbustest') {
-        //window.location.reload();
-     // }
+      //window.location.reload();
+      // }
     },
   },
 
